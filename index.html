@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <meta charset="utf-8" />
+        <title>Xebia - Devoxx 2012</title>
+
+        <link rel="stylesheet" href="assets/javascript/lib/jquerymobile/jquery.mobile.structure-1.0.1.css" />
+        <link rel="stylesheet" href="assets/javascript/lib/jquerymobile/jquery.mobile-1.0.1.css" />
+        <link rel="stylesheet" href="assets/css/mobile.css" />
+    </head>
+
+    <body style="display: none;">
+
+        <!-- home page -->
+        <div align="center" id="home" data-role="page" class="home" data-add-back-btn="true">
+            <div id="home-header">
+                <h1 id="logo"><img class="xebia-logo" src="assets/image/logo-xebia.png" alt="Xebia" /></h1>
+                <p id="version">Alpha Release</p>
+            </div>
+            <div id="home-content" data-role="content">
+                <div id="home-content-dates">
+                    <ul id="category-list" data-role="listview" data-inset="true" data-theme="c">
+                        <li>
+                            <a href="#day?id=1" rel="external">
+                                <h3 align="center">Mercredi  - 18 Avril 2012</h3>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#day?id=2" rel="external">
+                                <h3 align="center">Jeudi  - 19 Avril 2012</h3>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#day?id=3" rel="external">
+                                <h3 align="center">Vendredi  - 20 Avril 2012</h3>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="home-footer">
+                <img src="assets/image/devoxx-logo-big-white.png" class="devoxx-logo" style="padding-top:30px;padding-bottom:30px;" />
+                <div align="right" style="border-top: 1px solid #CCC; border-bottom: 1px solid #CCC; background: #FEFEFE;padding:10px;">
+                    <a href="https://twitter.com/#!/xebiafr" rel="external" alt="Follow us on Twitter">
+                        <img src="assets/image/twitter-black-transparent.png" class="home-footer-img" height="24" />
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/html" id="slot-list-tpl">
+            <%
+                var currentSlotTimeStart = '';
+                _.each(entries, function(slot) {
+                    var slotTimeStart = slot.get('time').start;
+                    var slotTimeStartChanged = slotTimeStart != currentSlotTimeStart;
+                        currentSlotTimeStart = slotTimeStart;
+                    if (slotTimeStartChanged) { %>
+                        <li data-role="list-divider"><%= currentSlotTimeStart %></li>
+            <%      } %>
+                    <li>
+                        <a href="#slot?id=<%= day.get('id') %>" rel="external">
+                            <h3><%= slot.get('title') %></h3>
+                        </a>
+                    </li>
+            <%  }); %>
+        </script>
+
+        <script type="text/html" id="flash-message-tpl">
+            <div id="flashMessage"  class="ui-bar ui-bar-b">
+                <h1 style="float:left; margin-top:8px; margin-bottom:8px;"><%= flashMessage %></h1>
+            </div>
+        </script>
+
+
+
+        <script src="assets/javascript/lib/date/date-2007.11.js" type="text/javascript"  charset="utf-8"></script>
+        <script src="assets/javascript/lib/lawnchair/lawnchair-0.6.1.js" type="text/javascript"  charset="utf-8"></script>
+        <script src="assets/javascript/lib/jquery/jquery-1.7.1.js" type="text/javascript"  charset="utf-8"></script>
+        <script src="assets/javascript/lib/underscore/underscore-1.3.1.js" type="text/javascript"  charset="utf-8"></script>
+        <script src="assets/javascript/lib/backbone/backbone-0.9.1.js" type="text/javascript"  charset="utf-8"></script>
+
+        <script src="assets/javascript/app.js" type="text/javascript"  charset="utf-8"></script>
+
+        <script src="assets/javascript/lib/jquerymobile/jquery.mobile.router-0.6.js" type="text/javascript"  charset="utf-8"></script>
+        <script src="assets/javascript/lib/jquerymobile/jquery.mobile-1.0.1.js" type="text/javascript"  charset="utf-8"></script>
+
+        <script src="assets/javascript/core.js" type="text/javascript"  charset="utf-8"></script>
+        <script src="assets/javascript/utils.js" type="text/javascript"  charset="utf-8"></script>
+        <script src="assets/javascript/collection.js" type="text/javascript"  charset="utf-8"></script>
+        <script src="assets/javascript/ui.js" type="text/javascript"  charset="utf-8"></script>
+        <script src="assets/javascript/router.js" type="text/javascript"  charset="utf-8"></script>
+
+        <script src="assets/javascript/lib/phonegap/phonegap-1.4.0.js" type="text/javascript"  charset="utf-8"></script>
+
+    </body>
+
+</html>
