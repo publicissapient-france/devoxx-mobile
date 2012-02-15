@@ -1,11 +1,13 @@
-(function( app ) {
+define(['log'], function( log ) {
 
-    console.log("[ui] Loading ui.js");
+    var logger = log.getLogger('ui');
 
-    var ui = app.ui = {};
+    logger.info("Loading ui.js");
+
+    var ui =  {};
 
     ui.showFlashMessage = function(options) {
-        var flashMessage = _.template($('#flash-message-tpl').html(), { flashMessage: "Please, wait while loading ..." } );
+        var flashMessage = _.template($('#flash-message-tpl').html(), { message: "Please, wait while loading ..." } );
         var currentPageHeader = $(options.page).children(":jqmData(role='header')");
         currentPageHeader.append(flashMessage);
     };
@@ -20,4 +22,7 @@
         }, 500);
     };
 
-} ) ( app );
+    logger.info("Loaded ui");
+
+    return ui;
+});

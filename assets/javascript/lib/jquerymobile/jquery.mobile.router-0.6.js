@@ -11,7 +11,7 @@
 
 $(document).bind("mobileinit",function(){
 
-    console.log("[jqmr][event] mobileinit");
+    console.log("[jqmr] Loading jqmr.js");
 
 	/* supports the following configurations:
 		$.mobile.jqmRouter.fixFirstPageDataUrl=true

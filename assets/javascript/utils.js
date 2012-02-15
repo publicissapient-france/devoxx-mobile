@@ -1,43 +1,30 @@
-(function( app ) {
+define( ['log'], function( log ) {
 
-    console.log("[utils] Loading utils.js");
+    var logger = log.getLogger('utils');
+    
+    logger.info("Loading utils.js");
 
-    var utils = app.utils = {};
+    var utils = {};
 
     var JSON_API_BASE_URL = 'http://localhost';
 //    var JSON_API_BASE_URL = 'http://blog.xebia.fr';
-
-    var logContent = new Array();
-
 
     utils.getJsonApiBaseUrl = function() {
         return JSON_API_BASE_URL;
     };
 
-    utils.getLogContent = function() {
-        return logContent;
-    };
-
-    utils.info = function(log) {
-        console.log(log);
-        if (logContent.length > 1000) {
-            logContent.shift();
-        }
-        logContent.push(log);
-    };
-
     utils.saveDataToDb = function(dbKey, data) {
         var start = new Date();
-        console.log("[utils] Saving Json " + dbKey + " content: " + utils.showInterval(start));
+        logger.info("Saving Json " + dbKey + " content: " + utils.showInterval(start));
         utils.db.save({ key: dbKey, value: data });
-        console.log("[utils] Saved Json " + dbKey + " content: " + utils.showInterval(start));
+        logger.info("Saved Json " + dbKey + " content: " + utils.showInterval(start));
     };
 
     utils.loadFromUrl = function(dbKey, url, onSuccess) {
         var start = new Date();
-        console.log("[utils] Start loading " + dbKey + " content: " + utils.showInterval(start) );
+        logger.info("Start loading " + dbKey + " content: " + utils.showInterval(start) );
         $.when($.ajax(url, { dataType: "json" })).then(function(data) {
-            console.log("[utils] Loaded Json " + dbKey + " content: " + utils.showInterval(start));
+            logger.info("Loaded Json " + dbKey + " content: " + utils.showInterval(start));
             onSuccess(data);
         });
     };
@@ -91,49 +78,11 @@
         return JSON_API_BASE_URL + "/?" + relativeUrl;
     };
 
+    logger.info("Loaded utils");
 
+    return utils;
 
-    //    utils.loadContent = function(element, cacheKey, url, itemsContentBuilder, dataAccessor, options) {
-    //        $.mobile.showPageLoadingMsg();
-    //
-    //        var start = new Date();
-    //
-    //        var onContentLoaded = function() {
-    //            console.log("[utils] Content loaded: " + utils.showInterval(start));
-    //            $.mobile.hidePageLoadingMsg();
-    //        };
-    //
-    //        var onDataLoadedFromUrl = function(data) {
-    //            if (options.cacheData) {
-    //                utils.saveDataToDb(cacheKey, data);
-    //            }
-    //            onDataLoadedFromDb(data);
-    //        };
-    //
-    //        var onDataLoadedFromDb = function(data) {
-    //            utils.updateListUI(dataAccessor(data), element, onContentLoaded, itemsContentBuilder);
-    //        };
-    //
-    //        var onLoadDataFromUrl = function() {
-    //            utils.loadFromUrl(cacheKey, url, onDataLoadedFromUrl);
-    //        };
-    //
-    //        if (options.cacheData) {
-    //            utils.db.get(cacheKey, function(data) {
-    //                if (data) {
-    //                    onDataLoadedFromDb(data);
-    //                }
-    //                else {
-    //                    onLoadDataFromUrl();
-    //                }
-    //            });
-    //        }
-    //        else {
-    //            onLoadDataFromUrl();
-    //        }
-    //    };
-
-}) ( app );
+});
 
 
 

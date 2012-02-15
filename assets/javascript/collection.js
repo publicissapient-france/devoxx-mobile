@@ -1,17 +1,23 @@
-(function( app ) {
+define(['log'], function( log ) {
 
-    console.log("[collection] Loading collection.js");
+    var logger = log.getLogger('collection');
 
-    var collectionModel = app.collectionModel = {
+    logger.info("Loading collection.js");
+
+    logger.info("Defining collection object");
+    var collection = {
         views: {}
     };
 
-    collectionModel.EntryModel = Backbone.Model.extend({});
 
-    collectionModel.EntryCollection = Backbone.Collection.extend({
-        model: collectionModel.EntryModel,
+    logger.info("Defining Model");
+    collection.EntryModel = Backbone.Model.extend({});
+
+    logger.info("Defining collection");
+    collection.EntryCollection = Backbone.Collection.extend({
+        model: collection.EntryModel,
         initialize: function(models, options) {
-            console.log("[collection] Initializing Entry Collection");
+            logger.info("Initializing Entry Collection");
             this.url = options.url;
             this.parse = function(data) {
                 if (options.beforeParse) {
@@ -23,11 +29,12 @@
         }
     });
 
-    collectionModel.EntryListView = Backbone.View.extend({
+    logger.info("Defining view");
+    collection.EntryListView = Backbone.View.extend({
         initialize: function() {
-            console.log("[collection] Initializing Entry List View");
+            logger.info("Initializing Entry List View");
             this.el = $(this.options.el);
-            this.collection = new collectionModel.EntryCollection([], {
+            this.collection = new collection.EntryCollection([], {
                 url: this.options.fetchUrl,
                 parse: this.options.parse,
                 sync: this.options.sync,
@@ -38,7 +45,7 @@
         },
 
         render: function() {
-            console.log("[collection] Rendering List View");
+            logger.info("Rendering List View");
             var el = $(this.options.el);
             el.empty();
             var content = _.template( this.options.collectionTemplate, { entries: this.collection.models } );
@@ -49,5 +56,9 @@
         }
 
     });
+    
+    logger.info("Loaded collection");
 
-}) ( app );
+    return collection;
+
+});

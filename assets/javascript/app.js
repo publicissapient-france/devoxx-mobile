@@ -1,71 +1,72 @@
-(function( $, Lawnchair ) {
+var DEBUG = false;
 
-    console.log("[app] Loading app.js");
+var WAIT_TIME = DEBUG ? 3000 : 0;
 
-    $.mobile = $.mobile || {};
+if (DEBUG) {
+    console.log("Waiting for " + WAIT_TIME + "ms before loading application");
+}
 
-    var app = window.app = $.extend({
-        views: {}
-    }, window.app || {});
+var init = function() {
+    console.log("[app][init] Initializing require");
 
-    document.addEventListener("deviceready", function() {
-        console.log("[app][event] deviceready");
-    }, true);
+    console.log("[app][init][require] Setting config");
 
-    $(document).bind("mobileinit", function() {
-
-        console.log("[app][event] mobileinit");
-
-        $.mobile.defaultPageTransition = 'fade';
-
-        $.mobile.jqmRouter = $.mobile.jqmRouter || {};
-        $.mobile.jqmRouter.fixFirstPageDataUrl = true;
-        $.mobile.jqmRouter.firstPageDataUrl = "index.html";
-
-        app.onMobileInit();
-
-        console.log("[app] Show body");
-        $('body').show();
+    require.config({
+        paths: {
+            'text':        'javascript/lib/require/require.text-1.0.2',
+            'order':       'javascript/lib/require/require.order-1.0.5',
+            'router':      'javascript/router',
+            'core':        'javascript/core',
+            'app':         'javascript/app',
+            'utils':       'javascript/utils',
+            'ui':          'javascript/ui',
+            'db':          'javascript/db',
+            'log':         'javascript/log',
+            'collection':  'javascript/collection',
+            'jqm':         'javascript/lib/jquerymobile/jquery.mobile-1.0.1',
+            'jqmr':        'javascript/lib/jquerymobile/jquery.mobile.router-0.6',
+            'phonegap':    'javascript/lib/phonegap/phonegap-1.4.0'
+        },
+        baseUrl: 'assets'
     });
 
+    console.log("[app][init][require] Requiring base application modules");
 
-        var core = app.core = {};
+    require(['require', 'log', 'db', 'app', 'core', 'utils', 'ui', 'collection'],
+        function( require, log ) {
+        
+        var logger = log.getLogger("app");
 
-        // ******************************************************************************
-        // * Constants
-        // ******************************************************************************
+        logger.info("Loading app.js");
 
-        // ******************************************************************************
-        // * Global variables
-        // ******************************************************************************
+        $.mobile = $.mobile || {};
 
-        var dbName = "xebia";
+        logger.info("Setup of 'deviceready' event");
+        document.addEventListener("deviceready", function() {
+            logger.info("[event][deviceready]");
+        }, true);
 
-        var options;
+        logger.info("Setup of 'mobileinit' event");
+        $(document).bind("mobileinit", function() {
 
-        var DEFAULT_OPTIONS = {
-            cacheData: false
-        };
+            logger.info("[mobileinit] main.js");
 
+            $.mobile.defaultPageTransition = 'fade';
 
-        // ******************************************************************************
-        // * Events
-        // ******************************************************************************
+            $.mobile.jqmRouter = $.mobile.jqmRouter || {};
+            $.mobile.jqmRouter.fixFirstPageDataUrl = true;
+            $.mobile.jqmRouter.firstPageDataUrl = "index.html";
 
-        app.onMobileInit = function() {
-            console.log("[core] Loading on mobile init");
+            logger.info("Show body");
+            $('body').show();
+        });
 
-            app.db = new Lawnchair({name: dbName}, function(db) {
-                console.log("[core] Storage open for db: '" + db.name + "' with '" + db.adapter + "' adapter.");
-            });
+        require(['order!jqmr', 'order!jqm', 'order!phonegap', 'order!router'],
+            function( jqmr, jqm, phonegap, router ) {
+            logger.info("Loading jqmr, jqm, phonegap and router");
+        });
+    });
 
-            options = app.db.get("options", function(options) {
-                if (!options) {
-                    options = DEFAULT_OPTIONS;
-                    app.db.save({ key: "options", value: options });
-                }
-            });
-        };
+};
 
-
-}) ( jQuery, Lawnchair );
+setTimeout(init, WAIT_TIME);

@@ -1,12 +1,10 @@
-(function( app, $ ) {
+define(['log', 'utils', 'collection'], function( log, utils, collection ) {
+    
+    var logger = log.getLogger('router');
 
-    console.log("[router] Loading router.js");
+    logger.info("Loading router.js");
 
-    var router = app.router = {};
-    var utils = app.utils;
-    var collectionModel = app.collectionModel;
-
-    router = new $.mobile.Router({
+    var router = new $.mobile.Router({
         "#slots" : { handler : "onBeforeSlotsPageShow", events: "bs" }
     },
     {
@@ -24,7 +22,7 @@
 
     router.onFetchError = function(originalModel, resp, errOptions, options) {
         setInterval(function() {
-            console.log("Error response tmp: '" + resp + "' for url: '" + options.fetchUrl + "'");
+            logger.info("Error response tmp: '" + resp + "' for url: '" + options.fetchUrl + "'");
             $.mobile.hidePageLoadingMsg();
             router.hideFlashMessage(options);
         }, 0);
@@ -51,11 +49,11 @@
 
     router.refreshDataList = function(options) {
         $.mobile.showPageLoadingMsg();
-        console.log("Show " + options.title + " page message!");
+        logger.info("Show " + options.title + " page message!");
         router.showFlashMessage(options);
 
-        console.log("Loading " + options.title + " View");
-        collectionModel.views[options.view] = new collectionModel.EntryListView({
+        logger.info("Loading " + options.title + " View");
+        collection.views[options.view] = new collection.EntryListView({
             fetchUrl: options.url,
             el: options.el,
             collectionTemplate: options.template,
@@ -64,12 +62,12 @@
             beforeParse: options.beforeParse
         });
 
-        if (collectionModel.views[options.view].collection.length !== 0) {
-            collectionModel.views[options.view].collection.reset([]);
+        if (collection.views[options.view].collection.length !== 0) {
+            collection.views[options.view].collection.reset([]);
         }
 
-        console.log("Fetch " + options.title + " Data from url: '" + collectionModel.views[options.view].collection.url + "'");
-        collectionModel.views[options.view].collection.fetch({
+        logger.info("Fetch " + options.title + " Data from url: '" + collection.views[options.view].collection.url + "'");
+        collection.views[options.view].collection.fetch({
             success: function(model, resp) {
                 if (options.success) {
                     options.success(model, resp);
@@ -89,4 +87,8 @@
         });
     };
 
-} ) ( app, jQuery );
+    logger.info("Loaded router");
+
+    return router;
+
+});

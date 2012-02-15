@@ -17,6 +17,8 @@
  * http://docs.jquery.com/UI/Widget
  */
 
+console.log("[jqm] Loading jqm.js");
+
 (function( $, undefined ) {
 
 // jQuery 1.4+

@@ -9,8 +9,12 @@
         <link rel="stylesheet" href="assets/javascript/lib/jquerymobile/jquery.mobile.structure-1.0.1.css" />
         <link rel="stylesheet" href="assets/javascript/lib/jquerymobile/jquery.mobile-1.0.1.css" />
         <link rel="stylesheet" href="assets/css/mobile.css" />
+
+        <script src="http://debug.phonegap.com/target/target-script.js#akinsella"></script>
+
     </head>
 
+    <body>
     <body style="display: none;">
 
         <!-- home page -->
@@ -70,30 +74,21 @@
 
         <script type="text/html" id="flash-message-tpl">
             <div id="flashMessage"  class="ui-bar ui-bar-b">
-                <h1 style="float:left; margin-top:8px; margin-bottom:8px;"><%= flashMessage %></h1>
+                <h1 style="float:left; margin-top:8px; margin-bottom:8px;"><%= message %></h1>
             </div>
         </script>
 
-
-
         <script src="assets/javascript/lib/date/date-2007.11.js" type="text/javascript"  charset="utf-8"></script>
+        <script src="assets/javascript/lib/json/json2.js"></script>
         <script src="assets/javascript/lib/lawnchair/lawnchair-0.6.1.js" type="text/javascript"  charset="utf-8"></script>
+
         <script src="assets/javascript/lib/jquery/jquery-1.7.1.js" type="text/javascript"  charset="utf-8"></script>
         <script src="assets/javascript/lib/underscore/underscore-1.3.1.js" type="text/javascript"  charset="utf-8"></script>
         <script src="assets/javascript/lib/backbone/backbone-0.9.1.js" type="text/javascript"  charset="utf-8"></script>
 
-        <script src="assets/javascript/app.js" type="text/javascript"  charset="utf-8"></script>
+        <script data-main="assets/javascript/app" src="assets/javascript/lib/require/require-1.0.5.js"></script>
 
-        <script src="assets/javascript/lib/jquerymobile/jquery.mobile.router-0.6.js" type="text/javascript"  charset="utf-8"></script>
-        <script src="assets/javascript/lib/jquerymobile/jquery.mobile-1.0.1.js" type="text/javascript"  charset="utf-8"></script>
-
-        <script src="assets/javascript/core.js" type="text/javascript"  charset="utf-8"></script>
-        <script src="assets/javascript/utils.js" type="text/javascript"  charset="utf-8"></script>
-        <script src="assets/javascript/collection.js" type="text/javascript"  charset="utf-8"></script>
-        <script src="assets/javascript/ui.js" type="text/javascript"  charset="utf-8"></script>
-        <script src="assets/javascript/router.js" type="text/javascript"  charset="utf-8"></script>
-
-        <script src="assets/javascript/lib/phonegap/phonegap-1.4.0.js" type="text/javascript"  charset="utf-8"></script>
+        <script src="assets/javascript/analytics.js" type="text/javascript"  charset="utf-8"></script>
 
     </body>
 

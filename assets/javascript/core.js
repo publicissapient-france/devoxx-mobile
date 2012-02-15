@@ -1,5 +1,17 @@
-(function( app ) {
+define(['log'], function( log ) {
 
-    console.log("[core] Loading core.js");
+    var logger = log.getLogger('core');
 
-}) ( app );
+    logger.info("Loading core.js");
+
+    var core = {};
+
+    core.init = function() {
+        logger.info("Init function");
+    };
+
+    logger.info("Loaded core");
+
+    return core;
+
+});
