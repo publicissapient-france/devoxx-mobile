@@ -4,12 +4,13 @@ define(['log'], function( log ) {
 
     logger.info("Loading db.js");
 
+    var db = { };
+
     var DB_NAME = "xebia";
 
     var DEFAULT_OPTIONS = {
         cacheData: false
     };
-
 
     logger.info("Creating Lawnchair object");
 
@@ -18,8 +19,6 @@ define(['log'], function( log ) {
     });
 
     logger.info("Created Lawnchair object");
-
-    var db = {};
 
     db.getName = function() {
         return DB_NAME;

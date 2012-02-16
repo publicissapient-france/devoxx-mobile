@@ -4,7 +4,7 @@ define(['log'], function( log ) {
 
     logger.info("Loading ui.js");
 
-    var ui =  {};
+    var ui =  { };
 
     ui.showFlashMessage = function(options) {
         var flashMessage = _.template($('#flash-message-tpl').html(), { message: "Please, wait while loading ..." } );

@@ -3414,6 +3414,7 @@ $.widget( "mobile.page", $.mobile.widget, {
 		});
 
 		$.mobile._handleHashChange = function( hash ) {
+            console.info("[jqm] Handle has change: " + hash);
 			//find first page via hash
 			var to = path.stripHash( hash ),
 				//transition is false if it's the first page, undefined otherwise (and may be overridden by default)

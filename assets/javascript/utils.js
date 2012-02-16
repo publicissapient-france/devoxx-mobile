@@ -4,7 +4,7 @@ define( ['log'], function( log ) {
     
     logger.info("Loading utils.js");
 
-    var utils = {};
+    var utils = { };
 
     var JSON_API_BASE_URL = 'https://cfp.devoxx.com/rest/v1';
 

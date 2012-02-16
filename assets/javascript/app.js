@@ -15,8 +15,7 @@ var init = function() {
         paths: {
             'text':        'javascript/lib/require/require.text-1.0.2',
             'order':       'javascript/lib/require/require.order-1.0.5',
-            'router':      'javascript/router',
-            'core':        'javascript/core',
+            'core':      'javascript/core',
             'app':         'javascript/app',
             'utils':       'javascript/utils',
             'ui':          'javascript/ui',
@@ -32,8 +31,8 @@ var init = function() {
 
     console.log("[app][require] Requiring base application modules");
 
-    require(['require', 'log', 'db', 'app', 'core', 'utils', 'ui', 'collection', 'phonegap'],
-        function( require, log ) {
+    require(['require', 'log', 'order!jqmr', 'order!core', 'db', 'app', 'utils', 'ui', 'collection', 'phonegap' ],
+        function( require, log, jqmr, core ) {
         
         var logger = log.getLogger("app");
 
@@ -47,6 +46,7 @@ var init = function() {
         }, true);
 
         logger.info("Setup of 'mobileinit' event");
+
         $(document).bind("mobileinit", function() {
 
             logger.info("[mobileinit] Event handled");
@@ -57,12 +57,15 @@ var init = function() {
             $.mobile.jqmRouter.fixFirstPageDataUrl = true;
             $.mobile.jqmRouter.firstPageDataUrl = "index.html";
 
+            core.init();
+
             logger.info("Show body");
             $('body').show();
         });
 
-        logger.info("Loading jqmr, jqm, phonegap and router");
-        require(['require', 'order!jqmr', 'order!jqm', 'order!router'], function(require) {
+        logger.info("Loading jqmr, jqm, phonegap and core");
+
+        require(['require', 'order!jqm'], function(require, jqm) {
             logger.info("Loading ...");
         });
     });

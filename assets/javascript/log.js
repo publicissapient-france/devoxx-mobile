@@ -4,7 +4,7 @@ define([], function( ) {
 
     var INFO = "INFO";
 
-    var log = {};
+    var log = { };
 
     var logContent = new Array();
 
