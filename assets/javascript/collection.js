@@ -50,7 +50,7 @@ define(['log'], function( log ) {
             el.empty();
             var content = _.template( this.options.collectionTemplate, { entries: this.collection.models } );
             el.html(content);
-            el.listview("[collection] refresh");
+            el.listview("refresh");
 
             return this;
         }

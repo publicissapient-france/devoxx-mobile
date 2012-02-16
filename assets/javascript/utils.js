@@ -6,8 +6,7 @@ define( ['log'], function( log ) {
 
     var utils = {};
 
-    var JSON_API_BASE_URL = 'http://localhost';
-//    var JSON_API_BASE_URL = 'http://blog.xebia.fr';
+    var JSON_API_BASE_URL = 'https://cfp.devoxx.com/rest/v1';
 
     utils.getJsonApiBaseUrl = function() {
         return JSON_API_BASE_URL;
@@ -75,7 +74,7 @@ define( ['log'], function( log ) {
     };
 
     utils.getFullUrl = function(relativeUrl) {
-        return JSON_API_BASE_URL + "/?" + relativeUrl;
+        return JSON_API_BASE_URL + "/" + relativeUrl;
     };
 
     logger.info("Loaded utils");

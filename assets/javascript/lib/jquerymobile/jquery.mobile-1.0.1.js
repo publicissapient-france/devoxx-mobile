@@ -245,6 +245,8 @@ $.Widget.prototype = {
 	},
 
 	_trigger: function( type, event, data ) {
+        console.log(type + ", " + data);
+
 		var callback = this.options[ type ];
 
 		event = $.Event( event );

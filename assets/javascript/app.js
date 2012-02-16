@@ -23,16 +23,16 @@ var init = function() {
             'db':          'javascript/db',
             'log':         'javascript/log',
             'collection':  'javascript/collection',
-            'jqm':         'javascript/lib/jquerymobile/jquery.mobile-1.0.1',
             'jqmr':        'javascript/lib/jquerymobile/jquery.mobile.router-0.6',
+            'jqm':         'javascript/lib/jquerymobile/jquery.mobile-1.0.1',
             'phonegap':    'javascript/lib/phonegap/phonegap-1.4.0'
         },
         baseUrl: 'assets'
     });
 
-    console.log("[app][init][require] Requiring base application modules");
+    console.log("[app][require] Requiring base application modules");
 
-    require(['require', 'log', 'db', 'app', 'core', 'utils', 'ui', 'collection'],
+    require(['require', 'log', 'db', 'app', 'core', 'utils', 'ui', 'collection', 'phonegap'],
         function( require, log ) {
         
         var logger = log.getLogger("app");
@@ -49,7 +49,7 @@ var init = function() {
         logger.info("Setup of 'mobileinit' event");
         $(document).bind("mobileinit", function() {
 
-            logger.info("[mobileinit] main.js");
+            logger.info("[mobileinit] Event handled");
 
             $.mobile.defaultPageTransition = 'fade';
 
@@ -61,9 +61,9 @@ var init = function() {
             $('body').show();
         });
 
-        require(['order!jqmr', 'order!jqm', 'order!phonegap', 'order!router'],
-            function( jqmr, jqm, phonegap, router ) {
-            logger.info("Loading jqmr, jqm, phonegap and router");
+        logger.info("Loading jqmr, jqm, phonegap and router");
+        require(['require', 'order!jqmr', 'order!jqm', 'order!router'], function(require) {
+            logger.info("Loading ...");
         });
     });
 

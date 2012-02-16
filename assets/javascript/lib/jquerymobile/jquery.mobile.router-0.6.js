@@ -9,9 +9,11 @@
  */
 (function($){
 
-$(document).bind("mobileinit",function(){
-
     console.log("[jqmr] Loading jqmr.js");
+
+    $(document).bind("mobileinit",function(){
+
+    console.log("[jqmr][mobileinit] Event handled");
 
 	/* supports the following configurations:
 		$.mobile.jqmRouter.fixFirstPageDataUrl=true
@@ -100,6 +102,7 @@ $(document).bind("mobileinit",function(){
 	}
 
 	$.mobile.Router=function(userRoutes,userHandlers,conf){
+        console.log("[jqmr]" + this);
 		/* userRoutes format:
 			{
 				"regexp": "function name", // defaults to jqm pagebeforeshow event

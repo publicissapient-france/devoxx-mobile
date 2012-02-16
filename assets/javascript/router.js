@@ -1,22 +1,35 @@
-define(['log', 'utils', 'collection'], function( log, utils, collection ) {
+define(['log', 'utils', 'collection', 'ui'], function( log, utils, collection, ui ) {
     
     var logger = log.getLogger('router');
 
     logger.info("Loading router.js");
 
-    var router = new $.mobile.Router({
-        "#slots" : { handler : "onBeforeSlotsPageShow", events: "bs" }
-    },
-    {
-        onBeforeSlotsPageShow: function(type, match, ui) {
-            router.refreshSlots();
-        }
-    });
+    logger.info("Instanciating jqmr router");
+    try {
+        var router = new $.mobile.Router({
+            "#slots" : { handler : "onBeforeSlotsPageShow", events: "bs" },
+            "#events" : { handler : "onBeforeEventPageShow", events: "bs" }
+        },
+        {
+            onBeforeSlotsPageShow: function(type, match, ui) {
+                router.refreshSlots();
+            },
+            onBeforeEventPageShow: function(type, match, ui) {
+                 router.refreshEvents();
+             }
+
+        });
+    }
+    catch(err) {
+      logger.info("[router][error]: " + err);
+    }
+
+    logger.info("Instanciated jqmr router");
 
     router.onFetchSuccess = function(model, resp, options) {
         setInterval(function() {
             $.mobile.hidePageLoadingMsg();
-            router.hideFlashMessage(options);
+            ui.hideFlashMessage(options);
         }, 0);
     };
 
@@ -24,7 +37,7 @@ define(['log', 'utils', 'collection'], function( log, utils, collection ) {
         setInterval(function() {
             logger.info("Error response tmp: '" + resp + "' for url: '" + options.fetchUrl + "'");
             $.mobile.hidePageLoadingMsg();
-            router.hideFlashMessage(options);
+            ui.hideFlashMessage(options);
         }, 0);
     };
 
@@ -50,7 +63,7 @@ define(['log', 'utils', 'collection'], function( log, utils, collection ) {
     router.refreshDataList = function(options) {
         $.mobile.showPageLoadingMsg();
         logger.info("Show " + options.title + " page message!");
-        router.showFlashMessage(options);
+        ui.showFlashMessage(options);
 
         logger.info("Loading " + options.title + " View");
         collection.views[options.view] = new collection.EntryListView({
@@ -81,9 +94,18 @@ define(['log', 'utils', 'collection'], function( log, utils, collection ) {
 
     router.refreshSlots = function() {
         router.refreshDataList({
-            page: "#slots", title: "Slots", el: "#slot-list", view: "slots", template: $("#slots-list-tpl").html(),
+            page: "#slots", title: "Slots", el: "#slot-list", view: "slots", template: $("#slot-list-tpl").html(),
             url: utils.getFullUrl('json=get_slot_index&callback=?'),
             parse: function(data) { return data.slots; }
+        });
+    };
+
+    router.refreshEvents = function() {
+        logger.info("Refreshing events");
+        router.refreshDataList({
+            page: "#events", title: "Event", el: "#event-list", view: "events", template: $("#event-list-tpl").html(),
+            url: utils.getFullUrl('events?callback=?'),
+            parse: function(data) { return data; }
         });
     };
 

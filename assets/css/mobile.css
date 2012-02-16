@@ -81,6 +81,11 @@
     width: 100%;
 }
 
+.follow-us-twitter-logo {
+    max-width: 200px;
+    width: 100%;
+}
+
 .menu-btn-text {
     color: #663366;
     padding: 4px;
@@ -101,6 +106,10 @@ img.menu-img {
   background: url(../image/jqm-sitebg.png) top center repeat-x; 
 }
 
+.ui-mobile #about {
+
+}
+
 .ui-mobile #home-header {
   padding: 55px 15px 0;
   padding-bottom: 30px;
@@ -109,6 +118,11 @@ img.menu-img {
 
 .ui-mobile #home-content-dates {
     width: 80%;
+    padding-bottom: 20px;
+}
+
+.ui-mobile #home-content-other {
+    width: 80%;
 }
 
 .ui-mobile #home-header h1 {
@@ -116,6 +130,25 @@ img.menu-img {
 }
 
 .ui-mobile #home-header p {
+  margin: 0;
+}
+
+.ui-mobile #about {
+  background: #FAFAFA;
+}
+
+.ui-mobile #about-header {
+  padding: 55px 15px 0;
+  padding-bottom: 30px;
+  text-align: center;
+
+}
+
+.ui-mobile #about-header h1 {
+  margin: 0 0 0px;
+}
+
+.ui-mobile #about-header p {
   margin: 0;
 }
 

@@ -10,11 +10,10 @@
         <link rel="stylesheet" href="assets/javascript/lib/jquerymobile/jquery.mobile-1.0.1.css" />
         <link rel="stylesheet" href="assets/css/mobile.css" />
 
-        <script src="http://debug.phonegap.com/target/target-script.js#akinsella"></script>
+        <!-- <script src="http://debug.phonegap.com/target/target-script.js#akinsella"></script> -->
 
     </head>
 
-    <body>
     <body style="display: none;">
 
         <!-- home page -->
@@ -25,23 +24,39 @@
             </div>
             <div id="home-content" data-role="content">
                 <div id="home-content-dates">
-                    <ul id="category-list" data-role="listview" data-inset="true" data-theme="c">
+                    <ul id="home-content-dates-list" data-role="listview" data-inset="true" data-theme="c">
                         <li>
-                            <a href="#day?id=1" rel="external">
+                            <a href="#day?id=1">
                                 <h3 align="center">Mercredi  - 18 Avril 2012</h3>
                             </a>
                         </li>
                         <li>
-                            <a href="#day?id=2" rel="external">
+                            <a href="#day?id=2">
                                 <h3 align="center">Jeudi  - 19 Avril 2012</h3>
                             </a>
                         </li>
                         <li>
-                            <a href="#day?id=3" rel="external">
+                            <a href="#day?id=3">
                                 <h3 align="center">Vendredi  - 20 Avril 2012</h3>
                             </a>
                         </li>
                     </ul>
+                </div>
+
+                <div id="home-content-other">
+                    <ul id="home-content-other-list" data-role="listview" data-inset="true" data-theme="c">
+                        <li>
+                            <a href="#events">
+                                <h3 align="center">Planned Event</h3>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#about">
+                                <h3 align="center">About</h3>
+                            </a>
+                        </li>
+                    </ul>
+
                 </div>
             </div>
             <div class="home-footer">
@@ -53,6 +68,58 @@
                 </div>
             </div>
         </div>
+
+
+        <!-- Events page -->
+        <div align="center" id="events" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+
+            <div data-role="header" data-theme="c">
+                <h1>Events</h1>
+            </div>
+            <div data-role="content">
+                <ul id="event-list" data-role="listview" data-theme="c"></ul>
+            </div>
+        </div>
+
+        <!-- About page -->
+        <div align="center" id="about" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+            <div data-role="header" data-theme="c">
+                <h1>About</h1>
+            </div>
+            <div id="about-header">
+                <h1 id="logo-about">
+                    <img src="assets/image/logo-xebia.png" alt="jQuery Mobile Framework" class="xebia-logo" />
+                </h1>
+            </div>
+            <div data-role="content" style="width: 50%;">
+
+                <a href="https://twitter.com/#!/xebiafr" rel="external" alt="Follow us on Twitter" data-role="button">
+                     <img src="assets/image/twitter-black-transparent.png" class="home-footer-img" style="height:24px;" />
+                </a>
+
+                <a href="http://blog.xebia.fr" alt="Blog Xebia" data-role="button">
+                    <img src="assets/image/wordpress.png" class="home-footer-img" style="height: 24px;" />
+                </a>
+
+
+            </div>
+        </div>
+
+        <script type="text/html" id="event-list-tpl">
+            <% _.each(entries, function(event) {
+                console.log("Event: " + event);
+                if (event.get('enabled')) {
+            %>
+                <li>
+                    <a href="#event?id=<%= event.get('id') %>" rel="external">
+                        <h3><%= event.get('name') %></h3>
+                        <p><em><%= event.get('location') %></em></p>
+                        <p class="ui-li-aside"><em><%= event.get('to') + ' / ' + event.get('to') %></em></p>
+                    </a>
+                </li>
+            <%  }
+               }); %>
+        </script>
 
         <script type="text/html" id="slot-list-tpl">
             <%
