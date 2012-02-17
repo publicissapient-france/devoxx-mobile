@@ -121,6 +121,11 @@ img.menu-img {
     padding-bottom: 20px;
 }
 
+.ui-mobile #home-content-devoxx-paris {
+    width: 80%;
+    padding-bottom: 20px;
+}
+
 .ui-mobile #home-content-other {
     width: 80%;
 }

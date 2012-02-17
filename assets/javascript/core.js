@@ -4,6 +4,8 @@ define(['log', 'utils', 'collection', 'ui'], function( log, utils, collection, u
 
     logger.info("Loading core.js");
 
+    var EVENT_ID = '4';
+
     var core = { };
 
     var router;
@@ -12,15 +14,19 @@ define(['log', 'utils', 'collection', 'ui'], function( log, utils, collection, u
         logger.info("Instanciating jqmr router");
 
         router = new $.mobile.Router({
-            "#slots" : { handler : "onBeforeSlotsPageShow", events: "bs" },
-            "#events" : { handler : "onBeforeEventPageShow", events: "bs" }
+            "#schedule" : { handler : "onBeforeSchedulePageShow", events: "bs" },
+            "#events" : { handler : "onBeforeEventPageShow", events: "bs" },
+            "#authors" : { handler : "onBeforeAuthorPageShow", events: "bs" }
         },
         {
-            onBeforeSlotsPageShow: function(type, match, ui) {
-                core.refreshSlots();
+            onBeforeSchedulePageShow: function(type, match, ui) {
+                core.refreshSchedule();
             },
             onBeforeEventPageShow: function(type, match, ui) {
                  core.refreshEvents();
+            },
+            onBeforeAuthorPageShow: function(type, match, ui) {
+                 core.refreshAuthors();
             }
         });
 
@@ -93,11 +99,11 @@ define(['log', 'utils', 'collection', 'ui'], function( log, utils, collection, u
         });
     };
 
-    core.refreshSlots = function() {
+    core.refreshSchedule = function() {
         core.refreshDataList({
-            page: "#slots", title: "Slots", el: "#slot-list", view: "slots", template: $("#slot-list-tpl").html(),
-            url: utils.getFullUrl('json=get_slot_index&callback=?'),
-            parse: function(data) { return data.slots; }
+            page: "#schedule", title: "Schedule", el: "#slot-list", view: "schedule", template: $("#slot-list-tpl").html(),
+            url: utils.getFullUrl('events/' + EVENT_ID + '/schedule?callback=?'),
+            parse: function(data) { return data; }
         });
     };
 
@@ -106,6 +112,15 @@ define(['log', 'utils', 'collection', 'ui'], function( log, utils, collection, u
         core.refreshDataList({
             page: "#events", title: "Event", el: "#event-list", view: "events", template: $("#event-list-tpl").html(),
             url: utils.getFullUrl('events?callback=?'),
+            parse: function(data) { return data; }
+        });
+    };
+
+    core.refreshAuthors = function() {
+        logger.info("Refreshing authors");
+        core.refreshDataList({
+            page: "#authors", title: "Author", el: "#author-list", view: "author", template: $("#author-list-tpl").html(),
+            url: utils.getFullUrl('events/' + EVENT_ID + '/speakers?callback=?'),
             parse: function(data) { return data; }
         });
     };

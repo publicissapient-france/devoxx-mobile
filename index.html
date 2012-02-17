@@ -44,11 +44,28 @@
                     </ul>
                 </div>
 
+                <div id="home-content-devoxx-paris">
+                    <ul id="home-content-devoxx-paris-list" data-role="listview" data-inset="true" data-theme="c">
+
+                        <li>
+                             <a href="#schedule">
+                                 <h3 align="center">Schedule</h3>
+                             </a>
+                        </li>
+                        <li>
+                              <a href="#authors">
+                                  <h3 align="center">Authors</h3>
+                              </a>
+                        </li>
+                    </ul>
+
+                </div>
+
                 <div id="home-content-other">
                     <ul id="home-content-other-list" data-role="listview" data-inset="true" data-theme="c">
                         <li>
                             <a href="#events">
-                                <h3 align="center">Planned Event</h3>
+                                <h3 align="center">Events</h3>
                             </a>
                         </li>
                         <li>
@@ -70,6 +87,16 @@
             </div>
         </div>
 
+        <!-- Schedule page -->
+        <div align="center" id="schedule" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+
+            <div data-role="header" data-theme="c" data-divider-theme="a">
+                <h1>Schedule</h1>
+            </div>
+            <div data-role="content">
+                <ul id="slot-list" data-role="listview" data-theme="c"></ul>
+            </div>
+        </div>
 
         <!-- Events page -->
         <div align="center" id="events" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
@@ -79,6 +106,17 @@
             </div>
             <div data-role="content">
                 <ul id="event-list" data-role="listview" data-theme="c"></ul>
+            </div>
+        </div>
+
+        <!-- Authors page -->
+        <div align="center" id="authors" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+
+            <div data-role="header" data-theme="c">
+                <h1>Authors</h1>
+            </div>
+            <div data-role="content">
+                <ul id="author-list" data-role="listview" data-theme="c"></ul>
             </div>
         </div>
 
@@ -106,13 +144,28 @@
             </div>
         </div>
 
+        <script type="text/html" id="author-list-tpl">
+            <% _.each(entries, function(author) {
+            %>
+                <li>
+                    <a href="#author?id=<%= author.get('id') %>">
+                        <img src="<%= author.get('imageURI') %>" />
+                        <h3><%= author.get('firstName') author.get('lastName') %></h3>
+                        <p><em><%= author.get('company') %></em></p>
+                        <p class="ui-li-aside"><em><%= author.get('to') + ' / ' + event.get('talks').length %></em></p>
+                    </a>
+                </li>
+            <%
+               }); %>
+        </script>
+
         <script type="text/html" id="event-list-tpl">
             <% _.each(entries, function(event) {
                 console.log("Event: " + event);
                 if (event.get('enabled')) {
             %>
                 <li>
-                    <a href="#event?id=<%= event.get('id') %>" rel="external">
+                    <a href="#event?id=<%= event.get('id') %>">
                         <h3><%= event.get('name') %></h3>
                         <p><em><%= event.get('location') %></em></p>
                         <p class="ui-li-aside"><em><%= event.get('to') + ' / ' + event.get('to') %></em></p>
@@ -123,21 +176,26 @@
         </script>
 
         <script type="text/html" id="slot-list-tpl">
-            <%
-                var currentSlotTimeStart = '';
-                _.each(entries, function(slot) {
-                    var slotTimeStart = slot.get('time').start;
-                    var slotTimeStartChanged = slotTimeStart != currentSlotTimeStart;
-                        currentSlotTimeStart = slotTimeStart;
-                    if (slotTimeStartChanged) { %>
-                        <li data-role="list-divider"><%= currentSlotTimeStart %></li>
-            <%      } %>
-                    <li>
-                        <a href="#slot?id=<%= day.get('id') %>" rel="external">
-                            <h3><%= slot.get('title') %></h3>
-                        </a>
-                    </li>
-            <%  }); %>
+            <% _.each(entries, function(slot) {
+                    console.log("Slot code: " + slot.get('code') + ", is talk: " + ( slot.get('code') === 'Talk' ));
+                    if ( slot.get('kind') === 'Talk' ) { %>
+            <li>
+                <a href="#slot?id=<%= slot.get('id') %>">
+                    <h3><%= slot.get('title') ? slot.get('title') : slot.get('name') %></h3>
+                    <% if ( slot.get('speaker') ) { %>
+                        <p><em>Speaker: <%= slot.get('speaker') %></em></p>
+                    <% } %>
+                    <p><em><%= slot.get('kind') %> - <%= slot.get('room') %></em></p>
+                    <p><em><%= slot.get('fromTime') %> / <%= slot.get('toTime') %></em></p>
+                    <p class="ui-li-aside"><em><%= slot.get('type') %> </em></p>
+                </a>
+            </li>
+            <%      } else { %>
+            <li data-role="list-divider">
+                <h3><%= slot.get('code') %> - <%= slot.get('fromTime') %> / <%= slot.get('toTime') %></h3>
+            </li>
+            <%     }
+              }); %>
         </script>
 
         <script type="text/html" id="flash-message-tpl">

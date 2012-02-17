@@ -245,7 +245,7 @@ $.Widget.prototype = {
 	},
 
 	_trigger: function( type, event, data ) {
-        console.log(type + ", " + data);
+        console.log("[jqm] " + type + ", " + data);
 
 		var callback = this.options[ type ];
 
