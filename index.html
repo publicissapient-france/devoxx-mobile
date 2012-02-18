@@ -4,8 +4,7 @@
 
     <head>
         <meta charset="utf-8" />
-        <title>Dev/Debug mode</title>
-        <!--- <title>Xebia - Devoxx France 2012</title> --->
+        <title>Xebia - Devoxx France 2012</title>
 
         <link rel="stylesheet" href="assets/javascript/lib/jquerymobile/jquery.mobile.structure-1.0.1.css" />
         <link rel="stylesheet" href="assets/javascript/lib/jquerymobile/jquery.mobile-1.0.1.css" />
@@ -46,15 +45,29 @@
 
                 <div id="home-content-devoxx-paris">
                     <ul id="home-content-devoxx-paris-list" data-role="listview" data-inset="true" data-theme="c">
-
                         <li>
                              <a href="#schedule">
                                  <h3 align="center">Schedule</h3>
                              </a>
                         </li>
                         <li>
-                              <a href="#authors">
-                                  <h3 align="center">Authors</h3>
+                             <a href="#speakers">
+                                 <h3 align="center">Speakers</h3>
+                             </a>
+                        </li>
+                        <li>
+                              <a href="#presentations">
+                                  <h3 align="center">Presentations</h3>
+                              </a>
+                        </li>
+                        <li>
+                              <a href="#rooms">
+                                  <h3 align="center">Rooms</h3>
+                              </a>
+                        </li>
+                        <li>
+                              <a href="#tracks">
+                                  <h3 align="center">Tracks</h3>
                               </a>
                         </li>
                     </ul>
@@ -65,7 +78,7 @@
                     <ul id="home-content-other-list" data-role="listview" data-inset="true" data-theme="c">
                         <li>
                             <a href="#events">
-                                <h3 align="center">Events</h3>
+                                <h3 align="center">All Devoxx Events</h3>
                             </a>
                         </li>
                         <li>
@@ -77,7 +90,7 @@
 
                 </div>
             </div>
-            <div class="home-footer">
+            <div id="home-footer"  class="home-footer">
                 <img src="assets/image/devoxx-logo-big-white.png" class="devoxx-logo" style="padding-top:30px;padding-bottom:30px;" />
                 <div align="right" style="border-top: 1px solid #CCC; border-bottom: 1px solid #CCC; background: #FEFEFE;padding:10px;">
                     <a href="https://twitter.com/#!/xebiafr" rel="external" alt="Follow us on Twitter">
@@ -94,7 +107,7 @@
                 <h1>Schedule</h1>
             </div>
             <div data-role="content">
-                <ul id="slot-list" data-role="listview" data-theme="c"></ul>
+                <ul id="schedule-list" data-role="listview" data-theme="c"></ul>
             </div>
         </div>
 
@@ -109,14 +122,47 @@
             </div>
         </div>
 
-        <!-- Authors page -->
-        <div align="center" id="authors" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+        <!-- Speakers page -->
+        <div align="center" id="speakers" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
 
             <div data-role="header" data-theme="c">
-                <h1>Authors</h1>
+                <h1>Speakers</h1>
             </div>
             <div data-role="content">
-                <ul id="author-list" data-role="listview" data-theme="c"></ul>
+                <ul id="speaker-list" data-role="listview" data-theme="c"></ul>
+            </div>
+        </div>
+
+        <!-- Rooms page -->
+        <div align="center" id="rooms" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+
+            <div data-role="header" data-theme="c">
+                <h1>Room</h1>
+            </div>
+            <div data-role="content">
+                <ul id="room-list" data-role="listview" data-theme="c"></ul>
+            </div>
+        </div>
+
+        <!-- Presentation page -->
+        <div align="center" id="presentations" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+
+            <div data-role="header" data-theme="c">
+                <h1>Presentation</h1>
+            </div>
+            <div data-role="content">
+                <ul id="presentation-list" data-role="listview" data-theme="c"></ul>
+            </div>
+        </div>
+
+        <!-- Rooms page -->
+        <div align="center" id="tracks" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+
+            <div data-role="header" data-theme="c">
+                <h1>Track</h1>
+            </div>
+            <div data-role="content">
+                <ul id="track-list" data-role="listview" data-theme="c"></ul>
             </div>
         </div>
 
@@ -144,21 +190,6 @@
             </div>
         </div>
 
-        <script type="text/html" id="author-list-tpl">
-            <% _.each(entries, function(author) {
-            %>
-                <li>
-                    <a href="#author?id=<%= author.get('id') %>">
-                        <img src="<%= author.get('imageURI') %>" />
-                        <h3><%= author.get('firstName') author.get('lastName') %></h3>
-                        <p><em><%= author.get('company') %></em></p>
-                        <p class="ui-li-aside"><em><%= author.get('to') + ' / ' + event.get('talks').length %></em></p>
-                    </a>
-                </li>
-            <%
-               }); %>
-        </script>
-
         <script type="text/html" id="event-list-tpl">
             <% _.each(entries, function(event) {
                 console.log("Event: " + event);
@@ -175,9 +206,8 @@
                }); %>
         </script>
 
-        <script type="text/html" id="slot-list-tpl">
+        <script type="text/html" id="schedule-list-tpl">
             <% _.each(entries, function(slot) {
-                    console.log("Slot code: " + slot.get('code') + ", is talk: " + ( slot.get('code') === 'Talk' ));
                     if ( slot.get('kind') === 'Talk' ) { %>
             <li>
                 <a href="#slot?id=<%= slot.get('id') %>">
@@ -186,16 +216,64 @@
                         <p><em>Speaker: <%= slot.get('speaker') %></em></p>
                     <% } %>
                     <p><em><%= slot.get('kind') %> - <%= slot.get('room') %></em></p>
-                    <p><em><%= slot.get('fromTime') %> / <%= slot.get('toTime') %></em></p>
-                    <p class="ui-li-aside"><em><%= slot.get('type') %> </em></p>
+                    <p><em><%= slot.get('type') %></em></p>
+                    <p class="ui-li-aside"><em><%= slot.get('startTime') %> / <%= slot.get('endTime') %></em></p>
                 </a>
             </li>
             <%      } else { %>
             <li data-role="list-divider">
-                <h3><%= slot.get('code') %> - <%= slot.get('fromTime') %> / <%= slot.get('toTime') %></h3>
+                <h3><%= slot.get('code') %> - <%= slot.get('startTime') %> / <%= slot.get('endTime') %></h3>
             </li>
             <%     }
               }); %>
+        </script>
+
+        <script type="text/html" id="track-list-tpl">
+            <% _.each(entries, function(track) { %>
+            <li>
+                <a href="#track?id=<%= track.get('id') %>">
+                    <h3><%= track.get('name') %></h3>
+                    <p><em><%= track.get('description') %></em></p>
+                </a>
+            </li>
+            <% }); %>
+        </script>
+
+        <script type="text/html" id="room-list-tpl">
+            <% _.each(entries, function(room) { %>
+            <li>
+                <a href="#room?id=<%= room.get('id') %>">
+                    <h3><%= room.get('name') %></h3>
+                    <p><em>Speaker: <%= room.get('speaker') %></em></p>
+                    <p><em>Capacity: <%= room.get('capacity') %> / Location: <%= room.get('locationName') %></em></p>
+                    <p class="ui-li-count"><em><%= room.get('capacity') %></em></p>
+                </a>
+            </li>
+            <% }); %>
+        </script>
+
+        <script type="text/html" id="presentation-list-tpl">
+            <% _.each(entries, function(presentation) { %>
+            <li>
+                <a href="#presentation?id=<%= presentation.get('id') %>">
+                    <h3><%= presentation.get('title') %></h3>
+                    <p><em><%= presentation.get('speaker') %></em></p>
+                    <p><em>Track: <%= presentation.get('track') %> - <%= presentation.get('experience') %>- <%= presentation.get('room') %></em></p>
+                </a>
+            </li>
+            <% }); %>
+        </script>
+
+        <script type="text/html" id="speaker-list-tpl">
+            <% _.each(entries, function(speaker) { %>
+            <li>
+                <a href="#speaker?id=<%= speaker.get('id') %>">
+                    <h3><%= speaker.get('firstName') %> - <%=speaker.get('lastName') %></h3>
+                    <p><em><%= speaker.get('company') %></em></p>
+                    <p class="ui-li-count"><em><%= speaker.get('talks').length %></em></p>
+                </a>
+            </li>
+            <% }); %>
         </script>
 
         <script type="text/html" id="flash-message-tpl">

@@ -1,9 +1,26 @@
 var DEBUG = false;
+var SAFE = true;
+var OFFLINE = false;
 
 var WAIT_TIME = DEBUG ? 3000 : 0;
+var DEBUG_JSON_CALLBACK = "onJsonLoad";
+
+console.log("DEBUG: " + DEBUG);
+console.log("SAFE: " + SAFE);
+console.log("OFFLINE: " + OFFLINE);
+console.log("WAIT_TIME: " + WAIT_TIME);
+console.log("DEBUG_JSON_CALLBACK: " + DEBUG_JSON_CALLBACK);
 
 if (DEBUG) {
     console.log("Waiting for " + WAIT_TIME + "ms before loading application");
+}
+
+if (!SAFE) {
+    $("#logo").hide();
+    $("#home-footer").hide();
+    $("#version").hide();
+    $("#home").css("background-image", "url(images/none.png)");
+    document.title = "Dev/Debug mode";
 }
 
 var init = function() {
@@ -60,7 +77,9 @@ var init = function() {
             core.init();
 
             logger.info("Show body");
-            $('body').show();
+            if (SAFE) {
+                $('body').show();
+            }
         });
 
         logger.info("Loading jqmr, jqm, phonegap and core");

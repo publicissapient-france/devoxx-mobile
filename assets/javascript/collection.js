@@ -25,7 +25,6 @@ define(['log'], function( log ) {
                 }
                 return options.parse ? options.parse(data) : data;
             };
-            this.sync = options.sync;
         }
     });
 
@@ -37,7 +36,6 @@ define(['log'], function( log ) {
             this.collection = new collection.EntryCollection([], {
                 url: this.options.fetchUrl,
                 parse: this.options.parse,
-                sync: this.options.sync,
                 beforeParse: this.options.beforeParse
             });
             this.collection.bind('reset', this.render, this);
