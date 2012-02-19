@@ -15,20 +15,26 @@ define(['log', 'utils', 'collection', 'entry', 'ui'], function( log, utils, coll
 
         router = new $.mobile.Router({
             "#schedule" : { handler : "onBeforeSchedulePageShow", events: "bs" },
-            "#events" : { handler : "onBeforeEventPageShow", events: "bs" },
+            "#day(?:[?](.*))?" : { handler: "onBeforeDayPageShow", events: "bs" },
+            "#events" : { handler : "onBeforeEventsPageShow", events: "bs" },
+            "#event(?:[?](.*))?" : { handler : "onBeforeEventPageShow", events: "bs" },
             "#rooms" : { handler : "onBeforeRoomPageShow", events: "bs" },
-            "#presentations" : { handler : "onBeforePresentationPageShow", events: "bs" },
-            "#presentation(?:[?](.*))?" : { handler : "onBeforeEventPresentationShow", events: "bs" },
-            "#speakers" : { handler : "onBeforeSpeakerPageShow", events: "bs" },
-            "#tracks" : { handler : "onBeforeTracksPageShow", events: "bs" },
-            "#day(?:[?](.*))?" : { handler: "onBeforeDayPageShow", events: "bs" }
+            "#presentations" : { handler : "onBeforePresentationsPageShow", events: "bs" },
+            "#presentation(?:[?](.*))?" : { handler : "onBeforePresentationPageShow", events: "bs" },
+            "#speakers" : { handler : "onBeforeSpeakersPageShow", events: "bs" },
+            "#speaker(?:[?](.*))?" : { handler : "onBeforeSpeakerPageShow", events: "bs" },
+            "#tracks" : { handler : "onBeforeTracksPageShow", events: "bs" }
         },
         {
             onBeforeSchedulePageShow: function(type, match, ui) {
                 core.refreshSchedule();
             },
-            onBeforeEventPageShow: function(type, match, ui) {
+            onBeforeEventsPageShow: function(type, match, ui) {
                  core.refreshEvents();
+            },
+            onBeforeEventPageShow: function(type, match, ui) {
+                var params = router.getParams(match[1]);
+                 core.refreshEvent(params.id);
             },
             onBeforeRoomPageShow: function(type, match, ui) {
                  core.refreshRooms();
@@ -36,15 +42,19 @@ define(['log', 'utils', 'collection', 'entry', 'ui'], function( log, utils, coll
             onBeforeTracksPageShow: function(type, match, ui) {
                  core.refreshTracks();
             },
-            onBeforePresentationPageShow: function(type, match, ui) {
+            onBeforePresentationsPageShow: function(type, match, ui) {
                  core.refreshPresentations();
             },
-            onBeforeEventPresentationShow:function(type, match, ui) {
+            onBeforePresentationPageShow: function(type, match, ui) {
                 var params = router.getParams(match[1]);
                  core.refreshPresentation(params.id);
             },
-            onBeforeSpeakerPageShow: function(type, match, ui) {
+            onBeforeSpeakersPageShow: function(type, match, ui) {
                  core.refreshSpeakers();
+            },
+            onBeforeSpeakerPageShow: function(type, match, ui) {
+                var params = router.getParams(match[1]);
+                 core.refreshSpeaker(params.id);
             },
             onBeforeDayPageShow: function(type, match, ui) {
                 var params = router.getParams(match[1]);
@@ -56,14 +66,14 @@ define(['log', 'utils', 'collection', 'entry', 'ui'], function( log, utils, coll
     };
 
     core.onFetchSuccess = function(model, resp, options) {
-        setInterval(function() {
+        setTimeout(function() {
             $.mobile.hidePageLoadingMsg();
             ui.hideFlashMessage(options);
         }, 0);
     };
 
     core.onFetchError = function(originalModel, resp, errOptions, options) {
-        setInterval(function() {
+        setTimeout(function() {
             logger.info("Error response tmp: '" + resp + "' for url: '" + options.fetchUrl + "'");
             $.mobile.hidePageLoadingMsg();
             ui.hideFlashMessage(options);
@@ -197,6 +207,44 @@ define(['log', 'utils', 'collection', 'entry', 'ui'], function( log, utils, coll
         });
     };
 
+    core.getScheduleTime = function(fromTime) {
+        return Date.parseExact(fromTime.substring(0, fromTime.lastIndexOf('.')), 'yyyy-MM-dd HH:mm:ss').toString("HH:mm");
+    };
+
+    core.refreshEvents = function() {
+        logger.info("Refreshing events");
+        core.refreshDataList({
+            page: "#events", title: "Event", el: "#event-list", view: "events", template: $("#event-list-tpl").html(),
+            url: utils.getFullUrl('events' + (OFFLINE ? '.json' : '') + '?callback=?'),
+            parse: function(data) { return data; }
+        });
+    };
+
+    core.refreshEvent = function(id) {
+        logger.info("Processing event: " + id);
+        core.refreshDataEntry({
+            page: "#event", title: "Event", el: "#event-details", view: "event", template: $("#event-tpl").html(),
+            url: utils.getFullUrl('events/' + id + (OFFLINE ? '.json' : '') + '?callback=?'),
+            parse: function(data) {
+                return data;
+            },
+            postRender: function(data) {
+                $('#event-details-list').listview();
+                ui.switchTitle(data.get('name'));
+            }
+
+        });
+    };
+
+    core.refreshPresentations = function() {
+        logger.info("Refreshing presentations");
+        core.refreshDataList({
+            page: "#presentations", title: "Presentation", el: "#presentation-list", view: "presentation", template: $("#presentation-list-tpl").html(),
+            url: utils.getFullUrl('events/' + EVENT_ID + '/presentations' + (OFFLINE ? '.json' : '') + '?callback=?'),
+            parse: function(data) { return data; }
+        });
+    };
+
     core.refreshPresentation = function(id) {
         logger.info("Processing presentation: " + id);
         core.refreshDataEntry({
@@ -211,31 +259,10 @@ define(['log', 'utils', 'collection', 'entry', 'ui'], function( log, utils, coll
             postRender: function(data) {
                 $('#presentation-tag-list').listview();
                 $('#presentation-speaker-list').listview();
+                $('#presentation-details-list').listview();
                 ui.switchTitle(data.get('title'));
             }
 
-        });
-    };
-
-    core.getScheduleTime = function(fromTime) {
-        return Date.parseExact(fromTime.substring(0, fromTime.lastIndexOf('.')), 'yyyy-MM-dd HH:mm:ss').toString("HH:mm");
-    };
-
-    core.refreshEvents = function() {
-        logger.info("Refreshing events");
-        core.refreshDataList({
-            page: "#events", title: "Event", el: "#event-list", view: "events", template: $("#event-list-tpl").html(),
-            url: utils.getFullUrl('events' + (OFFLINE ? '.json' : '') + '?callback=?'),
-            parse: function(data) { return data; }
-        });
-    };
-
-    core.refreshPresentations = function() {
-        logger.info("Refreshing presentations");
-        core.refreshDataList({
-            page: "#presentations", title: "Presentation", el: "#presentation-list", view: "presentation", template: $("#presentation-list-tpl").html(),
-            url: utils.getFullUrl('events/' + EVENT_ID + '/presentations' + (OFFLINE ? '.json' : '') + '?callback=?'),
-            parse: function(data) { return data; }
         });
     };
 
@@ -263,6 +290,26 @@ define(['log', 'utils', 'collection', 'entry', 'ui'], function( log, utils, coll
             page: "#speakers", title: "Speakers", el: "#speaker-list", view: "speaker", template: $("#speaker-list-tpl").html(),
             url: utils.getFullUrl('events/' + EVENT_ID + '/speakers' + (OFFLINE ? '.json' : '') + '?callback=?'),
             parse: function(data) { return data; }
+        });
+    };
+
+    core.refreshSpeaker = function(id) {
+        logger.info("Processing speaker: " + id);
+        core.refreshDataEntry({
+            page: "#speaker", title: "Speaker", el: "#speaker-details", view: "speaker", template: $("#speaker-tpl").html(),
+            url: utils.getFullUrl('events/speakers/' + id + (OFFLINE ? '.json' : '') + '?callback=?'),
+            parse: function(data) {
+                _.each(data.talks, function(presentation) {
+                     presentation.id = presentation.presentationUri.substring(presentation.presentationUri.lastIndexOf("/") + 1);
+                 });
+                return data;
+            },
+            postRender: function(data) {
+                $('#speaker-details-list').listview();
+                $('#speaker-talk-list').listview();
+                ui.switchTitle(data.get('firstName') + " " + data.get('lastName'));
+            }
+
         });
     };
 
