@@ -81,6 +81,7 @@ var init = function() {
 
             logger.info("Show body");
             if (SAFE) {
+                $('#splash-screen').hide();
                 $('body').show();
             }
         });
