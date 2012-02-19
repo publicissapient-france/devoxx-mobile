@@ -1,6 +1,7 @@
 var DEBUG = false;
 var SAFE = true;
 var OFFLINE = false;
+var PROXY = true;
 
 var WAIT_TIME = DEBUG ? 3000 : 0;
 var DEBUG_JSON_CALLBACK = "onJsonLoad";
@@ -10,6 +11,7 @@ console.log("SAFE: " + SAFE);
 console.log("OFFLINE: " + OFFLINE);
 console.log("WAIT_TIME: " + WAIT_TIME);
 console.log("DEBUG_JSON_CALLBACK: " + DEBUG_JSON_CALLBACK);
+console.log("PROXY: " + PROXY);
 
 if (DEBUG) {
     console.log("Waiting for " + WAIT_TIME + "ms before loading application");
@@ -39,6 +41,7 @@ var init = function() {
             'db':          'javascript/db',
             'log':         'javascript/log',
             'collection':  'javascript/collection',
+            'entry':       'javascript/entry',
             'jqmr':        'javascript/lib/jquerymobile/jquery.mobile.router-0.6',
             'jqm':         'javascript/lib/jquerymobile/jquery.mobile-1.0.1',
             'phonegap':    'javascript/lib/phonegap/phonegap-1.4.0'
@@ -48,7 +51,7 @@ var init = function() {
 
     console.log("[app][require] Requiring base application modules");
 
-    require(['require', 'log', 'order!jqmr', 'order!core', 'db', 'app', 'utils', 'ui', 'collection', 'phonegap' ],
+    require(['require', 'log', 'order!jqmr', 'order!core', 'db', 'app', 'utils', 'ui', 'collection', 'entry', 'phonegap' ],
         function( require, log, jqmr, core ) {
         
         var logger = log.getLogger("app");

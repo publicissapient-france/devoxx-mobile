@@ -6,7 +6,10 @@ define( ['log'], function( log ) {
 
     var utils = { };
 
-    var JSON_API_BASE_URL = OFFLINE ? 'http://localhost/devoxx-data/rest/v1' : 'https://cfp.devoxx.com/rest/v1';
+    var JSON_API_BASE_URL = OFFLINE ? 'http://localhost/devoxx-data/rest/v1' :
+                            PROXY ? 'http://devoxx-xebia.dotcloud.com/rest/v1' : 'https://cfp.devoxx.com/rest/v1';
+//    var JSON_API_BASE_URL = OFFLINE ? 'http://localhost/devoxx-data/rest/v1' : 'http://localhost:9000/rest/v1';
+//    var JSON_API_BASE_URL = OFFLINE ? 'http://localhost/devoxx-data/rest/v1' : 'https://cfp.devoxx.com/rest/v1';
 
     utils.getJsonApiBaseUrl = function() {
         return JSON_API_BASE_URL;

@@ -1,4 +1,4 @@
-define(['log', 'utils', 'collection', 'ui'], function( log, utils, collection, ui ) {
+define(['log', 'utils', 'collection', 'entry', 'ui'], function( log, utils, collection, entry, ui ) {
     
     var logger = log.getLogger('core');
 
@@ -18,9 +18,11 @@ define(['log', 'utils', 'collection', 'ui'], function( log, utils, collection, u
             "#events" : { handler : "onBeforeEventPageShow", events: "bs" },
             "#rooms" : { handler : "onBeforeRoomPageShow", events: "bs" },
             "#presentations" : { handler : "onBeforePresentationPageShow", events: "bs" },
+            "#presentation(?:[?](.*))?" : { handler : "onBeforeEventPresentationShow", events: "bs" },
             "#speakers" : { handler : "onBeforeSpeakerPageShow", events: "bs" },
-            "#tracks" : { handler : "onBeforeTracksPageShow", events: "bs" }
-            },
+            "#tracks" : { handler : "onBeforeTracksPageShow", events: "bs" },
+            "#day(?:[?](.*))?" : { handler: "onBeforeDayPageShow", events: "bs" }
+        },
         {
             onBeforeSchedulePageShow: function(type, match, ui) {
                 core.refreshSchedule();
@@ -37,8 +39,16 @@ define(['log', 'utils', 'collection', 'ui'], function( log, utils, collection, u
             onBeforePresentationPageShow: function(type, match, ui) {
                  core.refreshPresentations();
             },
+            onBeforeEventPresentationShow:function(type, match, ui) {
+                var params = router.getParams(match[1]);
+                 core.refreshPresentation(params.id);
+            },
             onBeforeSpeakerPageShow: function(type, match, ui) {
                  core.refreshSpeakers();
+            },
+            onBeforeDayPageShow: function(type, match, ui) {
+                var params = router.getParams(match[1]);
+                 core.refreshDay(params.id);
             }
         });
 
@@ -108,13 +118,53 @@ define(['log', 'utils', 'collection', 'ui'], function( log, utils, collection, u
             } ,
             error: function (originalModel, resp, errOptions) { core.onFetchError(originalModel, resp, errOptions, options) },
             fetchUrl: options.url
-
         };
+
         if (OFFLINE) {
             fetchOptions.jsonpCallback = DEBUG_JSON_CALLBACK;
         }
+
         collection.views[options.view].collection.fetch(fetchOptions);
     };
+
+    core.refreshDataEntry = function(options) {
+            $.mobile.showPageLoadingMsg();
+            logger.info("Show " + options.title + " page message!");
+            ui.showFlashMessage(options);
+
+            logger.info("Loading " + options.title + " View");
+            entry.views[options.view] = new entry.EntryView({
+                fetchUrl: options.url,
+                el: options.el,
+                entryTemplate: options.template,
+                parse: options.parse,
+                beforeParse: options.beforeParse,
+                postRender: options.postRender
+            });
+
+            if (entry.views[options.view].entry) {
+                entry.views[options.view].entry.clear();
+            }
+
+            logger.info("Fetch " + options.title + " Data from url: '" + entry.views[options.view].entry.url + "'");
+
+            var fetchOptions = {
+                success: function(model, resp) {
+                    if (options.success) {
+                        options.success(model, resp);
+                    }
+                    core.onFetchSuccess(model, resp, options);
+                } ,
+                error: function (originalModel, resp, errOptions) { core.onFetchError(originalModel, resp, errOptions, options) },
+                fetchUrl: options.url
+            };
+
+            if (OFFLINE) {
+                fetchOptions.jsonpCallback = DEBUG_JSON_CALLBACK;
+            }
+            entry.views[options.view].entry.fetch(fetchOptions);
+        };
+
 
     core.refreshSchedule = function() {
         core.refreshDataList({
@@ -128,6 +178,38 @@ define(['log', 'utils', 'collection', 'ui'], function( log, utils, collection, u
 
                 return data;
             }
+        });
+    };
+
+    core.refreshDay = function(id) {
+        logger.info("Processing day: " + id);
+        core.refreshDataList({
+            page: "#day", title: "Day " + id, el: "#day-list", view: "day", template: $("#schedule-list-tpl").html(),
+            url: utils.getFullUrl('events/' + EVENT_ID + '/schedule/day/' + id + (OFFLINE ? '.json' : '') + '?callback=?'),
+            parse: function(data) {
+                _.each(data, function(slot) {
+                    slot.startTime = core.getScheduleTime(slot.fromTime);
+                    slot.endTime = core.getScheduleTime(slot.toTime);
+                });
+
+                return data;
+            }
+        });
+    };
+
+    core.refreshPresentation = function(id) {
+        logger.info("Processing presentation: " + id);
+        core.refreshDataEntry({
+            page: "#presentation", title: "Presentation", el: "#presentation-details", view: "presentation", template: $("#presentation-tpl").html(),
+            url: utils.getFullUrl('events/presentations/' + id + (OFFLINE ? '.json' : '') + '?callback=?'),
+            parse: function(data) {
+                return data;
+            },
+            postRender: function(data) {
+                $('#presentation-tag-list').listview();
+                ui.switchTitle(data.get('title'));
+            }
+
         });
     };
 

@@ -39,7 +39,6 @@ define(['log'], function( log ) {
                 beforeParse: this.options.beforeParse
             });
             this.collection.bind('reset', this.render, this);
-            this.collection.bind('add', this.add, this);
         },
 
         render: function() {

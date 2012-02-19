@@ -22,6 +22,16 @@ define(['log'], function( log ) {
         }, 500);
     };
 
+
+    // summary:
+    //            Adjust the title of the current view
+    //
+    // title: String
+    //            The title to update the view with
+    ui.switchTitle = function( title ) {
+        $( '.ui-title' ).text( title || "" );
+    };
+
     logger.info("Loaded ui");
 
     return ui;

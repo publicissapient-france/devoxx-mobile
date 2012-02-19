@@ -111,6 +111,26 @@
             </div>
         </div>
 
+        <!-- Day page -->
+        <div align="center" id="day" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+
+            <div data-role="header" data-theme="c" data-divider-theme="a">
+                <h1>Day</h1>
+            </div>
+            <div data-role="content">
+                <ul id="day-list" data-role="listview" data-theme="c"></ul>
+            </div>
+        </div>
+
+        <!-- Presentation page -->
+        <div align="center" id="presentation" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+
+            <div data-role="header" data-theme="c" data-divider-theme="a">
+                <h1>Presentation</h1>
+            </div>
+            <div id="presentation-details" data-role="content"></div>
+        </div>
+
         <!-- Events page -->
         <div align="center" id="events" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
 
@@ -207,22 +227,22 @@
         </script>
 
         <script type="text/html" id="schedule-list-tpl">
-            <% _.each(entries, function(slot) {
-                    if ( slot.get('kind') === 'Talk' ) { %>
+            <% _.each(entries, function(presentation) {
+                    if ( presentation.get('kind') === 'Talk' ) { %>
             <li>
-                <a href="#slot?id=<%= slot.get('id') %>">
-                    <h3><%= slot.get('title') ? slot.get('title') : slot.get('name') %></h3>
-                    <% if ( slot.get('speaker') ) { %>
-                        <p><em>Speaker: <%= slot.get('speaker') %></em></p>
+                <a href="#presentation?id=<%= presentation.get('id') %>">
+                    <h3><%= presentation.get('title') ? presentation.get('title') : presentation.get('name') %></h3>
+                    <% if ( presentation.get('speaker') ) { %>
+                        <p><em>Speaker: <%= presentation.get('speaker') %></em></p>
                     <% } %>
-                    <p><em><%= slot.get('kind') %> - <%= slot.get('room') %></em></p>
-                    <p><em><%= slot.get('type') %></em></p>
-                    <p class="ui-li-aside"><em><%= slot.get('startTime') %> / <%= slot.get('endTime') %></em></p>
+                    <p><em><%= presentation.get('kind') %> - <%= presentation.get('room') %></em></p>
+                    <p><em><%= presentation.get('type') %></em></p>
+                    <p class="ui-li-aside"><em><%= presentation.get('startTime') %> / <%= presentation.get('endTime') %></em></p>
                 </a>
             </li>
             <%      } else { %>
             <li data-role="list-divider">
-                <h3><%= slot.get('code') %> - <%= slot.get('startTime') %> / <%= slot.get('endTime') %></h3>
+                <h3><%= presentation.get('code') %> - <%= presentation.get('startTime') %> / <%= presentation.get('endTime') %></h3>
             </li>
             <%     }
               }); %>
@@ -275,6 +295,25 @@
             </li>
             <% }); %>
         </script>
+
+        <script type="text/html" id="presentation-tpl">
+            <div align="left">
+                <h3>Tags:</h3>
+                <ul id="presentation-tag-list" data-role="listview" data-inset="true" data-theme="c">
+                    <% _.each(entry.get('tags'), function(tag) { %>
+                    <li>
+                        <h3><%= tag.name %></h3>
+                    </li>
+                    <% });
+                    %>
+                </ul>
+                <h3>Summary:</h3>
+                <div id="presentation-summary">
+                    <%= entry.get('summary') %>
+                </div>
+            </div>
+        </script>
+
 
         <script type="text/html" id="flash-message-tpl">
             <div id="flashMessage"  class="ui-bar ui-bar-b">
