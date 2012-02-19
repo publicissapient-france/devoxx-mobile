@@ -193,6 +193,7 @@ define(['log', 'utils', 'collection', 'entry', 'ui'], function( log, utils, coll
 
     core.refreshDay = function(id) {
         logger.info("Processing day: " + id);
+        ui.switchTitle("Day " + id);
         core.refreshDataList({
             page: "#day", title: "Day " + id, el: "#day-list", view: "day", template: $("#schedule-list-tpl").html(),
             url: utils.getFullUrl('events/' + EVENT_ID + '/schedule/day/' + id + (OFFLINE ? '.json' : '') + '?callback=?'),

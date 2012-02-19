@@ -288,10 +288,8 @@
         <script type="text/html" id="track-list-tpl">
             <% _.each(entries, function(track) { %>
             <li>
-                <a href="#track?id=<%= track.get('id') %>">
-                    <h3><%= track.get('name') %></h3>
-                    <p><em><%= track.get('description') %></em></p>
-                </a>
+                <h3><%= track.get('name') %></h3>
+                <p><em><%= track.get('description') %></em></p>
             </li>
             <% }); %>
         </script>
