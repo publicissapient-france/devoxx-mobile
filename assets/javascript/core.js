@@ -203,10 +203,14 @@ define(['log', 'utils', 'collection', 'entry', 'ui'], function( log, utils, coll
             page: "#presentation", title: "Presentation", el: "#presentation-details", view: "presentation", template: $("#presentation-tpl").html(),
             url: utils.getFullUrl('events/presentations/' + id + (OFFLINE ? '.json' : '') + '?callback=?'),
             parse: function(data) {
+                _.each(data.speakers, function(speaker) {
+                    speaker.id = speaker.speakerUri.substring(speaker.speakerUri.lastIndexOf("/") + 1);
+                });
                 return data;
             },
             postRender: function(data) {
                 $('#presentation-tag-list').listview();
+                $('#presentation-speaker-list').listview();
                 ui.switchTitle(data.get('title'));
             }
 

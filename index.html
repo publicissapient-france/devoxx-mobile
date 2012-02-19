@@ -307,6 +307,17 @@
                     <% });
                     %>
                 </ul>
+                <h3>Speakers:</h3>
+                <ul id="presentation-speaker-list" data-role="listview" data-inset="true" data-theme="c">
+                    <%
+
+                    _.each(entry.get('speakers'), function(speaker) { %>
+                    <li>
+                        <a href="#speaker?id=<%= speaker.id %>"><h3><%= speaker.speaker %></h3></a>
+                    </li>
+                    <% });
+                    %>
+                </ul>
                 <h3>Summary:</h3>
                 <div id="presentation-summary">
                     <%= entry.get('summary') %>
