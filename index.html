@@ -68,8 +68,8 @@
                 position: fixed;
                 top: 50%;
                 left: 50%;
-                margin-top: -13%;
-                margin-left: -6%;
+                margin-top: -40px;
+                margin-left: -130px;
             }
 
             div.splash-message {
@@ -95,462 +95,336 @@
                 border-radius: 1em;
             }
 
-            div.spinner-container div.spinner {
-                width: 28px;
-                height: 28px;
+            /* Webkit animation keyframes */
+            @-webkit-keyframes animate-stripes { to { background-position: 0 0; } from { background-position: 44px 0; } }
+            @-moz-keyframes animate-stripes { to { background-position: 0 0; } from { background-position: 36px 0; } }
+            @-o-keyframes animate-stripes { to { background-position: 0 0; } from { background-position: 36px 0; } }
+            @-ms-keyframes animate-stripes { to { background-position: 0 0; } from { background-position: 36px 0; } }
+            @keyframes animate-stripes { to { background-position: 0 0; } from { background-position: 36px 0; }  }
+
+            /* Bar which is placed behind the progress */
+            .ui-progress-bar {
+                /* Usual setup stuff */
                 position: relative;
-                width: 60px;
-                height: 60px;
-                display: inline-block;
+                height: 25px;
+                /* Pad right so we don't cover the borders when fully progressed */
+                padding-right: 2px;
+                /* For browser that don't support gradients, we'll set a blanket background colour */
+                background-color: #abb2bc;
+                /* Rounds the ends, we specify an excessive amount to make sure they are completely rounded */
+                /* Adjust to your liking, and don't forget to adjust to the same amount in .ui-progress */
+                -moz-border-radius: 25px;
+                -webkit-border-radius: 25px;
+                -o-border-radius: 25px;
+                -ms-border-radius: 25px;
+                -khtml-border-radius: 25px;
+                border-radius: 25px;
+                /* Background gradient */
+                background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #949daa), color-stop(100%, #abb2bc));
+                background: -webkit-linear-gradient(#949daa 0%, #abb2bc 100%);
+                background: -moz-linear-gradient(#949daa 0%, #abb2bc 100%);
+                background: -o-linear-gradient(#949daa 0%, #abb2bc 100%);
+                background: -ms-linear-gradient(#949daa 0%, #abb2bc 100%);
+                background: linear-gradient(#949daa 0%, #abb2bc 100%);
+                /* Give it the inset look by adding some shadows and highlights */
+                -moz-box-shadow: inset 0px 1px 2px 0px rgba(0, 0, 0, 0.5), 0px 1px 0px 0px white;
+                -webkit-box-shadow: inset 0px 1px 2px 0px rgba(0, 0, 0, 0.5), 0px 1px 0px 0px white;
+                -o-box-shadow: inset 0px 1px 2px 0px rgba(0, 0, 0, 0.5), 0px 1px 0px 0px white;
+                box-shadow: inset 0px 1px 2px 0px rgba(0, 0, 0, 0.5), 0px 1px 0px 0px white;
+                /* Progress part of the progress bar */
             }
 
-            div.spinner-container div.spinner div {
-                background: #fff;
+            .ui-progress-bar .ui-progress {
+                /* Usual setup stuff */
+                position: relative;
+                display: block;
+                overflow: hidden;
+                /* Height should be 2px less than .ui-progress-bar so as to not cover borders and give it a look of being inset */
+                height: 23px;
+                /* Rounds the ends, we specify an excessive amount to make sure they are completely rounded */
+                /* Adjust to your liking, and don't forget to adjust to the same amount in .ui-progress-bar */
+                -moz-border-radius: 25px;
+                -webkit-border-radius: 25px;
+                -o-border-radius: 25px;
+                -ms-border-radius: 25px;
+                -khtml-border-radius: 25px;
+                border-radius: 25px;
+                /* Set the background size so the stripes work correctly */
+                -webkit-background-size: 44px 44px;
+                -moz-background-size: 36px 36px;
+                /* Webkit */
+                /* For browser that don't support gradients, we'll set a base background colour */
+                background-color: #74d04c;
+                /* Webkit background stripes and gradient */
+                background:
+                -webkit-gradient(linear, 0 0, 44 44,
+                    color-stop(0, rgba(255, 255, 255, 0.90)),
+                    color-stop(0.25, rgba(255, 255, 255, 0.90)),
+                    color-stop(0.26, rgba(255, 255, 255, 0)),
+                    color-stop(0.5, rgba(255, 255, 255, 0)),
+                    color-stop(0.51, rgba(255, 255, 255, 0.90)),
+                    color-stop(0.75, rgba(255, 255, 255, 0.90)),
+                    color-stop(0.76, rgba(255, 255, 255, 0)),
+                    color-stop(1, rgba(255, 255, 255, 0))
+                ),
+                -webkit-gradient(linear, left bottom, left top,
+                    color-stop(0, rgba(255, 255, 255, 0)),
+                    color-stop(1, rgba(255, 255, 255, 0.50))
+                ), #74d04c;
+                /* Mozilla (Firefox etc) background stripes
+                   Note: Mozilla's support for gradients is more true to the original design,
+                         allowing gradients at 30 degrees, as apposed to 45 degress in webkit. */
+                background: -moz-repeating-linear-gradient(top left -45deg,
+                        rgba(255, 255, 255, 1),
+                        rgba(255, 255, 255, 1) 15px,
+                        rgba(255, 255, 255, 0.5) 15px,
+                        rgba(255, 255, 255, 0.5) 30px
+                ),
+                -moz-linear-gradient( rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0) 100% ), #74d04c;
+                -moz-box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.4), inset 0px -1px 1px rgba(0, 0, 0, 0.2);
+                -webkit-box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.4), inset 0px -1px 1px rgba(0, 0, 0, 0.2);
+                -o-box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.4), inset 0px -1px 1px rgba(0, 0, 0, 0.2);
+                box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.4), inset 0px -1px 1px rgba(0, 0, 0, 0.2);
+                /* Give it a higher contrast outline */
+                border: 1px solid #4c8932;
+                /* Animate */
+                -moz-animation: animate-stripes 2s linear infinite;
+                -webkit-animation: animate-stripes 2s linear infinite;
+                -o-animation: animate-stripes 2s linear infinite;
+                -ms-animation: animate-stripes 2s linear infinite;
+                -khtml-animation: animate-stripes 2s linear infinite;
+                animation: animate-stripes 2s linear infinite;
             }
 
-            div.spinner div {
-                width: 12%;
-                height: 26%;
-                background: #000;
-                position: absolute;
-                left: 44.5%;
-                top: 37%;
-                opacity: 0;
-
-                -webkit-animation: fade 1s linear infinite;
-                -webkit-border-radius: 50px;
-                -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-                -moz-animation: fade 1s linear infinite;
-                -moz-border-radius: 50px;
-                -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-                -o-animation: fade 1s linear infinite;
-                -o-border-radius: 50px;
-                -o-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-                -ms-animation: fade 1s linear infinite;
-                -ms-border-radius: 50px;
-                -ms-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-                animation: fade 1s linear infinite;
-                border-radius: 50px;
-                box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+            .ui-progress-bar.error .ui-progress {
+                background-color: #CCCCCC !important;
+                border: 1px solid #666666;
             }
-
-            div.spinner div.bar1 {
-                -webkit-transform: rotate(0deg) translate(0, -142%);
-                -webkit-animation-delay: 0s;
-                -moz-transform: rotate(0deg) translate(0, -142%);
-                -moz-animation-delay: 0s;
-                -o-transform: rotate(0deg) translate(0, -142%);
-                -o-animation-delay: 0s;
-                -ms-transform: rotate(0deg) translate(0, -142%);
-                -ms-animation-delay: 0s;
-                transform: rotate(0deg) translate(0, -142%);
-                animation-delay: 0s;
-            }
-
-            div.spinner div.bar2 {
-                -webkit-transform: rotate(30deg) translate(0, -142%);
-                -webkit-animation-delay: -0.9167s;
-                -moz-transform: rotate(30deg) translate(0, -142%);
-                -moz-animation-delay: -0.9167s;
-                -o-transform: rotate(30deg) translate(0, -142%);
-                -o-animation-delay: -0.9167s;
-                -ms-transform: rotate(30deg) translate(0, -142%);
-                -ms-animation-delay: -0.9167s;
-                transform: rotate(30deg) translate(0, -142%);
-                animation-delay: -0.9167s;
-            }
-
-            div.spinner div.bar3 {
-                -webkit-transform: rotate(60deg) translate(0, -142%);
-                -webkit-animation-delay: -0.833s;
-                -moz-transform: rotate(60deg) translate(0, -142%);
-                -moz-animation-delay: -0.833s;
-                -o-transform: rotate(60deg) translate(0, -142%);
-                -o-animation-delay: -0.833s;
-                -ms-transform: rotate(60deg) translate(0, -142%);
-                -ms-animation-delay: -0.833s;
-                transform: rotate(60deg) translate(0, -142%);
-                animation-delay: -0.833s;
-            }
-
-            div.spinner div.bar4 {
-                -webkit-transform: rotate(90deg) translate(0, -142%);
-                -webkit-animation-delay: -0.75s;
-                -moz-transform: rotate(90deg) translate(0, -142%);
-                -moz-animation-delay: -0.75s;
-                -o-transform: rotate(90deg) translate(0, -142%);
-                -o-animation-delay: -0.75s;
-                -ms-transform: rotate(90deg) translate(0, -142%);
-                -ms-animation-delay: -0.75s;
-                transform: rotate(90deg) translate(0, -142%);
-                animation-delay: -0.75s;
-            }
-
-            div.spinner div.bar5 {
-                -webkit-transform: rotate(120deg) translate(0, -142%);
-                -webkit-animation-delay: -0.667s;
-                -moz-transform: rotate(120deg) translate(0, -142%);
-                -moz-animation-delay: -0.667s;
-                -o-transform: rotate(120deg) translate(0, -142%);
-                -o-animation-delay: -0.667s;
-                -ms-transform: rotate(120deg) translate(0, -142%);
-                -ms-animation-delay: -0.667s;
-                transform: rotate(120deg) translate(0, -142%);
-                animation-delay: -0.667s;
-            }
-
-            div.spinner div.bar6 {
-                -webkit-transform: rotate(150deg) translate(0, -142%);
-                -webkit-animation-delay: -0.5833s;
-                -moz-transform: rotate(150deg) translate(0, -142%);
-                -moz-animation-delay: -0.5833s;
-                -o-transform: rotate(150deg) translate(0, -142%);
-                -o-animation-delay: -0.5833s;
-                -ms-transform: rotate(150deg) translate(0, -142%);
-                -ms-animation-delay: -0.5833s;
-                transform: rotate(150deg) translate(0, -142%);
-                animation-delay: -0.5833s;
-            }
-
-            div.spinner div.bar7 {
-                -webkit-transform: rotate(180deg) translate(0, -142%);
-                -webkit-animation-delay: -0.5s;
-                -moz-transform: rotate(180deg) translate(0, -142%);
-                -moz-animation-delay: -0.5s;
-                -o-transform: rotate(180deg) translate(0, -142%);
-                -o-animation-delay: -0.5s;
-                -ms-transform: rotate(180deg) translate(0, -142%);
-                -ms-animation-delay: -0.5s;
-                transform: rotate(180deg) translate(0, -142%);
-                animation-delay: -0.5s;
-            }
-
-            div.spinner div.bar8 {
-                -webkit-transform: rotate(210deg) translate(0, -142%);
-                -webkit-animation-delay: -0.41667s;
-                -moz-transform: rotate(210deg) translate(0, -142%);
-                -moz-animation-delay: -0.41667s;
-                -o-transform: rotate(210deg) translate(0, -142%);
-                -o-animation-delay: -0.41667s;
-                -ms-transform: rotate(210deg) translate(0, -142%);
-                -ms-animation-delay: -0.41667s;
-                transform: rotate(210deg) translate(0, -142%);
-                animation-delay: -0.41667s;
-            }
-
-            div.spinner div.bar9 {
-                -webkit-transform: rotate(240deg) translate(0, -142%);
-                -webkit-animation-delay: -0.333s;
-                -moz-transform: rotate(240deg) translate(0, -142%);
-                -moz-animation-delay: -0.333s;
-                -o-transform: rotate(240deg) translate(0, -142%);
-                -o-animation-delay: -0.333s;
-                -ms-transform: rotate(240deg) translate(0, -142%);
-                -ms-animation-delay: -0.333s;
-                transform: rotate(240deg) translate(0, -142%);
-                animation-delay: -0.333s;
-            }
-
-            div.spinner div.bar10 {
-                -webkit-transform: rotate(270deg) translate(0, -142%);
-                -webkit-animation-delay: -0.25s;
-                -moz-transform: rotate(270deg) translate(0, -142%);
-                -moz-animation-delay: -0.25s;
-                -o-transform: rotate(270deg) translate(0, -142%);
-                -o-animation-delay: -0.25s;
-                -ms-transform: rotate(270deg) translate(0, -142%);
-                -ms-animation-delay: -0.25s;
-                transform: rotate(270deg) translate(0, -142%);
-                animation-delay: -0.25s;
-            }
-
-            div.spinner div.bar11 {
-                -webkit-transform: rotate(300deg) translate(0, -142%);
-                -webkit-animation-delay: -0.1667s;
-                -moz-transform: rotate(300deg) translate(0, -142%);
-                -moz-animation-delay: -0.1667s;
-                -o-transform: rotate(300deg) translate(0, -142%);
-                -o-animation-delay: -0.1667s;
-                -ms-transform: rotate(300deg) translate(0, -142%);
-                -ms-animation-delay: -0.1667s;
-                transform: rotate(300deg) translate(0, -142%);
-                animation-delay: -0.1667s;
-            }
-
-            div.spinner div.bar12 {
-                -webkit-transform: rotate(330deg) translate(0, -142%);
-                -webkit-animation-delay: -0.0833s;
-                -moz-transform: rotate(330deg) translate(0, -142%);
-                -moz-animation-delay: -0.0833s;
-                -o-transform: rotate(330deg) translate(0, -142%);
-                -o-animation-delay: -0.0833s;
-                -ms-transform: rotate(330deg) translate(0, -142%);
-                -ms-animation-delay: -0.0833s;
-                transform: rotate(330deg) translate(0, -142%);
-                animation-delay: -0.0833s;
-            }
-
-            @-webkit-keyframes fade {
-               from {opacity: 1;}
-               to {opacity: 0.25;}
-             }
-
-            @-moz-keyframes fade {
-               from {opacity: 1;}
-               to {opacity: 0.25;}
-             }
-
-            @-ms-keyframes fade {
-               from {opacity: 1;}
-               to {opacity: 0.25;}
-             }
-
-            @-ms-keyframes fade {
-               from {opacity: 1;}
-               to {opacity: 0.25;}
-             }
-
-            @keyframes fade {
-               from {opacity: 1;}
-               to {opacity: 0.25;}
-             }
-
         </style>
 
     </head>
 
     <body>
 
-        <div id="splash-screen" class="fullscreen">
+        <div id="splash-screen" class="fullscreen" style="background: #FFFFFF;">
             <div class="spinner-container grey centered">
-                <div class="spinner">
-                  <div class="bar1"></div>
-                  <div class="bar2"></div>
-                  <div class="bar3"></div>
-                  <div class="bar4"></div>
-                  <div class="bar5"></div>
-                  <div class="bar6"></div>
-                  <div class="bar7"></div>
-                  <div class="bar8"></div>
-                  <div class="bar9"></div>
-                  <div class="bar10"></div>
-                  <div class="bar11"></div>
-                  <div class="bar12"></div>
+                <div class="ui-progress-bar error ui-container" id="progress_bar" style="width: 210px; height:10px;">
+                  <div class="ui-progress" style="width: 100%; height: 8px;"></div>
                 </div>
                 <div id="splash-message" class="splash-message">Loading, please wait ...</div>
             </div>
         </div>
 
-        <!-- home page -->
-        <div align="center" id="home" data-role="page" class="home" data-add-back-btn="true">
-            <div id="home-header">
-                <h1 id="logo"><img class="xebia-logo" src="assets/image/logo-xebia.png" alt="Xebia" /></h1>
-                <p id="version">Alpha Release</p>
+        <div id="pages" style="display: none;">
+    
+            <!-- home page -->
+            <div align="center" id="home" data-role="page" class="home" data-add-back-btn="true">
+                <div id="home-header">
+                    <h1 id="logo"><img class="xebia-logo" src="assets/image/logo-xebia.png" alt="Xebia" /></h1>
+                    <p id="version">Alpha Release</p>
+                </div>
+                <div id="home-content" data-role="content">
+                    <div id="home-content-dates">
+                        <ul id="home-content-dates-list" data-role="listview" data-inset="true" data-theme="c">
+                            <li>
+                                <a href="#day?id=1">
+                                    <h3 align="center">Mercredi  - 18 Avril 2012</h3>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#day?id=2">
+                                    <h3 align="center">Jeudi  - 19 Avril 2012</h3>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#day?id=3">
+                                    <h3 align="center">Vendredi  - 20 Avril 2012</h3>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+    
+                    <div id="home-content-devoxx-paris">
+                        <ul id="home-content-devoxx-paris-list" data-role="listview" data-inset="true" data-theme="c">
+                            <li>
+                                 <a href="#schedule">
+                                     <h3 align="center">Schedule</h3>
+                                 </a>
+                            </li>
+                            <li>
+                                 <a href="#speakers">
+                                     <h3 align="center">Speakers</h3>
+                                 </a>
+                            </li>
+                            <li>
+                                  <a href="#presentations">
+                                      <h3 align="center">Presentations</h3>
+                                  </a>
+                            </li>
+                            <li>
+                                  <a href="#rooms">
+                                      <h3 align="center">Rooms</h3>
+                                  </a>
+                            </li>
+                            <li>
+                                  <a href="#tracks">
+                                      <h3 align="center">Tracks</h3>
+                                  </a>
+                            </li>
+                        </ul>
+    
+                    </div>
+    
+                    <div id="home-content-other">
+                        <ul id="home-content-other-list" data-role="listview" data-inset="true" data-theme="c">
+                            <li>
+                                <a href="#events">
+                                    <h3 align="center">All Devoxx Events</h3>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#about">
+                                    <h3 align="center">About</h3>
+                                </a>
+                            </li>
+                        </ul>
+    
+                    </div>
+                </div>
+                <div id="home-footer"  class="home-footer">
+                    <img src="assets/image/devoxx-logo-big-white.png" class="devoxx-logo" style="padding-top:30px;padding-bottom:30px;" />
+                    <div align="right" style="border-top: 1px solid #CCC; border-bottom: 1px solid #CCC; background: #FEFEFE;padding:10px;">
+                        <a href="https://twitter.com/#!/xebiafr" rel="external" alt="Follow us on Twitter">
+                            <img src="assets/image/twitter-black-transparent.png" class="home-footer-img" height="24" />
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div id="home-content" data-role="content">
-                <div id="home-content-dates">
-                    <ul id="home-content-dates-list" data-role="listview" data-inset="true" data-theme="c">
-                        <li>
-                            <a href="#day?id=1">
-                                <h3 align="center">Mercredi  - 18 Avril 2012</h3>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#day?id=2">
-                                <h3 align="center">Jeudi  - 19 Avril 2012</h3>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#day?id=3">
-                                <h3 align="center">Vendredi  - 20 Avril 2012</h3>
-                            </a>
-                        </li>
-                    </ul>
+    
+            <!-- Schedule page -->
+            <div align="center" id="schedule" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+    
+                <div data-role="header" data-theme="c" data-divider-theme="a">
+                    <h1>Schedule</h1>
                 </div>
-
-                <div id="home-content-devoxx-paris">
-                    <ul id="home-content-devoxx-paris-list" data-role="listview" data-inset="true" data-theme="c">
-                        <li>
-                             <a href="#schedule">
-                                 <h3 align="center">Schedule</h3>
-                             </a>
-                        </li>
-                        <li>
-                             <a href="#speakers">
-                                 <h3 align="center">Speakers</h3>
-                             </a>
-                        </li>
-                        <li>
-                              <a href="#presentations">
-                                  <h3 align="center">Presentations</h3>
-                              </a>
-                        </li>
-                        <li>
-                              <a href="#rooms">
-                                  <h3 align="center">Rooms</h3>
-                              </a>
-                        </li>
-                        <li>
-                              <a href="#tracks">
-                                  <h3 align="center">Tracks</h3>
-                              </a>
-                        </li>
-                    </ul>
-
-                </div>
-
-                <div id="home-content-other">
-                    <ul id="home-content-other-list" data-role="listview" data-inset="true" data-theme="c">
-                        <li>
-                            <a href="#events">
-                                <h3 align="center">All Devoxx Events</h3>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#about">
-                                <h3 align="center">About</h3>
-                            </a>
-                        </li>
-                    </ul>
-
+                <div data-role="content">
+                    <ul id="schedule-list" data-role="listview" data-theme="c"></ul>
                 </div>
             </div>
-            <div id="home-footer"  class="home-footer">
-                <img src="assets/image/devoxx-logo-big-white.png" class="devoxx-logo" style="padding-top:30px;padding-bottom:30px;" />
-                <div align="right" style="border-top: 1px solid #CCC; border-bottom: 1px solid #CCC; background: #FEFEFE;padding:10px;">
-                    <a href="https://twitter.com/#!/xebiafr" rel="external" alt="Follow us on Twitter">
-                        <img src="assets/image/twitter-black-transparent.png" class="home-footer-img" height="24" />
+    
+            <!-- Day page -->
+            <div align="center" id="day" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+    
+                <div data-role="header" data-theme="c" data-divider-theme="a">
+                    <h1>Day</h1>
+                </div>
+                <div data-role="content">
+                    <ul id="day-list" data-role="listview" data-theme="c"></ul>
+                </div>
+            </div>
+    
+            <!-- Presentation page -->
+            <div align="center" id="presentation" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+    
+                <div data-role="header" data-theme="c" data-divider-theme="a">
+                    <h1>Presentation</h1>
+                </div>
+                <div id="presentation-details" data-role="content"></div>
+            </div>
+    
+            <!-- Events page -->
+            <div align="center" id="events" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+    
+                <div data-role="header" data-theme="c">
+                    <h1>Events</h1>
+                </div>
+                <div data-role="content">
+                    <ul id="event-list" data-role="listview" data-theme="c"></ul>
+                </div>
+            </div>
+    
+            <!-- Event page -->
+            <div align="center" id="event" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+    
+                <div data-role="header" data-theme="c" data-divider-theme="a">
+                    <h1>Event</h1>
+                </div>
+                <div id="event-details" data-role="content"></div>
+            </div>
+    
+            <!-- Speakers page -->
+            <div align="center" id="speakers" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+    
+                <div data-role="header" data-theme="c">
+                    <h1>Speakers</h1>
+                </div>
+                <div data-role="content">
+                    <ul id="speaker-list" data-role="listview" data-theme="c"></ul>
+                </div>
+            </div>
+    
+            <!-- Speaker page -->
+            <div align="center" id="speaker" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+    
+                <div data-role="header" data-theme="c" data-divider-theme="a">
+                    <h1>Speaker</h1>
+                </div>
+                <div id="speaker-details" data-role="content"></div>
+            </div>
+    
+            <!-- Rooms page -->
+            <div align="center" id="rooms" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+    
+                <div data-role="header" data-theme="c">
+                    <h1>Room</h1>
+                </div>
+                <div data-role="content">
+                    <ul id="room-list" data-role="listview" data-theme="c"></ul>
+                </div>
+            </div>
+    
+            <!-- Presentation page -->
+            <div align="center" id="presentations" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+    
+                <div data-role="header" data-theme="c">
+                    <h1>Presentation</h1>
+                </div>
+                <div data-role="content">
+                    <ul id="presentation-list" data-role="listview" data-theme="c"></ul>
+                </div>
+            </div>
+    
+            <!-- Rooms page -->
+            <div align="center" id="tracks" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+    
+                <div data-role="header" data-theme="c">
+                    <h1>Track</h1>
+                </div>
+                <div data-role="content">
+                    <ul id="track-list" data-role="listview" data-theme="c"></ul>
+                </div>
+            </div>
+    
+            <!-- About page -->
+            <div align="center" id="about" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+                <div data-role="header" data-theme="c">
+                    <h1>About</h1>
+                </div>
+                <div id="about-header">
+                    <h1 id="logo-about">
+                        <img src="assets/image/logo-xebia.png" alt="jQuery Mobile Framework" class="xebia-logo" />
+                    </h1>
+                </div>
+                <div data-role="content" style="width: 50%;">
+                    <a href="https://twitter.com/#!/xebiafr" rel="external" alt="Follow us on Twitter" data-role="button">
+                         <img src="assets/image/twitter-black-transparent.png" class="home-footer-img" style="height:24px;" />
+                    </a>
+                    <a href="http://blog.xebia.fr" alt="Blog Xebia" data-role="button">
+                        <img src="assets/image/wordpress.png" class="home-footer-img" style="height: 24px;" />
                     </a>
                 </div>
             </div>
-        </div>
 
-        <!-- Schedule page -->
-        <div align="center" id="schedule" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
-
-            <div data-role="header" data-theme="c" data-divider-theme="a">
-                <h1>Schedule</h1>
-            </div>
-            <div data-role="content">
-                <ul id="schedule-list" data-role="listview" data-theme="c"></ul>
-            </div>
-        </div>
-
-        <!-- Day page -->
-        <div align="center" id="day" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
-
-            <div data-role="header" data-theme="c" data-divider-theme="a">
-                <h1>Day</h1>
-            </div>
-            <div data-role="content">
-                <ul id="day-list" data-role="listview" data-theme="c"></ul>
-            </div>
-        </div>
-
-        <!-- Presentation page -->
-        <div align="center" id="presentation" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
-
-            <div data-role="header" data-theme="c" data-divider-theme="a">
-                <h1>Presentation</h1>
-            </div>
-            <div id="presentation-details" data-role="content"></div>
-        </div>
-
-        <!-- Events page -->
-        <div align="center" id="events" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
-
-            <div data-role="header" data-theme="c">
-                <h1>Events</h1>
-            </div>
-            <div data-role="content">
-                <ul id="event-list" data-role="listview" data-theme="c"></ul>
-            </div>
-        </div>
-
-        <!-- Event page -->
-        <div align="center" id="event" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
-
-            <div data-role="header" data-theme="c" data-divider-theme="a">
-                <h1>Event</h1>
-            </div>
-            <div id="event-details" data-role="content"></div>
-        </div>
-
-        <!-- Speakers page -->
-        <div align="center" id="speakers" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
-
-            <div data-role="header" data-theme="c">
-                <h1>Speakers</h1>
-            </div>
-            <div data-role="content">
-                <ul id="speaker-list" data-role="listview" data-theme="c"></ul>
-            </div>
-        </div>
-
-        <!-- Speaker page -->
-        <div align="center" id="speaker" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
-
-            <div data-role="header" data-theme="c" data-divider-theme="a">
-                <h1>Speaker</h1>
-            </div>
-            <div id="speaker-details" data-role="content"></div>
-        </div>
-
-        <!-- Rooms page -->
-        <div align="center" id="rooms" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
-
-            <div data-role="header" data-theme="c">
-                <h1>Room</h1>
-            </div>
-            <div data-role="content">
-                <ul id="room-list" data-role="listview" data-theme="c"></ul>
-            </div>
-        </div>
-
-        <!-- Presentation page -->
-        <div align="center" id="presentations" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
-
-            <div data-role="header" data-theme="c">
-                <h1>Presentation</h1>
-            </div>
-            <div data-role="content">
-                <ul id="presentation-list" data-role="listview" data-theme="c"></ul>
-            </div>
-        </div>
-
-        <!-- Rooms page -->
-        <div align="center" id="tracks" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
-
-            <div data-role="header" data-theme="c">
-                <h1>Track</h1>
-            </div>
-            <div data-role="content">
-                <ul id="track-list" data-role="listview" data-theme="c"></ul>
-            </div>
-        </div>
-
-        <!-- About page -->
-        <div align="center" id="about" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
-            <div data-role="header" data-theme="c">
-                <h1>About</h1>
-            </div>
-            <div id="about-header">
-                <h1 id="logo-about">
-                    <img src="assets/image/logo-xebia.png" alt="jQuery Mobile Framework" class="xebia-logo" />
-                </h1>
-            </div>
-            <div data-role="content" style="width: 50%;">
-
-                <a href="https://twitter.com/#!/xebiafr" rel="external" alt="Follow us on Twitter" data-role="button">
-                     <img src="assets/image/twitter-black-transparent.png" class="home-footer-img" style="height:24px;" />
-                </a>
-
-                <a href="http://blog.xebia.fr" alt="Blog Xebia" data-role="button">
-                    <img src="assets/image/wordpress.png" class="home-footer-img" style="height: 24px;" />
-                </a>
-
-
-            </div>
         </div>
 
         <script type="text/html" id="schedule-list-tpl">

@@ -1,4 +1,4 @@
-var DEBUG = false;
+var DEBUG = true;
 var SAFE = true;
 var OFFLINE = false;
 var PROXY = true;
@@ -83,6 +83,7 @@ var init = function() {
             if (SAFE) {
                 $('#splash-screen').hide();
                 $('body').show();
+                $('#pages').show();
             }
         });
 
