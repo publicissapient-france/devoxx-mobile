@@ -71,7 +71,7 @@ var init = function() {
 
             logger.info("[mobileinit] Event handled");
 
-            $.mobile.defaultPageTransition = 'fade';
+            $.mobile.defaultPageTransition = 'none';
 
             $.mobile.jqmRouter = $.mobile.jqmRouter || {};
             $.mobile.jqmRouter.fixFirstPageDataUrl = true;

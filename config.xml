@@ -3,10 +3,10 @@
         xmlns="http://www.w3.org/ns/widgets"
 	    xmlns:gap="http://phonegap.com/ns/1.0">
 
-	<name>Xebia Blog</name>
+	<name>Devoxx 2012</name>
 
 	<description>
-		Xebia blog mobile version
+		Devoxx 2012 mobile version
 	</description>
 
 	<author href="http://akinsella.github.com" email="akinsella@xebia.fr">
