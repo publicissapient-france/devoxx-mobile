@@ -32,21 +32,21 @@ var init = function() {
 
     require.config({
         paths: {
-            'text':        'javascript/lib/require/require.text-1.0.2' + ( DEBUG ? '.min' : ''),
-            'order':       'javascript/lib/require/require.order-1.0.5.min',
-            'core':      'javascript/core',
-            'app':         'javascript/app',
-            'utils':       'javascript/utils',
-            'ui':          'javascript/ui',
-            'db':          'javascript/db',
-            'log':         'javascript/log',
-            'collection':  'javascript/collection',
-            'entry':       'javascript/entry',
-            'jqmr':        'javascript/lib/jquerymobile/jquery.mobile.router-0.6' + ( DEBUG ? '.min' : ''),
-            'jqm':         'javascript/lib/jquerymobile/jquery.mobile-1.0.1' + ( DEBUG ? '.min' : ''),
-            'phonegap':    'javascript/lib/phonegap/phonegap-1.4.0' + ( DEBUG ? '.min' : '')
+            'text':        'lib/require/require.text-1.0.2' + ( DEBUG ? '.min' : ''),
+            'order':       'lib/require/require.order-1.0.5.min',
+            'core':        'core',
+            'app':         'app',
+            'utils':       'utils',
+            'ui':          'ui',
+            'db':          'db',
+            'log':         'log',
+            'collection':  'collection',
+            'entry':       'entry',
+            'jqmr':        'lib/jquerymobile/jquery.mobile.router-0.6' + ( DEBUG ? '.min' : ''),
+            'jqm':         'lib/jquerymobile/jquery.mobile-1.0.1' + ( DEBUG ? '.min' : ''),
+            'phonegap':    'lib/phonegap/phonegap-1.4.0' + ( DEBUG ? '.min' : '')
         },
-        baseUrl: 'www'
+        baseUrl: 'javascript'
     });
 
     console.log("[app][require] Requiring base application modules");
