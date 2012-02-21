@@ -132,7 +132,8 @@ img.menu-img {
 }
 
 #about-link-buttons {
-    width: 75%;
+    width: 80%;
+    max-width: 320px;
 }
 
 .ui-mobile #home-header h1 {
