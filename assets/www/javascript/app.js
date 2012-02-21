@@ -1,4 +1,4 @@
-var DEBUG = true;
+var DEBUG = false;
 var SAFE = true;
 var OFFLINE = false;
 var PROXY = true;
@@ -32,8 +32,8 @@ var init = function() {
 
     require.config({
         paths: {
-            'text':        'javascript/lib/require/require.text-1.0.2',
-            'order':       'javascript/lib/require/require.order-1.0.5',
+            'text':        'javascript/lib/require/require.text-1.0.2' + ( DEBUG ? '.min' : ''),
+            'order':       'javascript/lib/require/require.order-1.0.5.min',
             'core':      'javascript/core',
             'app':         'javascript/app',
             'utils':       'javascript/utils',
@@ -42,11 +42,11 @@ var init = function() {
             'log':         'javascript/log',
             'collection':  'javascript/collection',
             'entry':       'javascript/entry',
-            'jqmr':        'javascript/lib/jquerymobile/jquery.mobile.router-0.6',
-            'jqm':         'javascript/lib/jquerymobile/jquery.mobile-1.0.1',
-            'phonegap':    'javascript/lib/phonegap/phonegap-1.4.0'
+            'jqmr':        'javascript/lib/jquerymobile/jquery.mobile.router-0.6' + ( DEBUG ? '.min' : ''),
+            'jqm':         'javascript/lib/jquerymobile/jquery.mobile-1.0.1' + ( DEBUG ? '.min' : ''),
+            'phonegap':    'javascript/lib/phonegap/phonegap-1.4.0' + ( DEBUG ? '.min' : '')
         },
-        baseUrl: 'assets'
+        baseUrl: 'www'
     });
 
     console.log("[app][require] Requiring base application modules");

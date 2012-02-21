@@ -18,21 +18,21 @@
 	</gap:platforms>
 
     <!-- the default attribute can also be used -->
-    <icon src="assets/image/icons/icon.png" default="true" />
+    <icon src="assets/www/image/icons/icon.png" default="true" />
 
     <!-- specifies the icon to be displayed when hovered over (on BlackBerry) -->
     <!-- <icon src="icons/icon-hover.png" hover="true" /> -->
 
     <!-- iOS requires specific dimensions for icons; classic iPhone screens, Retina
         displays, and iPad screens respectively -->
-    <icon src="assets/image/icons/icon-iphone-57.png" width="57" height="57"/>
-    <icon src="assets/image/icons/icon-iphone-72.png" width="72" height="72"/>
-    <icon src="assets/image/icons/icon-iphone-114.png" width="114" height="114"/>
+    <icon src="assets/www/image/icons/icon-iphone-57.png" width="57" height="57"/>
+    <icon src="assets/www/image/icons/icon-iphone-72.png" width="72" height="72"/>
+    <icon src="assets/www/image/icons/icon-iphone-114.png" width="114" height="114"/>
 
     <!-- Android requires specific dimensions; ldpi, mdpi, and hdpi respectively -->
-    <icon src="assets/image/icons/icon-android-36.png" width="36" height="36"/>
-    <icon src="assets/image/icons/icon-android-48.png" width="48" height="48"/>
-    <icon src="assets/image/icons/icon-android-72.png" width="72" height="72"/>
+    <icon src="assets/www/image/icons/icon-android-36.png" width="36" height="36"/>
+    <icon src="assets/www/image/icons/icon-android-48.png" width="48" height="48"/>
+    <icon src="assets/www/image/icons/icon-android-72.png" width="72" height="72"/>
 
 
     <!-- if a single splash screen is specified it will be used for all platforms.
@@ -46,8 +46,12 @@
 
 	<!-- <feature name="http://api.phonegap.com/1.0/geolocation"/> -->
 	<feature name="http://api.phonegap.com/1.0/network"/>
+	<feature name="http://api.phonegap.com/1.0/file"/>
 
 	<!-- sample preference specification -->
 	<!-- <preference name="autorotate" value="false" readonly="true"/> -->
     <preference name="phonegap-version" value="1.4.1" />
+    <preference name="fullscreen" value="true" />
+    <preference name="target-device" value="universal" />
+
 </widget>
