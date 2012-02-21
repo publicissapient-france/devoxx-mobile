@@ -1,4 +1,4 @@
-var DEBUG = false;
+var DEBUG = true;
 var SAFE = true;
 var OFFLINE = false;
 var PROXY = true;
