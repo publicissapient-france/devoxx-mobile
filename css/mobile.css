@@ -118,17 +118,21 @@ img.menu-img {
 
 
 .ui-mobile #home-content-dates {
-    width: 80%;
+    width: 100%;
     padding-bottom: 20px;
 }
 
 .ui-mobile #home-content-devoxx-paris {
-    width: 80%;
+    width: 100%;
     padding-bottom: 20px;
 }
 
 .ui-mobile #home-content-other {
-    width: 80%;
+    width: 100%;
+}
+
+#about-link-buttons {
+    width: 75%;
 }
 
 .ui-mobile #home-header h1 {
