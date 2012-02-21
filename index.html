@@ -613,8 +613,12 @@
             </div>
         </script>
 
-        <script src="javascript/lib/date/date-2007.11.min.js" type="text/javascript"  charset="utf-8"></script>
-        <script src="javascript/lib/json/json2.min.js"></script>
+        <script src="javascript/lib/date/date-2007.11.min.js" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript">
+            console.log("*** windows.JSON = " + window.JSON);
+            window.JSON = null;
+        </script>
+        <script src="javascript/lib/json/json2.js"></script>
         <script src="javascript/lib/lawnchair/lawnchair-0.6.1.js" type="text/javascript"  charset="utf-8"></script>
         <script src="javascript/lib/lawnchair/lawnchair-adapter-webkit-sqlite-0.6.1.js" type="text/javascript"  charset="utf-8"></script>
 
