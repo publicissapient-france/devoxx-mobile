@@ -40,6 +40,7 @@
     <!-- iOS requires specific dimensions for different devices; classic iPhone
       screens, Retina displays, and iPad screens -->
     <gap:splash src="splashes/splash.png"/>
+    <gap:splash src="splashes/splash.png" width="480" height="800"/>
     <gap:splash src="splashes/retina.png" width="640" height="960"/>
     <gap:splash src="splashes/ipad-portrait.png" width="768" height="1004"/>
     <gap:splash src="splashes/ipad-landscape.png" width="1024" height="748"/>
