@@ -1,4 +1,5 @@
-var DEBUG = true;
+var DEFAULT_DEBUG_MODE = false;
+var DEBUG = DEFAULT_DEBUG_MODE || getLocationParameterByName('debug') === 'true';
 var SAFE = true;
 var OFFLINE = false;
 var PROXY = true;
@@ -52,8 +53,8 @@ var init = function() {
 
     console.log("[app][require] Requiring base application modules");
 
-    require(['require', 'log', 'order!jqmr', 'order!core', 'order!analytics', 'db', 'app', 'utils', 'ui', 'collection', 'entry', 'phonegap' ],
-        function( require, log, jqmr, core, analytics ) {
+    require(['require', 'order!log', 'order!analytics', 'order!jqmr', 'order!core', 'db', 'app', 'utils', 'ui', 'collection', 'entry', 'phonegap' ],
+        function( require, log, analytics, jqmr, core ) {
         
         var logger = log.getLogger("app");
 
@@ -98,5 +99,18 @@ var init = function() {
     });
 
 };
+
+function getLocationParameterByName( name ) {
+    name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+    var regex = new RegExp( "[\\?&]" + name + "=([^&#]*)" );
+    var results = regex.exec( window.location.href );
+    if( results == null ) {
+        return "";
+    }
+    else {
+        return decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+}
+
 
 setTimeout(init, WAIT_TIME);
