@@ -245,6 +245,16 @@
                         </ul>
                     </div>
 
+                    <div id="home-content-devoxx-contest">
+                        <ul id="home-content-devoxx-contest-list" data-role="listview" data-inset="true" data-theme="c">
+                            <li>
+                                <a href="#register" alt="Register">
+                                    <h3 align="center">Register for Contest !</h3>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
                     <div id="home-content-devoxx-paris">
                         <ul id="home-content-devoxx-paris-list" data-role="listview" data-inset="true" data-theme="c">
                             <li>
@@ -394,7 +404,7 @@
                     <ul id="presentation-list" data-role="listview" data-theme="c"></ul>
                 </div>
             </div>
-
+            
             <!-- Rooms page -->
             <div align="center" id="tracks" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
 
@@ -403,6 +413,62 @@
                 </div>
                 <div data-role="content">
                     <ul id="track-list" data-role="listview" data-theme="c"></ul>
+                </div>
+            </div>
+
+            <!-- Register page -->
+            <div align="center" id="register" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+
+                <div data-role="header" data-theme="c">
+                    <h1>Contest</h1>
+                </div>
+                <div id="register-content" data-role="content">
+
+                    <div align="left">
+
+                        <div id="contest-form-submitted-notification" style="display: none;">
+                            <p>Thanks for the registration!</p>
+                        </div>
+                        <div id="contest-form-already-submitted-notification" style="display: none;">
+                            <p>Registration laready submitted!</p>
+                        </div>
+
+                        <div id="contest-description">
+                            <p><em>Description du concours</em></p>
+                        </div>
+
+                        <form id="register-form" style="display: none;">
+
+                            <div align="left">
+                                <div data-role="fieldcontain">
+                                     <label for="register-firstname">Firstname:</label>
+                                     <input type="text" name="firstname" id="register-firstname" value=""/>
+                                 </div>
+
+                                 <div data-role="fieldcontain">
+                                     <label for="register-lastname">Lastname:</label>
+                                     <input type="text" name="lastname" id="register-lastname" value=""/>
+                                 </div>
+
+                                 <div data-role="fieldcontain">
+                                     <label for="register-email">Email:</label>
+                                     <input type="email" name="email" id="register-email" value=""/>
+                                 </div>
+
+                                 <div data-role="fieldcontain">
+                                     <label for="register-comment">Comment:</label>
+                                     <textarea cols="40" rows="8" name="comment" id="register-comment" style="height:100px;"></textarea>
+                                 </div>
+
+                                 <div data-role="fieldcontain">
+                                     <button id="register-submit" type="submit" data-theme="a">Register !</button>
+                                 </div>
+                            </div>
+
+                         </form>
+
+                    </div>
+
                 </div>
             </div>
 

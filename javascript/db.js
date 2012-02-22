@@ -8,10 +8,6 @@ define(['log'], function( log ) {
 
     var DB_NAME = "xebia";
 
-    var DEFAULT_OPTIONS = {
-        cacheData: false
-    };
-
     logger.info("Creating Lawnchair object");
 
     var lawnchair = new Lawnchair({name: DB_NAME}, function(database) {
@@ -24,29 +20,23 @@ define(['log'], function( log ) {
         return DB_NAME;
     };
 
-    db.getOptions = function() {
-        return $.extend(DEFAULT_OPTIONS);
+    db.save = function(key, value) {
+        lawnchair.save({key: key, value: value});
     };
 
-    db._init = function() {
-        logger.info("Verifying options");
+    db.get = function(key, callback) {
+        lawnchair.get(key, callback);
+    };
 
-        lawnchair.get("options", function(options) {
-            if (!options) {
-                logger.info("No options");
-                options = DEFAULT_OPTIONS;
-                logger.info("Saving options");
-                lawnchair.save({ key: "options", value: options });
-            }
+    db.isEquals = function(key, expectedValue, trueCallBack, falseCallback) {
+        lawnchair.get(key, function(actualValue) {
+            actualValue === expectedValue ? trueCallBack() : falseCallback();
         });
-
-        logger.info("Ended init collection");
     };
-
-    db._init();
 
     logger.info("Loaded db");
 
     return db;
+
 });
 

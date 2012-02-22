@@ -131,6 +131,11 @@ img.menu-img {
     width: 100%;
 }
 
+.ui-mobile #home-content-devoxx-contest {
+    width: 100%;
+    padding-bottom: 20px;
+}
+
 #about-link-buttons {
     width: 80%;
     max-width: 320px;

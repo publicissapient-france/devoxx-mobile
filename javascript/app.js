@@ -43,6 +43,7 @@ var init = function() {
             'log':         'log',
             'collection':  'collection',
             'entry':       'entry',
+            'register':    'register',
             'analytics':   'analytics',
             'jqmr':        'lib/jquerymobile/jquery.mobile.router-0.6' + ( DEBUG ? '.min' : ''),
             'jqm':         'lib/jquerymobile/jquery.mobile-1.0.1' + ( DEBUG ? '.min' : ''),
@@ -53,7 +54,7 @@ var init = function() {
 
     console.log("[app][require] Requiring base application modules");
 
-    require(['require', 'order!log', 'order!analytics', 'order!jqmr', 'order!core', 'db', 'app', 'utils', 'ui', 'collection', 'entry', 'phonegap' ],
+    require(['require', 'order!log', 'order!analytics', 'order!jqmr', 'order!core', 'db', 'app', 'utils', 'ui', 'collection', 'entry', 'register', 'phonegap' ],
         function( require, log, analytics, jqmr, core ) {
         
         var logger = log.getLogger("app");

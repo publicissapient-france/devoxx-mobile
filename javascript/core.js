@@ -1,4 +1,4 @@
-define(['log', 'utils', 'collection', 'entry', 'ui'], function( log, utils, collection, entry, ui ) {
+define(['log', 'utils', 'collection', 'entry', 'register', 'ui'], function( log, utils, collection, entry, register, ui ) {
     
     var logger = log.getLogger('core');
 
@@ -23,7 +23,8 @@ define(['log', 'utils', 'collection', 'entry', 'ui'], function( log, utils, coll
             "#presentation(?:[?](.*))?" : { handler : "onBeforePresentationPageShow", events: "bs" },
             "#speakers" : { handler : "onBeforeSpeakersPageShow", events: "bs" },
             "#speaker(?:[?](.*))?" : { handler : "onBeforeSpeakerPageShow", events: "bs" },
-            "#tracks" : { handler : "onBeforeTracksPageShow", events: "bs" }
+            "#tracks" : { handler : "onBeforeTracksPageShow", events: "bs" },
+            "#register": { handler : "onBeforeRegisterPageShow", events: "bs" }
         },
         {
             onBeforeSchedulePageShow: function(type, match, ui) {
@@ -59,6 +60,9 @@ define(['log', 'utils', 'collection', 'entry', 'ui'], function( log, utils, coll
             onBeforeDayPageShow: function(type, match, ui) {
                 var params = router.getParams(match[1]);
                  core.refreshDay(params.id);
+            },
+            onBeforeRegisterPageShow: function(type, match, ui) {
+                register.beforePageShow();
             }
         });
 
