@@ -10,7 +10,7 @@ define(['log', 'utils', 'collection', 'entry', 'ui'], function( log, utils, coll
 
     var router;
 
-    core.init = function() {
+    core.setupRouter = function() {
         logger.info("Instanciating jqmr router");
 
         router = new $.mobile.Router({

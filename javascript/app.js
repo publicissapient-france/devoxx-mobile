@@ -42,6 +42,7 @@ var init = function() {
             'log':         'log',
             'collection':  'collection',
             'entry':       'entry',
+            'analytics':   'analytics',
             'jqmr':        'lib/jquerymobile/jquery.mobile.router-0.6' + ( DEBUG ? '.min' : ''),
             'jqm':         'lib/jquerymobile/jquery.mobile-1.0.1' + ( DEBUG ? '.min' : ''),
             'phonegap':    'lib/phonegap/phonegap-1.4.0' + ( DEBUG ? '.min' : '')
@@ -51,8 +52,8 @@ var init = function() {
 
     console.log("[app][require] Requiring base application modules");
 
-    require(['require', 'log', 'order!jqmr', 'order!core', 'db', 'app', 'utils', 'ui', 'collection', 'entry', 'phonegap' ],
-        function( require, log, jqmr, core ) {
+    require(['require', 'log', 'order!jqmr', 'order!core', 'order!analytics', 'db', 'app', 'utils', 'ui', 'collection', 'entry', 'phonegap' ],
+        function( require, log, jqmr, core, analytics ) {
         
         var logger = log.getLogger("app");
 
@@ -77,7 +78,7 @@ var init = function() {
             $.mobile.jqmRouter.fixFirstPageDataUrl = true;
             $.mobile.jqmRouter.firstPageDataUrl = "index.html";
 
-            core.init();
+            core.setupRouter();
 
             logger.info("Show body");
             if (SAFE) {
@@ -85,6 +86,8 @@ var init = function() {
                 $('body').show();
                 $('#pages').show();
             }
+
+            analytics.setupListener();
         });
 
         logger.info("Loading jqmr, jqm, phonegap and core");
