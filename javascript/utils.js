@@ -7,7 +7,9 @@ define( ['log'], function( log ) {
     var utils = { };
 
     var JSON_API_BASE_URL = OFFLINE ? 'http://localhost/devoxx-data/rest/v1' :
-                            PROXY ? 'http://devoxx-xebia.dotcloud.com/rest/v1' : 'https://cfp.devoxx.com/rest/v1';
+                            PROXY ? 'http://devoxx-xebia.cloudfoundry.com/rest/v1' : 'https://cfp.devoxx.com/rest/v1';
+//    var JSON_API_BASE_URL = OFFLINE ? 'http://localhost/devoxx-data/rest/v1' :
+//                            PROXY ? 'http://devoxx-xebia.dotcloud.com/rest/v1' : 'https://cfp.devoxx.com/rest/v1';
 //    var JSON_API_BASE_URL = OFFLINE ? 'http://localhost/devoxx-data/rest/v1' : 'http://localhost:9000/rest/v1';
 //    var JSON_API_BASE_URL = OFFLINE ? 'http://localhost/devoxx-data/rest/v1' : 'https://cfp.devoxx.com/rest/v1';
 
@@ -77,7 +79,7 @@ define( ['log'], function( log ) {
     };
 
     utils.getFullUrl = function(relativeUrl) {
-        return JSON_API_BASE_URL + "/" + relativeUrl;
+        return JSON_API_BASE_URL + relativeUrl;
     };
 
     logger.info("Loaded utils");

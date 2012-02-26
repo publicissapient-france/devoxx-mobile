@@ -19,7 +19,11 @@ define(['log'], function( log ) {
                 if (options.beforeParse) {
                     options.beforeParse(data);
                 }
-                return options.parse ? options.parse(data) : data;
+                var parsedData = options.parse ? options.parse(data) : data;
+                if (options.afterParse) {
+                    options.afterParse(parsedData);
+                }
+                return parsedData;
             };
         }
     });
@@ -32,7 +36,8 @@ define(['log'], function( log ) {
             this.entry = new entry.EntryModel({
                 url: this.options.fetchUrl,
                 parse: this.options.parse,
-                beforeParse: this.options.beforeParse
+                beforeParse: this.options.beforeParse,
+                afterParse: this.options.afterParse
             });
             this.entry.bind('change', this.render, this);
         },

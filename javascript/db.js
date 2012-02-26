@@ -34,6 +34,12 @@ define(['log'], function( log ) {
         });
     };
 
+    db.getOrFetch = function(key, getCallBack, fetchCallback) {
+        lawnchair.get(key, function(data) {
+            data ? getCallBack(data.value) : fetchCallback();
+        });
+    };
+
     logger.info("Loaded db");
 
     return db;

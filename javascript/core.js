@@ -1,4 +1,4 @@
-define(['log', 'utils', 'collection', 'entry', 'register', 'ui'], function( log, utils, collection, entry, register, ui ) {
+define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function( log, utils, collection, entry, register, ui, db ) {
     
     var logger = log.getLogger('core');
 
@@ -70,6 +70,9 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui'], function( log,
     };
 
     core.onFetchSuccess = function(model, resp, options) {
+        if (model.get('statusCode') == '404') {
+            ui.showFlashMessage(_.extend({type: 'error', message: model.get('message')}, options));
+        }
         setTimeout(function() {
             $.mobile.hidePageLoadingMsg();
             ui.hideFlashMessage(options);
@@ -81,6 +84,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui'], function( log,
             logger.info("Error response tmp: '" + resp + "' for url: '" + options.fetchUrl + "'");
             $.mobile.hidePageLoadingMsg();
             ui.hideFlashMessage(options);
+            ui.showFlashMessage(_.extend({type: 'error', message: 'No data found ...'}, options));
         }, 0);
     };
 
@@ -114,7 +118,15 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui'], function( log,
             el: options.el,
             collectionTemplate: options.template,
             parse: options.parse,
-            beforeParse: options.beforeParse
+            beforeParse: options.beforeParse,
+            afterParse: function(data) {
+                if (options.cacheKey && !data.statusCode) {
+                    db.save(options.cacheKey, data);
+                }
+                if (options.afterParse) {
+                    options.afterParse(data);
+                }
+            }
         });
 
         if (collection.views[options.view].collection.length !== 0) {
@@ -138,7 +150,12 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui'], function( log,
             fetchOptions.jsonpCallback = DEBUG_JSON_CALLBACK;
         }
 
-        collection.views[options.view].collection.fetch(fetchOptions);
+        db.getOrFetch(options.cacheKey, function(data) {
+            collection.views[options.view].collection.reset(data);
+            ui.hideFlashMessage(options);
+        }, function() {
+            collection.views[options.view].collection.fetch(fetchOptions);
+        } );
     };
 
     core.refreshDataEntry = function(options) {
@@ -153,7 +170,15 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui'], function( log,
                 entryTemplate: options.template,
                 parse: options.parse,
                 beforeParse: options.beforeParse,
-                postRender: options.postRender
+                postRender: options.postRender,
+                afterParse: function(data) {
+                    if (options.cacheKey && !data.statusCode) {
+                        db.save(options.cacheKey, data);
+                    }
+                    if (options.afterParse) {
+                        options.afterParse(data);
+                    }
+                }
             });
 
             if (entry.views[options.view].entry) {
@@ -176,14 +201,22 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui'], function( log,
             if (OFFLINE) {
                 fetchOptions.jsonpCallback = DEBUG_JSON_CALLBACK;
             }
-            entry.views[options.view].entry.fetch(fetchOptions);
+
+            db.getOrFetch(options.cacheKey, function(data) {
+                entry.views[options.view].entry.set(data);
+                ui.hideFlashMessage(options);
+            }, function() {
+                entry.views[options.view].entry.fetch(fetchOptions);
+            } );
         };
 
 
     core.refreshSchedule = function() {
+        ui.resetFlashMessages("#schedule");
         core.refreshDataList({
             page: "#schedule", title: "Schedule", el: "#schedule-list", view: "schedule", template: $("#schedule-list-tpl").html(),
-            url: utils.getFullUrl('events/' + EVENT_ID + '/schedule' + (OFFLINE ? '.json' : '') + '?callback=?'),
+            url: utils.getFullUrl('/events/' + EVENT_ID + '/schedule' + (OFFLINE ? '.json' : '') + '?callback=?'),
+            cacheKey: '/events/' + EVENT_ID + '/schedule',
             parse: function(data) {
                 _.each(data, function(slot) {
                     slot.startTime = core.getScheduleTime(slot.fromTime);
@@ -196,11 +229,13 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui'], function( log,
     };
 
     core.refreshDay = function(id) {
+        ui.resetFlashMessages("#day");
         logger.info("Processing day: " + id);
         ui.switchTitle("Day " + id);
         core.refreshDataList({
             page: "#day", title: "Day " + id, el: "#day-list", view: "day", template: $("#schedule-list-tpl").html(),
-            url: utils.getFullUrl('events/' + EVENT_ID + '/schedule/day/' + id + (OFFLINE ? '.json' : '') + '?callback=?'),
+            url: utils.getFullUrl('/events/' + EVENT_ID + '/schedule/day/' + id + (OFFLINE ? '.json' : '') + '?callback=?'),
+            cacheKey: '/events/' + EVENT_ID + '/schedule/day/' + id,
             parse: function(data) {
                 _.each(data, function(slot) {
                     slot.startTime = core.getScheduleTime(slot.fromTime);
@@ -217,19 +252,23 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui'], function( log,
     };
 
     core.refreshEvents = function() {
+        ui.resetFlashMessages("#events");
         logger.info("Refreshing events");
         core.refreshDataList({
             page: "#events", title: "Event", el: "#event-list", view: "events", template: $("#event-list-tpl").html(),
-            url: utils.getFullUrl('events' + (OFFLINE ? '.json' : '') + '?callback=?'),
+            url: utils.getFullUrl('/events' + (OFFLINE ? '.json' : '') + '?callback=?'),
+            cacheKey: '/events',
             parse: function(data) { return data; }
         });
     };
 
     core.refreshEvent = function(id) {
+        ui.resetFlashMessages("#event");
         logger.info("Processing event: " + id);
         core.refreshDataEntry({
             page: "#event", title: "Event", el: "#event-details", view: "event", template: $("#event-tpl").html(),
-            url: utils.getFullUrl('events/' + id + (OFFLINE ? '.json' : '') + '?callback=?'),
+            url: utils.getFullUrl('/events/' + id + (OFFLINE ? '.json' : '') + '?callback=?'),
+            cacheKey: '/events/' + id,
             parse: function(data) {
                 return data;
             },
@@ -242,19 +281,23 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui'], function( log,
     };
 
     core.refreshPresentations = function() {
+        ui.resetFlashMessages("#presentations");
         logger.info("Refreshing presentations");
         core.refreshDataList({
             page: "#presentations", title: "Presentation", el: "#presentation-list", view: "presentation", template: $("#presentation-list-tpl").html(),
-            url: utils.getFullUrl('events/' + EVENT_ID + '/presentations' + (OFFLINE ? '.json' : '') + '?callback=?'),
+            url: utils.getFullUrl('/events/' + EVENT_ID + '/presentations' + (OFFLINE ? '.json' : '') + '?callback=?'),
+            cacheKey: '/events/' + EVENT_ID + '/presentations',
             parse: function(data) { return data; }
         });
     };
 
     core.refreshPresentation = function(id) {
+        ui.resetFlashMessages("#presentation");
         logger.info("Processing presentation: " + id);
         core.refreshDataEntry({
             page: "#presentation", title: "Presentation", el: "#presentation-details", view: "presentation", template: $("#presentation-tpl").html(),
-            url: utils.getFullUrl('events/presentations/' + id + (OFFLINE ? '.json' : '') + '?callback=?'),
+            url: utils.getFullUrl('/events/presentations/' + id + (OFFLINE ? '.json' : '') + '?callback=?'),
+            cacheKey: '/events/presentations/' + id,
             parse: function(data) {
                 _.each(data.speakers, function(speaker) {
                     speaker.id = speaker.speakerUri.substring(speaker.speakerUri.lastIndexOf("/") + 1);
@@ -272,37 +315,45 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui'], function( log,
     };
 
     core.refreshRooms = function() {
+        ui.resetFlashMessages("#rooms");
         logger.info("Refreshing rooms");
         core.refreshDataList({
             page: "#rooms", title: "Rooms", el: "#room-list", view: "room", template: $("#room-list-tpl").html(),
-            url: utils.getFullUrl('events/' + EVENT_ID + '/schedule/rooms' + (OFFLINE ? '.json' : '') + '?callback=?'),
+            url: utils.getFullUrl('/events/' + EVENT_ID + '/schedule/rooms' + (OFFLINE ? '.json' : '') + '?callback=?'),
+            cacheKey: '/events/' + EVENT_ID + '/schedule/rooms',
             parse: function(data) { return data; }
         });
     };
 
     core.refreshTracks = function() {
+        ui.resetFlashMessages("#tracks");
         logger.info("Refreshing tracks");
         core.refreshDataList({
             page: "#tracks", title: "Tracks", el: "#track-list", view: "track", template: $("#track-list-tpl").html(),
-            url: utils.getFullUrl('events/' + EVENT_ID + '/tracks' + (OFFLINE ? '.json' : '') + '?callback=?'),
+            url: utils.getFullUrl('/events/' + EVENT_ID + '/tracks' + (OFFLINE ? '.json' : '') + '?callback=?'),
+            cacheKey: '/events/' + EVENT_ID + '/tracks',
             parse: function(data) { return data; }
         });
     };
 
     core.refreshSpeakers = function() {
+        ui.resetFlashMessages("#tracks");
         logger.info("Refreshing speakers");
         core.refreshDataList({
             page: "#speakers", title: "Speakers", el: "#speaker-list", view: "speaker", template: $("#speaker-list-tpl").html(),
-            url: utils.getFullUrl('events/' + EVENT_ID + '/speakers' + (OFFLINE ? '.json' : '') + '?callback=?'),
+            url: utils.getFullUrl('/events/' + EVENT_ID + '/speakers' + (OFFLINE ? '.json' : '') + '?callback=?'),
+            cacheKey: '/events/' + EVENT_ID + '/speakers',
             parse: function(data) { return data; }
         });
     };
 
     core.refreshSpeaker = function(id) {
+        ui.resetFlashMessages("#speaker");
         logger.info("Processing speaker: " + id);
         core.refreshDataEntry({
             page: "#speaker", title: "Speaker", el: "#speaker-details", view: "speaker", template: $("#speaker-tpl").html(),
-            url: utils.getFullUrl('events/speakers/' + id + (OFFLINE ? '.json' : '') + '?callback=?'),
+            url: utils.getFullUrl('/events/speakers/' + id + (OFFLINE ? '.json' : '') + '?callback=?'),
+            cacheKey: '/events/speakers/' + id,
             parse: function(data) {
                 _.each(data.talks, function(presentation) {
                      presentation.id = presentation.presentationUri.substring(presentation.presentationUri.lastIndexOf("/") + 1);
