@@ -6,24 +6,18 @@ define(['log'], function( log ) {
 
     var ui =  { };
 
-        ui.resetFlashMessages = function(options) {
-            if (options.page) {
-                var page = $(options.page);
-                if (page) {
-                    var header = page.children(":jqmData(role='header')");
-                    if (header) {
-                        var flashMessage = header.children("div#flashMessage");
-                        if (flashMessage) {
-                            flashMessage.remove();
-                        }
-                        var flashErrorMessage = header.children("div#flashErrorMessage");
-                         if (flashErrorMessage) {
-                             flashErrorMessage.remove();
-                         }
-                     }
-
+        ui.resetFlashMessages = function(page) {
+            var header = $(page).children(":jqmData(role='header')");
+            if (header) {
+                var flashMessage = header.children("div#flashMessage");
+                if (flashMessage) {
+                    flashMessage.remove();
                 }
-            }
+                var flashErrorMessage = header.children("div#flashErrorMessage");
+                 if (flashErrorMessage) {
+                     flashErrorMessage.remove();
+                 }
+             }
         };
 
         ui.showFlashMessage = function(options) {

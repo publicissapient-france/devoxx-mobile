@@ -4,7 +4,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
 
     logger.info("Loading core.js");
 
-    var EVENT_ID = '4';
+    var EVENT_ID = '6';
 
     var core = { };
 
@@ -218,9 +218,10 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
             url: utils.getFullUrl('/events/' + EVENT_ID + '/schedule' + (OFFLINE ? '.json' : '') + '?callback=?'),
             cacheKey: '/events/' + EVENT_ID + '/schedule',
             parse: function(data) {
-                _.each(data, function(slot) {
-                    slot.startTime = core.getScheduleTime(slot.fromTime);
-                    slot.endTime = core.getScheduleTime(slot.toTime);
+                _.each(data, function(presentation) {
+                    presentation.key = presentation.presentationUri.substring(presentation.presentationUri.lastIndexOf("/") + 1);
+                    presentation.startTime = core.getScheduleTime(presentation.fromTime);
+                    presentation.endTime = core.getScheduleTime(presentation.toTime);
                 });
 
                 return data;
@@ -237,9 +238,9 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
             url: utils.getFullUrl('/events/' + EVENT_ID + '/schedule/day/' + id + (OFFLINE ? '.json' : '') + '?callback=?'),
             cacheKey: '/events/' + EVENT_ID + '/schedule/day/' + id,
             parse: function(data) {
-                _.each(data, function(slot) {
-                    slot.startTime = core.getScheduleTime(slot.fromTime);
-                    slot.endTime = core.getScheduleTime(slot.toTime);
+                _.each(data, function(presentation) {
+                    presentation.startTime = core.getScheduleTime(presentation.fromTime);
+                    presentation.endTime = core.getScheduleTime(presentation.toTime);
                 });
 
                 return data;
@@ -363,7 +364,10 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
             postRender: function(data) {
                 $('#speaker-details-list').listview();
                 $('#speaker-talk-list').listview();
-                ui.switchTitle(data.get('firstName') + " " + data.get('lastName'));
+                var title = data.get('firstName') ? data.get('firstName')  : "";
+                title += (data.get('firstName') && data.get('lastName')) ? " " : "";
+                title += data.get('lastName') ? data.get('lastName') : "";
+                ui.switchTitle(title ? title : "Speaker");
             }
 
         });
