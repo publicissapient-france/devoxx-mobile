@@ -589,7 +589,7 @@
             <% _.each(entries, function(speaker) { %>
             <li>
                 <a href="#speaker?id=<%= speaker.get('id') %>">
-                    <img src="<%= speaker.get('imageURI') %>" />
+                    <img src="http://devoxx-xebia.cloudfoundry.com/speaker/<%= speaker.get('id') %>" />
                     <h3><%= speaker ? speaker.get('firstName') : '' %> <%=speaker ? speaker.get('lastName') : '' %></h3>
                     <p><em><%= speaker.get('company') %></em></p>
                     <p class="ui-li-count"><em><%= speaker.get('talks').length %></em></p>

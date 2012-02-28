@@ -23,7 +23,9 @@ define(['log'], function (log) {
                 var hash = location.hash;
 
                 if (hash) {
-                    _gaq.push(['_trackPageview', hash.substr(1)]);
+                    var hashToPush = hash.substr(1);
+                    logger.info("Pushing page to analytics: '" + hashToPush + "'");
+                    _gaq.push(['_trackPageview', hashToPush]);
                 } else {
                     _gaq.push(['_trackPageview']);
                 }

@@ -27,7 +27,7 @@ if (!SAFE) {
     document.title = "Dev/Debug mode";
 }
 
-var init = function() {
+function init() {
     console.log("[app][init] Initializing require");
 
     console.log("[app][init][require] Setting config");
