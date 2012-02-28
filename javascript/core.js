@@ -219,7 +219,9 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
             cacheKey: '/events/' + EVENT_ID + '/schedule',
             parse: function(data) {
                 _.each(data, function(presentation) {
-                    presentation.key = presentation.presentationUri.substring(presentation.presentationUri.lastIndexOf("/") + 1);
+                    if (presentation.presentationUri) {
+                        presentation.key = presentation.presentationUri.substring(presentation.presentationUri.lastIndexOf("/") + 1);
+                    }
                     presentation.startTime = core.getScheduleTime(presentation.fromTime);
                     presentation.endTime = core.getScheduleTime(presentation.toTime);
                 });
@@ -239,7 +241,9 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
             cacheKey: '/events/' + EVENT_ID + '/schedule/day/' + id,
             parse: function(data) {
                 _.each(data, function(presentation) {
-                    presentation.key = presentation.presentationUri.substring(presentation.presentationUri.lastIndexOf("/") + 1);
+                    if (presentation.presentationUri) {
+                        presentation.key = presentation.presentationUri.substring(presentation.presentationUri.lastIndexOf("/") + 1);
+                    }
                     presentation.startTime = core.getScheduleTime(presentation.fromTime);
                     presentation.endTime = core.getScheduleTime(presentation.toTime);
                 });
