@@ -12,6 +12,9 @@ define(['log'], function( log ) {
 
     var lawnchair = new Lawnchair({name: DB_NAME}, function(database) {
         logger.info("Storage open for db: '" + database.name + "' with '" + database.adapter + "' adapter.");
+        if (DB_NUKE) {
+            this.nuke();
+        }
     });
 
     logger.info("Created Lawnchair object");

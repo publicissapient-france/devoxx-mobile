@@ -3,6 +3,7 @@ var DEBUG = DEFAULT_DEBUG_MODE || getLocationParameterByName('debug') === 'true'
 var SAFE = true;
 var OFFLINE = false;
 var PROXY = true;
+var DB_NUKE = true;
 
 var WAIT_TIME = DEBUG ? 3000 : 0;
 var DEBUG_JSON_CALLBACK = "onJsonLoad";
