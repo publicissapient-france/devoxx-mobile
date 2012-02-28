@@ -46,9 +46,9 @@ var init = function() {
             'entry':       'entry',
             'register':    'register',
             'analytics':   'analytics',
-            'jqmr':        'lib/jquerymobile/jquery.mobile.router-0.6' + ( DEBUG ? '.min' : ''),
-            'jqm':         'lib/jquerymobile/jquery.mobile-1.0.1' + ( DEBUG ? '.min' : ''),
-            'phonegap':    'lib/phonegap/phonegap-1.4.0' + ( DEBUG ? '.min' : '')
+            'jqmr':        'lib/jquerymobile/jquery.mobile.router-0.6' + ( DEBUG ? '' : '.min'),
+            'jqm':         'lib/jquerymobile/jquery.mobile-1.0.1' + ( DEBUG ? '' : '.min'),
+            'phonegap':    'lib/phonegap/phonegap-1.4.0' + ( DEBUG ? '' : '.min')
         },
         baseUrl: 'javascript'
     });
