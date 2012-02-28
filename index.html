@@ -589,7 +589,7 @@
             <% _.each(entries, function(speaker) { %>
             <li>
                 <a href="#speaker?id=<%= speaker.get('id') %>">
-                    <img src="http://devoxx-xebia.cloudfoundry.com/speaker/<%= speaker.get('id') %>" />
+                    <img src="<%= speaker.get('imageURI') %>" />
                     <h3><%= speaker ? speaker.get('firstName') : '' %> <%=speaker ? speaker.get('lastName') : '' %></h3>
                     <p><em><%= speaker.get('company') %></em></p>
                     <p class="ui-li-count"><em><%= speaker.get('talks').length %></em></p>
@@ -632,7 +632,7 @@
                 <ul id="presentation-tag-list" data-role="listview" data-inset="true" data-theme="c">
                     <% _.each(entry.get('tags'), function(tag) { %>
                     <li>
-                        <img src="http://devoxx.helyx.org/image/tag/<%= tag.name.toLowerCase() %>.png" />
+                        <!-- <img src="http://devoxx.helyx.org/image/tag/<%= tag.name.toLowerCase() %>.png" /> -->
                         <h3><%= tag.name %></h3>
                     </li>
                     <% });
