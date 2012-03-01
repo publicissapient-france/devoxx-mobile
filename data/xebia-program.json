@@ -1,0 +1,33 @@
+[
+    {
+        "day":1,
+        "sessions":[
+            {
+                "name":"Mini atelier Legos",
+                "start_time":"12:00",
+                "end_time":"14:00",
+                "duration":"2 hours",
+                "level":"beginner"
+            },
+            {
+                "name":"Mini atelier Mongo",
+                "start_time":"12:00",
+                "end_time":"14:00",
+                "duration":"2 hours",
+                "level":"beginner"
+            }
+        ]
+    },
+    {
+        "day":2,
+        "sessions":[
+            {
+                "name":"Mini atelier Continuous Deployment",
+                "start_time":"12:00",
+                "end_time":"14:00",
+                "duration":"2 hours",
+                "level":"beginner"
+            }
+        ]
+    }
+]
