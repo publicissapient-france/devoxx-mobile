@@ -6,6 +6,10 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
 
     var EVENT_ID = '6';
 
+    var DEFAULT_TWITTER_USER = "xebiaFr";
+
+    var AUTHORIZED_TWITTER_USER = ["xebiaFr", "devoxxFR"];
+
     var core = { };
 
     var router;
@@ -25,7 +29,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
             "#speaker(?:[?](.*))?" : { handler : "onBeforeSpeakerPageShow", events: "bs" },
             "#tracks" : { handler : "onBeforeTracksPageShow", events: "bs" },
             "#register":{ handler:"onBeforeRegisterPageShow", events:"bs" },
-            "#twitter":{ handler:"onBeforeTwitterPageShow", events:"bs" }
+            "#twitter(?:[?](.*))?":{ handler:"onBeforeTwitterPageShow", events:"bs" }
         },
         {
             onBeforeSchedulePageShow: function(type, match, ui) {
@@ -66,7 +70,13 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
                 register.beforePageShow();
             },
             onBeforeTwitterPageShow: function(type, match, ui) {
-                core.refreshTwitter();
+                var screenNameParam = match[1];
+                if (typeof screenNameParam === 'undefined') {
+                    core.refreshTwitter(DEFAULT_TWITTER_USER);
+                } else {
+                    var params = router.getParams(screenNameParam);
+                    core.refreshTwitter(params.screenname);
+                }
             }
         });
 
@@ -382,12 +392,16 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
         });
     };
 
-    core.refreshTwitter = function() {
+    core.refreshTwitter = function(screenName) {
+        if (!_(AUTHORIZED_TWITTER_USER).contains(screenName)) {
+            screenName = DEFAULT_TWITTER_USER;
+        }
+        console.log("Requested screen name : " + screenName);
         ui.resetFlashMessages("#twitter");
         logger.info("Processing tweets");
         core.refreshDataList({
             page: "#twitter", title: "Twitter", el: "#twitter-timeline", view: "twitter", template: $("#twitter-timeline-tpl").html(),
-            url: "http://api.twitter.com/1/statuses/user_timeline.json?screen_name=xebiafr&include_sts=true&exclude_replies=true&callback=?",
+            url: "http://api.twitter.com/1/statuses/user_timeline.json?screen_name=" + screenName + "&include_sts=true&exclude_replies=true&callback=?",
             parse: function(data) {
                 console.log( data);
                 _(data).each(function(tweet) {
