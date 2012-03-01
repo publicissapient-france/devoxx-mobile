@@ -1,4 +1,4 @@
-define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function( log, utils, collection, entry, register, ui, db ) {
+define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'xebiaprogram'], function( log, utils, collection, entry, register, ui, db, xebiaprogram ) {
     
     var logger = log.getLogger('core');
 
@@ -24,7 +24,8 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
             "#speakers" : { handler : "onBeforeSpeakersPageShow", events: "bs" },
             "#speaker(?:[?](.*))?" : { handler : "onBeforeSpeakerPageShow", events: "bs" },
             "#tracks" : { handler : "onBeforeTracksPageShow", events: "bs" },
-            "#register": { handler : "onBeforeRegisterPageShow", events: "bs" }
+            "#register": { handler : "onBeforeRegisterPageShow", events: "bs" },
+            "#xebiaprogram": { handler : "onBeforeXebiaProgramPageShow", events: "bs" }
         },
         {
             onBeforeSchedulePageShow: function(type, match, ui) {
@@ -63,7 +64,11 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
             },
             onBeforeRegisterPageShow: function(type, match, ui) {
                 register.beforePageShow();
+            },
+            onBeforeXebiaProgramPageShow: function(type, match, ui) {
+                xebiaprogram.beforePageShow();
             }
+
         });
 
         logger.info("Instanciated jqmr router");

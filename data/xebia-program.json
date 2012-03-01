@@ -1,3 +1,4 @@
+onXebiaProgramResult({
 [
     {
         day:1,
@@ -31,5 +32,6 @@
         ]
     }
 ]
+});
 
 
