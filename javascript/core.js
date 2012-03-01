@@ -401,11 +401,13 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
         logger.info("Processing tweets");
         core.refreshDataList({
             page: "#twitter", title: "Twitter", el: "#twitter-timeline", view: "twitter", template: $("#twitter-timeline-tpl").html(),
-            url: "http://api.twitter.com/1/statuses/user_timeline.json?screen_name=" + screenName + "&include_sts=true&exclude_replies=true&callback=?",
+            url: "http://api.twitter.com/1/statuses/user_timeline.json?screen_name=" + screenName + "&include_rts=true&exclude_replies=true&callback=?",
             parse: function(data) {
                 console.log( data);
                 _(data).each(function(tweet) {
                     tweet.formattedDate = Date.parse(tweet.created_at).toString("HH:mm");
+                    var iconUrl = tweet.user.profile_image_url.replace(/_normal(\.[^\.]+)$/, "$1");
+                    tweet.user.icon = iconUrl;
                 });
                 return data;
             },
