@@ -697,7 +697,7 @@
                 <a href="http://twitter.com/<%= tweet.get('user').screen_name %>/status/<%= tweet.get('id_str') %>">
                     <img src="<%= tweet.get('user').icon %>" class="ui-li-thumb">
                     <p><%= tweet.get('formattedDate') %> - <%= tweet.get('user').screen_name %></p>
-                    <p><em><%= tweet.get('text') %></em></p>
+                    <p class="multiline"><em><%= tweet.get('text') %></em></p>
                 </a>
             </li>
             <% }); %>
