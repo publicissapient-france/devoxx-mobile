@@ -1,11 +1,11 @@
-var DEFAULT_DEBUG_MODE = false;
+var DEFAULT_DEBUG_MODE = true;
 var DEBUG = DEFAULT_DEBUG_MODE || getLocationParameterByName('debug') === 'true';
 var SAFE = true;
 var OFFLINE = false;
 var PROXY = true;
 var DB_NUKE = true;
 
-var WAIT_TIME = DEBUG ? 3000 : 0;
+var WAIT_TIME = DEBUG ? 0 : 0;
 var DEBUG_JSON_CALLBACK = "onJsonLoad";
 
 console.log("DEBUG: " + DEBUG);
@@ -46,8 +46,11 @@ function init() {
             'entry':       'entry',
             'register':    'register',
             'analytics':   'analytics',
+            'jquery':      'lib/jquery/jquery-1.7.1' + ( DEBUG ? '' : '.min'),
+            'underscore':  'lib/underscore/underscore-1.3.1' + ( DEBUG ? '' : '.min'),
+            'backbone':    'lib/backbone/backbone-0.9.1' + ( DEBUG ? '' : '.min'),
             'jqmr':        'lib/jquerymobile/jquery.mobile.router-0.6' + ( DEBUG ? '' : '.min'),
-            'jqm':         'lib/jquerymobile/jquery.mobile-1.0.1' + ( DEBUG ? '' : '.min'),
+            'jqm':         'lib/jquerymobile/jquery.mobile-1.1.0-rc.1' + ( DEBUG ? '' : '.min'),
             'phonegap':    'lib/phonegap/phonegap-1.4.0' + ( DEBUG ? '' : '.min')
         },
         baseUrl: 'javascript'
@@ -55,52 +58,60 @@ function init() {
 
     console.log("[app][require] Requiring base application modules");
 
-    require(['require', 'order!log', 'order!analytics', 'order!jqmr', 'order!core', 'db', 'app', 'utils', 'ui', 'collection', 'entry', 'register', 'phonegap' ],
-        function( require, log, analytics, jqmr, core ) {
-        
-        var logger = log.getLogger("app");
+    require (['require', 'order!jquery', 'order!underscore', 'order!backbone'], function(require, $, _, Backbone) {
 
-        logger.info("Loading app.js");
+        window.$ = $;
+        window._ = _;
+        window.Backbone = Backbone;
 
-        $.mobile = $.mobile || {};
+        require(['require', 'order!log', 'order!analytics', 'order!jqmr', 'order!core', 'db', 'app', 'utils', 'ui', 'collection', 'entry', 'register', 'phonegap' ],
+            function( require, log, analytics, jqmr, core ) {
 
-        logger.info("Setup of 'deviceready' event");
-        document.addEventListener("deviceready", function() {
-            logger.info("[event][deviceready]");
-        }, true);
+            var logger = log.getLogger("app");
 
-        logger.info("Setup of 'mobileinit' event");
+            logger.info("Loading app.js");
 
-        $(document).bind("mobileinit", function() {
+            $.mobile = $.mobile || {};
 
-            logger.info("[mobileinit] Event handled");
+            logger.info("Setup of 'deviceready' event");
+            document.addEventListener("deviceready", function() {
+                logger.info("[event][deviceready]");
+            }, true);
 
-            $.mobile.defaultPageTransition = 'none';
+            logger.info("Setup of 'mobileinit' event");
 
-            $.mobile.jqmRouter = $.mobile.jqmRouter || {};
-            $.mobile.jqmRouter.fixFirstPageDataUrl = true;
-            $.mobile.jqmRouter.firstPageDataUrl = "index.html";
+            $(document).bind("mobileinit", function() {
 
-            core.setupRouter();
+                logger.info("[mobileinit] Event handled");
 
-            logger.info("Show body");
-            if (SAFE) {
-                $('#splash-screen').hide();
-                $('body').show();
-                $('#pages').show();
-            }
+                $.mobile.defaultPageTransition = 'none';
 
-            analytics.setupListener();
+                $.mobile.jqmRouter = $.mobile.jqmRouter || {};
+                $.mobile.jqmRouter.fixFirstPageDataUrl = true;
+                $.mobile.jqmRouter.firstPageDataUrl = "index.html";
+
+                core.setupRouter();
+
+                logger.info("Show body");
+                if (SAFE) {
+                    $('#splash-screen').hide();
+                    $('body').show();
+                    $('#pages').show();
+                }
+
+                analytics.setupListener();
+            });
+
+            logger.info("Loading jqmr, jqm, phonegap and core");
+
+            require(['require', 'order!jqm'], function(require, jqm) {
+                logger.info("Loading ...");
+            });
         });
 
-        logger.info("Loading jqmr, jqm, phonegap and core");
+    }) ;
 
-        require(['require', 'order!jqm'], function(require, jqm) {
-            logger.info("Loading ...");
-        });
-    });
-
-};
+}
 
 function getLocationParameterByName( name ) {
     name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
