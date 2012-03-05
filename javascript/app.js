@@ -98,6 +98,7 @@ function init() {
         require(['require', 'order!jqm'], function(require, jqm) {
             logger.info("Loading ...");
         });
+
     });
 
 };
