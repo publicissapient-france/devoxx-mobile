@@ -307,7 +307,7 @@
                 <div id="home-footer"  class="home-footer">
 
                     <div align="right" style="border-top: 1px solid #CCC; border-bottom: 1px solid #CCC; background: #FEFEFE;padding:10px;">
-                        <a href="https://twitter.com/#!/xebiafr" rel="external" alt="Follow us on Twitter">
+                        <a href="#twitter" rel="external" alt="Follow us on Twitter">
                             <img src="image/twitter-black-transparent.png" class="home-footer-img" height="24" />
                         </a>
                     </div>
@@ -496,6 +496,21 @@
                 </div>
             </div>
 
+            <!-- Twitter page -->
+            <div align="center" id="twitter" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+                <div data-role="header" data-theme="c">
+                    <h1>Twitter</h1>
+                </div>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#twitter?screenname=xebiaFr" class="ui-btn-active">Xebia</a></li>
+                        <li><a href="#twitter?screenname=devoxxFR">Devoxx</a></li>
+                    </ul>
+                </div>
+                <div id="twitter-content" data-role="content">
+                    <ul id="twitter-timeline" data-role="listview" data-theme="c"></ul>
+                </div>
+            </div>
         </div>
 
         <script type="text/html" id="schedule-list-tpl">
@@ -678,6 +693,17 @@
             </div>
         </script>
 
+        <script type="text/html" id="twitter-timeline-tpl">
+            <% _.each(entries, function(tweet) { %>
+            <li data-inline="false">
+                <a href="http://twitter.com/<%= tweet.get('user').screen_name %>/status/<%= tweet.get('id_str') %>">
+                    <img src="<%= tweet.get('user').icon %>" class="ui-li-thumb">
+                    <p><%= tweet.get('formattedDate') %> - <%= tweet.get('user').screen_name %></p>
+                    <p class="multiline"><em><%= tweet.get('text') %></em></p>
+                </a>
+            </li>
+            <% }); %>
+        </script>
 
         <script type="text/html" id="flash-message-tpl">
             <div id="flashMessage"  class="ui-bar ui-bar-b">

@@ -240,4 +240,6 @@ dt code, dd code {
   line-height:150%;
 }
 
-
+.multiline {
+    white-space: normal;
+}
