@@ -200,6 +200,16 @@
                 background-color: #CCCCCC !important;
                 border: 1px solid #666666;
             }
+
+            .favoriteImg {
+                background: url("image/star_empty.png");
+                background-size: 50px 50px;
+            }
+
+            .favoriteImg .filled {
+               background: url("image/start_plain.png");
+               background-size: 50px 50px;
+            }
         </style>
 
     </head>
@@ -645,7 +655,15 @@
 
         <script type="text/html" id="presentation-tpl">
             <div align="left">
-                <h3>Tags:</h3>
+                <div>
+                    <h3>Tags:</h3>
+                </div>
+                    <% if (entry.get('favorite')) { %>
+                        <div class="favoriteImg filled" style="width: 50px; height: 50px;" />
+                    <% } else { %>
+                        <div class="favoriteImg" style="width: 50px; height: 50px;" />
+                    <% } %>
+
                 <ul id="presentation-tag-list" data-role="listview" data-inset="true" data-theme="c">
                     <% _.each(entry.get('tags'), function(tag) { %>
                     <li>

@@ -14,6 +14,11 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
 
     var router;
 
+    var favorites = { ids: [ 112, 148, 532 ] };
+    /*db.get('favorites', function(data) {
+        favorites = JSON.parse(data);
+    });*/
+
     core.setupRouter = function() {
         logger.info("Instanciating jqmr router");
 
@@ -25,6 +30,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
             "#rooms" : { handler : "onBeforeRoomPageShow", events: "bs" },
             "#presentations" : { handler : "onBeforePresentationsPageShow", events: "bs" },
             "#presentation(?:[?](.*))?" : { handler : "onBeforePresentationPageShow", events: "bs" },
+            "#favorites" : { handler : "onBeforeFavoritesPageShow", events: "bs" },
             "#speakers" : { handler : "onBeforeSpeakersPageShow", events: "bs" },
             "#speaker(?:[?](.*))?" : { handler : "onBeforeSpeakerPageShow", events: "bs" },
             "#tracks" : { handler : "onBeforeTracksPageShow", events: "bs" },
@@ -54,6 +60,11 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
             onBeforePresentationPageShow: function(type, match, ui) {
                 var params = router.getParams(match[1]);
                  core.refreshPresentation(params.id);
+            },
+            onBeforeFavoritesPageShow: function(type, match, ui) {
+                core.refreshPresentations(function(presentation) {
+                    return _.contains(favorites.ids, presentation.id);
+                });
             },
             onBeforeSpeakersPageShow: function(type, match, ui) {
                  core.refreshSpeakers();
@@ -191,6 +202,14 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
                 }
             });
 
+            if (options.events) {
+                _.each(options.events, function(event) {
+                    entry.views[options.view].on(event.key, event.value, entry.views[options.view]);
+                });
+            }
+
+
+
             if (entry.views[options.view].entry) {
                 entry.views[options.view].entry.clear();
             }
@@ -292,14 +311,20 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
         });
     };
 
-    core.refreshPresentations = function() {
+    core.refreshPresentations = function(filter) {
         ui.resetFlashMessages("#presentations");
         logger.info("Refreshing presentations");
         core.refreshDataList({
             page: "#presentations", title: "Presentation", el: "#presentation-list", view: "presentation", template: $("#presentation-list-tpl").html(),
             url: utils.getFullUrl('/events/' + EVENT_ID + '/presentations?callback=?'),
             cacheKey: '/events/' + EVENT_ID + '/presentations',
-            parse: function(data) { return data; }
+            parse: function(data) {
+                if(filter) {
+                    return _.filter(data, filter);
+                }
+
+                return data;
+            }
         });
     };
 
@@ -311,6 +336,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
             url: utils.getFullUrl('/events/presentations/' + id + '?callback=?'),
             cacheKey: '/events/presentations/' + id,
             parse: function(data) {
+                data.favorite = _.contains(favorites.ids, data.id);
                 _.each(data.speakers, function(speaker) {
                     speaker.id = speaker.speakerUri.substring(speaker.speakerUri.lastIndexOf("/") + 1);
                 });
@@ -321,8 +347,19 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
                 $('#presentation-speaker-list').listview();
                 $('#presentation-details-list').listview();
                 ui.switchTitle(data.get('title'));
-            }
+            },
+            events: [
+                { key: "click .favoriteImg",  value: function() {
+                    if(this.get('favorite')){
+                       favorites.push(this.get('id'));
+                    } else {
+                        favorites.splice(favorites.indexOf(this.get('id')),1);
+                    }
+                    db.save('favorites',favorites);
+                    $(".favoriteImg").toggle("filled");
 
+                } }
+            ]
         });
     };
 
