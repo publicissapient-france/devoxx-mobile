@@ -17,20 +17,22 @@ define(['log'], function (log) {
 
     analytics.setupListener = function() {
         $('[data-role=page]').live('pageshow', function (event, ui) {
-            try {
-                _gaq.push(['_setAccount', 'UA-1889791-16']);
+            if (!OFFLINE) {
+                try {
+                    _gaq.push(['_setAccount', 'UA-1889791-16']);
 
-                var hash = location.hash;
+                    var hash = location.hash;
 
-                if (hash) {
-                    var hashToPush = hash.substr(1);
-                    logger.info("Pushing page to analytics: '" + hashToPush + "'");
-                    _gaq.push(['_trackPageview', hashToPush]);
-                } else {
-                    _gaq.push(['_trackPageview']);
+                    if (hash) {
+                        var hashToPush = hash.substr(1);
+                        logger.info("Pushing page to analytics: '" + hashToPush + "'");
+                        _gaq.push(['_trackPageview', hashToPush]);
+                    } else {
+                        _gaq.push(['_trackPageview']);
+                    }
+                } catch(err) {
+                    logger.info("Error catched: " + err.name + " - " + err.message);
                 }
-            } catch(err) {
-                logger.info("Error catched: " + err.name + " - " + err.message);
             }
         });
     };

@@ -49,24 +49,32 @@
 .silver.awesome:hover						    { background-color: #FBFBFB; }
 
 
-ul#day-list li.type-hands-on {
+ul li.type-hands-on {
     border-left: 5px orangered solid;
 }
 
-ul#day-list li.type-java {
+ul li.type-java {
     border-left: 5px maroon solid;
 }
 
-ul#day-list li.type-university {
+ul li.type-university {
     border-left: 5px lightgreen solid;
 }
 
-ul#day-list li.type-tools {
+ul li.type-tools {
     border-left: 5px lightblue solid;
 }
 
-ul#day-list li.type-bof {
+ul li.type-bof {
     border-left: 5px purple solid;
+}
+
+ul li.type-conference {
+    border-left: 5px cadetblue solid;
+}
+
+ul li.type-quickie {
+    border-left: 5px firebrick solid;
 }
 
 .page-navbar {
