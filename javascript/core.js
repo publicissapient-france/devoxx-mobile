@@ -146,10 +146,6 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
             fetchUrl: options.url
         };
 
-        if (OFFLINE) {
-            fetchOptions.jsonpCallback = DEBUG_JSON_CALLBACK;
-        }
-
         db.getOrFetch(options.cacheKey, function(data) {
             collection.views[options.view].collection.reset(data);
             ui.hideFlashMessage(options);
@@ -198,10 +194,6 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
                 fetchUrl: options.url
             };
 
-            if (OFFLINE) {
-                fetchOptions.jsonpCallback = DEBUG_JSON_CALLBACK;
-            }
-
             db.getOrFetch(options.cacheKey, function(data) {
                 entry.views[options.view].entry.set(data);
                 ui.hideFlashMessage(options);
@@ -215,7 +207,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
         ui.resetFlashMessages("#schedule");
         core.refreshDataList({
             page: "#schedule", title: "Schedule", el: "#schedule-list", view: "schedule", template: $("#schedule-list-tpl").html(),
-            url: utils.getFullUrl('/events/' + EVENT_ID + '/schedule' + (OFFLINE ? '.json' : '') + '?callback=?'),
+            url: utils.getFullUrl('/events/' + EVENT_ID + '/schedule?callback=?'),
             cacheKey: '/events/' + EVENT_ID + '/schedule',
             parse: function(data) {
                 _.each(data, function(presentation) {
@@ -237,7 +229,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
         ui.switchTitle("Day " + id);
         core.refreshDataList({
             page: "#day", title: "Day " + id, el: "#day-list", view: "day", template: $("#schedule-list-tpl").html(),
-            url: utils.getFullUrl('/events/' + EVENT_ID + '/schedule/day/' + id + (OFFLINE ? '.json' : '') + '?callback=?'),
+            url: utils.getFullUrl('/events/' + EVENT_ID + '/schedule/day/' + id + '?callback=?'),
             cacheKey: '/events/' + EVENT_ID + '/schedule/day/' + id,
             parse: function(data) {
                 _.each(data, function(presentation) {
@@ -262,7 +254,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
         logger.info("Refreshing events");
         core.refreshDataList({
             page: "#events", title: "Event", el: "#event-list", view: "events", template: $("#event-list-tpl").html(),
-            url: utils.getFullUrl('/events' + (OFFLINE ? '.json' : '') + '?callback=?'),
+            url: utils.getFullUrl('/events?callback=?'),
             cacheKey: '/events',
             parse: function(data) { return data; }
         });
@@ -273,7 +265,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
         logger.info("Processing event: " + id);
         core.refreshDataEntry({
             page: "#event", title: "Event", el: "#event-details", view: "event", template: $("#event-tpl").html(),
-            url: utils.getFullUrl('/events/' + id + (OFFLINE ? '.json' : '') + '?callback=?'),
+            url: utils.getFullUrl('/events/' + id + '?callback=?'),
             cacheKey: '/events/' + id,
             parse: function(data) {
                 return data;
@@ -291,7 +283,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
         logger.info("Refreshing presentations");
         core.refreshDataList({
             page: "#presentations", title: "Presentation", el: "#presentation-list", view: "presentation", template: $("#presentation-list-tpl").html(),
-            url: utils.getFullUrl('/events/' + EVENT_ID + '/presentations' + (OFFLINE ? '.json' : '') + '?callback=?'),
+            url: utils.getFullUrl('/events/' + EVENT_ID + '/presentations?callback=?'),
             cacheKey: '/events/' + EVENT_ID + '/presentations',
             parse: function(data) { return data; }
         });
@@ -302,7 +294,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
         logger.info("Processing presentation: " + id);
         core.refreshDataEntry({
             page: "#presentation", title: "Presentation", el: "#presentation-details", view: "presentation", template: $("#presentation-tpl").html(),
-            url: utils.getFullUrl('/events/presentations/' + id + (OFFLINE ? '.json' : '') + '?callback=?'),
+            url: utils.getFullUrl('/events/presentations/' + id + '?callback=?'),
             cacheKey: '/events/presentations/' + id,
             parse: function(data) {
                 _.each(data.speakers, function(speaker) {
@@ -325,7 +317,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
         logger.info("Refreshing rooms");
         core.refreshDataList({
             page: "#rooms", title: "Rooms", el: "#room-list", view: "room", template: $("#room-list-tpl").html(),
-            url: utils.getFullUrl('/events/' + EVENT_ID + '/schedule/rooms' + (OFFLINE ? '.json' : '') + '?callback=?'),
+            url: utils.getFullUrl('/events/' + EVENT_ID + '/schedule/rooms?callback=?'),
             cacheKey: '/events/' + EVENT_ID + '/schedule/rooms',
             parse: function(data) { return data; }
         });
@@ -336,7 +328,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
         logger.info("Refreshing tracks");
         core.refreshDataList({
             page: "#tracks", title: "Tracks", el: "#track-list", view: "track", template: $("#track-list-tpl").html(),
-            url: utils.getFullUrl('/events/' + EVENT_ID + '/tracks' + (OFFLINE ? '.json' : '') + '?callback=?'),
+            url: utils.getFullUrl('/events/' + EVENT_ID + '/tracks?callback=?'),
             cacheKey: '/events/' + EVENT_ID + '/tracks',
             parse: function(data) { return data; }
         });
@@ -347,7 +339,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
         logger.info("Refreshing speakers");
         core.refreshDataList({
             page: "#speakers", title: "Speakers", el: "#speaker-list", view: "speaker", template: $("#speaker-list-tpl").html(),
-            url: utils.getFullUrl('/events/' + EVENT_ID + '/speakers' + (OFFLINE ? '.json' : '') + '?callback=?'),
+            url: utils.getFullUrl('/events/' + EVENT_ID + '/speakers?callback=?'),
             cacheKey: '/events/' + EVENT_ID + '/speakers',
             parse: function(data) { return data; }
         });
@@ -358,7 +350,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
         logger.info("Processing speaker: " + id);
         core.refreshDataEntry({
             page: "#speaker", title: "Speaker", el: "#speaker-details", view: "speaker", template: $("#speaker-tpl").html(),
-            url: utils.getFullUrl('/events/speakers/' + id + (OFFLINE ? '.json' : '') + '?callback=?'),
+            url: utils.getFullUrl('/events/speakers/' + id + '?callback=?'),
             cacheKey: '/events/speakers/' + id,
             parse: function(data) {
                 _.each(data.talks, function(presentation) {

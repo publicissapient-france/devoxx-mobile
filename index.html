@@ -501,7 +501,7 @@
         <script type="text/html" id="schedule-list-tpl">
             <% _.each(entries, function(presentation) {
                     if ( presentation.get('kind') === 'Talk' ) { %>
-            <li>
+            <li class="type-<%= presentation.get('type').toLowerCase() %>">
                 <a href="#presentation?id=<%= presentation.get('key') %>">
                     <h3><%= presentation.get('title') ? presentation.get('title') : presentation.get('name') %></h3>
                     <% if ( presentation.get('speaker') ) { %>
@@ -591,7 +591,7 @@
             <% _.each(entries, function(speaker) { %>
             <li>
                 <a href="#speaker?id=<%= speaker.get('id') %>">
-                    <img src="http://devoxx-xebia.cloudfoundry.com/speaker/<%= speaker.get('id') %>" />
+                    <img src="<%= app.utils.getSpeakerImgBaseUrl() %>/speaker/<%= speaker.get('id') %>" />
                     <h3><%= speaker ? speaker.get('firstName') : '' %> <%=speaker ? speaker.get('lastName') : '' %></h3>
                     <p><em><%= speaker.get('company') %></em></p>
                     <p class="ui-li-count"><em><%= speaker.get('talks').length %></em></p>
@@ -604,7 +604,7 @@
             <div align="left">
                 <ul id="speaker-details-list" data-role="listview" data-inset="true" data-theme="c">
                     <li>
-                        <img src="http://devoxx-xebia.cloudfoundry.com/speaker/<%= entry.get('id') %>" />
+                        <img src="<%= app.utils.getSpeakerImgBaseUrl() %>/speaker/<%= entry.get('id') %>" />
                         <h3>Company: </h3>
                         <p><em><%= entry.get('company') %></em></p>
                     </li>
@@ -645,7 +645,7 @@
                     <% _.each(entry.get('speakers'), function(speaker) { %>
                     <li>
                         <a href="#speaker?id=<%= speaker.id %>">
-                            <img src="http://devoxx-xebia.cloudfoundry.com/speaker/<%= speaker.id %>" alt="<%= speaker.speaker %>" />
+                            <img src="<%= app.utils.getSpeakerImgBaseUrl() %>/speaker/<%= speaker.id %>" alt="<%= speaker.speaker %>" />
                             <h3><%= speaker.speaker %></h3>
                         </a>
                     </li>

@@ -1,7 +1,7 @@
 var DEFAULT_DEBUG_MODE = true;
 var DEBUG = DEFAULT_DEBUG_MODE || getLocationParameterByName('debug') === 'true';
 var SAFE = true;
-var OFFLINE = false;
+var OFFLINE = true;
 var PROXY = true;
 var DB_NUKE = true;
 
@@ -37,7 +37,6 @@ function init() {
             'text':        'lib/require/require.text-1.0.2' + ( DEBUG ? '.min' : ''),
             'order':       'lib/require/require.order-1.0.5.min',
             'core':        'core',
-            'app':         'app',
             'utils':       'utils',
             'ui':          'ui',
             'db':          'db',
@@ -63,9 +62,14 @@ function init() {
         window.$ = $;
         window._ = _;
         window.Backbone = Backbone;
+        window.app = window.app || {};
 
-        require(['require', 'order!log', 'order!analytics', 'order!jqmr', 'order!core', 'db', 'app', 'utils', 'ui', 'collection', 'entry', 'register', 'phonegap' ],
-            function( require, log, analytics, jqmr, core ) {
+        require(['require', 'order!log', 'order!analytics', 'order!jqmr', 'order!core', 'db', 'utils', 'ui', 'collection', 'entry', 'register', 'phonegap' ],
+            function( require, log, analytics, jqmr, core, db, utils, ui ) {
+
+            window.app.core = core;
+            window.app.ui = ui;
+            window.app.utils = utils;
 
             var logger = log.getLogger("app");
 
