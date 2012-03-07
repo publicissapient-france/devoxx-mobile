@@ -1,8 +1,9 @@
-define(['log'], function( log ) {
+define(['log', 'ui'], function( log, ui ) {
 
     var logger = log.getLogger('db');
 
     logger.info("Loading db.js");
+    ui.updateSplashscreenMessage("Chargement du module de base de données");
 
     var db = { };
 

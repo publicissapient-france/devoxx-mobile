@@ -1,8 +1,9 @@
-define(['log'], function( log ) {
+define(['log', 'ui'], function( log, ui ) {
 
     var logger = log.getLogger('entry');
 
     logger.info("Loading entry.js");
+    ui.updateSplashscreenMessage("Chargement du module de gestion des entrées");
 
     logger.info("Defining entry object");
     var entry = {

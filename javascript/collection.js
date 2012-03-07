@@ -1,8 +1,10 @@
-define(['log'], function( log ) {
+define(['log', 'ui'], function( log, ui ) {
 
     var logger = log.getLogger('collection');
 
     logger.info("Loading collection.js");
+    ui.updateSplashscreenMessage("Chargement du module de gestion des collections");
+
 
     logger.info("Defining collection object");
     var collection = {
@@ -48,7 +50,6 @@ define(['log'], function( log ) {
         render: function() {
             logger.info("Rendering List View");
             var el = $(this.options.el);
-            el.empty();
             var content = _.template( this.options.collectionTemplate, { entries: this.collection.models } );
             el.html(content);
             el.listview("refresh");

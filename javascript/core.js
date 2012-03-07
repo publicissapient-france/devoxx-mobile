@@ -3,21 +3,27 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
     var logger = log.getLogger('core');
 
     logger.info("Loading core.js");
+    ui.updateSplashscreenMessage("Chargement du module core");
 
     var EVENT_ID = '6';
 
-    var DEFAULT_TWITTER_USER = "xebiaFr";
+    var TWITTER_USER_XEBIA = "xebiaFr";
+    var TWITTER_USER_DEVOXXFR = "devoxxFR";
 
-    var AUTHORIZED_TWITTER_USER = ["xebiaFr", "devoxxFR"];
+    var DEFAULT_TWITTER_USER = TWITTER_USER_XEBIA;
+
+    var AUTHORIZED_TWITTER_USER = [TWITTER_USER_XEBIA, TWITTER_USER_DEVOXXFR];
 
     var core = { };
 
     var router;
 
     var favorites = { ids: [ 112, 148, 532 ] };
-    /*db.get('favorites', function(data) {
-        favorites = JSON.parse(data);
-    });*/
+    /*
+        db.get('favorites', function(data) {
+            favorites = JSON.parse(data);
+        });
+    */
 
     core.setupRouter = function() {
         logger.info("Instanciating jqmr router");
@@ -35,6 +41,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
             "#speaker(?:[?](.*))?" : { handler : "onBeforeSpeakerPageShow", events: "bs" },
             "#tracks" : { handler : "onBeforeTracksPageShow", events: "bs" },
             "#register":{ handler:"onBeforeRegisterPageShow", events:"bs" },
+            "#twitter":{ handler:"onBeforeTwitterPageShow", events:"bs" },
             "#twitter(?:[?](.*))?":{ handler:"onBeforeTwitterPageShow", events:"bs" }
         },
         {
@@ -81,13 +88,9 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
                 register.beforePageShow();
             },
             onBeforeTwitterPageShow: function(type, match, ui) {
-                var screenNameParam = match[1];
-                if (typeof screenNameParam === 'undefined') {
-                    core.refreshTwitter(DEFAULT_TWITTER_USER);
-                } else {
-                    var params = router.getParams(screenNameParam);
-                    core.refreshTwitter(params.screenname);
-                }
+                var params = router.getParams(match[1]);
+                var twitterAccount = !!params ? params.screenname : undefined;
+                core.refreshTwitter( twitterAccount );
             }
         });
 
@@ -175,6 +178,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
             collection.views[options.view].collection.reset(data);
             ui.hideFlashMessage(options);
         }, function() {
+            collection.views[options.view].el.empty();
             collection.views[options.view].collection.fetch(fetchOptions);
         } );
     };
@@ -425,12 +429,17 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
         if (!_(AUTHORIZED_TWITTER_USER).contains(screenName)) {
             screenName = DEFAULT_TWITTER_USER;
         }
+
+        $(screenName === TWITTER_USER_XEBIA ? '#twitter-devoxxfr' : '#twitter-xebiafr').removeClass("ui-btn-active");
+        $(screenName === TWITTER_USER_XEBIA ? '#twitter-xebiafr' : '#twitter-devoxxfr').addClass("ui-btn-active");
+
         console.log("Requested screen name : " + screenName);
         ui.resetFlashMessages("#twitter");
         logger.info("Processing tweets");
         core.refreshDataList({
             page: "#twitter", title: "Twitter", el: "#twitter-timeline", view: "twitter", template: $("#twitter-timeline-tpl").html(),
-            url: "http://api.twitter.com/1/statuses/user_timeline.json?screen_name=" + screenName + "&include_rts=true&exclude_replies=true&callback=?",
+            url: OFFLINE ? utils.getFullUrl('/twitter/' + screenName + '?callback=?') :
+                "http://api.twitter.com/1/statuses/user_timeline.json?screen_name=" + screenName + "&include_rts=true&exclude_replies=true&count=50&callback=?",
             parse: function(data) {
                 console.log( data);
                 _(data).each(function(tweet) {

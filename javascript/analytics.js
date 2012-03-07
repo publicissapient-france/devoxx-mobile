@@ -1,8 +1,9 @@
-define(['log'], function (log) {
+define(['log', 'ui'], function (log, ui) {
 
     var logger = log.getLogger('analytics');
 
-    logger.info("Loading db.js");
+    logger.info("Loading analytics.js");
+    ui.updateSplashscreenMessage("Chargement du module de statistiques");
 
     var analytics = { };
 

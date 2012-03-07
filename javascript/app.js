@@ -1,7 +1,7 @@
-var DEFAULT_DEBUG_MODE = true;
+var DEFAULT_DEBUG_MODE = false;
 var DEBUG = DEFAULT_DEBUG_MODE || getLocationParameterByName('debug') === 'true';
 var SAFE = true;
-var OFFLINE = true;
+var OFFLINE = false;
 var PROXY = true;
 var DB_NUKE = true;
 

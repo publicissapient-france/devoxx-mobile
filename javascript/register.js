@@ -1,8 +1,9 @@
-define(['log', 'db'], function( log, db ) {
+define(['log', 'db', 'ui'], function( log, db, ui ) {
 
     var logger = log.getLogger('register');
 
     logger.info("Loading register.js");
+    ui.updateSplashscreenMessage("Chargement du module d'enregistrement");
 
     var REGISTERED = "registered";
 

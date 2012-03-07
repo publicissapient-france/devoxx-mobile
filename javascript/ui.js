@@ -40,6 +40,10 @@ define(['log'], function( log ) {
             }
         };
 
+        ui.updateSplashscreenMessage = function(message) {
+            $("#splash-message").text(message);
+        };
+
     // summary:
     //            Adjust the title of the current view
     //
@@ -50,6 +54,8 @@ define(['log'], function( log ) {
     };
 
     logger.info("Loaded ui");
+    ui.updateSplashscreenMessage("Chargement du module de gestion de l'interface graphique");
+
 
     return ui;
 });

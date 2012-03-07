@@ -221,7 +221,7 @@
                 <div class="ui-progress-bar error ui-container" id="progress_bar" style="width: 210px; height:10px;">
                   <div class="ui-progress" style="width: 100%; height: 8px;"></div>
                 </div>
-                <div id="splash-message" class="splash-message">Loading, please wait ...</div>
+                <div id="splash-message" class="splash-message">Chargement de l'application ...</div>
             </div>
         </div>
 
@@ -234,10 +234,36 @@
                     <h1 id="logo">
                         <img src="image/devoxx-logo-big-white.png" class="devoxx-logo" alt="devoxx" />
                     </h1>
-                    <p id="version">Alpha Release</p>
                 </div>
                 <div id="home-content" data-role="content">
                     <div id="home-content-dates">
+
+                        <!--
+                        <div class="ui-grid-b calendar-items">
+                        	<div class="ui-block-a">
+                                <a href="#day?id=1" class="calendar-item">
+                                    <div class="calendar-item">
+                                        <p class="calendar">18 <em>Avril</em></p>
+                                    </div>
+                                </a>
+                            </div>
+                        	<div class="ui-block-b">
+                                <a href="#day?id=2" class="calendar-item">
+                                    <div class="calendar-item">
+                                       <p class="calendar">19 <em>Avril</em></p>
+                                   </div>
+                                </a>
+                            </div>
+                        	<div class="ui-block-c">
+                                <a href="#day?id=3" class="calendar-item">
+                                    <div class="calendar-item">
+                                        <p class="calendar">20 <em>Avril</em></p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        -->
+
                         <ul id="home-content-dates-list" data-role="listview" data-inset="true" data-theme="c">
                             <li>
                                 <a href="#day?id=1">
@@ -261,17 +287,27 @@
                         <ul id="home-content-devoxx-contest-list" data-role="listview" data-inset="true" data-theme="c">
                             <li>
                                 <a href="#register" alt="Register">
-                                    <h3 align="center">Register for Contest !</h3>
+                                    <h3 align="center">S'enregistrer pour le concours !</h3>
                                 </a>
                             </li>
                         </ul>
                     </div>
+                    <div id="home-content-devoxx-twitter">
+                         <ul id="home-content-devoxx-twitter-list" data-role="listview" data-inset="true" data-theme="c">
+
+                             <li>
+                                 <a href="#twitter" rel="external" alt="Nous suivre sur Twitter">
+                                      <h3 align="center"><img src="image/twitter-black-transparent.png" height="24" class="home-footer-img" /></h3>
+                                  </a>
+                             </li>
+                         </ul>
+                     </div>
 
                     <div id="home-content-devoxx-paris">
                         <ul id="home-content-devoxx-paris-list" data-role="listview" data-inset="true" data-theme="c">
                             <li>
                                  <a href="#schedule">
-                                     <h3 align="center">Schedule</h3>
+                                     <h3 align="center">Planning</h3>
                                  </a>
                             </li>
                             <li>
@@ -281,12 +317,12 @@
                             </li>
                             <li>
                                   <a href="#presentations">
-                                      <h3 align="center">Presentations</h3>
+                                      <h3 align="center">Présentations</h3>
                                   </a>
                             </li>
                             <li>
                                   <a href="#rooms">
-                                      <h3 align="center">Rooms</h3>
+                                      <h3 align="center">Salles</h3>
                                   </a>
                             </li>
                             <li>
@@ -302,12 +338,12 @@
                         <ul id="home-content-other-list" data-role="listview" data-inset="true" data-theme="c">
                             <li>
                                 <a href="#events">
-                                    <h3 align="center">All Devoxx Events</h3>
+                                    <h3 align="center">Evènements Devoxx</h3>
                                 </a>
                             </li>
                             <li>
                                 <a href="#about">
-                                    <h3 align="center">About</h3>
+                                    <h3 align="center">A propos</h3>
                                 </a>
                             </li>
                         </ul>
@@ -317,9 +353,12 @@
                 <div id="home-footer"  class="home-footer">
 
                     <div align="right" style="border-top: 1px solid #CCC; border-bottom: 1px solid #CCC; background: #FEFEFE;padding:10px;">
-                        <a href="#twitter" rel="external" alt="Follow us on Twitter">
+                        &nbsp;
+                       <!--
+                       <a href="#twitter" rel="external" alt="Follow us on Twitter">
                             <img src="image/twitter-black-transparent.png" class="home-footer-img" height="24" />
                         </a>
+                        -->
                     </div>
                 </div>
             </div>
@@ -328,7 +367,7 @@
             <div align="center" id="schedule" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
 
                 <div data-role="header" data-theme="c" data-divider-theme="a">
-                    <h1>Schedule</h1>
+                    <h1>Planning</h1>
                 </div>
                 <div data-role="content">
                     <ul id="schedule-list" data-role="listview" data-theme="c"></ul>
@@ -339,7 +378,7 @@
             <div align="center" id="day" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
 
                 <div data-role="header" data-theme="c" data-divider-theme="a">
-                    <h1>Day</h1>
+                    <h1>Jour</h1>
                 </div>
                 <div data-role="content">
                     <ul id="day-list" data-role="listview" data-theme="c"></ul>
@@ -350,7 +389,7 @@
             <div align="center" id="presentation" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
 
                 <div data-role="header" data-theme="c" data-divider-theme="a">
-                    <h1>Presentation</h1>
+                    <h1>Présentation</h1>
                 </div>
                 <div id="presentation-details" data-role="content"></div>
             </div>
@@ -359,7 +398,7 @@
             <div align="center" id="events" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
 
                 <div data-role="header" data-theme="c">
-                    <h1>Events</h1>
+                    <h1>Evènements</h1>
                 </div>
                 <div data-role="content">
                     <ul id="event-list" data-role="listview" data-theme="c"></ul>
@@ -370,7 +409,7 @@
             <div align="center" id="event" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
 
                 <div data-role="header" data-theme="c" data-divider-theme="a">
-                    <h1>Event</h1>
+                    <h1>Evènement</h1>
                 </div>
                 <div id="event-details" data-role="content"></div>
             </div>
@@ -399,7 +438,7 @@
             <div align="center" id="rooms" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
 
                 <div data-role="header" data-theme="c">
-                    <h1>Room</h1>
+                    <h1>Salles</h1>
                 </div>
                 <div data-role="content">
                     <ul id="room-list" data-role="listview" data-theme="c"></ul>
@@ -410,7 +449,7 @@
             <div align="center" id="presentations" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
 
                 <div data-role="header" data-theme="c">
-                    <h1>Presentation</h1>
+                    <h1>Présentation</h1>
                 </div>
                 <div data-role="content">
                     <ul id="presentation-list" data-role="listview" data-theme="c"></ul>
@@ -421,7 +460,7 @@
             <div align="center" id="tracks" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
 
                 <div data-role="header" data-theme="c">
-                    <h1>Track</h1>
+                    <h1>Tracks</h1>
                 </div>
                 <div data-role="content">
                     <ul id="track-list" data-role="listview" data-theme="c"></ul>
@@ -432,17 +471,17 @@
             <div align="center" id="register" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
 
                 <div data-role="header" data-theme="c">
-                    <h1>Contest</h1>
+                    <h1>Concours</h1>
                 </div>
                 <div id="register-content" data-role="content">
 
                     <div align="left">
 
                         <div id="contest-form-submitted-notification" style="display: none;">
-                            <p>Thanks for the registration!</p>
+                            <p>Merci pour l'enregistement!</p>
                         </div>
                         <div id="contest-form-already-submitted-notification" style="display: none;">
-                            <p>Registration laready submitted!</p>
+                            <p>Enregistrement déjà soumis!</p>
                         </div>
 
                         <div id="contest-description">
@@ -453,12 +492,12 @@
 
                             <div align="left">
                                 <div data-role="fieldcontain">
-                                     <label for="register-firstname">Firstname:</label>
+                                     <label for="register-firstname">Prénom:</label>
                                      <input type="text" name="firstname" id="register-firstname" value=""/>
                                  </div>
 
                                  <div data-role="fieldcontain">
-                                     <label for="register-lastname">Lastname:</label>
+                                     <label for="register-lastname">Nom:</label>
                                      <input type="text" name="lastname" id="register-lastname" value=""/>
                                  </div>
 
@@ -468,12 +507,12 @@
                                  </div>
 
                                  <div data-role="fieldcontain">
-                                     <label for="register-comment">Comment:</label>
+                                     <label for="register-comment">Commentaire:</label>
                                      <textarea cols="40" rows="8" name="comment" id="register-comment" style="height:100px;"></textarea>
                                  </div>
 
                                  <div data-role="fieldcontain">
-                                     <button id="register-submit" type="submit" data-theme="a">Register !</button>
+                                     <button id="register-submit" type="submit" data-theme="a">S'enregistrer !</button>
                                  </div>
                             </div>
 
@@ -487,7 +526,7 @@
             <!-- About page -->
             <div align="center" id="about" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
                 <div data-role="header" data-theme="c">
-                    <h1>About</h1>
+                    <h1>A propos</h1>
                 </div>
                 <div id="about-header">
                     <h1 id="logo-about">
@@ -513,8 +552,16 @@
                 </div>
                 <div data-role="navbar">
                     <ul>
-                        <li><a href="#twitter?screenname=xebiaFr" class="ui-btn-active">Xebia</a></li>
-                        <li><a href="#twitter?screenname=devoxxFR">Devoxx</a></li>
+                        <li>
+                            <a id="twitter-xebiafr" href="#twitter?screenname=xebiaFr">
+                                <img src="image/xebia_logo-large-transparent.png" height="32px" />
+                            </a>
+                        </li>
+                        <li>
+                            <a id="twitter-devoxxfr" href="#twitter?screenname=devoxxFR">
+                                <img src="image/devoxx-logo-big-white.png" height="32px" />
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <div id="twitter-content" data-role="content">
@@ -565,11 +612,11 @@
             <div align="left">
                 <ul id="event-details-list" data-role="listview" data-inset="true" data-theme="c">
                     <li>
-                        <h3>From / To: </h3>
+                        <h3>De / à: </h3>
                         <p><em><%= entry.get('from') %> / <%= entry.get('to') %></em></p>
                     </li>
                     <li>
-                        <h3>Location: </h3>
+                        <h3>Lieux: </h3>
                         <p><em><%= entry.get('location') %></em></p>
                     </li>
                     <li>
@@ -594,7 +641,7 @@
             <li>
                 <h3><%= room.get('name') %></h3>
                 <p><em>Speaker: <%= room.get('speaker') %></em></p>
-                <p><em>Capacity: <%= room.get('capacity') %> / Location: <%= room.get('locationName') %></em></p>
+                <p><em>Capacité: <%= room.get('capacity') %> / Lieux: <%= room.get('locationName') %></em></p>
                 <p class="ui-li-count"><em><%= room.get('capacity') %></em></p>
             </li>
             <% }); %>
@@ -630,15 +677,15 @@
                 <ul id="speaker-details-list" data-role="listview" data-inset="true" data-theme="c">
                     <li>
                         <img src="<%= app.utils.getSpeakerImgBaseUrl() %>/speaker/<%= entry.get('id') %>" />
-                        <h3>Company: </h3>
+                        <h3>Société: </h3>
                         <p><em><%= entry.get('company') %></em></p>
                     </li>
                 </ul>
-                <h3>Summary:</h3>
+                <h3>Biographie:</h3>
                 <div id="speaker-summary">
                     <%= entry.get('bio') %>
                 </div>
-                <h3>Talks:</h3>
+                <h3>Présentations:</h3>
                 <ul id="speaker-talk-list" data-role="listview" data-inset="true" data-theme="c">
                     <% _.each(entry.get('talks'), function(presentation) { %>
                     <li>
@@ -655,24 +702,19 @@
 
         <script type="text/html" id="presentation-tpl">
             <div align="left">
-                <div>
-                    <h3>Tags:</h3>
-                </div>
-                    <% if (entry.get('favorite')) { %>
-                        <div class="favoriteImg filled" style="width: 50px; height: 50px;" />
-                    <% } else { %>
-                        <div class="favoriteImg" style="width: 50px; height: 50px;" />
-                    <% } %>
 
-                <ul id="presentation-tag-list" data-role="listview" data-inset="true" data-theme="c">
-                    <% _.each(entry.get('tags'), function(tag) { %>
-                    <li>
-                        <!-- <img src="http://devoxx.helyx.org/image/tag/<%= tag.name.toLowerCase() %>.png" /> -->
-                        <h3><%= tag.name %></h3>
-                    </li>
-                    <% });
-                    %>
-                </ul>
+                <!--
+                <% if (entry.get('favorite')) { %>
+                    <div class="favoriteImg filled" style="width: 50px; height: 50px;" />
+                <% } else { %>
+                    <div class="favoriteImg" style="width: 50px; height: 50px;" />
+                <% } %>
+                -->
+                <h3>Résumé:</h3>
+                <div id="presentation-summary">
+                    <%= entry.get('summary') %>
+                </div>
+
                 <h3>Speakers:</h3>
                 <ul id="presentation-speaker-list" data-role="listview" data-inset="true" data-theme="c">
                     <% _.each(entry.get('speakers'), function(speaker) { %>
@@ -685,14 +727,23 @@
                     <% });
                     %>
                 </ul>
-                <h3>Summary:</h3>
-                <div id="presentation-summary">
-                    <%= entry.get('summary') %>
-                </div>
-                <h3>Details:</h3>
+
+                <h3>Tags:</h3>
+
+                <ul id="presentation-tag-list" data-role="listview" data-inset="true" data-theme="c">
+                    <% _.each(entry.get('tags'), function(tag) { %>
+                    <li>
+                        <!-- <img src="http://devoxx.helyx.org/image/tag/<%= tag.name.toLowerCase() %>.png" /> -->
+                        <h3><%= tag.name %></h3>
+                    </li>
+                    <% });
+                    %>
+                </ul>
+
+                <h3>Détails:</h3>
                 <ul id="presentation-details-list" data-role="listview" data-inset="true" data-theme="c">
                     <li>
-                        <h3>Room: </h3>
+                        <h3>Salle: </h3>
                         <p><em><%= entry.get('room') %></em></p>
                     </li>
                     <li>
@@ -700,7 +751,7 @@
                         <p><em><%= entry.get('track') %></em></p>
                     </li>
                     <li>
-                        <h3>Experience: </h3>
+                        <h3>Expérience: </h3>
                         <p><em><%= entry.get('experience') %></em></p>
                     </li>
                     <li>
@@ -714,7 +765,7 @@
         <script type="text/html" id="twitter-timeline-tpl">
             <% _.each(entries, function(tweet) { %>
             <li data-inline="false">
-                <a href="http://twitter.com/<%= tweet.get('user').screen_name %>/status/<%= tweet.get('id_str') %>">
+                <a href="">
                     <img src="<%= tweet.get('user').icon %>" class="ui-li-thumb">
                     <p><%= tweet.get('formattedDate') %> - <%= tweet.get('user').screen_name %></p>
                     <p class="multiline"><em><%= tweet.get('text') %></em></p>
@@ -741,10 +792,6 @@
         </script>
         <script src="javascript/lib/json/json2.min.js"></script>
         <script src="javascript/lib/lawnchair/lawnchair-0.6.1.min.js" type="text/javascript"  charset="utf-8"></script>
-
-        <!-- <script src="javascript/lib/jquery/jquery-1.7.1.min.js" type="text/javascript"  charset="utf-8"></script> -->
-        <!-- <script src="javascript/lib/underscore/underscore-1.3.1.min.js" type="text/javascript"  charset="utf-8"></script> -->
-        <!-- <script src="javascript/lib/backbone/backbone-0.9.1.min.js" type="text/javascript"  charset="utf-8"></script> -->
 
         <script data-main="javascript/app" src="javascript/lib/require/require-1.0.5.min.js"></script>
 

@@ -1,8 +1,9 @@
-define( ['log'], function( log ) {
+define( ['log', 'ui'], function( log, ui ) {
 
     var logger = log.getLogger('utils');
     
     logger.info("Loading utils.js");
+    ui.updateSplashscreenMessage("Chargement du module utilitaire");
 
     var utils = { };
 
