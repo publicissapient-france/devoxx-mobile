@@ -45,12 +45,11 @@ function init() {
             'entry':       'entry',
             'register':    'register',
             'analytics':   'analytics',
-            'jquery':      'lib/jquery/jquery-1.7.1' + ( DEBUG ? '' : '.min'),
-            'underscore':  'lib/underscore/underscore-1.3.1' + ( DEBUG ? '' : '.min'),
-            'backbone':    'lib/backbone/backbone-0.9.1' + ( DEBUG ? '' : '.min'),
-            'jqmr':        'lib/jquerymobile/jquery.mobile.router-0.6' + ( DEBUG ? '' : '.min'),
-            'jqm':         'lib/jquerymobile/jquery.mobile-1.1.0-rc.1' + ( DEBUG ? '' : '.min'),
-            'phonegap':    'lib/phonegap/phonegap-1.4.0' + ( DEBUG ? '' : '.min')
+            'jquery':      'lib/jquery/jquery-1.7.1',
+            'underscore':  'lib/underscore/underscore-1.3.1',
+            'backbone':    'lib/backbone/backbone-0.9.1',
+            'jqmr':        'lib/jquerymobile/jquery.mobile.router-0.6',
+            'jqm':         'lib/jquerymobile/jquery.mobile-1.1.0-rc.1'
         },
         baseUrl: 'javascript'
     });
@@ -64,7 +63,7 @@ function init() {
         window.Backbone = Backbone;
         window.app = window.app || {};
 
-        require(['require', 'order!log', 'order!analytics', 'order!jqmr', 'order!core', 'db', 'utils', 'ui', 'collection', 'entry', 'register', 'phonegap' ],
+        require(['require', 'order!log', 'order!analytics', 'order!jqmr', 'order!core', 'db', 'utils', 'ui', 'collection', 'entry', 'register' ],
             function( require, log, analytics, jqmr, core, db, utils, ui ) {
 
             window.app.core = core;
