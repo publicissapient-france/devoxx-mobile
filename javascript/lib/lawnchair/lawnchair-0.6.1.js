@@ -236,7 +236,7 @@ Lawnchair.adapter('dom', {
     },
 
     // accepts [options], callback
-    keys: function() {
+    keys: function(options, callback) {
         // TODO support limit/offset options here
         var limit = options.limit || null
         ,   offset = options.offset || 0

@@ -41,7 +41,6 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
             "#speaker(?:[?](.*))?" : { handler : "onBeforeSpeakerPageShow", events: "bs" },
             "#tracks" : { handler : "onBeforeTracksPageShow", events: "bs" },
             "#register":{ handler:"onBeforeRegisterPageShow", events:"bs" },
-            "#twitter":{ handler:"onBeforeTwitterPageShow", events:"bs" },
             "#twitter(?:[?](.*))?":{ handler:"onBeforeTwitterPageShow", events:"bs" }
         },
         {

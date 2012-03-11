@@ -13,12 +13,28 @@ define(['log', 'ui'], function( log, ui ) {
 
     var lawnchair = new Lawnchair({name: DB_NAME}, function(database) {
         logger.info("Storage open for db: '" + database.name + "' with '" + database.adapter + "' adapter.");
+
         if (DB_NUKE) {
-            this.nuke();
+            var self = this;
+            self.keys({}, function(keys) {
+                _(keys).each(function(key) {
+                    if (key.indexOf("/events/") >= 0) {
+                        self.remove(key, function() {
+                            logger.info("Destroyed following key in db: '" + key + "'");
+                        });
+                    }
+                });
+            });
         }
     });
 
     logger.info("Created Lawnchair object");
+
+    db.exists = function(key, callback) {
+        lawnchair.get(key, function(exists) {
+            callback(exists);
+        });
+    };
 
     db.getName = function() {
         return DB_NAME;
@@ -34,7 +50,7 @@ define(['log', 'ui'], function( log, ui ) {
 
     db.isEquals = function(key, expectedValue, trueCallBack, falseCallback) {
         lawnchair.get(key, function(actualValue) {
-            actualValue === expectedValue ? trueCallBack() : falseCallback();
+            (actualValue && (actualValue.value === expectedValue)) ? trueCallBack() : falseCallback();
         });
     };
 
