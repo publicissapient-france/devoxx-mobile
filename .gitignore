@@ -17,4 +17,3 @@ stacktrace.log
 *.iml
 .classpath
 .project
-target

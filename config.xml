@@ -9,6 +9,8 @@
 		Devoxx 2012 mobile version
 	</description>
 
+    <content src="target/index.html"/>
+
 	<author href="http://blog.xebia.fr" email="akinsella@xebia.fr">
 		Alexis Kinsella
 	</author>
