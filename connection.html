@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <title>Connection Test</title>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <style>
+            h1.online {
+                color: green;
+            }
+
+            h1.offline {
+                color: red;
+            }
+        </style>
+     </head>
+    <body>
+        <h1 id="connection">Connection is:<span id="connection-state"></span></h1>
+
+    </body>
+    <script>
+        function setOnLine() {
+            $("#connection").addClass('online');
+            $("#connection").removeClass('offline');
+            $("#connection-state").text("Online");
+        }
+        function setOffLine() {
+            $("#connection").addClass('offline');
+            $("#connection").removeClass('online');
+            $("#connection-state").text("Offline");
+        }
+
+        if (navigator.onLine) {
+            setOnLine();
+        } else {
+            setOffLine();
+        }
+
+        window.addEventListener("offline", function(e) {
+            setOffLine();
+        }, false);
+
+        window.addEventListener("online", function(e) {
+            setOnLine();
+        }, false);
+     </script>
+</html>
