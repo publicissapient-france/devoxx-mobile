@@ -286,6 +286,11 @@ div.spinner-container {
                                     <h3 align="center">Menu</h3>
                                 </a>
                             </li>
+                            <li>
+                                <a href="#xebiaprogram" alt="Xebia Program">
+                                    <h3 align="center">See Xebia Program in Devoxx !</h3>
+                                </a>
+                            </li>
                         </ul>
 
                         <ul id="home-content-twitter-list" data-role="listview" data-inset="true" data-theme="c">
@@ -543,6 +548,17 @@ div.spinner-container {
                 </div>
             </div>
 
+            <!-- Xebia Program page -->
+            <div align="center" id="xebiaprogram" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+
+                <div data-role="header" data-theme="c">
+                    <h1>Xebia in Devoxx ! :D </h1>
+                </div>
+                <div data-role="content">
+                    <ul id="xebiaprogram-list" data-role="listview" data-theme="c"></ul>
+                </div>
+            </div>
+
             <!-- About page -->
             <div align="center" id="about" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
                 <div data-role="header" data-theme="c">
@@ -623,6 +639,18 @@ div.spinner-container {
                         <p><em><%= event.get('location') %></em></p>
                         <p class="ui-li-aside"><em><%= event.get('to') + ' / ' + event.get('to') %></em></p>
                     </a>
+                </li>
+            <%  }
+               }); %>
+        </script>
+
+        <script type="text/html" id="xebiaprogram-list-tpl">
+            <% _.each(entries, function(event) {
+                console.log("Xebia Program: " + event);
+                if (event.get('enabled')) {
+            %>
+                <li>
+                        <p><em><%= event.get('day') %></em></p>
                 </li>
             <%  }
                }); %>
