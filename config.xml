@@ -68,7 +68,7 @@
         Multiple splash screens are recommended for iOS -->
     <!-- iOS requires specific dimensions for different devices; classic iPhone
       screens, Retina displays, and iPad screens -->
-    <gap:splash src="splashes/default-480x762.png" default="true" />
+    <gap:splash src="splashes/default-480x762.png" />
 
     <gap:splash src="splashes/android-portrait-480x762.png" width="480" height="762"/>
     <gap:splash src="splashes/android-portrait-480x800.png" width="480" height="800"/>
