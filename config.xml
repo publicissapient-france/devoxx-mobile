@@ -30,14 +30,20 @@
 
     <!-- iOS requires specific dimensions for icons; classic iPhone screens, Retina
         displays, and iPad screens respectively -->
-    <icon src="image/icons/icon-iphone-spotlight-29.png" width="29" height="29"/>
-    <icon src="image/icons/icon-ipad-spotlight-48.png" width="48" height="48"/>
+    <icon src="image/icons/icon-iphone-toolbar-20.png" width="20" height="20"/>
+    <icon src="image/icons/icon-iphone-toolbar-40.png" width="40" height="40"/>
+    <icon src="image/icons/icon-iphone-tabbar-30.png" width="30" height="30"/>
+    <icon src="image/icons/icon-iphone-tabbar-60.png" width="60" height="60"/>
+
     <icon src="image/icons/icon-iphone-57.png" width="57" height="57"/>
-    <icon src="image/icons/icon-iphone-spotlight-retina-58.png" width="58" height="58"/>
-    <icon src="image/icons/icon-iphone-document-64.png" width="64" height="64"/>
-    <icon src="image/icons/icon-ipad-72.png" width="72" height="72"/>
     <icon src="image/icons/icon-iphone-retina-114.png" width="114" height="114"/>
-    <icon src="image/icons/icon-iphone-document-320.png" width="320" height="320"/>
+
+    <icon src="image/icons/icon-ipad-spotlight-48.png" width="48" height="48"/>
+    <icon src="image/icons/icon-ipad-72.png" width="72" height="72"/>
+
+    <icon src="image/icons/icon-iphone-settings-29.png" width="29" height="29"/>
+    <icon src="image/icons/icon-iphone-settings-retina-58.png" width="58" height="58"/>
+
 
     <!-- Android requires specific dimensions; ldpi, mdpi, and hdpi respectively -->
     <icon src="image/icons/icon-android-36.png" width="36" height="36"/>
@@ -62,11 +68,16 @@
         Multiple splash screens are recommended for iOS -->
     <!-- iOS requires specific dimensions for different devices; classic iPhone
       screens, Retina displays, and iPad screens -->
-    <gap:splash src="splashes/splash.png"/>
-    <gap:splash src="splashes/splash.png" width="480" height="800"/>
-    <gap:splash src="splashes/retina.png" width="640" height="960"/>
+    <gap:splash src="splashes/default-480x800.png"/>
+    <gap:splash src="splashes/android-portrait-480x800.png" width="480" height="800"/>
+    <gap:splash src="splashes/android-portrait-480x762.png" width="480" height="762"/>
+    <gap:splash src="splashes/android-landscape-762x480.png" width="762" height="480"/>
+    <gap:splash src="splashes/iphone-portrait.png" width="320" height="480"/>
+    <gap:splash src="splashes/iphone-portrait-retina.png" width="640" height="960"/>
     <gap:splash src="splashes/ipad-portrait.png" width="768" height="1004"/>
     <gap:splash src="splashes/ipad-landscape.png" width="1024" height="748"/>
+    <gap:splash src="splashes/ipad-portrait-retina.png" width="1536" height="2008"/>
+    <gap:splash src="splashes/ipad-landscape-retina.png" width="2048" height="1496"/>
 
 	<!-- <feature name="http://api.phonegap.com/1.0/geolocation"/> -->
 	<feature name="http://api.phonegap.com/1.0/network"/>
