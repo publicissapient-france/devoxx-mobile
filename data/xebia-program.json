@@ -2,6 +2,7 @@
     {
         "day":1,
         "date":"2012/04/18",
+        "formatted_date":"Mardi 18 Avril",
         "sessions":[
             {
                 "title":"Mini Atelier",
@@ -50,6 +51,7 @@
     {
         "day":2,
         "date":"2012/04/19",
+        "formatted_date":"Jeudi 19 Avril",
         "sessions":[
             {
                 "title":"Mini Atelier",
@@ -112,6 +114,7 @@
     {
         "day":3,
         "date":"2012/04/20",
+        "formatted_date":"Vendredi 20 Avril",
         "sessions":[
             {
                 "title":"Mini Atelier",

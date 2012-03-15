@@ -1,4 +1,4 @@
-define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'xebiaprogram'], function( log, utils, collection, entry, register, ui, db, xebiaprogram ) {
+define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function( log, utils, collection, entry, register, ui, db ) {
     
     var logger = log.getLogger('core');
 
@@ -40,13 +40,9 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'xebiapro
             "#speakers" : { handler : "onBeforeSpeakersPageShow", events: "bs" },
             "#speaker(?:[?](.*))?" : { handler : "onBeforeSpeakerPageShow", events: "bs" },
             "#tracks" : { handler : "onBeforeTracksPageShow", events: "bs" },
-<<<<<<< HEAD
             "#register":{ handler:"onBeforeRegisterPageShow", events:"bs" },
-            "#twitter(?:[?](.*))?":{ handler:"onBeforeTwitterPageShow", events:"bs" }
-=======
-            "#register": { handler : "onBeforeRegisterPageShow", events: "bs" },
-            "#xebiaprogram": { handler : "onBeforeXebiaProgramPageShow", events: "bs" }
->>>>>>> xebia-program
+            "#twitter(?:[?](.*))?":{ handler:"onBeforeTwitterPageShow", events:"bs" },
+            "#xebia-program": { handler : "onBeforeXebiaProgramPageShow", events: "bs" }
         },
         {
             onBeforeSchedulePageShow: function(type, match, ui) {
@@ -91,17 +87,14 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'xebiapro
             onBeforeRegisterPageShow: function(type, match, ui) {
                 register.beforePageShow();
             },
-<<<<<<< HEAD
             onBeforeTwitterPageShow: function(type, match, ui) {
                 var params = router.getParams(match[1]);
                 var twitterAccount = !!params ? params.screenname : undefined;
                 core.refreshTwitter( twitterAccount );
-=======
+            },
             onBeforeXebiaProgramPageShow: function(type, match, ui) {
-                xebiaprogram.beforePageShow();
->>>>>>> xebia-program
+                core.refreshXebiaProgram();
             }
-
         });
 
         logger.info("Instanciated jqmr router");
@@ -194,60 +187,58 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'xebiapro
     };
 
     core.refreshDataEntry = function(options) {
-            $.mobile.showPageLoadingMsg();
-            logger.info("Show " + options.title + " page message!");
-            ui.showFlashMessage(options);
+        $.mobile.showPageLoadingMsg();
+        logger.info("Show " + options.title + " page message!");
+        ui.showFlashMessage(options);
 
-            logger.info("Loading " + options.title + " View");
-            entry.views[options.view] = new entry.EntryView({
-                fetchUrl: options.url,
-                el: options.el,
-                entryTemplate: options.template,
-                parse: options.parse,
-                beforeParse: options.beforeParse,
-                postRender: options.postRender,
-                afterParse: function(data) {
-                    if (options.cacheKey && !data.statusCode) {
-                        db.save(options.cacheKey, data);
-                    }
-                    if (options.afterParse) {
-                        options.afterParse(data);
-                    }
+        logger.info("Loading " + options.title + " View");
+        entry.views[options.view] = new entry.EntryView({
+            fetchUrl: options.url,
+            el: options.el,
+            entryTemplate: options.template,
+            parse: options.parse,
+            beforeParse: options.beforeParse,
+            postRender: options.postRender,
+            afterParse: function(data) {
+                if (options.cacheKey && !data.statusCode) {
+                    db.save(options.cacheKey, data);
                 }
+                if (options.afterParse) {
+                    options.afterParse(data);
+                }
+            }
+        });
+
+        if (options.events) {
+            _.each(options.events, function(event) {
+                entry.views[options.view].on(event.key, event.value, entry.views[options.view]);
             });
+        }
 
-            if (options.events) {
-                _.each(options.events, function(event) {
-                    entry.views[options.view].on(event.key, event.value, entry.views[options.view]);
-                });
-            }
+        if (entry.views[options.view].entry) {
+            entry.views[options.view].entry.clear();
+        }
 
+        logger.info("Fetch " + options.title + " Data from url: '" + entry.views[options.view].entry.url + "'");
 
-
-            if (entry.views[options.view].entry) {
-                entry.views[options.view].entry.clear();
-            }
-
-            logger.info("Fetch " + options.title + " Data from url: '" + entry.views[options.view].entry.url + "'");
-
-            var fetchOptions = {
-                success: function(model, resp) {
-                    if (options.success) {
-                        options.success(model, resp);
-                    }
-                    core.onFetchSuccess(model, resp, options);
-                } ,
-                error: function (originalModel, resp, errOptions) { core.onFetchError(originalModel, resp, errOptions, options) },
-                fetchUrl: options.url
-            };
-
-            db.getOrFetch(options.cacheKey, function(data) {
-                entry.views[options.view].entry.set(data);
-                ui.hideFlashMessage(options);
-            }, function() {
-                entry.views[options.view].entry.fetch(fetchOptions);
-            } );
+        var fetchOptions = {
+            success: function(model, resp) {
+                if (options.success) {
+                    options.success(model, resp);
+                }
+                core.onFetchSuccess(model, resp, options);
+            } ,
+            error: function (originalModel, resp, errOptions) { core.onFetchError(originalModel, resp, errOptions, options) },
+            fetchUrl: options.url
         };
+
+        db.getOrFetch(options.cacheKey, function(data) {
+            entry.views[options.view].entry.set(data);
+            ui.hideFlashMessage(options);
+        }, function() {
+            entry.views[options.view].entry.fetch(fetchOptions);
+        } );
+    };
 
 
     core.refreshSchedule = function() {
@@ -463,6 +454,19 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'xebiapro
                 console.log("post render");
             }
 
+        });
+    };
+
+    core.refreshXebiaProgram = function(filter) {
+        ui.resetFlashMessages("#xebia-program");
+        logger.info("Refreshing Xebia Program");
+        core.refreshDataList({
+            page: "#xebia-program", title: "Programme Xebia", el: "#xebia-program-list", view: "xebia-program", template: $("#xebia-program-list-tpl").html(),
+            url: "http://devoxx-xebia.cloudfoundry.com/xebia/program?callback=?",
+            cacheKey: '/xebia/program',
+            parse: function(data) {
+                return data;
+            }
         });
     };
 

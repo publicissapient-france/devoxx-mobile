@@ -286,11 +286,6 @@ div.spinner-container {
                                     <h3 align="center">Menu</h3>
                                 </a>
                             </li>
-                            <li>
-                                <a href="#xebiaprogram" alt="Xebia Program">
-                                    <h3 align="center">See Xebia Program in Devoxx !</h3>
-                                </a>
-                            </li>
                         </ul>
 
                         <ul id="home-content-twitter-list" data-role="listview" data-inset="true" data-theme="c">
@@ -394,7 +389,7 @@ div.spinner-container {
             <div align="center" id="xebia-program" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
 
                 <div data-role="header" data-theme="c" data-divider-theme="a">
-                    <h1>Programme Xebia</h1>
+                    <h1>Xebia In Devoxx</h1>
                 </div>
                 <div data-role="content">
                     <ul id="xebia-program-list" data-role="listview" data-theme="c"></ul>
@@ -548,17 +543,6 @@ div.spinner-container {
                 </div>
             </div>
 
-            <!-- Xebia Program page -->
-            <div align="center" id="xebiaprogram" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
-
-                <div data-role="header" data-theme="c">
-                    <h1>Xebia in Devoxx ! :D </h1>
-                </div>
-                <div data-role="content">
-                    <ul id="xebiaprogram-list" data-role="listview" data-theme="c"></ul>
-                </div>
-            </div>
-
             <!-- About page -->
             <div align="center" id="about" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
                 <div data-role="header" data-theme="c">
@@ -637,20 +621,8 @@ div.spinner-container {
                     <a href="#event?id=<%= event.get('id') %>">
                         <h3><%= event.get('name') %></h3>
                         <p><em><%= event.get('location') %></em></p>
-                        <p class="ui-li-aside"><em><%= event.get('to') + ' / ' + event.get('to') %></em></p>
+                        <p class="ui-li-aside"><em><%= event.get('from') + ' / ' + event.get('to') %></em></p>
                     </a>
-                </li>
-            <%  }
-               }); %>
-        </script>
-
-        <script type="text/html" id="xebiaprogram-list-tpl">
-            <% _.each(entries, function(event) {
-                console.log("Xebia Program: " + event);
-                if (event.get('enabled')) {
-            %>
-                <li>
-                        <p><em><%= event.get('day') %></em></p>
                 </li>
             <%  }
                }); %>
@@ -704,6 +676,21 @@ div.spinner-container {
                     <p><em>Track: <%= presentation.get('track') %> - <%= presentation.get('experience') %>- <%= presentation.get('room') %></em></p>
                 </a>
             </li>
+            <% }); %>
+        </script>
+
+        <script type="text/html" id="xebia-program-list-tpl">
+            <% _.each(entries, function(day) { %>
+            <li data-role="list-divider">
+                <h3><%= day.get('formatted_date') %></h3>
+            </li>
+                <% _.each(day.get('sessions'), function(session) { %>
+                <li>
+                    <h3><%= session.title %></h3>
+                    <p><em><%= session.excerpt %></em></p>
+                    <p class="ui-li-aside"><em><%= session.start_time + ' / ' + session.end_time %></em></p>
+                </li>
+                <% }); %>
             <% }); %>
         </script>
 
