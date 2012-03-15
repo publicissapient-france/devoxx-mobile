@@ -68,9 +68,8 @@
         Multiple splash screens are recommended for iOS -->
     <!-- iOS requires specific dimensions for different devices; classic iPhone
       screens, Retina displays, and iPad screens -->
-    <gap:splash src="splashes/default-480x800.png"/>
-    <gap:splash src="splashes/android-portrait-480x800.png" width="480" height="800"/>
     <gap:splash src="splashes/android-portrait-480x762.png" width="480" height="762"/>
+    <gap:splash src="splashes/android-portrait-480x800.png" width="480" height="800"/>
     <gap:splash src="splashes/android-landscape-762x480.png" width="762" height="480"/>
     <gap:splash src="splashes/iphone-portrait.png" width="320" height="480"/>
     <gap:splash src="splashes/iphone-portrait-retina.png" width="640" height="960"/>
@@ -78,6 +77,7 @@
     <gap:splash src="splashes/ipad-landscape.png" width="1024" height="748"/>
     <gap:splash src="splashes/ipad-portrait-retina.png" width="1536" height="2008"/>
     <gap:splash src="splashes/ipad-landscape-retina.png" width="2048" height="1496"/>
+    <gap:splash src="splashes/default-480x762.png"/>
 
 	<!-- <feature name="http://api.phonegap.com/1.0/geolocation"/> -->
 	<feature name="http://api.phonegap.com/1.0/network"/>
