@@ -72,7 +72,7 @@
 
     <gap:splash src="splashes/android-portrait-480x762.png" width="480" height="762"/>
     <gap:splash src="splashes/android-portrait-480x800.png" width="480" height="800"/>
-    <gap:splash src="splashes/android-landscape-762x480.png" width="762" height="480"/>
+<!--    <gap:splash src="splashes/android-landscape-762x480.png" width="762" height="480"/> -->
     <gap:splash src="splashes/iphone-portrait.png" width="320" height="480"/>
     <gap:splash src="splashes/iphone-portrait-retina.png" width="640" height="960"/>
     <gap:splash src="splashes/ipad-portrait.png" width="768" height="1004"/>
