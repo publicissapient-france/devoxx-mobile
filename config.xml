@@ -90,5 +90,5 @@
     <preference name="fullscreen" value="false" />
     <preference name="target-device" value="universal" />
     <preference name="orientation" value="landscape" />
-    
+
 </widget>

@@ -467,11 +467,11 @@ div.spinner-container {
                 </div>
             </div>
 
-            <!-- Presentation page -->
+            <!-- Presentations page -->
             <div align="center" id="presentations" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
 
                 <div data-role="header" data-theme="c">
-                    <h1>Présentation</h1>
+                    <h1>Présentations</h1>
                 </div>
                 <div data-role="content">
                     <ul id="presentation-list" data-role="listview" data-theme="c"></ul>
@@ -591,24 +591,38 @@ div.spinner-container {
         </div>
 
         <script type="text/html" id="schedule-list-tpl">
-            <% _.each(entries, function(presentation) {
-                    if ( presentation.get('kind') === 'Talk' ) { %>
-            <li class="type-<%= presentation.get('type').toLowerCase() %>">
-                <a href="#presentation?id=<%= presentation.get('key') %>">
-                    <h3><%= presentation.get('title') ? presentation.get('title') : presentation.get('name') %></h3>
-                    <% if ( presentation.get('speaker') ) { %>
-                        <p><em>Speaker: <%= presentation.get('speaker') %></em></p>
-                    <% } %>
-                    <p><em><%= presentation.get('kind') %> - <%= presentation.get('room') %></em></p>
-                    <p><em><%= presentation.get('type') %></em></p>
-                    <p class="ui-li-aside"><em><%= presentation.get('startTime') %> / <%= presentation.get('endTime') %></em></p>
-                </a>
-            </li>
-            <%      } else { %>
-            <li data-role="list-divider">
-                <h3><%= presentation.get('code') %> - <%= presentation.get('startTime') %> / <%= presentation.get('endTime') %></h3>
-            </li>
-            <%     }
+            <%
+            var currentTime = '';
+            _.each(entries, function(presentation) {
+                var title = presentation.get('title');
+                var time = presentation.get('startTime') + " - " + presentation.get('endTime');
+                var currentTimeChanged = time != currentTime;
+                currentTime = time;
+                if (currentTimeChanged) { %>
+                    <li data-role="list-divider"><%= currentTime %></li>
+            <%  }
+                if ( presentation.get('kind') === 'Talk' ) { %>
+                <li class="type-<%= presentation.get('type').toUpperCase() %>" data-theme="<%= presentation.get('favorite') ? 'e' : 'c' %>">
+                    <a href="#presentation?id=<%= presentation.get('key') %>">
+                        <h3><%= presentation.get('title') ? presentation.get('title') : presentation.get('name') %></h3>
+                        <% if ( presentation.get('speaker') ) { %>
+                            <p><em>Speaker: <%= presentation.get('speaker') %></em></p>
+                        <% } %>
+                        <p><em><%= presentation.get('kind') %> - <%= presentation.get('type') %></em></p>
+                        <p class="ui-li-aside" style="width: 100px;"><em>
+                            <span class="awesome aside <%= presentation.get('room').toUpperCase().replace(/ /g, '_').replace(/[^\w\s]/gi, '') %>"><%= presentation.get('room') %></span>
+                        </em></p>
+                    </a>
+                </li>
+            <%  } else if (presentation.get('kind') === 'Breakfast') { %>
+                <li><h3>Petit-Déjeuner</h3></li>
+            <%  } else if (presentation.get('kind') === 'Lunch') { %>
+                <li><h3>Déjeuner</h3></li>
+            <%  } else if (presentation.get('kind') === 'Keynote') { %>
+                <li><h3>Keynote</h3></li>
+            <%  } else { %>
+                <li><h3><%= presentation.get('kind') %></h3></li>
+            <%  }
               }); %>
         </script>
 
@@ -658,9 +672,8 @@ div.spinner-container {
 
         <script type="text/html" id="room-list-tpl">
             <% _.each(entries, function(room) { %>
-            <li>
+            <li class="room-<%= String(room.get('name')).toUpperCase().replace(/ /g, '_').replace(/[^\w\s]/gi, '') %>">
                 <h3><%= room.get('name') %></h3>
-                <p><em>Speaker: <%= room.get('speaker') %></em></p>
                 <p><em>Capacité: <%= room.get('capacity') %> / Lieux: <%= room.get('locationName') %></em></p>
                 <p class="ui-li-count"><em><%= room.get('capacity') %></em></p>
             </li>
@@ -669,11 +682,16 @@ div.spinner-container {
 
         <script type="text/html" id="presentation-list-tpl">
             <% _.each(entries, function(presentation) { %>
-            <li>
+            <li class="type-<%= presentation.get('type').toUpperCase() %>" data-theme="<%= presentation.get('favorite') ? 'e' : 'c' %>">
                 <a href="#presentation?id=<%= presentation.get('id') %>">
                     <h3><%= presentation.get('title') %></h3>
                     <p><em><%= presentation.get('speaker') %></em></p>
-                    <p><em>Track: <%= presentation.get('track') %> - <%= presentation.get('experience') %>- <%= presentation.get('room') %></em></p>
+                    <p><em>Track: <%= presentation.get('track') %> - <%= presentation.get('room') %></em></p>
+                    <p class="ui-li-aside" style="width: 100px;">
+                        <span class="awesome aside <%= presentation.get('experience') %> ">
+                        <%= presentation.get('experience') %>
+                    </span>
+                    </p>
                 </a>
             </li>
             <% }); %>
@@ -745,6 +763,12 @@ div.spinner-container {
                     <div class="favoriteImg" style="width: 50px; height: 50px;" />
                 <% } %>
                 -->
+                <div align="right">
+                    <span class="awesome <%= String(entry.get('room')).toUpperCase().replace(/ /g, '_').replace(/[^\w\s]/gi, '') %>"><%= entry.get('room') %></span>
+                    <span class="awesome <%= entry.get('experience') %>"> <%= entry.get('experience') %></span>
+                    <span class="awesome <%= String(entry.get('type')).toUpperCase() %>"><%= entry.get('type') %></span>
+                </div>
+
                 <h3>Résumé:</h3>
                 <div id="presentation-summary">
                     <%= entry.get('summary') %>
@@ -766,34 +790,17 @@ div.spinner-container {
                 <h3>Détails:</h3>
                 <ul id="presentation-details-list" data-role="listview" data-inset="true" data-theme="c">
                     <li>
-                        <h3>Salle: </h3>
-                        <p><em><%= entry.get('room') %></em></p>
+                        <h3>Track: <span class="awesome"><%= entry.get('track') %></span></h3>
                     </li>
                     <li>
-                        <h3>Track: </h3>
-                        <p><em><%= entry.get('track') %></em></p>
-                    </li>
-                    <li>
-                        <h3>Expérience: </h3>
-                        <p><em><%= entry.get('experience') %></em></p>
-                    </li>
-                    <li>
-                        <h3>Type: </h3>
-                        <p><em><%= entry.get('type') %></em></p>
+                        <h3>Tags:
+                            <% _.each(entry.get('tags'), function(tag) { %>
+                                <span class="awesome"><%= tag.name.substring(0,1).toUpperCase() + tag.name.substring(1).toLowerCase() %></span>
+                            <% }); %>
+                        </h3>
                     </li>
                 </ul>
 
-                <h3>Tags:</h3>
-
-                <ul id="presentation-tag-list" data-role="listview" data-inset="true" data-theme="c">
-                    <% _.each(entry.get('tags'), function(tag) { %>
-                    <li>
-                        <!-- <img src="http://devoxx.helyx.org/image/tag/<%= tag.name.toLowerCase() %>.png" /> -->
-                        <h3><%= tag.name %></h3>
-                    </li>
-                    <% });
-                    %>
-                </ul>
             </div>
         </script>
 
@@ -822,6 +829,16 @@ div.spinner-container {
         </script>
 
         <script>
+            // <!-- Google Analytics
+            var _gaq = _gaq || [];
+
+            var ga = document.createElement('script');
+
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            // -->
+
             window.JSON = null;
 
             // json2.min.js
@@ -838,6 +855,11 @@ div.spinner-container {
 
             require.config({ paths: { "app": "javascript/app" } });
             require(["app"]);
+
+            // <!-- Google Analytics
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+            // -->
         </script>
 
     </body>

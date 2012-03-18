@@ -3,7 +3,7 @@ define( ['log', 'ui'], function( log, ui ) {
     var logger = log.getLogger('utils');
     
     logger.info("Loading utils.js");
-    ui.updateSplashscreenMessage("Chargement du module utilitaire");
+    ui.updateSplashscreenMessage("Chargement module utilitaire");
 
     var utils = { };
 
@@ -11,10 +11,7 @@ define( ['log', 'ui'], function( log, ui ) {
                             PROXY ? 'http://devoxx-xebia.cloudfoundry.com/rest/v1' : 'https://cfp.devoxx.com/rest/v1';
 
     var SPEAKER_IMG_BASE_URL = OFFLINE ? 'http://localhost:9000' : 'http://devoxx-xebia.cloudfoundry.com';
-//    var JSON_API_BASE_URL = OFFLINE ? 'http://localhost/devoxx-data/rest/v1' :
-//                            PROXY ? 'http://devoxx-xebia.dotcloud.com/rest/v1' : 'https://cfp.devoxx.com/rest/v1';
-//    var JSON_API_BASE_URL = OFFLINE ? 'http://localhost/devoxx-data/rest/v1' : 'http://localhost:9000/rest/v1';
-//    var JSON_API_BASE_URL = OFFLINE ? 'http://localhost/devoxx-data/rest/v1' : 'https://cfp.devoxx.com/rest/v1';
+
 
     utils.getJsonApiBaseUrl = function() {
         return JSON_API_BASE_URL;

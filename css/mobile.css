@@ -1,78 +1,107 @@
 @import url("jquery.mobile.structure-1.1.0-rc.1.css");
 @import url("jquery.mobile-1.1.0-rc.1.css");
 
+h3.tag-box {
+    margin: 0 10px 0 10px;
+    height: 22px;
+}
+
 .awesome, .awesome:visited {
-	background: #222 url(../image/alert-overlay.png) repeat-x;
-	display: inline-block;
-	padding: 0px;
-    margin: 10px;
-	color: #fff;
-	text-decoration: none;
-	-moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-    -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    background: #292929 url(../image/alert-overlay.png) repeat-x;
+    display: inline-block;
+    padding: 3px 10px 3px 10px;
+    margin: 0 0 0 10px;
+    color: #fff;
+    text-decoration: none;
+    font-style: italic;
+
+    vertical-align: middle;
+
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space:nowrap;
+
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -o-border-radius: 3px;
+    -ms-border-radius: 3px;
+    border-radius: 3px;
+
     text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
     border-bottom: 1px solid rgba(0,0,0,0.25);
-	position: relative;
-	cursor: pointer;
-    width: 75%;
+    position: relative;
+    cursor: pointer;
+    font-size: 11px;
 }
 
-.awesome:hover							{ background-color: #111; color: #fff; }
-.awesome:active							{ top: 1px; }
-
-   /* Size */
-.small.awesome, .small.awesome:visited 			{ font-size: 11px; }
-   .awesome, .awesome:visited,
-.medium.awesome, .medium.awesome:visited 		{ font-size: 13px; font-weight: bold; line-height: 1; text-shadow: 0 -1px 1px rgba(0,0,0,0.25); }
-.large.awesome, .large.awesome:visited 			{ font-size: 14px; padding: 8px 14px 9px; }
-
-   /* Color */
-.green.awesome, .green.awesome:visited		{ background-color: #91bd09; }
-.green.awesome:hover						{ background-color: #749a02; }
-.blue.awesome, .blue.awesome:visited		{ background-color: #2daebf; }
-.blue.awesome:hover							{ background-color: #007d9a; }
-.red.awesome, .red.awesome:visited			{ background-color: #e33100; }
-.red.awesome:hover							{ background-color: #872300; }
-.magenta.awesome, .magenta.awesome:visited		{ background-color: #a9014b; }
-.magenta.awesome:hover							{ background-color: #630030; }
-.orange.awesome, .orange.awesome:visited		{ background-color: #ff5c00; }
-.orange.awesome:hover							{ background-color: #d45500; }
-.yellow.awesome, .yellow.awesome:visited		{ background-color: #ffb515; }
-.yellow.awesome:hover							{ background-color: #fc9200; }
-.silver.awesome, .silver.awesome:visited		{ background-color: #EFEFEF; }
-.silver.awesome:hover						    { background-color: #FBFBFB; }
-
-
-ul li.type-hands-on {
-    border-left: 5px orangered solid;
+.aside {
+    width: 70px;
 }
 
-ul li.type-java {
-    border-left: 5px maroon solid;
-}
+.awesome:hover { background-color: #0f0f0f; color: #fff; }
+.awesome:active { top: 1px; }
 
-ul li.type-university {
-    border-left: 5px lightgreen solid;
-}
+.NOVICE.awesome, .NOVICE.awesome:visited { background-color: #719409; }
+.NOVICE.awesome:hover { background-color: #445c02; }
+.EXPERT.awesome, .EXPERT.awesome:visited { background-color: #292929; }
+.EXPERT.awesome:hover { background-color: #0f0f0f; }
+.SENIOR.awesome, .SENIOR.awesome:visited { background-color: #61002f; }
+.SENIOR.awesome:hover { background-color: #4a0025; }
+.MEDIUM.awesome, .MEDIUM.awesome:visited { background-color: #ff5c00; }
+.MEDIUM.awesome:hover { background-color: #d45500; }
 
-ul li.type-tools {
-    border-left: 5px lightblue solid;
-}
 
-ul li.type-bof {
-    border-left: 5px purple solid;
-}
+.LA_SEINE_A.awesome, .LA_SEINE_A.awesome:visited { background-color: #719409; }
+.LA_SEINE_A.awesome:hover { background-color: #445c02; }
+.LA_SEINE_B.awesome, .LA_SEINE_B.awesome:visited { background-color: #1a6b9c; }
+.LA_SEINE_B.awesome:hover { background-color: #004757; }
+.LA_SEINE_C.awesome, .LA_SEINE_C.awesome:visited { background-color: #cf040e; }
+.LA_SEINE_C.awesome:hover { background-color: #a6070b; }
+.MILES_DAVIS_A.awesome, .MILES_DAVIS_A.awesome:visited { background-color: #61002f; }
+.MILES_DAVIS_A.awesome:hover { background-color: #4a0025; }
+.MILES_DAVIS_B.awesome, .MILES_DAVIS_B.awesome:visited { background-color: #ff5c00; }
+.MILES_DAVIS_B.awesome:hover{ background-color: #d45500; }
+.MILES_DAVIS_C.awesome, .MILES_DAVIS_C.awesome:visited { background-color: #9c835f; }
+.MILES_DAVIS_C.awesome:hover { background-color: #857051; }
+.DUKE_ELLIGTON.awesome, .DUKE_ELLIGTON.awesome:visited { background-color: #467d6a; }
+.DUKE_ELLIGTON.awesome:hover { background-color: #206a78; }
+.E_FITZGERALD__L_ARMSTRONG.awesome, .E_FITZGERALD__L_ARMSTRONG.awesome:visited { background-color: #292929; }
+.E_FITZGERALD__L_ARMSTRONG.awesome:hover { background-color: #0f0f0f; }
 
-ul li.type-conference {
-    border-left: 5px cadetblue solid;
-}
+ul li.room-LA_SEINE_A { border-left: 5px #719409 solid; }
+ul li.room-LA_SEINE_B { border-left: 5px #1a6b9c solid; }
+ul li.room-LA_SEINE_C { border-left: 5px #cf040e solid; }
+ul li.room-MILES_DAVIS_A { border-left: 5px #61002f solid; }
+ul li.room-MILES_DAVIS_B { border-left: 5px #ff5c00 solid; }
+ul li.room-MILES_DAVIS_C { border-left: 5px #9c835f solid; }
+ul li.room-DUKE_ELLIGTON { border-left: 5px #467d6a solid; }
+ul li.room-E_FITZGERALD__L_ARMSTRONG { border-left: 5px #292929 solid; }
 
-ul li.type-quickie {
-    border-left: 5px firebrick solid;
-}
+
+.HANDS-ON.awesome, .HANDS-ON.awesome:visited { background-color: #719409; }
+.HANDS-ON.awesome:hover { background-color: #445c02; }
+.JAVA.awesome, .JAVA.awesome:visited { background-color: #1a6b9c; }
+.JAVA.awesome:hover { background-color: #004757; }
+.UNIVERSITY.awesome, .UNIVERSITY.awesome:visited { background-color: #cf040e; }
+.UNIVERSITY.awesome:hover { background-color: #a6070b; }
+.TOOLS.awesome, .TOOLS.awesome:visited { background-color: #61002f; }
+.TOOLS.awesome:hover { background-color: #4a0025; }
+.CONFERENCE.awesome, .CONFERENCE.awesome:visited { background-color: #ff5c00; }
+.CONFERENCE.awesome:hover{ background-color: #d45500; }
+.QUICKIE.awesome, .QUICKIE.awesome:visited { background-color: #467d6a; }
+.QUICKIE.awesome:hover { background-color: #206a78; }
+.BOF.awesome, .BOF.awesome:visited { background-color: #292929; }
+.BOF.awesome:hover { background-color: #0f0f0f; }
+
+ul li.type-HANDS-ON { border-left: 5px #719409 solid; }
+ul li.type-JAVA { border-left: 5px #1a6b9c solid; }
+ul li.type-UNIVERSITY { border-left: 5px #cf040e solid; }
+ul li.type-TOOLS { border-left: 5px #61002f solid; }
+ul li.type-BOF { border-left: 5px #b85210 solid; }
+ul li.type-CONFERENCE { border-left: 5px #ff5c00 solid; }
+ul li.type-QUICKIE { border-left: 5px #467d6a solid; }
+
 
 .page-navbar {
     background: #ffffff;
@@ -97,8 +126,8 @@ ul li.type-quickie {
 }
 
 .xebia-logo {
+    width: 80%;
     max-width: 320px;
-    width: 100%;
 }
 
 .devoxx-logo {
@@ -214,7 +243,7 @@ home-footer-img:hover {
 
 .ui-mobile #version {
   text-indent: -99999px; 
-  background: url(../image/jqm-version.png) top right no-repeat; 
+  background: url(../etc/image/jqm-version.png) top right no-repeat;
   width: 119px; 
   height: 122px; 
   overflow: hidden; 
@@ -244,159 +273,6 @@ dt code, dd code {
 
 .multiline {
     white-space: normal;
-}
-
-
-.calendar{
-	margin:0px 10px 10px 0px;
-	padding-top:5px;
-	float:left;
-	width:60px;
-	background:#ededef;
-	background: -webkit-gradient(linear, left top, left bottom, from(#ededef), to(#ccc));
-	background: -moz-linear-gradient(top,  #ededef,  #ccc);
-	font:bold 30px/40px Arial Black, Arial, Helvetica, sans-serif;
-	text-align:center;
-	color:#000;
-	text-shadow:#fff 0 1px 0;
-	-moz-border-radius:3px;
-	-webkit-border-radius:3px;
-	border-radius:3px;
-	position:relative;
-	-moz-box-shadow:0 1px 1px #888;
-	-webkit-box-shadow:0 1px 1px #888;
-	box-shadow:0 1px 1px #888;
-}
-
-.calendar em {
-	display:block;
-	font:normal bold 12px/20px Arial, Helvetica, sans-serif;
-	color:#fff;
-	text-shadow:#00365a 0 -1px 0;
-	background:#55175A;
-	background:-webkit-gradient(linear, left top, left bottom, from(#814273), to(#55175A));
-	background:-moz-linear-gradient(top,  #814273,  #55175A);
-	-moz-border-radius-bottomright:3px;
-	-webkit-border-bottom-right-radius:3px;
-	border-bottom-right-radius:3px;
-	-moz-border-radius-bottomleft:3px;
-	-webkit-border-bottom-left-radius:3px;
-	border-bottom-left-radius:3px;
-	border-top:1px solid #00365a;
-}
-
-.calendar:before, .calendar:after{
-	content:'';
-	float:left;
-	position:absolute;
-	top:5px;
-	width:8px;
-	height:8px;
-	background:#111;
-	z-index:1;
-	-moz-border-radius:10px;
-	-webkit-border-radius:10px;
-	border-radius:10px;
-	-moz-box-shadow:0 1px 1px #fff;
-	-webkit-box-shadow:0 1px 1px #fff;
-	box-shadow:0 1px 1px #fff;
-}
-
-.calendar:before {
-    left:8px;
-}
-.calendar:after {
-    right:8px;
-}
-
-.calendar em:before, .calendar em:after{
-	content:'';
-	float:left;
-	position:absolute;
-	top:-5px;
-	width:4px;
-	height:14px;
-	background:#dadada;
-	background:-webkit-gradient(linear, left top, left bottom, from(#f1f1f1), to(#aaa));
-	background:-moz-linear-gradient(top,  #f1f1f1,  #aaa);
-	z-index:2;
-	-moz-border-radius:2px;
-	-webkit-border-radius:2px;
-	border-radius:2px;
-}
-
-.calendar em:before {
-    left:10px;
-}
-
-.calendar em:after {
-    right:10px;
-}
-
-div.calendar-item {
-    width: 60px;
-    height: 66px;
-
-    border: solid #c0c0c0 1px;
-
-    padding: 20px 20px 20px 20px;
-
-    background: #f6f6f6;
-   	background: -webkit-gradient(linear, left top, left bottom, from(#fafafa), to(#ededed));
-    background: -webkit-linear-gradient(top,  #fafafa,  #ededed);
-    background: -moz-linear-gradient(top,  #fafafa,  #ededed);
-    background: -o-linear-gradient(top,  #fafafa,  #ededed);
-    background: -ms-linear-gradient(top,  #fafafa,  #ededed);
-    background: linear-gradient(top,  #fafafa,  #ededed);
-
-
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -o-border-radius: 10px;
-    -ms-border-radius: 10px;
-    border-radius: 10px;
-
-    -webkit-box-shadow: 1px 1px 2px #bbb;
-    -moz-box-shadow: 1px 1px 2px #bbb;
-    -o-box-shadow: 1px 1px 2px #bbb;
-    -ms-box-shadow: 1px 1px 2px #bbb;
-    box-shadow: 1px 1px 2px #bbb;
-
-   	cursor: pointer;
-}
-
-a.calendar-item {
-    text-decoration: none;
-}
-
-div.calendar-item:hover {
-    border: solid #c0c0c0 1px;
-
-    background: #e0e0e0;
-    background: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#dddddd));
-   	background: -webkit-linear-gradient(top,  #f8f8f8,  #dddddd);
-    background: -moz-linear-gradient(top,  #f8f8f8,  #dddddd);
-    background: -o-linear-gradient(top,  #f8f8f8,  #dddddd);
-    background: -ms-linear-gradient(top,  #f8f8f8,  #dddddd);
-    background: linear-gradient(top,  #f8f8f8,  #dddddd);
-}
-
-div.calendar-item:active {
-    border: solid #b0b0b0 1px;
-
-    background: #d0d0d0;
-   	background: -webkit-gradient(linear, left top, left bottom, from(#cccccc), to(#e0e0e0));
-    background: -webkit-linear-gradient(top,  #cccccc,  #e0e0e0);
-    background: -moz-linear-gradient(top,  #cccccc,  #e0e0e0);
-    background: -o-linear-gradient(top,  #cccccc,  #e0e0e0);
-    background: -ms-linear-gradient(top,  #cccccc,  #e0e0e0);
-    background: linear-gradient(top,  #cccccc,  #e0e0e0);
-}
-
-div.calendar-items {
-    margin-left: auto;
-    margin-right: auto;
-    height: 130px;
 }
 
 input:required:invalid, input:focus:invalid {

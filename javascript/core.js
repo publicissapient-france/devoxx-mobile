@@ -3,7 +3,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
     var logger = log.getLogger('core');
 
     logger.info("Loading core.js");
-    ui.updateSplashscreenMessage("Chargement du module core");
+    ui.updateSplashscreenMessage("Chargement module core");
 
     var EVENT_ID = '6';
 
@@ -18,7 +18,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
 
     var router;
 
-    var favorites = { ids: [ 112, 148, 532 ] };
+    var favorites = { ids: [ 1188, 1366, 1198, 1451, 1194, 1188, 1078, 1432, 1085, 1003, 1457 ] };
     /*
         db.get('favorites', function(data) {
             favorites = JSON.parse(data);
@@ -36,7 +36,6 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
             "#rooms" : { handler : "onBeforeRoomPageShow", events: "bs" },
             "#presentations" : { handler : "onBeforePresentationsPageShow", events: "bs" },
             "#presentation(?:[?](.*))?" : { handler : "onBeforePresentationPageShow", events: "bs" },
-            "#favorites" : { handler : "onBeforeFavoritesPageShow", events: "bs" },
             "#speakers" : { handler : "onBeforeSpeakersPageShow", events: "bs" },
             "#speaker(?:[?](.*))?" : { handler : "onBeforeSpeakerPageShow", events: "bs" },
             "#tracks" : { handler : "onBeforeTracksPageShow", events: "bs" },
@@ -67,11 +66,6 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
             onBeforePresentationPageShow: function(type, match, ui) {
                 var params = router.getParams(match[1]);
                  core.refreshPresentation(params.id);
-            },
-            onBeforeFavoritesPageShow: function(type, match, ui) {
-                core.refreshPresentations(function(presentation) {
-                    return _.contains(favorites.ids, presentation.id);
-                });
             },
             onBeforeSpeakersPageShow: function(type, match, ui) {
                  core.refreshSpeakers();
@@ -250,7 +244,8 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
             parse: function(data) {
                 _.each(data, function(presentation) {
                     if (presentation.presentationUri) {
-                        presentation.key = presentation.presentationUri.substring(presentation.presentationUri.lastIndexOf("/") + 1);
+                        presentation.key = Number(presentation.presentationUri.substring(presentation.presentationUri.lastIndexOf("/") + 1));
+                        presentation.favorite = _(favorites.ids).contains(presentation.key);
                     }
                     presentation.startTime = core.getScheduleTime(presentation.fromTime);
                     presentation.endTime = core.getScheduleTime(presentation.toTime);
@@ -264,13 +259,14 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
     core.refreshDay = function(id) {
         ui.resetFlashMessages("#day");
         logger.info("Processing day: " + id);
-        ui.switchTitle("Day " + id);
+        ui.switchTitle("Jour " + id);
         core.refreshDataList({
-            page: "#day", title: "Day " + id, el: "#day-list", view: "day", template: $("#schedule-list-tpl").html(),
+            page: "#day", title: "Jour " + id, el: "#day-list", view: "day", template: $("#schedule-list-tpl").html(),
             url: utils.getFullUrl('/events/' + EVENT_ID + '/schedule/day/' + id + '?callback=?'),
             cacheKey: '/events/' + EVENT_ID + '/schedule/day/' + id,
             parse: function(data) {
                 _.each(data, function(presentation) {
+                    presentation.favorite = _(favorites.ids).contains(presentation.id);
                     if (presentation.presentationUri) {
                         presentation.key = presentation.presentationUri.substring(presentation.presentationUri.lastIndexOf("/") + 1);
                     }
@@ -327,6 +323,10 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
                 if(filter) {
                     return _.filter(data, filter);
                 }
+
+                _.each(data, function(presentation) {
+                    presentation.favorite = _(favorites.ids).contains(presentation.id);
+                });
 
                 return data;
             }

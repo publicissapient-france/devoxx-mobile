@@ -3,7 +3,7 @@ define(['log', 'ui'], function( log, ui ) {
     var logger = log.getLogger('collection');
 
     logger.info("Loading collection.js");
-    ui.updateSplashscreenMessage("Chargement du module de gestion des collections");
+    ui.updateSplashscreenMessage("Chargement module Collection");
 
 
     logger.info("Defining collection object");

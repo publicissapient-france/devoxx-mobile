@@ -160,7 +160,7 @@ home-footer-img:hover {
 }
 .ui-mobile #version {
   text-indent: -99999px; 
-  background: url(../image/jqm-version.png) top right no-repeat; 
+  background: url(../etc/image/jqm-version.png) top right no-repeat;
   width: 119px; 
   height: 122px; 
   overflow: hidden; 
