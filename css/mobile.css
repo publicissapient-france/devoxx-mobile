@@ -9,8 +9,8 @@ h3.tag-box {
 .awesome, .awesome:visited {
     background: #292929 url(../image/alert-overlay.png) repeat-x;
     display: inline-block;
-    padding: 3px 10px 3px 10px;
-    margin: 0 0 0 10px;
+    padding: 2px 7px 2px 7px;
+    margin: 0 0 0 3px;
     color: #fff;
     text-decoration: none;
     font-style: italic;
@@ -37,6 +37,11 @@ h3.tag-box {
 
 .aside {
     width: 70px;
+}
+
+.aside-time-start-end {
+    width: 64px;
+    padding: 2px 5px 1px 5px;
 }
 
 .aside-time {
