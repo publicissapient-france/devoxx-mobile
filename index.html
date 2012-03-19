@@ -280,6 +280,7 @@ div.spinner-container {
                             </li>
                         </ul>
 
+                        <!--
                         <ul id="home-content-menu-list" data-role="listview" data-inset="true" data-theme="c">
                             <li>
                                 <a href="#menu">
@@ -295,8 +296,14 @@ div.spinner-container {
                                    </a>
                               </li>
                         </ul>
+                        -->
 
                         <ul id="home-content-xebia-list" data-role="listview" data-inset="true" data-theme="c">
+                            <li>
+                                <a href="#twitter" rel="external" alt="Nous suivre sur Twitter">
+                                     <h3 align="center"><img src="image/twitter-black-transparent.png" height="24" class="home-footer-img" /></h3>
+                                 </a>
+                            </li>
                             <li>
                                 <a href="#xebia-program">
                                     <h3 align="center">Programm Xebia</h3>
@@ -306,8 +313,55 @@ div.spinner-container {
                                  <a href="#register" alt="Register">
                                      <h3 align="center">S'enregistrer pour le concours !</h3>
                                  </a>
-                             </li>
-                          </ul>
+                            </li>
+                        </ul>
+
+
+                        <div id="home-content-devoxx-paris">
+                            <ul id="home-content-devoxx-paris-list" data-role="listview" data-inset="true" data-theme="c">
+                                <li>
+                                     <a href="#schedule">
+                                         <h3 align="center">Planning</h3>
+                                     </a>
+                                </li>
+                                <li>
+                                     <a href="#speakers">
+                                         <h3 align="center">Speakers</h3>
+                                     </a>
+                                </li>
+                                <li>
+                                      <a href="#presentations">
+                                          <h3 align="center">Présentations</h3>
+                                      </a>
+                                </li>
+                                <li>
+                                      <a href="#rooms">
+                                          <h3 align="center">Salles</h3>
+                                      </a>
+                                </li>
+                                <li>
+                                      <a href="#tracks">
+                                          <h3 align="center">Tracks</h3>
+                                      </a>
+                                </li>
+                            </ul>
+
+                        </div>
+
+                        <div id="menu-content-other">
+                            <ul id="menu-content-other-list" data-role="listview" data-inset="true" data-theme="c">
+                                <li>
+                                    <a href="#events">
+                                        <h3 align="center">Evènements Devoxx</h3>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#about">
+                                        <h3 align="center">A propos</h3>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
 
                     </div>
                 </div>
@@ -319,6 +373,7 @@ div.spinner-container {
             </div>
 
             <!-- menu page -->
+            <!--
             <div align="center" id="menu" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
 
                 <div id="menu-content-header" data-role="header" data-theme="c" data-divider-theme="a">
@@ -373,6 +428,7 @@ div.spinner-container {
                     </div>
                 </div>
             </div>
+            -->
 
             <!-- Schedule page -->
             <div align="center" id="schedule" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
@@ -568,7 +624,7 @@ div.spinner-container {
             <!-- Twitter page -->
             <div align="center" id="twitter" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
                 <div data-role="header" data-theme="c">
-                    <h1>Twitter</h1>
+                    <h1 style="height: 18px!important;"><img src="image/twitter-black-transparent.png" class="home-footer-img" style="height:18px;" /></h1>
                 </div>
                 <div data-role="navbar">
                     <ul>
@@ -579,7 +635,7 @@ div.spinner-container {
                         </li>
                         <li>
                             <a id="twitter-devoxxfr" href="#twitter?screenname=devoxxFR">
-                                <img src="image/devoxx-logo-big-white.png" height="32px" />
+                                <img src="image/devoxx-logo.png" height="32px" />
                             </a>
                         </li>
                     </ul>
@@ -807,11 +863,10 @@ div.spinner-container {
         <script type="text/html" id="twitter-timeline-tpl">
             <% _.each(entries, function(tweet) { %>
             <li data-inline="false">
-                <a href="">
-                    <img src="<%= tweet.get('user').icon %>" class="ui-li-thumb">
-                    <p><%= tweet.get('formattedDate') %> - <%= tweet.get('user').screen_name %></p>
-                    <p class="multiline"><em><%= tweet.get('text') %></em></p>
-                </a>
+                <img src="<%= tweet.get('user').icon %>" class="ui-li-thumb">
+                <p><%= tweet.get('user').screen_name %></p>
+                <p class="multiline"><em><%= tweet.get('htmlText') %></em></p>
+                <p class="ui-li-aside awesome aside-time silver"><%= tweet.get('formattedDate') %></p>
             </li>
             <% }); %>
         </script>

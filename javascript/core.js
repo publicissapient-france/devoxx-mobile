@@ -426,6 +426,22 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
         });
     };
 
+    core.twitter_linkify = function(text) {
+        text = text.replace(/(https?:\/\/\S+)/gi, function (s) {
+            return '<a href="' + s + '" target="_blank">' + s + '</a>';
+        });
+
+        text = text.replace(/(^|)@(\w+)/gi, function (s) {
+            return '<a href="http://twitter.com/' + s + '" target="_blank">' + s + '</a>';
+        });
+
+        text = text.replace(/(^|)#(\w+)/gi, function (s) {
+            return '<a href="http://search.twitter.com/search?q=' + s.replace(/#/,'%23') + '" target="_blank">' + s + '</a>';
+         });
+        return text;
+    }
+
+
     core.refreshTwitter = function(screenName) {
         if (!_(AUTHORIZED_TWITTER_USER).contains(screenName)) {
             screenName = DEFAULT_TWITTER_USER;
@@ -442,11 +458,11 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
             url: OFFLINE ? utils.getFullUrl('/twitter/' + screenName + '?callback=?') :
                 "http://api.twitter.com/1/statuses/user_timeline.json?screen_name=" + screenName + "&include_rts=true&exclude_replies=true&count=50&callback=?",
             parse: function(data) {
-                console.log( data);
                 _(data).each(function(tweet) {
                     tweet.formattedDate = Date.parse(tweet.created_at).toString("HH:mm");
                     var iconUrl = tweet.user.profile_image_url.replace(/_normal(\.[^\.]+)$/, "$1");
                     tweet.user.icon = iconUrl;
+                    tweet.htmlText = core.twitter_linkify(tweet.text);
                 });
                 return data;
             },

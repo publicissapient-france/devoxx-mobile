@@ -128,12 +128,7 @@ function getLocationParameterByName( name ) {
     }
 }
 
-
 setTimeout(init, WAIT_TIME);
-
-
-
-
 
 // ref: http://diveintohtml5.org/detect.html
 function supports_input_placeholder() {

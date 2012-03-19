@@ -39,6 +39,10 @@ h3.tag-box {
     width: 70px;
 }
 
+.aside-time {
+    width: 30px;
+}
+
 .awesome:hover { background-color: #0f0f0f; color: #fff; }
 .awesome:active { top: 1px; }
 
@@ -93,6 +97,10 @@ ul li.room-E_FITZGERALD__L_ARMSTRONG { border-left: 5px #292929 solid; }
 .QUICKIE.awesome:hover { background-color: #206a78; }
 .BOF.awesome, .BOF.awesome:visited { background-color: #292929; }
 .BOF.awesome:hover { background-color: #0f0f0f; }
+
+.silver.awesome, .silver.awesome:visited { background-color: #606060; }
+.silver.awesome:hover { background-color: #404040; }
+
 
 ul li.type-HANDS-ON { border-left: 5px #719409 solid; }
 ul li.type-JAVA { border-left: 5px #1a6b9c solid; }
