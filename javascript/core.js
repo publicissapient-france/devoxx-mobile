@@ -9,6 +9,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
 
     var TWITTER_USER_XEBIA = "xebiaFr";
     var TWITTER_USER_DEVOXXFR = "devoxxFR";
+    var TWITTER_USER_TEST = "alexiskinsella";
 
     var DEFAULT_TWITTER_USER = TWITTER_USER_XEBIA;
 
@@ -439,7 +440,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
             return '<a href="http://search.twitter.com/search?q=' + s.replace(/#/,'%23') + '" target="_blank">' + s + '</a>';
          });
         return text;
-    }
+    };
 
 
     core.refreshTwitter = function(screenName) {
@@ -456,7 +457,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
         core.refreshDataList({
             page: "#twitter", title: "Twitter", el: "#twitter-timeline", view: "twitter", template: $("#twitter-timeline-tpl").html(),
             url: OFFLINE ? utils.getFullUrl('/twitter/' + screenName + '?callback=?') :
-                "http://api.twitter.com/1/statuses/user_timeline.json?screen_name=" + screenName + "&include_rts=true&exclude_replies=true&count=50&callback=?",
+                "http://api.twitter.com/1/statuses/user_timeline.json?screen_name=" + screenName + "&contributor_details=false&include_entities=false&include_rts=true&exclude_replies=true&count=50&exclude_replies=false&callback=?",
             parse: function(data) {
                 _(data).each(function(tweet) {
                     tweet.formattedDate = Date.parse(tweet.created_at).toString("HH:mm");

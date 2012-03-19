@@ -265,17 +265,17 @@ div.spinner-container {
                         <ul id="home-content-dates-list" data-role="listview" data-inset="true" data-theme="c">
                             <li>
                                 <a href="#day?id=1">
-                                    <h3 align="center">Mercredi  - 18 Avril 2012</h3>
+                                    <h3 align="center">Mercredi 18 Avril 2012</h3>
                                 </a>
                             </li>
                             <li>
                                 <a href="#day?id=2">
-                                    <h3 align="center">Jeudi  - 19 Avril 2012</h3>
+                                    <h3 align="center">Jeudi 19 Avril 2012</h3>
                                 </a>
                             </li>
                             <li>
                                 <a href="#day?id=3">
-                                    <h3 align="center">Vendredi  - 20 Avril 2012</h3>
+                                    <h3 align="center">Vendredi 20 Avril 2012</h3>
                                 </a>
                             </li>
                         </ul>
@@ -300,7 +300,7 @@ div.spinner-container {
 
                         <ul id="home-content-xebia-list" data-role="listview" data-inset="true" data-theme="c">
                             <li>
-                                <a href="#twitter" rel="external" alt="Nous suivre sur Twitter">
+                                <a href="#twitter" rel="external" alt="Nous suivre sur Twitter" style="padding: 5px; margin:0px;">
                                      <h3 align="center"><img src="image/twitter-black-transparent.png" height="24" class="home-footer-img" /></h3>
                                  </a>
                             </li>
@@ -862,11 +862,13 @@ div.spinner-container {
 
         <script type="text/html" id="twitter-timeline-tpl">
             <% _.each(entries, function(tweet) { %>
-            <li data-inline="false">
-                <img src="<%= tweet.get('user').icon %>" class="ui-li-thumb">
-                <p><%= tweet.get('user').screen_name %></p>
-                <p class="multiline"><em><%= tweet.get('htmlText') %></em></p>
-                <p class="ui-li-aside awesome aside-time silver"><%= tweet.get('formattedDate') %></p>
+            <li data-inline="false" style="padding: 10px 10px 10px 87px;">
+                <img src="<%= tweet.get('user').icon %>" class="ui-li-thumb" style="margin: 10px 0 0 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px; height: 60px; width: 60px;">
+                <div style="padding: 10px 2px 2px 0px;">
+                    <p style="margin-bottom: 8px;"><em><strong><%= tweet.get('user').screen_name %></strong><span style="color: #999999;"> - <%= tweet.get('user').name %></span></em></p>
+                    <p class="multiline"><em><%= tweet.get('htmlText') %></em></p>
+                    <p class="ui-li-aside awesome aside-time silver"><%= tweet.get('formattedDate') %></p>
+                </div>
             </li>
             <% }); %>
         </script>
