@@ -199,15 +199,6 @@ div.spinner-container {
     border: 1px solid #666666;
 }
 
-.favoriteImg {
-    background: url("image/star_empty.png");
-    background-size: 50px 50px;
-}
-
-.favoriteImg .filled {
-   background: url("image/start_plain.png");
-   background-size: 50px 50px;
-}
         </style>
 
     </head>
@@ -306,16 +297,16 @@ div.spinner-container {
                             </li>
                             <li>
                                 <a href="#xebia-program">
-                                    <h3 align="center">Programm Xebia</h3>
+                                    <h3 align="center">Programme Xebia</h3>
                                 </a>
                             </li>
                             <li>
-                                 <a href="#register" alt="Register">
+                                 <a href="#register" alt
+                                         ="Register">
                                      <h3 align="center">S'enregistrer pour le concours !</h3>
                                  </a>
                             </li>
                         </ul>
-
 
                         <div id="home-content-devoxx-paris">
                             <ul id="home-content-devoxx-paris-list" data-role="listview" data-inset="true" data-theme="c">
@@ -350,11 +341,13 @@ div.spinner-container {
 
                         <div id="menu-content-other">
                             <ul id="menu-content-other-list" data-role="listview" data-inset="true" data-theme="c">
+                                <!--
                                 <li>
                                     <a href="#events">
                                         <h3 align="center">Evènements Devoxx</h3>
                                     </a>
                                 </li>
+                                -->
                                 <li>
                                     <a href="#about">
                                         <h3 align="center">A propos</h3>
@@ -467,7 +460,7 @@ div.spinner-container {
             <div align="center" id="presentation" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
 
                 <div data-role="header" data-theme="c" data-divider-theme="a">
-                    <h1>Présentation</h1>
+                    <h1 style="text-align: center; margin-left: 100px; margin-right: 5px;">Présentation</h1>
                 </div>
                 <div id="presentation-details" data-role="content"></div>
             </div>
@@ -507,7 +500,7 @@ div.spinner-container {
             <div align="center" id="speaker" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
 
                 <div data-role="header" data-theme="c" data-divider-theme="a">
-                    <h1>Speaker</h1>
+                    <h1 style="text-align: center; margin-left: 100px; margin-right: 5px;">Speaker</h1>
                 </div>
                 <div id="speaker-details" data-role="content"></div>
             </div>
@@ -555,8 +548,11 @@ div.spinner-container {
 
                     <div align="left">
 
-                        <div id="contest-description">
-                            <p><em>Description du concours</em></p>
+                        <div id="contest-description" class="contest-description">
+                            <p><em><strong>Xebia vous offre un MacBook Air !</strong></em></p>
+                            <p>Inscrivez-vous dès aujourd’hui à notre grand tirage au sort qui aura lieu le jeudi 19 avril, sur le stand de Xebia et remportez le plus convoité des ordinateurs !</p>
+                            <p>Les inscriptions pourront s’effectuer directement sur notre stand, jusqu’au 19 avril à 12h00.</p>
+                            <p><strong>Vous en rêviez ? Rien de plus simple, inscrivez vous en remplissant le formulaire d’inscription.</strong></p>
                         </div>
 
                         <form id="register-form" style="display: none;">
@@ -659,16 +655,18 @@ div.spinner-container {
             <%  }
                 if ( presentation.get('kind') === 'Talk' ) { %>
                 <li class="type-<%= presentation.get('type').toUpperCase() %>" data-theme="<%= presentation.get('favorite') ? 'e' : 'c' %>">
-                    <a href="#presentation?id=<%= presentation.get('key') %>">
-                        <h3><%= presentation.get('title') ? presentation.get('title') : presentation.get('name') %></h3>
-                        <% if ( presentation.get('speaker') ) { %>
-                            <p><em>Speaker: <%= presentation.get('speaker') %></em></p>
-                        <% } %>
-                        <p><em><%= presentation.get('kind') %> - <%= presentation.get('type') %></em></p>
-                        <p class="ui-li-aside" style="width: 100px;"><em>
-                            <span class="awesome aside <%= presentation.get('room').toUpperCase().replace(/ /g, '_').replace(/[^\w\s]/gi, '') %>"><%= presentation.get('room') %></span>
-                        </em></p>
-                    </a>
+                    <a href="#presentation?id=<%= presentation.get('key') %>" style="margin: 0; padding: 0 5px 0 0;">
+                        <div style="padding: 5px 10px 10px 10px;">
+                            <h3 style="display: inline-block; width: 95%;"><%= presentation.get('title') ? presentation.get('title') : presentation.get('name') %></h3>
+                            <% if ( presentation.get('speaker') ) { %>
+                                <p><em>Speaker: <%= presentation.get('speaker') %></em></p>
+                            <% } %>
+                            <p><em><%= presentation.get('kind') %> - <%= presentation.get('type') %></em></p>
+                        </div>
+                        <div class="ui-li-aside" style="width: 87px; height: 16px; padding: 54px 0 0 0;">
+                            <span class="awesome aside-room <%= presentation.get('room').toUpperCase().replace(/ /g, '_').replace(/[^\w\s]/gi, '') %>"><%= presentation.get('room') %></span>
+                        </div>
+                   </a>
                 </li>
             <%  } else if (presentation.get('kind') === 'Breakfast') { %>
                 <li><h3>Petit-Déjeuner</h3></li>
@@ -738,15 +736,15 @@ div.spinner-container {
 
         <script type="text/html" id="presentation-list-tpl">
             <% _.each(entries, function(presentation) { %>
-            <li class="type-<%= presentation.get('type').toUpperCase() %>" data-theme="<%= presentation.get('favorite') ? 'e' : 'c' %>">
-                <a href="#presentation?id=<%= presentation.get('id') %>">
-                    <h3><%= presentation.get('title') %></h3>
-                    <p><em><%= presentation.get('speaker') %></em></p>
-                    <p><em>Track: <%= presentation.get('track') %> - <%= presentation.get('room') %></em></p>
-                    <p class="ui-li-aside" style="width: 100px;">
-                        <span class="awesome aside <%= presentation.get('experience') %> ">
-                        <%= presentation.get('experience') %>
-                    </span>
+            <li  class="type-<%= presentation.get('type').toUpperCase() %>" data-theme="<%= presentation.get('favorite') ? 'e' : 'c' %>">
+                <a href="#presentation?id=<%= presentation.get('id') %>" style="margin: 0; padding: 0 5px 0 0;">
+                    <div style="padding: 5px 10px 10px 10px;">
+                        <h3 style="display: inline-block; width: 95%;"><%= presentation.get('title') %></h3>
+                        <p><em><%= presentation.get('speaker') %></em></p>
+                        <p><em><%= presentation.get('track') %> - <%= presentation.get('type') %> - <%= presentation.get('room') %></em></p>
+                    </div>
+                    <p class="ui-li-aside" style="width: 87px; height: 18px; padding: 54px 0 0 0;">
+                        <span class="awesome aside-skill <%= presentation.get('experience') %>"><%= presentation.get('experience') %></span>
                     </p>
                 </a>
             </li>
@@ -771,11 +769,10 @@ div.spinner-container {
         <script type="text/html" id="speaker-list-tpl">
             <% _.each(entries, function(speaker) { %>
             <li>
-                <a href="#speaker?id=<%= speaker.get('id') %>">
+                <a href="#speaker?id=<%= speaker.get('id') %>" style="margin-right: 10px; padding-right: 20px;">
                     <img src="<%= app.utils.getSpeakerImgBaseUrl() %>/speaker/<%= speaker.get('id') %>" />
                     <h3><%= speaker ? speaker.get('firstName') : '' %> <%=speaker ? speaker.get('lastName') : '' %></h3>
                     <p><em><%= speaker.get('company') %></em></p>
-                    <p class="ui-li-count"><em><%= speaker.get('talks').length %></em></p>
                 </a>
             </li>
             <% }); %>
@@ -785,7 +782,7 @@ div.spinner-container {
             <div align="left">
                 <ul id="speaker-details-list" data-role="listview" data-inset="true" data-theme="c">
                     <li>
-                        <img src="<%= app.utils.getSpeakerImgBaseUrl() %>/speaker/<%= entry.get('id') %>" />
+                        <img src="<%= entry.get('id') ? app.utils.getSpeakerImgBaseUrl() + '/speaker/' + entry.get('id') : 'https://cfp.devoxx.com/img/thumbnail.gif' %>" />
                         <h3>Société: </h3>
                         <p><em><%= entry.get('company') %></em></p>
                     </li>
@@ -811,7 +808,6 @@ div.spinner-container {
 
         <script type="text/html" id="presentation-tpl">
             <div align="left">
-
                 <!--
                 <% if (entry.get('favorite')) { %>
                     <div class="favoriteImg filled" style="width: 50px; height: 50px;" />
@@ -819,11 +815,17 @@ div.spinner-container {
                     <div class="favoriteImg" style="width: 50px; height: 50px;" />
                 <% } %>
                 -->
+                <% if (entry.get('id')) { %>
                 <div align="right">
                     <span class="awesome <%= String(entry.get('room')).toUpperCase().replace(/ /g, '_').replace(/[^\w\s]/gi, '') %>"><%= entry.get('room') %></span>
                     <span class="awesome <%= entry.get('experience') %>"> <%= entry.get('experience') %></span>
                     <span class="awesome <%= String(entry.get('type')).toUpperCase() %>"><%= entry.get('type') %></span>
+                    <span style=" margin-left: 10px; display: inline-block; vertical-align: middle;"><img id="presentation-favorite"
+                                src="image/star_<%= entry.get('favorite') ? 'plain' : 'empty' %>.png"
+                                onClick="app.core.updateFavorite('<%= entry.get('id') %>', '#presentation-favorite')"
+                                style="display: inline-block; height: 32px; width: 32px;" /></span>
                 </div>
+                <% } %>
 
                 <h3>Résumé:</h3>
                 <div id="presentation-summary">
@@ -846,13 +848,19 @@ div.spinner-container {
                 <h3>Détails:</h3>
                 <ul id="presentation-details-list" data-role="listview" data-inset="true" data-theme="c">
                     <li>
-                        <h3>Track: <span class="awesome"><%= entry.get('track') %></span></h3>
+                        <h3>Track:
+                            <% if (entry.get('id')) { %>
+                            <span class="awesome"><%= entry.get('track') %></span>
+                            <% } %>
+                        </h3>
                     </li>
                     <li>
-                        <h3>Tags:
-                            <% _.each(entry.get('tags'), function(tag) { %>
-                                <span class="awesome"><%= tag.name.substring(0,1).toUpperCase() + tag.name.substring(1).toLowerCase() %></span>
-                            <% }); %>
+                        <h3 class="multiline" style="display: inline-block;">Tags:
+                            <% if (entry.get('id')) {
+                                 _.each(entry.get('tags'), function(tag) { %>
+                                <span class="awesome" style="margin-bottom: 20px; display: inline-block;"><%= tag.name.substring(0,1).toUpperCase() + tag.name.substring(1).toLowerCase() %></span>
+                            <%   });
+                               } %>
                         </h3>
                     </li>
                 </ul>

@@ -39,8 +39,13 @@ h3.tag-box {
     width: 70px;
 }
 
+.aside-room {
+    width: 70px;
+    padding: 2px 5px 1px 5px;
+}
+
 .aside-time-start-end {
-    width: 64px;
+    width: 66px;
     padding: 2px 5px 1px 5px;
 }
 
@@ -48,35 +53,28 @@ h3.tag-box {
     width: 30px;
 }
 
-.awesome:hover { background-color: #0f0f0f; color: #fff; }
-.awesome:active { top: 1px; }
+.aside-skill {
+    width: 48px;
+}
+
+.clickable.awesome:hover { background-color: #0f0f0f; color: #fff; }
+.clickable.awesome:active { top: 1px; }
 
 .NOVICE.awesome, .NOVICE.awesome:visited { background-color: #719409; }
-.NOVICE.awesome:hover { background-color: #445c02; }
 .EXPERT.awesome, .EXPERT.awesome:visited { background-color: #292929; }
-.EXPERT.awesome:hover { background-color: #0f0f0f; }
 .SENIOR.awesome, .SENIOR.awesome:visited { background-color: #61002f; }
-.SENIOR.awesome:hover { background-color: #4a0025; }
 .MEDIUM.awesome, .MEDIUM.awesome:visited { background-color: #ff5c00; }
-.MEDIUM.awesome:hover { background-color: #d45500; }
-
 
 .LA_SEINE_A.awesome, .LA_SEINE_A.awesome:visited { background-color: #719409; }
-.LA_SEINE_A.awesome:hover { background-color: #445c02; }
 .LA_SEINE_B.awesome, .LA_SEINE_B.awesome:visited { background-color: #1a6b9c; }
-.LA_SEINE_B.awesome:hover { background-color: #004757; }
 .LA_SEINE_C.awesome, .LA_SEINE_C.awesome:visited { background-color: #cf040e; }
-.LA_SEINE_C.awesome:hover { background-color: #a6070b; }
 .MILES_DAVIS_A.awesome, .MILES_DAVIS_A.awesome:visited { background-color: #61002f; }
-.MILES_DAVIS_A.awesome:hover { background-color: #4a0025; }
 .MILES_DAVIS_B.awesome, .MILES_DAVIS_B.awesome:visited { background-color: #ff5c00; }
-.MILES_DAVIS_B.awesome:hover{ background-color: #d45500; }
 .MILES_DAVIS_C.awesome, .MILES_DAVIS_C.awesome:visited { background-color: #9c835f; }
-.MILES_DAVIS_C.awesome:hover { background-color: #857051; }
 .DUKE_ELLIGTON.awesome, .DUKE_ELLIGTON.awesome:visited { background-color: #467d6a; }
-.DUKE_ELLIGTON.awesome:hover { background-color: #206a78; }
 .E_FITZGERALD__L_ARMSTRONG.awesome, .E_FITZGERALD__L_ARMSTRONG.awesome:visited { background-color: #292929; }
-.E_FITZGERALD__L_ARMSTRONG.awesome:hover { background-color: #0f0f0f; }
+.MILES_DAVIS.awesome, .MILES_DAVIS.awesome:visited { background-color: #666666; }
+.HALL_DEXPOSITION.awesome, .HALL_DEXPOSITION.awesome:visited { background-color: #372454; }
 
 ul li.room-LA_SEINE_A { border-left: 5px #719409 solid; }
 ul li.room-LA_SEINE_B { border-left: 5px #1a6b9c solid; }
@@ -86,33 +84,28 @@ ul li.room-MILES_DAVIS_B { border-left: 5px #ff5c00 solid; }
 ul li.room-MILES_DAVIS_C { border-left: 5px #9c835f solid; }
 ul li.room-DUKE_ELLIGTON { border-left: 5px #467d6a solid; }
 ul li.room-E_FITZGERALD__L_ARMSTRONG { border-left: 5px #292929 solid; }
-
+ul li.room-MILES_DAVIS { border-left: 5px #666666 solid }
+ul li.room-HALL_DEXPOSITION { border-left: 5px #372454 solid }
 
 .HANDS-ON.awesome, .HANDS-ON.awesome:visited { background-color: #719409; }
-.HANDS-ON.awesome:hover { background-color: #445c02; }
 .JAVA.awesome, .JAVA.awesome:visited { background-color: #1a6b9c; }
-.JAVA.awesome:hover { background-color: #004757; }
 .UNIVERSITY.awesome, .UNIVERSITY.awesome:visited { background-color: #cf040e; }
-.UNIVERSITY.awesome:hover { background-color: #a6070b; }
 .TOOLS.awesome, .TOOLS.awesome:visited { background-color: #61002f; }
-.TOOLS.awesome:hover { background-color: #4a0025; }
 .CONFERENCE.awesome, .CONFERENCE.awesome:visited { background-color: #ff5c00; }
-.CONFERENCE.awesome:hover{ background-color: #d45500; }
 .QUICKIE.awesome, .QUICKIE.awesome:visited { background-color: #467d6a; }
-.QUICKIE.awesome:hover { background-color: #206a78; }
 .BOF.awesome, .BOF.awesome:visited { background-color: #292929; }
-.BOF.awesome:hover { background-color: #0f0f0f; }
 
 .silver.awesome, .silver.awesome:visited { background-color: #606060; }
-.silver.awesome:hover { background-color: #404040; }
 
+.favorite.awesome, .favorite.awesome:visited { background-color: #ffa000; }
+.favorite.awesome:hover { background-color: #ff8e00; }
 
 ul li.type-HANDS-ON { border-left: 5px #719409 solid; }
 ul li.type-JAVA { border-left: 5px #1a6b9c solid; }
 ul li.type-UNIVERSITY { border-left: 5px #cf040e solid; }
-ul li.type-TOOLS { border-left: 5px #61002f solid; }
-ul li.type-BOF { border-left: 5px #b85210 solid; }
-ul li.type-CONFERENCE { border-left: 5px #ff5c00 solid; }
+ul li.type-TOOLS { border-left: 5px #222222 solid; }
+ul li.type-BOF { border-left: 5px #392659 solid; }
+ul li.type-CONFERENCE { border-left: 5px #ff830a solid; }
 ul li.type-QUICKIE { border-left: 5px #467d6a solid; }
 
 
@@ -139,12 +132,10 @@ ul li.type-QUICKIE { border-left: 5px #467d6a solid; }
 }
 
 .xebia-logo {
-    width: 80%;
     max-width: 320px;
 }
 
 .devoxx-logo {
-    width: 80%;
     max-width: 320px;
 }
 
@@ -288,6 +279,23 @@ dt code, dd code {
     white-space: normal;
 }
 
+.contest-description {
+    border: 1px #C0C0C0 solid;
+    background: white;
+    margin: 0;
+    padding: 10px;
+
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -o-border-radius: 8px;
+    -ms-border-radius: 8px;
+    border-radius: 8px;
+
+    background: #FCFCFC;
+   	background: -webkit-gradient(linear, left top, left bottom, from(#FCFCFC), to(#F0F0F0));
+   	background: -moz-linear-gradient(top,  #FCFCFC,  #F0F0F0);
+}
+
 input:required:invalid, input:focus:invalid {
   background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAeVJREFUeNqkU01oE1EQ/mazSTdRmqSxLVSJVKU9RYoHD8WfHr16kh5EFA8eSy6hXrwUPBSKZ6E9V1CU4tGf0DZWDEQrGkhprRDbCvlpavan3ezu+LLSUnADLZnHwHvzmJlvvpkhZkY7IqFNaTuAfPhhP/8Uo87SGSaDsP27hgYM/lUpy6lHdqsAtM+BPfvqKp3ufYKwcgmWCug6oKmrrG3PoaqngWjdd/922hOBs5C/jJA6x7AiUt8VYVUAVQXXShfIqCYRMZO8/N1N+B8H1sOUwivpSUSVCJ2MAjtVwBAIdv+AQkHQqbOgc+fBvorjyQENDcch16/BtkQdAlC4E6jrYHGgGU18Io3gmhzJuwub6/fQJYNi/YBpCifhbDaAPXFvCBVxXbvfbNGFeN8DkjogWAd8DljV3KRutcEAeHMN/HXZ4p9bhncJHCyhNx52R0Kv/XNuQvYBnM+CP7xddXL5KaJw0TMAF8qjnMvegeK/SLHubhpKDKIrJDlvXoMX3y9xcSMZyBQ+tpyk5hzsa2Ns7LGdfWdbL6fZvHn92d7dgROH/730YBLtiZmEdGPkFnhX4kxmjVe2xgPfCtrRd6GHRtEh9zsL8xVe+pwSzj+OtwvletZZ/wLeKD71L+ZeHHWZ/gowABkp7AwwnEjFAAAAAElFTkSuQmCC');
   background-position: right top;
@@ -300,3 +308,6 @@ input:required:valid {
   background-position: right top;
   background-repeat: no-repeat;
 }
+
+
+

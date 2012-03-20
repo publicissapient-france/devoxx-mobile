@@ -9,7 +9,6 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
 
     var TWITTER_USER_XEBIA = "xebiaFr";
     var TWITTER_USER_DEVOXXFR = "devoxxFR";
-    var TWITTER_USER_TEST = "alexiskinsella";
 
     var DEFAULT_TWITTER_USER = TWITTER_USER_XEBIA;
 
@@ -19,12 +18,21 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
 
     var router;
 
-    var favorites = { ids: [ 1188, 1366, 1198, 1451, 1194, 1188, 1078, 1432, 1085, 1003, 1457 ] };
-    /*
-        db.get('favorites', function(data) {
-            favorites = JSON.parse(data);
-        });
-    */
+    var favorites = { ids: [ ] };
+
+    db.get('favorites', function(data) {
+        favorites = data.value;
+    });
+
+
+    var CONFERENCE_DAYS = {
+        6: {
+            1: 'Mercredi 18 Avril',
+            2: 'Jeudi 19 Avril',
+            3: 'Vendredi 20 Avril'
+        }
+    };
+
 
     core.setupRouter = function() {
         logger.info("Instanciating jqmr router");
@@ -173,6 +181,9 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
         };
 
         db.getOrFetch(options.cacheKey, function(data) {
+            if (options.beforeReset) {
+                options.beforeReset(data);
+            }
             collection.views[options.view].collection.reset(data);
             ui.hideFlashMessage(options);
         }, function() {
@@ -246,10 +257,19 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
                 _.each(data, function(presentation) {
                     if (presentation.presentationUri) {
                         presentation.key = Number(presentation.presentationUri.substring(presentation.presentationUri.lastIndexOf("/") + 1));
-                        presentation.favorite = _(favorites.ids).contains(presentation.key);
+                        presentation.favorite = favorites && _(favorites.ids).contains(presentation.key);
                     }
                     presentation.startTime = core.getScheduleTime(presentation.fromTime);
                     presentation.endTime = core.getScheduleTime(presentation.toTime);
+                });
+
+                return data;
+            },
+            beforeReset: function(data) {
+                _.each(data, function(presentation) {
+                    if (presentation.presentationUri) {
+                        presentation.favorite = favorites && _(favorites.ids).contains(Number(presentation.key));
+                    }
                 });
 
                 return data;
@@ -260,19 +280,32 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
     core.refreshDay = function(id) {
         ui.resetFlashMessages("#day");
         logger.info("Processing day: " + id);
-        ui.switchTitle("Jour " + id);
+        var title = "Jour " + id;
+        if (CONFERENCE_DAYS[EVENT_ID] && CONFERENCE_DAYS[EVENT_ID][id]) {
+            title = CONFERENCE_DAYS[EVENT_ID][id];
+        }
+        ui.switchTitle(title);
         core.refreshDataList({
-            page: "#day", title: "Jour " + id, el: "#day-list", view: "day", template: $("#schedule-list-tpl").html(),
+            page: "#day", title: title, el: "#day-list", view: "day", template: $("#schedule-list-tpl").html(),
             url: utils.getFullUrl('/events/' + EVENT_ID + '/schedule/day/' + id + '?callback=?'),
             cacheKey: '/events/' + EVENT_ID + '/schedule/day/' + id,
             parse: function(data) {
                 _.each(data, function(presentation) {
-                    presentation.favorite = _(favorites.ids).contains(presentation.id);
                     if (presentation.presentationUri) {
                         presentation.key = presentation.presentationUri.substring(presentation.presentationUri.lastIndexOf("/") + 1);
+                        presentation.favorite = favorites && _(favorites.ids).contains(Number(presentation.key));
                     }
                     presentation.startTime = core.getScheduleTime(presentation.fromTime);
                     presentation.endTime = core.getScheduleTime(presentation.toTime);
+                });
+
+                return data;
+            },
+            beforeReset: function(data) {
+                _.each(data, function(presentation) {
+                    if (presentation.presentationUri) {
+                        presentation.favorite = favorites && _(favorites.ids).contains(Number(presentation.key));
+                    }
                 });
 
                 return data;
@@ -309,11 +342,10 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
                 $('#event-details-list').listview();
                 ui.switchTitle(data.get('name'));
             }
-
         });
     };
 
-    core.refreshPresentations = function(filter) {
+    core.refreshPresentations = function() {
         ui.resetFlashMessages("#presentations");
         logger.info("Refreshing presentations");
         core.refreshDataList({
@@ -321,12 +353,15 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
             url: utils.getFullUrl('/events/' + EVENT_ID + '/presentations?callback=?'),
             cacheKey: '/events/' + EVENT_ID + '/presentations',
             parse: function(data) {
-                if(filter) {
-                    return _.filter(data, filter);
-                }
-
                 _.each(data, function(presentation) {
-                    presentation.favorite = _(favorites.ids).contains(presentation.id);
+                    presentation.favorite = favorites && _(favorites.ids).contains(presentation.id);
+                });
+
+                return data;
+            },
+            beforeReset: function(data) {
+                _.each(data, function(presentation) {
+                    presentation.favorite = favorites && _(favorites.ids).contains(presentation.id);
                 });
 
                 return data;
@@ -342,7 +377,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
             url: utils.getFullUrl('/events/presentations/' + id + '?callback=?'),
             cacheKey: '/events/presentations/' + id,
             parse: function(data) {
-                data.favorite = _.contains(favorites.ids, data.id);
+                data.favorite = favorites && _.contains(favorites.ids, data.id);
                 _.each(data.speakers, function(speaker) {
                     speaker.id = speaker.speakerUri.substring(speaker.speakerUri.lastIndexOf("/") + 1);
                 });
@@ -353,20 +388,26 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
                 $('#presentation-speaker-list').listview();
                 $('#presentation-details-list').listview();
                 ui.switchTitle(data.get('title'));
-            },
-            events: [
-                { key: "click .favoriteImg",  value: function() {
-                    if(this.get('favorite')){
-                       favorites.push(this.get('id'));
-                    } else {
-                        favorites.splice(favorites.indexOf(this.get('id')),1);
-                    }
-                    db.save('favorites',favorites);
-                    $(".favoriteImg").toggle("filled");
-
-                } }
-            ]
+            }
         });
+    };
+
+    core.updateFavorite = function(presentationId, el) {
+        presentationId = Number(presentationId);
+        if (!favorites) {
+            favorites = { ids: [] };
+        }
+
+        var favorite = _.contains(favorites.ids, presentationId);
+        if ( favorite ) {
+            favorites.ids.splice(favorites.ids.indexOf(presentationId), 1);
+        }
+        else {
+            favorites.ids.push(presentationId);
+        }
+        $(el).attr("src", "image/star_" + (favorite ? 'plain' : 'empty') + ".png");
+
+        db.save('favorites',favorites);
     };
 
     core.refreshRooms = function() {

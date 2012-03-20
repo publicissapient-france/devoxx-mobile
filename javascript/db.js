@@ -18,7 +18,7 @@ define(['log', 'ui'], function( log, ui ) {
             var self = this;
             self.keys({}, function(keys) {
                 _(keys).each(function(key) {
-                    if (key.indexOf("/events/") >= 0) {
+                    if (key.indexOf("/events/") >= 0 || key.indexOf("/xebia/") >= 0) {
                         self.remove(key, function() {
                             logger.info("Destroyed following key in db: '" + key + "'");
                         });

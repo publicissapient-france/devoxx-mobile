@@ -14,9 +14,9 @@ define(['log'], function( log ) {
                 flashMessage.remove();
             }
             var flashErrorMessage = header.children("div#flashErrorMessage");
-             if (flashErrorMessage) {
-                 flashErrorMessage.remove();
-             }
+            if (flashErrorMessage) {
+                flashErrorMessage.remove();
+            }
          }
     };
 
