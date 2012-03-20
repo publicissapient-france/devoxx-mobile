@@ -47,9 +47,11 @@ define(['log', 'ui'], function( log, ui ) {
             logger.info("Rendering Entry View");
             var el = $(this.options.el);
             el.empty();
-            var content = _.template( this.options.entryTemplate, { entry: this.entry } );
+            var content = _.template( this.options.entryTemplate, { entry: this.entry, view: this.options.view } );
             el.html(content);
-            this.options.postRender(this.entry);
+            if (this.options.postRender) {
+                this.options.postRender(this.entry);
+            }
 
             return this;
         }

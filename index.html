@@ -449,7 +449,7 @@ div.spinner-container {
             <div align="center" id="day" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
 
                 <div data-role="header" data-theme="c" data-divider-theme="a">
-                    <h1>Jour</h1>
+                    <h1 style="text-align: center; margin-left: 100px; margin-right: 5px;">Jour</h1>
                 </div>
                 <div data-role="content">
                     <ul id="day-list" data-role="listview" data-theme="c"></ul>
@@ -654,7 +654,7 @@ div.spinner-container {
                     <li data-role="list-divider"><%= currentTime %></li>
             <%  }
                 if ( presentation.get('kind') === 'Talk' ) { %>
-                <li class="type-<%= presentation.get('type').toUpperCase() %>" data-theme="<%= presentation.get('favorite') ? 'e' : 'c' %>">
+                <li class="presentation-<%=view %>-item type-<%= presentation.get('type').toUpperCase() %>" data-id="<%= presentation.get('key') %>" data-theme="<%= presentation.get('favorite') ? 'e' : 'c' %>">
                     <a href="#presentation?id=<%= presentation.get('key') %>" style="margin: 0; padding: 0 5px 0 0;">
                         <div style="padding: 5px 10px 10px 10px;">
                             <h3 style="display: inline-block; width: 95%;"><%= presentation.get('title') ? presentation.get('title') : presentation.get('name') %></h3>
@@ -736,7 +736,7 @@ div.spinner-container {
 
         <script type="text/html" id="presentation-list-tpl">
             <% _.each(entries, function(presentation) { %>
-            <li  class="type-<%= presentation.get('type').toUpperCase() %>" data-theme="<%= presentation.get('favorite') ? 'e' : 'c' %>">
+            <li class="presentation-item type-<%= presentation.get('type').toUpperCase() %>" data-id="<%= presentation.get('id') %>" data-theme="<%= presentation.get('favorite') ? 'e' : 'c' %>">
                 <a href="#presentation?id=<%= presentation.get('id') %>" style="margin: 0; padding: 0 5px 0 0;">
                     <div style="padding: 5px 10px 10px 10px;">
                         <h3 style="display: inline-block; width: 95%;"><%= presentation.get('title') %></h3>
@@ -822,7 +822,7 @@ div.spinner-container {
                     <span class="awesome <%= String(entry.get('type')).toUpperCase() %>"><%= entry.get('type') %></span>
                     <span style=" margin-left: 10px; display: inline-block; vertical-align: middle;"><img id="presentation-favorite"
                                 src="image/star_<%= entry.get('favorite') ? 'plain' : 'empty' %>.png"
-                                onClick="app.core.updateFavorite('<%= entry.get('id') %>', '#presentation-favorite')"
+                                onClick="app.core.onFavoriteStarClick('<%= entry.get('id') %>', '#presentation-favorite')"
                                 style="display: inline-block; height: 32px; width: 32px;" /></span>
                 </div>
                 <% } %>

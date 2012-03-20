@@ -50,9 +50,13 @@ define(['log', 'ui'], function( log, ui ) {
         render: function() {
             logger.info("Rendering List View");
             var el = $(this.options.el);
-            var content = _.template( this.options.collectionTemplate, { entries: this.collection.models } );
+            var content = _.template( this.options.collectionTemplate, { entries: this.collection.models, view: this.options.view } );
             el.html(content);
             el.listview("refresh");
+
+            if (this.options.postRender) {
+                this.options.postRender(this.collection.models);
+            }
 
             return this;
         }

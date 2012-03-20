@@ -21,9 +21,10 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
     var favorites = { ids: [ ] };
 
     db.get('favorites', function(data) {
-        favorites = data.value;
+        if (data) {
+            favorites = data.value;
+        }
     });
-
 
     var CONFERENCE_DAYS = {
         6: {
@@ -32,7 +33,6 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
             3: 'Vendredi 20 Avril'
         }
     };
-
 
     core.setupRouter = function() {
         logger.info("Instanciating jqmr router");
@@ -153,6 +153,8 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
             collectionTemplate: options.template,
             parse: options.parse,
             beforeParse: options.beforeParse,
+            view: options.view,
+            postRender: options.postRender,
             afterParse: function(data) {
                 if (options.cacheKey && !data.statusCode) {
                     db.save(options.cacheKey, data);
@@ -205,6 +207,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
             parse: options.parse,
             beforeParse: options.beforeParse,
             postRender: options.postRender,
+            view: options.view,
             afterParse: function(data) {
                 if (options.cacheKey && !data.statusCode) {
                     db.save(options.cacheKey, data);
@@ -214,12 +217,6 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
                 }
             }
         });
-
-        if (options.events) {
-            _.each(options.events, function(event) {
-                entry.views[options.view].on(event.key, event.value, entry.views[options.view]);
-            });
-        }
 
         if (entry.views[options.view].entry) {
             entry.views[options.view].entry.clear();
@@ -239,6 +236,10 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
         };
 
         db.getOrFetch(options.cacheKey, function(data) {
+            if (options.beforeReset) {
+                 options.beforeReset(data);
+            }
+
             entry.views[options.view].entry.set(data);
             ui.hideFlashMessage(options);
         }, function() {
@@ -249,8 +250,10 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
 
     core.refreshSchedule = function() {
         ui.resetFlashMessages("#schedule");
+        ui.switchTitle("Planning");
+
         core.refreshDataList({
-            page: "#schedule", title: "Schedule", el: "#schedule-list", view: "schedule", template: $("#schedule-list-tpl").html(),
+            page: "#schedule", title: "Planning", el: "#schedule-list", view: "schedule", template: $("#schedule-list-tpl").html(),
             url: utils.getFullUrl('/events/' + EVENT_ID + '/schedule?callback=?'),
             cacheKey: '/events/' + EVENT_ID + '/schedule',
             parse: function(data) {
@@ -273,6 +276,9 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
                 });
 
                 return data;
+            },
+            postRender: function(data) {
+                core.initSwipeFavorites("presentation-schedule-item");
             }
         });
     };
@@ -309,6 +315,9 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
                 });
 
                 return data;
+            },
+            postRender: function(data) {
+                core.initSwipeFavorites("presentation-day-item");
             }
         });
     };
@@ -320,6 +329,8 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
     core.refreshEvents = function() {
         ui.resetFlashMessages("#events");
         logger.info("Refreshing events");
+        ui.switchTitle("Evénements");
+
         core.refreshDataList({
             page: "#events", title: "Event", el: "#event-list", view: "events", template: $("#event-list-tpl").html(),
             url: utils.getFullUrl('/events?callback=?'),
@@ -331,6 +342,8 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
     core.refreshEvent = function(id) {
         ui.resetFlashMessages("#event");
         logger.info("Processing event: " + id);
+        ui.switchTitle("Evénement");
+
         core.refreshDataEntry({
             page: "#event", title: "Event", el: "#event-details", view: "event", template: $("#event-tpl").html(),
             url: utils.getFullUrl('/events/' + id + '?callback=?'),
@@ -348,8 +361,10 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
     core.refreshPresentations = function() {
         ui.resetFlashMessages("#presentations");
         logger.info("Refreshing presentations");
+        ui.switchTitle("Présentations");
+
         core.refreshDataList({
-            page: "#presentations", title: "Presentation", el: "#presentation-list", view: "presentation", template: $("#presentation-list-tpl").html(),
+            page: "#presentations", title: "Presentations", el: "#presentation-list", view: "presentation", template: $("#presentation-list-tpl").html(),
             url: utils.getFullUrl('/events/' + EVENT_ID + '/presentations?callback=?'),
             cacheKey: '/events/' + EVENT_ID + '/presentations',
             parse: function(data) {
@@ -365,6 +380,9 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
                 });
 
                 return data;
+            },
+            postRender: function(data) {
+                core.initSwipeFavorites("presentation-item");
             }
         });
     };
@@ -372,8 +390,9 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
     core.refreshPresentation = function(id) {
         ui.resetFlashMessages("#presentation");
         logger.info("Processing presentation: " + id);
+        ui.switchTitle("Présentation");
         core.refreshDataEntry({
-            page: "#presentation", title: "Presentation", el: "#presentation-details", view: "presentation", template: $("#presentation-tpl").html(),
+            page: "#presentation", title: "Présentation", el: "#presentation-details", view: "presentation", template: $("#presentation-tpl").html(),
             url: utils.getFullUrl('/events/presentations/' + id + '?callback=?'),
             cacheKey: '/events/presentations/' + id,
             parse: function(data) {
@@ -388,31 +407,20 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
                 $('#presentation-speaker-list').listview();
                 $('#presentation-details-list').listview();
                 ui.switchTitle(data.get('title'));
+            },
+            beforeReset: function(data) {
+                data.favorite = favorites && _.contains(favorites.ids, data.id);
+
+                return data;
             }
         });
-    };
-
-    core.updateFavorite = function(presentationId, el) {
-        presentationId = Number(presentationId);
-        if (!favorites) {
-            favorites = { ids: [] };
-        }
-
-        var favorite = _.contains(favorites.ids, presentationId);
-        if ( favorite ) {
-            favorites.ids.splice(favorites.ids.indexOf(presentationId), 1);
-        }
-        else {
-            favorites.ids.push(presentationId);
-        }
-        $(el).attr("src", "image/star_" + (favorite ? 'plain' : 'empty') + ".png");
-
-        db.save('favorites',favorites);
     };
 
     core.refreshRooms = function() {
         ui.resetFlashMessages("#rooms");
         logger.info("Refreshing rooms");
+        ui.switchTitle("Salles");
+
         core.refreshDataList({
             page: "#rooms", title: "Rooms", el: "#room-list", view: "room", template: $("#room-list-tpl").html(),
             url: utils.getFullUrl('/events/' + EVENT_ID + '/schedule/rooms?callback=?'),
@@ -424,6 +432,8 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
     core.refreshTracks = function() {
         ui.resetFlashMessages("#tracks");
         logger.info("Refreshing tracks");
+        ui.switchTitle("Tracks");
+
         core.refreshDataList({
             page: "#tracks", title: "Tracks", el: "#track-list", view: "track", template: $("#track-list-tpl").html(),
             url: utils.getFullUrl('/events/' + EVENT_ID + '/tracks?callback=?'),
@@ -435,6 +445,8 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
     core.refreshSpeakers = function() {
         ui.resetFlashMessages("#tracks");
         logger.info("Refreshing speakers");
+        ui.switchTitle("Speakers");
+
         core.refreshDataList({
             page: "#speakers", title: "Speakers", el: "#speaker-list", view: "speaker", template: $("#speaker-list-tpl").html(),
             url: utils.getFullUrl('/events/' + EVENT_ID + '/speakers?callback=?'),
@@ -446,6 +458,8 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
     core.refreshSpeaker = function(id) {
         ui.resetFlashMessages("#speaker");
         logger.info("Processing speaker: " + id);
+        ui.switchTitle("Speaker");
+
         core.refreshDataEntry({
             page: "#speaker", title: "Speaker", el: "#speaker-details", view: "speaker", template: $("#speaker-tpl").html(),
             url: utils.getFullUrl('/events/speakers/' + id + '?callback=?'),
@@ -526,6 +540,48 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
                 return data;
             }
         });
+    };
+
+    core.initSwipeFavorites = function(classId) {
+        $('ul li.' + classId).bind('swipeleft', function(e) {
+            var presentationItem = $(this);
+            var presentationId = Number(presentationItem.attr('data-id'));
+
+            if ( _(favorites.ids).contains(presentationId) ) {
+                favorites.ids.splice(favorites.ids.indexOf(presentationId), 1);
+                db.save('favorites', favorites);
+                presentationItem.removeClass('ui-btn-up-e');
+                presentationItem.addClass('ui-btn-up-c');
+                presentationItem.attr('data-theme', 'c');
+            }
+        });
+
+        $('ul li.' + classId).bind('swiperight', function(e) {
+            var presentationItem = $(this);
+            var presentationId = Number(presentationItem.attr('data-id'));
+
+            if ( !_(favorites.ids).contains(presentationId) ) {
+                favorites.ids.push(presentationId);
+                db.save('favorites', favorites);
+                presentationItem.removeClass('ui-btn-up-c');
+                presentationItem.addClass('ui-btn-up-e');
+                presentationItem.attr('data-theme', 'e');
+            }
+        });
+    };
+
+    core.onFavoriteStarClick = function (presentationId, el) {
+        presentationId = Number(presentationId);
+
+        var favorite = _.contains(favorites.ids, presentationId);
+        if ( favorite ) {
+            favorites.ids.splice(favorites.ids.indexOf(presentationId), 1);
+        }
+        else {
+            favorites.ids.push(presentationId);
+        }
+        db.save('favorites', favorites);
+        $(el).attr("src", "image/star_" + (!favorite ? 'plain' : 'empty') + ".png");
     };
 
     logger.info("Loaded core");
