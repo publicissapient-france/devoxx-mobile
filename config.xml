@@ -3,10 +3,10 @@
         xmlns="http://www.w3.org/ns/widgets"
 	    xmlns:gap="http://phonegap.com/ns/1.0">
 
-	<name>Devoxx 2012</name>
+	<name>Devoxx</name>
 
 	<description>
-		Devoxx 2012 mobile version
+		Devoxx mobile version provided by Xebia
 	</description>
 
     <content src="target/index.html"/>
