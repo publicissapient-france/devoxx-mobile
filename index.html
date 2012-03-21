@@ -545,51 +545,45 @@ div.spinner-container {
                     <h1>Concours</h1>
                 </div>
                 <div id="register-content" data-role="content">
-
+                    <div id="contest-description" class="contest-description">
+                        <p><em><strong>Xebia vous offre un MacBook Air !</strong></em></p>
+                        <p>Inscrivez-vous dès aujourd’hui à notre grand tirage au sort qui aura lieu le jeudi 19 avril, sur le stand de Xebia et remportez le plus convoité des ordinateurs !</p>
+                        <p>Les inscriptions pourront s’effectuer directement sur notre stand, jusqu’au 19 avril à 12h00.</p>
+                        <p><strong>Vous en rêviez ? Rien de plus simple, inscrivez vous en remplissant le formulaire d’inscription.</strong></p>
+                    </div>
                     <div align="left">
+                        <form id="register-form">
 
-                        <div id="contest-description" class="contest-description">
-                            <p><em><strong>Xebia vous offre un MacBook Air !</strong></em></p>
-                            <p>Inscrivez-vous dès aujourd’hui à notre grand tirage au sort qui aura lieu le jeudi 19 avril, sur le stand de Xebia et remportez le plus convoité des ordinateurs !</p>
-                            <p>Les inscriptions pourront s’effectuer directement sur notre stand, jusqu’au 19 avril à 12h00.</p>
-                            <p><strong>Vous en rêviez ? Rien de plus simple, inscrivez vous en remplissant le formulaire d’inscription.</strong></p>
-                        </div>
+                            <div data-role="fieldcontain">
+                                 <label for="register-firstname">Prénom:</label>
+                                 <input type="text" name="firstname" id="register-firstname" value="" required autofocus placeholder="Prénom" pattern="^[a-zA-ZàáâäãåèéêëìíîïòóôöõøùúûüÿýñçčšžÀÁÂÄÃÅÈÉÊËÌÍÎÏÒÓÔÖÕØÙÚÛÜŸÝÑßÇŒÆČŠŽ∂ð ,.'-]+$" />
+                             </div>
 
-                        <form id="register-form" style="display: none;">
+                             <div data-role="fieldcontain">
+                                 <label for="register-lastname">Nom:</label>
+                                 <input type="text" name="lastname" id="register-lastname" value="" required placeholder="Nom" pattern="^[a-zA-ZàáâäãåèéêëìíîïòóôöõøùúûüÿýñçčšžÀÁÂÄÃÅÈÉÊËÌÍÎÏÒÓÔÖÕØÙÚÛÜŸÝÑßÇŒÆČŠŽ∂ð ,.'-]+$" />
+                             </div>
 
-                            <div align="left">
-                                <div data-role="fieldcontain">
-                                     <label for="register-firstname">Prénom:</label>
-                                     <input type="text" name="firstname" id="register-firstname" value="" required autofocus placeholder="Prénom" pattern="^[a-zA-ZàáâäãåèéêëìíîïòóôöõøùúûüÿýñçčšžÀÁÂÄÃÅÈÉÊËÌÍÎÏÒÓÔÖÕØÙÚÛÜŸÝÑßÇŒÆČŠŽ∂ð ,.'-]+$" />
-                                 </div>
-
-                                 <div data-role="fieldcontain">
-                                     <label for="register-lastname">Nom:</label>
-                                     <input type="text" name="lastname" id="register-lastname" value="" required placeholder="Nom" pattern="^[a-zA-ZàáâäãåèéêëìíîïòóôöõøùúûüÿýñçčšžÀÁÂÄÃÅÈÉÊËÌÍÎÏÒÓÔÖÕØÙÚÛÜŸÝÑßÇŒÆČŠŽ∂ð ,.'-]+$" />
-                                 </div>
-
-                                <div data-role="fieldcontain">
-                                    <label for="register-email">Email:</label>
-                                    <input type="email" name="email" id="register-email" value="" required placeholder="Email" pattern='^(([^<>+()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'/>
-                                </div>
-
-                                <div data-role="fieldcontain">
-                                    <label for="register-pass-id">Identifiant Devoxx:</label>
-                                    <input type="text" name="pass_id" id="register-pass-id" value="" required placeholder="Identifiant Devoxx" pattern="^[a-zA-Z0-9\._\-]+$" />
-                                </div>
-
-                                 <div data-role="fieldcontain">
-                                     <label for="register-comment">Commentaire:</label>
-                                     <textarea cols="40" rows="8" name="comment" id="register-comment" style="height:100px;" placeholder="Commentaire"></textarea>
-                                 </div>
-
-                                 <div data-role="fieldcontain">
-                                     <button id="register-submit" type="submit" data-theme="a">S'enregistrer !</button>
-                                 </div>
+                            <div data-role="fieldcontain">
+                                <label for="register-email">Email:</label>
+                                <input type="email" name="email" id="register-email" value="" required placeholder="Email" pattern='^(([^<>+()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'/>
                             </div>
 
-                         </form>
+                            <div data-role="fieldcontain">
+                                <label for="register-pass-id">Identifiant Devoxx:</label>
+                                <input type="text" name="pass_id" id="register-pass-id" value="" required placeholder="Identifiant Devoxx" pattern="^[a-zA-Z0-9\._\-]+$" />
+                            </div>
 
+                             <div data-role="fieldcontain">
+                                 <label for="register-comment">Commentaire:</label>
+                                 <textarea cols="40" rows="8" name="comment" id="register-comment" style="height:100px;" placeholder="Commentaire"></textarea>
+                             </div>
+
+                             <div data-role="fieldcontain">
+                                 <button id="register-submit" type="submit" data-theme="a">S'enregistrer !</button>
+                             </div>
+
+                         </form>
                     </div>
 
                 </div>
