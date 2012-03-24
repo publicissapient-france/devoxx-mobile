@@ -1,0 +1,1 @@
+define([],function(){console.log("[log] Loading log.js");var a="INFO",b={},c=new Array;return b.getLogContent=function(){return c},b.getLogger=function(b){return{info:function(d){var e=(new Date).toString("HH:mm:ss"),f="["+e+"]["+a+"]["+b+"] "+d;console.log(f),c.length>1e3&&c.shift(),c.push(f)}}},console.log("[log] Loaded log.js"),b})
