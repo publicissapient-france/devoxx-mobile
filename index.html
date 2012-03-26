@@ -227,32 +227,6 @@ div.spinner-container {
                 <div id="home-content" data-role="content">
                     <div id="home-content-dates">
 
-                        <!--
-                        <div class="ui-grid-b calendar-items">
-                        	<div class="ui-block-a">
-                                <a href="#day?id=1" class="calendar-item">
-                                    <div class="calendar-item">
-                                        <p class="calendar">18 <em>Avril</em></p>
-                                    </div>
-                                </a>
-                            </div>
-                        	<div class="ui-block-b">
-                                <a href="#day?id=2" class="calendar-item">
-                                    <div class="calendar-item">
-                                       <p class="calendar">19 <em>Avril</em></p>
-                                   </div>
-                                </a>
-                            </div>
-                        	<div class="ui-block-c">
-                                <a href="#day?id=3" class="calendar-item">
-                                    <div class="calendar-item">
-                                        <p class="calendar">20 <em>Avril</em></p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        -->
-
                         <ul id="home-content-dates-list" data-role="listview" data-inset="true" data-theme="c">
                             <li>
                                 <a href="#day?id=1">
@@ -271,27 +245,9 @@ div.spinner-container {
                             </li>
                         </ul>
 
-                        <!--
-                        <ul id="home-content-menu-list" data-role="listview" data-inset="true" data-theme="c">
-                            <li>
-                                <a href="#menu">
-                                    <h3 align="center">Menu</h3>
-                                </a>
-                            </li>
-                        </ul>
-
-                        <ul id="home-content-twitter-list" data-role="listview" data-inset="true" data-theme="c">
-                              <li>
-                                  <a href="#twitter" rel="external" alt="Nous suivre sur Twitter">
-                                       <h3 align="center"><img src="image/twitter-black-transparent.png" height="24" class="home-footer-img" /></h3>
-                                   </a>
-                              </li>
-                        </ul>
-                        -->
-
                         <ul id="home-content-xebia-list" data-role="listview" data-inset="true" data-theme="c">
                             <li>
-                                <a href="#twitter" rel="external" alt="Nous suivre sur Twitter" style="padding: 5px; margin:0px;">
+                                <a href="#twitter" alt="Nous suivre sur Twitter" style="padding: 5px; margin:0px;">
                                      <h3 align="center"><img src="image/twitter-black-transparent.png" height="24" class="home-footer-img" /></h3>
                                  </a>
                             </li>
@@ -365,153 +321,95 @@ div.spinner-container {
                 </div>
             </div>
 
-            <!-- menu page -->
-            <!--
-            <div align="center" id="menu" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
-
-                <div id="menu-content-header" data-role="header" data-theme="c" data-divider-theme="a">
-                    <h1>Menu général</h1>
-                </div>
-                <div id="menu-content" data-role="content">
-
-                    <div id="home-content-devoxx-paris">
-                        <ul id="home-content-devoxx-paris-list" data-role="listview" data-inset="true" data-theme="c">
-                            <li>
-                                 <a href="#schedule">
-                                     <h3 align="center">Planning</h3>
-                                 </a>
-                            </li>
-                            <li>
-                                 <a href="#speakers">
-                                     <h3 align="center">Speakers</h3>
-                                 </a>
-                            </li>
-                            <li>
-                                  <a href="#presentations">
-                                      <h3 align="center">Présentations</h3>
-                                  </a>
-                            </li>
-                            <li>
-                                  <a href="#rooms">
-                                      <h3 align="center">Salles</h3>
-                                  </a>
-                            </li>
-                            <li>
-                                  <a href="#tracks">
-                                      <h3 align="center">Tracks</h3>
-                                  </a>
-                            </li>
-                        </ul>
-
-                    </div>
-
-                    <div id="menu-content-other">
-                        <ul id="menu-content-other-list" data-role="listview" data-inset="true" data-theme="c">
-                            <li>
-                                <a href="#events">
-                                    <h3 align="center">Evènements Devoxx</h3>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#about">
-                                    <h3 align="center">A propos</h3>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            -->
-
             <!-- Schedule page -->
             <div align="center" id="schedule" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
-
-                <div data-role="header" data-theme="c" data-divider-theme="a">
+                <div id="schedule-header" data-role="header" data-theme="a">
                     <h1>Planning</h1>
                 </div>
-                <div data-role="content">
-                    <ul id="schedule-list" data-role="listview" data-theme="c"></ul>
+                <div id="schedule-message" data-role="message"></div>                                
+                <div id="schedule-content" data-role="content">
+                    <ul id="schedule-list" data-role="listview" data-theme="c" data-divider-theme="a"></ul>
                 </div>
             </div>
 
             <!-- Xebia-Program page -->
             <div align="center" id="xebia-program" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
-
-                <div data-role="header" data-theme="c" data-divider-theme="a">
+                <div id="xebia-program-header" data-role="header" data-theme="a">
                     <h1>Xebia In Devoxx</h1>
                 </div>
-                <div data-role="content">
-                    <ul id="xebia-program-list" data-role="listview" data-theme="c"></ul>
+                <div id="xebia-program-message" data-role="message"></div>                                
+                <div id="xebia-program-content" data-role="content">
+                    <ul id="xebia-program-list" data-role="listview" data-theme="c" data-divider-theme="a"></ul>
                 </div>
             </div>
 
             <!-- Day page -->
             <div align="center" id="day" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
-
-                <div data-role="header" data-theme="c" data-divider-theme="a">
-                    <h1 style="text-align: center; margin-left: 100px; margin-right: 5px;">Jour</h1>
+                <div id="day-header" data-role="header" data-theme="a">
+                    <h1 style="text-align: center; margin-left: 60px; margin-right: 5px;">Jour</h1>
                 </div>
-                <div data-role="content">
-                    <ul id="day-list" data-role="listview" data-theme="c"></ul>
+                <div id="day-message" data-role="message"></div>                                
+                <div id="day-content" data-role="content">
+                    <ul id="day-list" data-role="listview" data-theme="c" data-divider-theme="a"></ul>
                 </div>
             </div>
 
             <!-- Presentation page -->
             <div align="center" id="presentation" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
-
-                <div data-role="header" data-theme="c" data-divider-theme="a">
-                    <h1 style="text-align: center; margin-left: 100px; margin-right: 5px;">Présentation</h1>
+                <div id="presentation-header" data-role="header" data-theme="a">
+                    <h1 style="text-align: center; margin-left: 60px; margin-right: 5px;">Présentation</h1>
                 </div>
-                <div id="presentation-details" data-role="content"></div>
+                <div id="presentation-message" data-role="message"></div>                                
+                <div id="presentation-content" data-role="content" data-divider-theme="a"></div>
             </div>
 
             <!-- Events page -->
             <div align="center" id="events" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
-
-                <div data-role="header" data-theme="c">
+                <div id="events-header" data-role="header" data-theme="a">
                     <h1>Evènements</h1>
                 </div>
-                <div data-role="content">
+                <div id="events-message" data-role="message"></div>                                
+                <div id="events-content" data-role="content">
                     <ul id="event-list" data-role="listview" data-theme="c"></ul>
                 </div>
             </div>
 
             <!-- Event page -->
             <div align="center" id="event" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
-
-                <div data-role="header" data-theme="c" data-divider-theme="a">
+                <div id="event-header" data-role="header" data-theme="a">
                     <h1>Evènement</h1>
                 </div>
-                <div id="event-details" data-role="content"></div>
+                <div id="event-message" data-role="message"></div>                
+                <div id="event-content" data-role="content" data-divider-theme="a"></div>
             </div>
 
             <!-- Speakers page -->
             <div align="center" id="speakers" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
-
-                <div data-role="header" data-theme="c">
+                <div id="speakers-header" data-role="header" data-theme="a">
                     <h1>Speakers</h1>
                 </div>
-                <div data-role="content">
+                <div id="speakers-message" data-role="message"></div>                
+                <div id="speakers-content" data-role="content">
                     <ul id="speaker-list" data-role="listview" data-theme="c"></ul>
                 </div>
             </div>
 
             <!-- Speaker page -->
             <div align="center" id="speaker" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
-
-                <div data-role="header" data-theme="c" data-divider-theme="a">
-                    <h1 style="text-align: center; margin-left: 100px; margin-right: 5px;">Speaker</h1>
+                <div id="speaker-header" data-role="header" data-theme="a">
+                    <h1 style="text-align: center; margin-left: 60px; margin-right: 5px;">Speaker</h1>
                 </div>
-                <div id="speaker-details" data-role="content"></div>
+                <div id="speaker-message" data-role="message"></div>                
+                <div id="speaker-content" data-role="content" data-divider-theme="a"></div>
             </div>
 
             <!-- Rooms page -->
             <div align="center" id="rooms" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
-
-                <div data-role="header" data-theme="c">
+                <div id="rooms-header" data-role="header" data-theme="a">
                     <h1>Salles</h1>
                 </div>
-                <div data-role="content">
+                <div id="rooms-message" data-role="message"></div>                
+                <div id="rooms-content" data-role="content">
                     <ul id="room-list" data-role="listview" data-theme="c"></ul>
                 </div>
             </div>
@@ -519,21 +417,23 @@ div.spinner-container {
             <!-- Presentations page -->
             <div align="center" id="presentations" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
 
-                <div data-role="header" data-theme="c">
+                <div id="presentations-header" data-role="header" data-theme="a">
                     <h1>Présentations</h1>
                 </div>
-                <div data-role="content">
+                <div id="presentations-message" data-role="message"></div>                
+                <div id="presentations-content" data-role="content">
                     <ul id="presentation-list" data-role="listview" data-theme="c"></ul>
                 </div>
             </div>
-            
+
             <!-- Rooms page -->
             <div align="center" id="tracks" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
 
-                <div data-role="header" data-theme="c">
+                <div id="tracks-header" data-role="header" data-theme="a">
                     <h1>Tracks</h1>
                 </div>
-                <div data-role="content">
+                <div id="tracks-message" data-role="message"></div>                
+                <div id="tracks-content" data-role="content">
                     <ul id="track-list" data-role="listview" data-theme="c"></ul>
                 </div>
             </div>
@@ -541,9 +441,10 @@ div.spinner-container {
             <!-- Register page -->
             <div align="center" id="register" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
 
-                <div data-role="header" data-theme="c">
+                <div id="register-header" data-role="header" data-theme="a">
                     <h1>Concours</h1>
                 </div>
+                <div id="register-message" data-role="message"></div>
                 <div id="register-content" data-role="content">
                     <div id="contest-description" class="contest-description">
                         <p><em><strong>Xebia vous offre un MacBook Air !</strong></em></p>
@@ -591,7 +492,7 @@ div.spinner-container {
 
             <!-- About page -->
             <div align="center" id="about" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
-                <div data-role="header" data-theme="c">
+                <div data-role="header" data-theme="a">
                     <h1>A propos</h1>
                 </div>
                 <div id="about-header">
@@ -599,6 +500,7 @@ div.spinner-container {
                         <img src="image/logo-xebia.png" alt="jQuery Mobile Framework" class="xebia-logo" />
                     </h1>
                 </div>
+                <div id="about-message" data-role="message"></div>
                 <div id="about-content" data-role="content">
                     <div id="about-link-buttons">
                         <a href="https://twitter.com/#!/xebiafr" rel="external" alt="Follow us on Twitter" data-role="button">
@@ -613,19 +515,20 @@ div.spinner-container {
 
             <!-- Twitter page -->
             <div align="center" id="twitter" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
-                <div data-role="header" data-theme="c">
-                    <h1 style="height: 18px!important;"><img src="image/twitter-black-transparent.png" class="home-footer-img" style="height:18px;" /></h1>
+                <div data-role="header" data-theme="a">
+                    <h1 style="height: 18px!important;"><img src="image/twitter-white-transparent.png" class="twitter-header-img" style="height:18px;" /></h1>
                 </div>
-                <div data-role="navbar">
+                <div id="twitter-message" data-role="message"></div>
+                <div id="twitter-navbar"  data-role="navbar">
                     <ul>
                         <li>
-                            <a id="twitter-xebiafr" href="#twitter?screenname=xebiaFr">
-                                <img src="image/xebia-logo-large-transparent.png" height="32px" />
+                            <a id="twitter-xebiafr" data-theme="d" href="#twitter?screenname=xebiaFr">
+                                <img src="image/xebia-logo-large-transparent.png" height="24px" />
                             </a>
                         </li>
                         <li>
-                            <a id="twitter-devoxxfr" href="#twitter?screenname=devoxxFR">
-                                <img src="image/devoxx-logo.png" height="32px" />
+                            <a id="twitter-devoxxfr" data-theme="d" href="#twitter?screenname=devoxxFR">
+                                <img src="image/devoxx-logo.png" height="24px" />
                             </a>
                         </li>
                     </ul>
@@ -645,16 +548,16 @@ div.spinner-container {
                 var currentTimeChanged = time != currentTime;
                 currentTime = time;
                 if (currentTimeChanged) { %>
-                    <li data-role="list-divider"><%= currentTime %></li>
+                    <li data-role="list-divider" ><%= currentTime %></li>
             <%  }
                 if ( presentation.get('kind') === 'Talk' ) { %>
                 <li class="presentation-<%=view %>-item type-<%= presentation.get('type').toUpperCase() %>" data-id="<%= presentation.get('key') %>" data-theme="<%= presentation.get('favorite') ? 'e' : 'c' %>">
                     <a href="#presentation?id=<%= presentation.get('key') %>" style="margin: 0; padding: 0 5px 0 0;">
                         <div style="padding: 5px 10px 10px 10px;">
-                            <h3 style="display: inline-block; width: 95%;"><%= presentation.get('title') ? presentation.get('title') : presentation.get('name') %></h3>
-                            <% if ( presentation.get('speaker') ) { %>
-                                <p><em>Speaker: <%= presentation.get('speaker') %></em></p>
-                            <% } %>
+                            <h3 style="display: inline-block; width: 95%;"><%= presentation.get('title') ? presentation.get('title') : (presentation.get('name') ? presentation.get('name') : "&nbsp;" ) %></h3>
+                            <p><em><% if ( presentation.get('speaker') ) { %>
+                                Speaker: <%= presentation.get('speaker') %>
+                            <% } else { %><%= "&nbsp;" %><% } %></em></p>
                             <p><em><%= presentation.get('kind') %> - <%= presentation.get('type') %></em></p>
                         </div>
                         <div class="ui-li-aside" style="width: 87px; height: 16px; padding: 54px 0 0 0;">
@@ -876,13 +779,13 @@ div.spinner-container {
         </script>
 
         <script type="text/html" id="flash-message-tpl">
-            <div id="flashMessage"  class="ui-bar ui-bar-b">
+            <div id="flashMessage" class="ui-bar ui-bar-d">
                 <h1 style="float:left; margin-top:8px; margin-bottom:8px;"><%= message %></h1>
             </div>
         </script>
 
         <script type="text/html" id="flash-error-message-tpl">
-            <div id="flashErrorMessage"  class="ui-bar ui-bar-e">
+            <div id="flashErrorMessage" class="ui-bar ui-bar-d">
                 <h1 style="float:left; margin-top:8px; margin-bottom:8px;"><%= message %></h1>
             </div>
         </script>
