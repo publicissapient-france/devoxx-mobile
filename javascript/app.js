@@ -90,6 +90,7 @@ function init() {
                 $.mobile.defaultPageTransition = 'none';
 
                 $.mobile.jqmRouter = $.mobile.jqmRouter || {};
+                $.mobile.page.prototype.options.backBtnText = "&nbsp;";
                 $.mobile.jqmRouter.fixFirstPageDataUrl = true;
                 $.mobile.jqmRouter.firstPageDataUrl = "index.html";
 

@@ -7,7 +7,7 @@ define(['log'], function( log ) {
     var ui =  { };
 
     ui.resetFlashMessages = function(page) {
-        var header = $(page).children(":jqmData(role='header')");
+        var header = $(page).children(":jqmData(role='message')");
         if (header) {
             var flashMessage = header.children("div#flashMessage");
             if (flashMessage) {
@@ -23,14 +23,14 @@ define(['log'], function( log ) {
     ui.showFlashMessage = function(options) {
         if (options.page) {
             var flashMessage = _.template($('#flash' + (options.type === 'error' ? '-error' : '') + '-message-tpl').html(), { message: options.message ? options.message : "Chargement des données en cours ..." } );
-            var currentPageHeader = $(options.page).children(":jqmData(role='header')");
+            var currentPageHeader = $(options.page).children(":jqmData(role='message')");
             currentPageHeader.append(flashMessage);
         }
     };
 
     ui.hideFlashMessage = function(options) {
         if (options.page) {
-            var header = $(options.page).children(":jqmData(role='header')");
+            var header = $(options.page).children(":jqmData(role='message')");
             var flashMessage = header.children("div#flash" + (options.type === 'error' ? 'Error' : '') + "Message");
             var flashMessageContent = flashMessage.children("h1");
             flashMessageContent.fadeOut();

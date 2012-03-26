@@ -345,7 +345,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
         ui.switchTitle("Evénement");
 
         core.refreshDataEntry({
-            page: "#event", title: "Event", el: "#event-details", view: "event", template: $("#event-tpl").html(),
+            page: "#event", title: "Event", el: "#event-content", view: "event", template: $("#event-tpl").html(),
             url: utils.getFullUrl('/events/' + id + '?callback=?'),
             cacheKey: '/events/' + id,
             parse: function(data) {
@@ -392,7 +392,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
         logger.info("Processing presentation: " + id);
         ui.switchTitle("Présentation");
         core.refreshDataEntry({
-            page: "#presentation", title: "Présentation", el: "#presentation-details", view: "presentation", template: $("#presentation-tpl").html(),
+            page: "#presentation", title: "Présentation", el: "#presentation-content", view: "presentation", template: $("#presentation-tpl").html(),
             url: utils.getFullUrl('/events/presentations/' + id + '?callback=?'),
             cacheKey: '/events/presentations/' + id,
             parse: function(data) {
@@ -461,7 +461,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
         ui.switchTitle("Speaker");
 
         core.refreshDataEntry({
-            page: "#speaker", title: "Speaker", el: "#speaker-details", view: "speaker", template: $("#speaker-tpl").html(),
+            page: "#speaker", title: "Speaker", el: "#speaker-content", view: "speaker", template: $("#speaker-tpl").html(),
             url: utils.getFullUrl('/events/speakers/' + id + '?callback=?'),
             cacheKey: '/events/speakers/' + id,
             parse: function(data) {
@@ -482,22 +482,6 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
         });
     };
 
-    core.twitter_linkify = function(text) {
-        text = text.replace(/(https?:\/\/\S+)/gi, function (s) {
-            return '<a href="' + s + '" target="_blank">' + s + '</a>';
-        });
-
-        text = text.replace(/(^|)@(\w+)/gi, function (s) {
-            return '<a href="http://twitter.com/' + s + '" target="_blank">' + s + '</a>';
-        });
-
-        text = text.replace(/(^|)#(\w+)/gi, function (s) {
-            return '<a href="http://search.twitter.com/search?q=' + s.replace(/#/,'%23') + '" target="_blank">' + s + '</a>';
-         });
-        return text;
-    };
-
-
     core.refreshTwitter = function(screenName) {
         if (!_(AUTHORIZED_TWITTER_USER).contains(screenName)) {
             screenName = DEFAULT_TWITTER_USER;
@@ -509,13 +493,15 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
         console.log("Requested screen name : " + screenName);
         ui.resetFlashMessages("#twitter");
         logger.info("Processing tweets");
+        $( '.ui-title' ).html( '<img src="image/twitter-white-transparent.png" class="twitter-header-img" style="height:18px;" />' || "" );
+
         core.refreshDataList({
             page: "#twitter", title: "Twitter", el: "#twitter-timeline", view: "twitter", template: $("#twitter-timeline-tpl").html(),
             url: OFFLINE ? utils.getFullUrl('/twitter/' + screenName + '?callback=?') :
                 "http://api.twitter.com/1/statuses/user_timeline.json?screen_name=" + screenName + "&contributor_details=false&include_entities=false&include_rts=true&exclude_replies=true&count=50&exclude_replies=false&callback=?",
             parse: function(data) {
                 _(data).each(function(tweet) {
-                    tweet.formattedDate = Date.parse(tweet.created_at).toString("HH:mm");
+                    tweet.formattedDate = Date.parse(tweet.created_at) ? Date.parse(tweet.created_at).toString("HH:mm") : "--:--";
                     var iconUrl = tweet.user.profile_image_url.replace(/_normal(\.[^\.]+)$/, "$1");
                     tweet.user.icon = iconUrl;
                     tweet.htmlText = core.twitter_linkify(tweet.text);
@@ -540,6 +526,21 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
                 return data;
             }
         });
+    };
+
+    core.twitter_linkify = function(text) {
+        text = text.replace(/(https?:\/\/\S+)/gi, function (s) {
+            return '<a href="' + s + '" target="_blank">' + s + '</a>';
+        });
+
+        text = text.replace(/(^|)@(\w+)/gi, function (s) {
+            return '<a href="http://twitter.com/' + s + '" target="_blank">' + s + '</a>';
+        });
+
+        text = text.replace(/(^|)#(\w+)/gi, function (s) {
+            return '<a href="http://search.twitter.com/search?q=' + s.replace(/#/,'%23') + '" target="_blank">' + s + '</a>';
+         });
+        return text;
     };
 
     core.initSwipeFavorites = function(classId) {
