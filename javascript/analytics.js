@@ -11,7 +11,7 @@ define(['log', 'ui'], function (log, ui) {
         $('[data-role=page]').live('pageshow', function (event, ui) {
             if (!OFFLINE) {
                 try {
-                    window._gaq.push(['_setAccount', 'UA-1889791-16']);
+                    window._gaq.push(['_setAccount', 'UA-1889791-17']);
 
                     var hash = location.hash;
 
