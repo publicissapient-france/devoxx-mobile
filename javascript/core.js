@@ -495,7 +495,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
         core.refreshDataList({
             page: "#track", title: "Track", el: "#track-presentation-list", view: "track", template: $("#presentation-list-tpl").html(),
             url: utils.getFullUrl('/events/' + EVENT_ID + '/tracks/' + id + '?callback=?'),
-            cacheKey: '/events/' + EVENT_ID + '/presentations',
+            cacheKey: '/events/' + EVENT_ID + '/track/' + id,
             parse: function(data) {
                 _.each(data, function(presentation) {
                     presentation.favorite = favorites && _(favorites.ids).contains(presentation.id);
