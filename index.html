@@ -426,7 +426,7 @@ div.spinner-container {
                 </div>
             </div>
 
-            <!-- Rooms page -->
+            <!-- Tracks page -->
             <div align="center" id="tracks" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
 
                 <div id="tracks-header" data-role="header" data-theme="a">
@@ -435,6 +435,18 @@ div.spinner-container {
                 <div id="tracks-message" data-role="message"></div>                
                 <div id="tracks-content" data-role="content">
                     <ul id="track-list" data-role="listview" data-theme="c"></ul>
+                </div>
+            </div>
+
+            <!-- Track page -->
+            <div align="center" id="track" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+
+                <div id="track-header" data-role="header" data-theme="a">
+                    <h1>Track</h1>
+                </div>
+                <div id="track-message" data-role="message"></div>
+                <div id="track-content" data-role="content">
+                    <ul id="track-presentation-list" data-role="listview" data-theme="c"></ul>
                 </div>
             </div>
 
@@ -615,8 +627,10 @@ div.spinner-container {
         <script type="text/html" id="track-list-tpl">
             <% _.each(entries, function(track) { %>
             <li>
-                <h3><%= track.get('name') %></h3>
-                <p><em><%= track.get('description') %></em></p>
+                <a href="#track?id=<%= track.get('id') %>" >
+                    <h3><%= track.get('name') %></h3>
+                    <p><em><%= track.get('description') %></em></p>
+                </a>
             </li>
             <% }); %>
         </script>

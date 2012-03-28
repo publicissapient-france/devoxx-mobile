@@ -48,6 +48,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
             "#speakers" : { handler : "onBeforeSpeakersPageShow", events: "bs" },
             "#speaker(?:[?](.*))?" : { handler : "onBeforeSpeakerPageShow", events: "bs" },
             "#tracks" : { handler : "onBeforeTracksPageShow", events: "bs" },
+            "#track(?:[?](.*))?" : { handler : "onBeforeTrackPageShow", events: "bs" },
             "#register":{ handler:"onBeforeRegisterPageShow", events:"bs" },
             "#twitter(?:[?](.*))?":{ handler:"onBeforeTwitterPageShow", events:"bs" },
             "#xebia-program": { handler : "onBeforeXebiaProgramPageShow", events: "bs" }
@@ -82,6 +83,10 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
             onBeforeSpeakerPageShow: function(type, match, ui) {
                 var params = router.getParams(match[1]);
                  core.refreshSpeaker(params.id);
+            },
+            onBeforeTrackPageShow: function(type, match, ui) {
+                var params = router.getParams(match[1]);
+                 core.refreshTrack(params.id);
             },
             onBeforeDayPageShow: function(type, match, ui) {
                 var params = router.getParams(match[1]);
@@ -479,6 +484,35 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
                 ui.switchTitle(title ? title : "Speaker");
             }
 
+        });
+    };
+
+    core.refreshTrack = function(id) {
+        ui.resetFlashMessages("#track");
+        logger.info("Refreshing track");
+        ui.switchTitle("Track");
+
+        core.refreshDataList({
+            page: "#track", title: "Track", el: "#track-presentation-list", view: "track", template: $("#presentation-list-tpl").html(),
+            url: utils.getFullUrl('/events/' + EVENT_ID + '/tracks/' + id + '?callback=?'),
+            cacheKey: '/events/' + EVENT_ID + '/presentations',
+            parse: function(data) {
+                _.each(data, function(presentation) {
+                    presentation.favorite = favorites && _(favorites.ids).contains(presentation.id);
+                });
+
+                return data;
+            },
+            beforeReset: function(data) {
+                _.each(data, function(presentation) {
+                    presentation.favorite = favorites && _(favorites.ids).contains(presentation.id);
+                });
+
+                return data;
+            },
+            postRender: function(data) {
+                core.initSwipeFavorites("presentation-item");
+            }
         });
     };
 
