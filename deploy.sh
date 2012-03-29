@@ -7,7 +7,9 @@ mkdir target/repo-clone
 git clone git@github.com:xebia-france/devoxx-mobile.git target/repo-clone
 cd target/repo-clone
 git checkout gh-pages
+git reset --hard
 cp -r -v ../website/* .
 git add -A .
 git commit -am 'Deploying pages'
-git checkout master
+git push origin gh-pages
+echo "Web site update done"
