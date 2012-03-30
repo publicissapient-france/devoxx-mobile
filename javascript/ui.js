@@ -54,7 +54,6 @@ define(['log'], function( log ) {
     };
 
     logger.info("Loaded ui");
-    ui.updateSplashscreenMessage("Chargement du module de gestion de l'interface graphique");
 
 
     return ui;

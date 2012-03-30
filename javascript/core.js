@@ -3,7 +3,6 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
     var logger = log.getLogger('core');
 
     logger.info("Loading core.js");
-    ui.updateSplashscreenMessage("Chargement module core");
 
     var EVENT_ID = '6';
 
@@ -42,7 +41,8 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
             "#day(?:[?](.*))?" : { handler: "onBeforeDayPageShow", events: "bs" },
             "#events" : { handler : "onBeforeEventsPageShow", events: "bs" },
             "#event(?:[?](.*))?" : { handler : "onBeforeEventPageShow", events: "bs" },
-            "#rooms" : { handler : "onBeforeRoomPageShow", events: "bs" },
+            "#rooms" : { handler : "onBeforeRoomsPageShow", events: "bs" },
+            "#room(?:[?](.*))?" : { handler : "onBeforeRoomPageShow", events: "bs" },
             "#presentations" : { handler : "onBeforePresentationsPageShow", events: "bs" },
             "#presentation(?:[?](.*))?" : { handler : "onBeforePresentationPageShow", events: "bs" },
             "#speakers" : { handler : "onBeforeSpeakersPageShow", events: "bs" },
@@ -58,39 +58,43 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
                 core.refreshSchedule();
             },
             onBeforeEventsPageShow: function(type, match, ui) {
-                 core.refreshEvents();
+                core.refreshEvents();
             },
             onBeforeEventPageShow: function(type, match, ui) {
                 var params = router.getParams(match[1]);
-                 core.refreshEvent(params.id);
+                core.refreshEvent(params.id);
+            },
+            onBeforeRoomsPageShow: function(type, match, ui) {
+                core.refreshRooms();
             },
             onBeforeRoomPageShow: function(type, match, ui) {
-                 core.refreshRooms();
+                var params = router.getParams(match[1]);
+                core.refreshRoom(params.id);
             },
             onBeforeTracksPageShow: function(type, match, ui) {
-                 core.refreshTracks();
+                core.refreshTracks();
             },
             onBeforePresentationsPageShow: function(type, match, ui) {
-                 core.refreshPresentations();
+                core.refreshPresentations();
             },
             onBeforePresentationPageShow: function(type, match, ui) {
                 var params = router.getParams(match[1]);
-                 core.refreshPresentation(params.id);
+                core.refreshPresentation(params.id);
             },
             onBeforeSpeakersPageShow: function(type, match, ui) {
-                 core.refreshSpeakers();
+                core.refreshSpeakers();
             },
             onBeforeSpeakerPageShow: function(type, match, ui) {
                 var params = router.getParams(match[1]);
-                 core.refreshSpeaker(params.id);
+                core.refreshSpeaker(params.id);
             },
             onBeforeTrackPageShow: function(type, match, ui) {
                 var params = router.getParams(match[1]);
-                 core.refreshTrack(params.id);
+                core.refreshTrack(params.id);
             },
             onBeforeDayPageShow: function(type, match, ui) {
                 var params = router.getParams(match[1]);
-                 core.refreshDay(params.id);
+                core.refreshDay(params.id);
             },
             onBeforeRegisterPageShow: function(type, match, ui) {
                 register.beforePageShow();
@@ -511,6 +515,41 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
                 return data;
             },
             postRender: function(data) {
+                if (data.length > 0) {
+                    ui.switchTitle(data[0].get('track'));
+                }
+                core.initSwipeFavorites("presentation-item");
+            }
+        });
+    };
+
+    core.refreshRoom = function(id) {
+        ui.resetFlashMessages("#room");
+        logger.info("Refreshing room");
+        ui.switchTitle("Room");
+
+        core.refreshDataList({
+            page: "#room", title: "Room", el: "#room-presentation-list", view: "room", template: $("#presentation-list-tpl").html(),
+            url: utils.getFullUrl('/events/' + EVENT_ID + '/rooms/' + id + '?callback=?'),
+            cacheKey: '/events/' + EVENT_ID + '/room/' + id,
+            parse: function(data) {
+                _.each(data, function(presentation) {
+                    presentation.favorite = favorites && _(favorites.ids).contains(presentation.id);
+                });
+
+                return data;
+            },
+            beforeReset: function(data) {
+                _.each(data, function(presentation) {
+                    presentation.favorite = favorites && _(favorites.ids).contains(presentation.id);
+                });
+
+                return data;
+            },
+            postRender: function(data) {
+                if (data.length > 0) {
+                    ui.switchTitle(data[0].get('room'));
+                }
                 core.initSwipeFavorites("presentation-item");
             }
         });

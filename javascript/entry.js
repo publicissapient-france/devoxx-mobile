@@ -3,7 +3,6 @@ define(['log', 'ui'], function( log, ui ) {
     var logger = log.getLogger('entry');
 
     logger.info("Loading entry.js");
-    ui.updateSplashscreenMessage("Chargement module entry");
 
     logger.info("Defining entry object");
     var entry = {

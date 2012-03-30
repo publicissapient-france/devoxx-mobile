@@ -3,7 +3,6 @@ define( ['log', 'ui'], function( log, ui ) {
     var logger = log.getLogger('utils');
     
     logger.info("Loading utils.js");
-    ui.updateSplashscreenMessage("Chargement module utilitaire");
 
     var utils = { };
 

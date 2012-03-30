@@ -3,7 +3,6 @@ define(['log', 'ui'], function( log, ui ) {
     var logger = log.getLogger('db');
 
     logger.info("Loading db.js");
-    ui.updateSplashscreenMessage("Chargement module database");
 
     var db = { };
 

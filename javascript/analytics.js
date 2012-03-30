@@ -3,7 +3,6 @@ define(['log', 'ui'], function (log, ui) {
     var logger = log.getLogger('analytics');
 
     logger.info("Loading analytics.js");
-    ui.updateSplashscreenMessage("Chargements module Statistiques");
 
     var analytics = { };
 
