@@ -45,7 +45,6 @@
         'jqm':         'lib/jquerymobile/jquery.mobile-1.1.0-rc.1'
     },
 
-
     //How to optimize all the JS files in the build output directory.
     //Right now only the following values
     //are supported:
@@ -93,8 +92,6 @@
     fileExclusionRegExp: /^(.*require-1\.0\.5\.js|target|etc|splashes|config\.xml|build\.txt|\.idea|.*\.sh|.*\.min\.css|.*\.min\.js|r\.js|app\.build\.js|.*phonegap.*\.js|.*json.*\.js|.*date.*\.js|.*lawnchair.*\.js|\.idea|\.git|\.gitignore|data|README)$/,
 
     modules: [
-        {
-            name: "app"
-        }
+        { name: "app" }
     ]
 })

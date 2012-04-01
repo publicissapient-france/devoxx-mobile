@@ -34,8 +34,8 @@ function init() {
 
     require.config({
         paths: {
-            'text':        'lib/require/require.text-1.0.2' + ( DEBUG ? '.min' : ''),
-            'order':       'lib/require/require.order-1.0.5.min',
+            'text':        'lib/require/require.text-1.0.2',
+            'order':       'lib/require/require.order-1.0.5',
             'core':        'core',
             'utils':       'utils',
             'ui':          'ui',
