@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-
-<html>
+<html manifest="app.manifest">
+<!--<html>-->
 
     <head>
         <meta charset="utf-8" />
@@ -13,6 +13,19 @@
 
         <title>Xebia - Devoxx France 2012</title>
 
+        <script>
+            var webappCache = window.applicationCache;
+            if (webappCache) {
+                webappCache.addEventListener('updateready', function() {
+                    try { webappCache.swapCache(); } catch(e) { console.info("swapCache exception: " + e); }
+                    if (confirm('An update is available. Reload now?')) {
+                        window.location.reload();
+                    }
+                }, false);
+                try { webappCache.update(); } catch(e){ console.info("Update cache exception: " + e); }
+            }
+        </script>
+
         <link rel="stylesheet" href="css/mobile.css" />
 
         <link rel="apple-touch-icon-precomposed" sizes="57x57" href="image/icons/icon-iphone-57.png" />
@@ -20,13 +33,6 @@
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="image/icons/icon-iphone-72.png" />
 
         <style type="text/css">
-            @font-face {
-              font-family: 'Oleo Script';
-              font-style: normal;
-              font-weight: 400;
-              src: local('Oleo Script'), local('OleoScript-Regular'), url('font/oleo-script.woff') format('woff');
-            }
-
 @font-face {
     font-family: 'Oleo Script';
     font-weight: 400;
@@ -579,6 +585,7 @@ div.spinner-container {
             <li>
                 <a href="#speaker?id=<%= speaker.get('id') %>" style="margin-right: 10px; padding-right: 20px;">
                     <img src="<%= app.utils.getSpeakerImgBaseUrl() %>/speaker/<%= speaker.get('id') %>" />
+                    <!--<img src="<%= speaker.get('imageURI') %>" />-->
                     <h3><%= speaker ? speaker.get('firstName') : '' %> <%=speaker ? speaker.get('lastName') : '' %></h3>
                     <p><em><%= speaker.get('company') %></em></p>
                 </a>
@@ -591,6 +598,7 @@ div.spinner-container {
                 <ul id="speaker-details-list" data-role="listview" data-inset="true" data-theme="c">
                     <li>
                         <img src="<%= entry.get('id') ? app.utils.getSpeakerImgBaseUrl() + '/speaker/' + entry.get('id') : 'https://cfp.devoxx.com/img/thumbnail.gif' %>" />
+                        <!--<img src="<%= entry.get('imageURI') %>" />-->
                         <h3>Société: </h3>
                         <p><em><%= entry.get('company') %></em></p>
                     </li>
@@ -646,6 +654,7 @@ div.spinner-container {
                     <li>
                         <a href="#speaker?id=<%= speaker.id %>">
                             <img src="<%= app.utils.getSpeakerImgBaseUrl() %>/speaker/<%= speaker.id %>" alt="<%= speaker.speaker %>" />
+                            <!--<img src="<%= speaker.imageURI %>" />-->
                             <h3><%= speaker.speaker %></h3>
                         </a>
                     </li>
