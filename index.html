@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html manifest="app.manifest">
-<!--<html>-->
+<!--<html manifest="app.manifest">-->
+<html>
 
     <head>
         <meta charset="utf-8" />
@@ -18,9 +18,9 @@
             if (webappCache) {
                 webappCache.addEventListener('updateready', function() {
                     try { webappCache.swapCache(); } catch(e) { console.info("swapCache exception: " + e); }
-                    if (confirm('An update is available. Reload now?')) {
+//                    if (confirm('An update is available. Reload now?')) {
                         window.location.reload();
-                    }
+//                    }
                 }, false);
                 try { webappCache.update(); } catch(e){ console.info("Update cache exception: " + e); }
             }
@@ -150,6 +150,14 @@ div.spinner-container {
                                  <a href="#register" alt
                                          ="Register">
                                      <h3 align="center">S'enregistrer pour le concours !</h3>
+                                 </a>
+                            </li>
+                        </ul>
+
+                        <ul id="home-content-synchronize-list" data-role="listview" data-inset="true" data-theme="a">
+                            <li>
+                                <a href="#synchronize" alt="Synchroniser les données" style="padding: 5px; margin:0px;">
+                                     <h3 align="center">Synchroniser</h3>
                                  </a>
                             </li>
                         </ul>
@@ -400,6 +408,48 @@ div.spinner-container {
                          </form>
                     </div>
 
+                </div>
+            </div>
+            
+            <!-- Synchronize page -->
+            <div align="center" id="synchronize" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+                <div data-role="header" data-theme="a">
+                    <h1>Synchronisation</h1>
+                </div>
+                <div id="synchronize-message" data-role="message"></div>
+                <div id="synchronize-content" data-role="content">
+                    <div id="synchronize-home">
+                        <div id="synchronize-home-description" class="synchronize-description">
+                            <p><em>
+                                La synchronisation des données vous permet de consulter offline, l'ensemble
+                                de données de l'application.
+                            </em></p>
+                            <p><em>Pour mettre les données à jour, il suffit de lancer une
+                                nouvelle synchronisation.
+                            </em></p>
+                            <img src="image/devoxx-head.png"/>
+                        </div>
+                        <div align="left">
+                            <form id="synchronize-home-form">
+                                <div data-role="fieldcontain">
+                                    <button id="synchronize-home-submit" type="submit" data-theme="a">Synchroniser</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div id="synchronize-running" style="display: none;">
+                    <div id="synchronize-running-description" class="contest-description">
+                        <p><em><strong>Synchronisation en cours ...</strong></em></p>
+                        <img src="image/devoxx-head.png"/>
+                    </div>
+                    <div align="left">
+                        <form id="synchronize-running-form">
+                            <div data-role="fieldcontain">
+                                <button id="synchronize-running-submit" type="submit" data-theme="a">Annuler</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
 

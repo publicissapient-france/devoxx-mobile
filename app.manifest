@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# Version 0.3.5
+# Version 0.3.10
 
 font/oleo-script-webfont.woff
 font/oleo-script-webfont.ttf
@@ -34,6 +34,7 @@ javascript/entry.js
 javascript/register.js
 javascript/log.js
 javascript/analytics.js
+javascript/synchronize.js
 javascript/lib/jquerymobile/jquery.mobile.router-0.6.js
 javascript/core.js
 javascript/lib/jquerymobile/jquery.mobile-1.1.0-rc.1.js

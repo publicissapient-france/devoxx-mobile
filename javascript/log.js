@@ -28,7 +28,9 @@ define([], function( ) {
         };
     };
 
-    console.log("[log] Loaded log.js");
+    if( console && console.log ) {
+        console.log("[log] Loaded log.js");
+    }
 
     return log;
 

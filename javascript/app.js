@@ -45,6 +45,7 @@ function init() {
             'entry':       'entry',
             'register':    'register',
             'analytics':   'analytics',
+            'synchronize': 'synchronize',
             'jquery':      'lib/jquery/jquery-1.7.1',
             'underscore':  'lib/underscore/underscore-1.3.1',
             'backbone':    'lib/backbone/backbone-0.9.1',

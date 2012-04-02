@@ -1,4 +1,4 @@
-define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function( log, utils, collection, entry, register, ui, db ) {
+define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchronize'], function( log, utils, collection, entry, register, ui, db, synchronize ) {
     
     var logger = log.getLogger('core');
 
@@ -25,12 +25,43 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
         }
     });
 
-    var CONFERENCE_DAYS = {
-        6: {
-            1: 'Mercredi 18 Avril',
-            2: 'Jeudi 19 Avril',
-            3: 'Vendredi 20 Avril'
-        }
+    var EVENTS = {
+        'events': [ {
+            'id': '6',
+            'name': 'Devoxx France 2012',
+            'days': [
+                {
+                    'id': '1',
+                    'name': 'Mercredi 18 Avril'
+                }, {
+                    'id': '2',
+                    'name': 'Jeudi 19 Avril'
+                }, {
+                    'id': '3',
+                    'name': 'Vendredi 20 Avril'
+                }
+            ]
+        } ]
+    };
+
+    core.getEvent = function(eventId) {
+        return _(EVENTS.events).find(function(event) { return event.id == eventId; });
+    };
+
+    core.getDay = function(event, dayId) {
+        return _(event.days).find(function(day) { return day.id == dayId; });
+    };
+
+    core.addUrlsForEvent = function(eventId) {
+        synchronize.addUrl( '/events/' + eventId + '/schedule', utils.getFullUrl('/events/' + eventId + '/schedule?callback=?') );
+        _(core.getEvent(eventId).days).each(function(day) {
+            synchronize.addUrl('/events/' + eventId + '/schedule/day/' + day.id, utils.getFullUrl( '/events/' + eventId + '/schedule/day/' + day.id + '?callback=?') );
+        });
+        synchronize.addUrl('/events/' + eventId + '/presentations', utils.getFullUrl( '/events/' + eventId + '/presentations?callback=?') );
+        synchronize.addUrl('/events/' + eventId + '/schedule/rooms', utils.getFullUrl( '/events/' + eventId + '/schedule/rooms?callback=?') );
+        synchronize.addUrl('/events/' + eventId + '/tracks', utils.getFullUrl( '/events/' + eventId + '/tracks?callback=?') );
+        synchronize.addUrl('/events/' + eventId + '/speakers', utils.getFullUrl( '/events/' + eventId + '/speakers?callback=?') );
+        synchronize.addUrl('/events?callback=?', utils.getFullUrl( '/events?callback=?') );
     };
 
     core.setupRouter = function() {
@@ -50,6 +81,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
             "#tracks" : { handler : "onBeforeTracksPageShow", events: "bs" },
             "#track(?:[?](.*))?" : { handler : "onBeforeTrackPageShow", events: "bs" },
             "#register":{ handler:"onBeforeRegisterPageShow", events:"bs" },
+            "#synchronize":{ handler:"onBeforeSynchronizePageShow", events:"bs" },
             "#twitter(?:[?](.*))?":{ handler:"onBeforeTwitterPageShow", events:"bs" },
             "#xebia-program": { handler : "onBeforeXebiaProgramPageShow", events: "bs" }
         },
@@ -98,6 +130,9 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
             },
             onBeforeRegisterPageShow: function(type, match, ui) {
                 register.beforePageShow();
+            },
+            onBeforeSynchronizePageShow: function(type, match, ui) {
+                synchronize.beforePageShow();
             },
             onBeforeTwitterPageShow: function(type, match, ui) {
                 var params = router.getParams(match[1]);
@@ -296,8 +331,12 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
         ui.resetFlashMessages("#day");
         logger.info("Processing day: " + id);
         var title = "Jour " + id;
-        if (CONFERENCE_DAYS[EVENT_ID] && CONFERENCE_DAYS[EVENT_ID][id]) {
-            title = CONFERENCE_DAYS[EVENT_ID][id];
+        var event = core.getEvent(EVENT_ID);
+        if (event) {
+            var day = core.getDay(event, id);
+            if (day) {
+                title = day.name;
+            }
         }
         ui.switchTitle(title);
         core.refreshDataList({
@@ -659,6 +698,8 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db'], function
     };
 
     logger.info("Loaded core");
+
+    core.addUrlsForEvent(EVENT_ID);
 
     return core;
 
