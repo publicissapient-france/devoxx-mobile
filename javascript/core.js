@@ -21,7 +21,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
 
     db.get('favorites', function(data) {
         if (data) {
-            favorites = data.value;
+            favorites = data;
         }
     });
 
@@ -69,20 +69,20 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
 
         router = new $.mobile.Router({
             "#schedule" : { handler : "onBeforeSchedulePageShow", events: "bs" },
-            "#day(?:[?](.*))?" : { handler: "onBeforeDayPageShow", events: "bs" },
+            "#day(?:[?](.*))" : { handler: "onBeforeDayPageShow", events: "bs" },
             "#events" : { handler : "onBeforeEventsPageShow", events: "bs" },
-            "#event(?:[?](.*))?" : { handler : "onBeforeEventPageShow", events: "bs" },
+            "#event(?:[?](.*))" : { handler : "onBeforeEventPageShow", events: "bs" },
             "#rooms" : { handler : "onBeforeRoomsPageShow", events: "bs" },
-            "#room(?:[?](.*))?" : { handler : "onBeforeRoomPageShow", events: "bs" },
+            "#room(?:[?](.*))" : { handler : "onBeforeRoomPageShow", events: "bs" },
             "#presentations" : { handler : "onBeforePresentationsPageShow", events: "bs" },
-            "#presentation(?:[?](.*))?" : { handler : "onBeforePresentationPageShow", events: "bs" },
+            "#presentation(?:[?](.*))" : { handler : "onBeforePresentationPageShow", events: "bs" },
             "#speakers" : { handler : "onBeforeSpeakersPageShow", events: "bs" },
-            "#speaker(?:[?](.*))?" : { handler : "onBeforeSpeakerPageShow", events: "bs" },
+            "#speaker(?:[?](.*))" : { handler : "onBeforeSpeakerPageShow", events: "bs" },
             "#tracks" : { handler : "onBeforeTracksPageShow", events: "bs" },
-            "#track(?:[?](.*))?" : { handler : "onBeforeTrackPageShow", events: "bs" },
+            "#track(?:[?](.*))" : { handler : "onBeforeTrackPageShow", events: "bs" },
             "#register":{ handler:"onBeforeRegisterPageShow", events:"bs" },
             "#synchronize":{ handler:"onBeforeSynchronizePageShow", events:"bs" },
-            "#twitter(?:[?](.*))?":{ handler:"onBeforeTwitterPageShow", events:"bs" },
+            "#twitter(?:[?](.*))":{ handler:"onBeforeTwitterPageShow", events:"bs" },
             "#xebia-program": { handler : "onBeforeXebiaProgramPageShow", events: "bs" }
         },
         {
@@ -186,23 +186,23 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
     };
 
     core.refreshDataList = function(options) {
-        $.mobile.showPageLoadingMsg();
-        logger.info("Show " + options.title + " page message!");
-        ui.showFlashMessage(options);
-
         logger.info("Loading " + options.title + " View");
         collection.views[options.view] = new collection.EntryListView({
             fetchUrl: options.url,
             el: options.el,
             collectionTemplate: options.template,
             parse: options.parse,
-            beforeParse: options.beforeParse,
-            view: options.view,
-            postRender: options.postRender,
-            afterParse: function(data) {
+            beforeParse: function(data) {
                 if (options.cacheKey && !data.statusCode) {
                     db.save(options.cacheKey, data);
                 }
+                if (options.beforeParse) {
+                    options.beforeParse(data);
+                }
+            },
+            view: options.view,
+            postRender: options.postRender,
+            afterParse: function(data) {
                 if (options.afterParse) {
                     options.afterParse(data);
                 }
@@ -216,6 +216,10 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
         logger.info("Fetch " + options.title + " Data from url: '" + collection.views[options.view].collection.url + "'");
 
         var fetchOptions = {
+            onFetch: function() {
+                $.mobile.showPageLoadingMsg();
+                ui.showFlashMessage(options);
+            },
             success: function(model, resp) {
                 if (options.success) {
                     options.success(model, resp);
@@ -227,22 +231,30 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
         };
 
         db.getOrFetch(options.cacheKey, function(data) {
+            if (options.beforeParse) {
+                data = options.beforeParse(data);
+            }
+            if (options.parse) {
+                data = options.parse(data);
+            }
+            if (options.afterParse) {
+                data = options.afterParse(data);
+            }
             if (options.beforeReset) {
                 options.beforeReset(data);
             }
             collection.views[options.view].collection.reset(data);
             ui.hideFlashMessage(options);
         }, function() {
+            if (fetchOptions.onFetch) {
+                fetchOptions.onFetch();
+            }
             collection.views[options.view].el.empty();
             collection.views[options.view].collection.fetch(fetchOptions);
         } );
     };
 
     core.refreshDataEntry = function(options) {
-        $.mobile.showPageLoadingMsg();
-        logger.info("Show " + options.title + " page message!");
-        ui.showFlashMessage(options);
-
         logger.info("Loading " + options.title + " View");
         entry.views[options.view] = new entry.EntryView({
             fetchUrl: options.url,
@@ -269,6 +281,11 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
         logger.info("Fetch " + options.title + " Data from url: '" + entry.views[options.view].entry.url + "'");
 
         var fetchOptions = {
+            onFetch: function() {
+                $.mobile.showPageLoadingMsg();
+                logger.info("Show " + options.title + " page message!");
+                ui.showFlashMessage(options);
+            },
             success: function(model, resp) {
                 if (options.success) {
                     options.success(model, resp);
@@ -280,13 +297,25 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
         };
 
         db.getOrFetch(options.cacheKey, function(data) {
+            if (options.beforeParse) {
+                data = options.beforeParse(data);
+            }
+            if (options.parse) {
+                data = options.parse(data);
+            }
+            if (options.afterParse) {
+                data = options.afterParse(data);
+            }
             if (options.beforeReset) {
-                 options.beforeReset(data);
+                options.beforeReset(data);
             }
 
             entry.views[options.view].entry.set(data);
             ui.hideFlashMessage(options);
         }, function() {
+            if (fetchOptions.onFetch) {
+                fetchOptions.onFetch();
+            }
             entry.views[options.view].entry.fetch(fetchOptions);
         } );
     };
@@ -301,7 +330,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
             url: utils.getFullUrl('/events/' + EVENT_ID + '/schedule?callback=?'),
             cacheKey: '/events/' + EVENT_ID + '/schedule',
             parse: function(data) {
-                _.each(data, function(presentation) {
+                _(data).each(function(presentation) {
                     if (presentation.presentationUri) {
                         presentation.key = Number(presentation.presentationUri.substring(presentation.presentationUri.lastIndexOf("/") + 1));
                         presentation.favorite = favorites && _(favorites.ids).contains(presentation.key);
@@ -313,7 +342,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
                 return data;
             },
             beforeReset: function(data) {
-                _.each(data, function(presentation) {
+                _(data).each(function(presentation) {
                     if (presentation.presentationUri) {
                         presentation.favorite = favorites && _(favorites.ids).contains(Number(presentation.key));
                     }
@@ -441,14 +470,15 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
         ui.switchTitle("Présentation");
         core.refreshDataEntry({
             page: "#presentation", title: "Présentation", el: "#presentation-content", view: "presentation", template: $("#presentation-tpl").html(),
-            url: utils.getFullUrl('/events/presentations/' + id + '?callback=?'),
-            cacheKey: '/events/presentations/' + id,
+            url: utils.getFullUrl('/events/' + EVENT_ID + '/presentations?callback=?'),
+            cacheKey: '/events/' + EVENT_ID + '/presentations',
             parse: function(data) {
-                data.favorite = favorites && _.contains(favorites.ids, data.id);
+                var presentation = _(data).find(function(presentation) { return presentation.id == id; });
+                presentation.favorite = favorites && _.contains(favorites.ids, presentation.id);
                 _.each(data.speakers, function(speaker) {
                     speaker.id = speaker.speakerUri.substring(speaker.speakerUri.lastIndexOf("/") + 1);
                 });
-                return data;
+                return presentation;
             },
             postRender: function(data) {
                 $('#presentation-tag-list').listview();
@@ -510,13 +540,14 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
 
         core.refreshDataEntry({
             page: "#speaker", title: "Speaker", el: "#speaker-content", view: "speaker", template: $("#speaker-tpl").html(),
-            url: utils.getFullUrl('/events/speakers/' + id + '?callback=?'),
-            cacheKey: '/events/speakers/' + id,
+            url: utils.getFullUrl('/events/' + EVENT_ID + '/speakers?callback=?'),
+            cacheKey: '/events/' + EVENT_ID + '/speakers',
             parse: function(data) {
-                _.each(data.talks, function(presentation) {
+                var speaker = _(data).find(function(speaker) { return speaker.id == id; });
+                _.each(speaker.talks, function(presentation) {
                      presentation.id = presentation.presentationUri.substring(presentation.presentationUri.lastIndexOf("/") + 1);
                  });
-                return data;
+                return speaker;
             },
             postRender: function(data) {
                 $('#speaker-details-list').listview();

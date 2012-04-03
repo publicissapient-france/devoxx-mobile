@@ -18,7 +18,9 @@ define([], function( ) {
                 var date = new Date().toString("HH:mm:ss");
                 var log = "[" + date + "][" + INFO + "][" + module + "] " + content;
 
-                console.log(log);
+                if( console && console.log ) {
+                    console.log(log);
+                }
                 if (logContent.length > 1000) {
                     logContent.shift();
                 }

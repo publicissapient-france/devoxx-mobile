@@ -32,11 +32,7 @@ define(['log'], function( log ) {
         if (options.page) {
             var header = $(options.page).children(":jqmData(role='message')");
             var flashMessage = header.children("div#flash" + (options.type === 'error' ? 'Error' : '') + "Message");
-            var flashMessageContent = flashMessage.children("h1");
-            flashMessageContent.fadeOut();
-            setInterval(function () {
-                flashMessage.remove();
-            }, 500);
+            flashMessage.fadeOut();
         }
     };
 

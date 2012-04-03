@@ -4,7 +4,9 @@ define(['log', 'ui'], function( log, ui ) {
 
     logger.info("Loading db.js");
 
-    var db = { };
+    var db = {
+        cache: { }
+    };
 
     var DB_NAME = "xebia";
 
@@ -30,6 +32,11 @@ define(['log', 'ui'], function( log, ui ) {
     logger.info("Created Lawnchair object");
 
     db.exists = function(key, callback) {
+        if (db.cache[key]) {
+            setTimeout(function() {
+                callback(true);
+            }, 0);
+        }
         lawnchair.get(key, function(exists) {
             callback(exists);
         });
@@ -40,23 +47,46 @@ define(['log', 'ui'], function( log, ui ) {
     };
 
     db.save = function(key, value) {
+        db.cache[key] = value;
         lawnchair.save({key: key, value: value});
     };
 
     db.get = function(key, callback) {
-        lawnchair.get(key, callback);
+        if (db.cache[key]) {
+            setTimeout(function() {
+                callback(db.cache[key]);
+            }, 0);
+        } else {
+            lawnchair.get(key, function(data) {
+                callback(data.value);
+            });
+        }
     };
 
     db.isEquals = function(key, expectedValue, trueCallBack, falseCallback) {
-        lawnchair.get(key, function(actualValue) {
-            (actualValue && (actualValue.value === expectedValue)) ? trueCallBack() : falseCallback();
-        });
+        if (db.cache[key]) {
+            setTimeout(function() {
+                trueCallBack();
+            }, 0);
+        }
+        else {
+            lawnchair.get(key, function(actualValue) {
+                (actualValue && (actualValue.value === expectedValue)) ? trueCallBack() : falseCallback();
+            });
+        }
     };
 
     db.getOrFetch = function(key, getCallBack, fetchCallback) {
-        lawnchair.get(key, function(data) {
-            data ? getCallBack(data.value) : fetchCallback();
-        });
+        if (db.cache[key]) {
+            setTimeout(function() {
+                getCallBack(db.cache[key]);
+            }, 0);
+        }
+        else {
+            lawnchair.get(key, function(data) {
+                data ? getCallBack(data.value) : fetchCallback();
+            });
+        }
     };
 
     logger.info("Loaded db");
