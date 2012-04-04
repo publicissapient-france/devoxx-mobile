@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!--<html manifest="app.manifest">-->
-<html>
+<html manifest="app.manifest">
+<!--<html>-->
 
     <head>
         <meta charset="utf-8" />
@@ -604,7 +604,7 @@ div.spinner-container {
                 <a href="#presentation?id=<%= presentation.get('id') %>" style="margin: 0; padding: 0 5px 0 0;">
                     <div style="padding: 5px 10px 10px 10px;">
                         <h3 style="display: inline-block; width: 95%;"><%= presentation.get('title') %></h3>
-                        <p><em><%= presentation.get('speaker') %></em></p>
+                        <p><em><%= presentation.get('speaker') %> - <%= presentation.get('language') %></em></p>
                         <p><em><%= presentation.get('track') %> - <%= presentation.get('type') %> - <%= presentation.get('room') %></em></p>
                     </div>
                     <p class="ui-li-aside" style="width: 87px; height: 18px; padding: 54px 0 0 0;">
@@ -683,6 +683,7 @@ div.spinner-container {
                 -->
                 <% if (entry.get('id')) { %>
                 <div align="right">
+                    <span class="awesome lang_<%= entry.get('language') %>"> <%= entry.get('language') %></span>
                     <span class="awesome <%= String(entry.get('room')).toUpperCase().replace(/ /g, '_').replace(/[^\w\s]/gi, '') %>"><%= entry.get('room') %></span>
                     <span class="awesome <%= entry.get('experience') %>"> <%= entry.get('experience') %></span>
                     <span class="awesome <%= String(entry.get('type')).toUpperCase() %>"><%= entry.get('type') %></span>

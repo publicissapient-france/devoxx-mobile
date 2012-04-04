@@ -82,7 +82,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
             "#track(?:[?](.*))" : { handler : "onBeforeTrackPageShow", events: "bs" },
             "#register":{ handler:"onBeforeRegisterPageShow", events:"bs" },
             "#synchronize":{ handler:"onBeforeSynchronizePageShow", events:"bs" },
-            "#twitter(?:[?](.*))":{ handler:"onBeforeTwitterPageShow", events:"bs" },
+            "#twitter(?:[?](.*))?":{ handler:"onBeforeTwitterPageShow", events:"bs" },
             "#xebia-program": { handler : "onBeforeXebiaProgramPageShow", events: "bs" }
         },
         {
@@ -261,13 +261,17 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
             el: options.el,
             entryTemplate: options.template,
             parse: options.parse,
-            beforeParse: options.beforeParse,
-            postRender: options.postRender,
-            view: options.view,
-            afterParse: function(data) {
+            beforeParse: function(data) {
                 if (options.cacheKey && !data.statusCode) {
                     db.save(options.cacheKey, data);
                 }
+                if (options.beforeParse) {
+                    options.beforeParse(data);
+                }
+            },
+            postRender: options.postRender,
+            view: options.view,
+            afterParse: function(data) {
                 if (options.afterParse) {
                     options.afterParse(data);
                 }
@@ -450,12 +454,18 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
             cacheKey: '/events/' + EVENT_ID + '/presentations',
             parse: function(data) {
                 _(data).each(function(presentation) {
+                    if (presentation.language) {
+                        presentation.language = presentation.language.toUpperCase();
+                    }
                     presentation.favorite = favorites && _(favorites.ids).contains(presentation.id);
                 });
 
                 return data;
             },
             beforeReset: function(data) {
+                if (presentation.language) {
+                    presentation.language = presentation.language.toUpperCase();
+                }
                 _(data).each(function(presentation) {
                     presentation.favorite = favorites && _(favorites.ids).contains(presentation.id);
                 });
@@ -478,8 +488,13 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
             cacheKey: '/events/' + EVENT_ID + '/presentations',
             parse: function(data) {
                 var presentation = _(data).find(function(presentation) { return presentation.id == id; });
+                if (presentation.language) {
+                    presentation.language = presentation.language.toUpperCase();
+                }
                 presentation.favorite = favorites && _(favorites.ids).contains(presentation.id);
-                _(data.speakers).each(function(speaker) {
+
+                presentation.summary = core.formatPresentationSummary(presentation);
+                _(presentation.speakers).each(function(speaker) {
                     speaker.id = speaker.speakerUri.substring(speaker.speakerUri.lastIndexOf("/") + 1);
                 });
                 return presentation;
@@ -522,6 +537,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
             cacheKey: '/events/' + EVENT_ID + '/speakers',
             parse: function(data) {
                 var speaker = _(data).find(function(speaker) { return speaker.id == id; });
+                speaker.bio = utils.linkify(speaker.bio);
                 _(speaker.talks).each(function(presentation) {
                      presentation.id = presentation.presentationUri.substring(presentation.presentationUri.lastIndexOf("/") + 1);
                  });
@@ -564,6 +580,9 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
             parse: function(data) {
                 data = _(data).filter(function(presentation) { return presentation.trackId == id; });
                 _(data).each(function(presentation) {
+                    if (presentation.language) {
+                        presentation.language = presentation.language.toUpperCase();
+                    }
                     presentation.favorite = favorites && _(favorites.ids).contains(presentation.id);
                 });
 
@@ -610,6 +629,9 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
             parse: function(data) {
                 data = _(data).filter(function(presentation) { return presentation.roomId == id; });
                 _(data).each(function(presentation) {
+                    if (presentation.language) {
+                        presentation.language = presentation.language.toUpperCase();
+                    }
                     presentation.favorite = favorites && _(favorites.ids).contains(presentation.id);
                 });
 
@@ -633,7 +655,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
 
     core.refreshTwitter = function(screenName) {
         if (!_(AUTHORIZED_TWITTER_USER).contains(screenName)) {
-            screenName = DEFAULT_TWITTER_USER;
+                screenName = DEFAULT_TWITTER_USER;
         }
 
         $(screenName === TWITTER_USER_XEBIA ? '#twitter-devoxxfr' : '#twitter-xebiafr').removeClass("ui-btn-active");
@@ -646,8 +668,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
 
         core.refreshDataList({
             page: "#twitter", title: "Twitter", el: "#twitter-timeline", view: "twitter", template: $("#twitter-timeline-tpl").html(),
-            url: OFFLINE ? utils.getFullUrl('/twitter/' + screenName + '?callback=?') :
-                "http://api.twitter.com/1/statuses/user_timeline.json?screen_name=" + screenName + "&contributor_details=false&include_entities=false&include_rts=true&exclude_replies=true&count=50&exclude_replies=false&callback=?",
+            url: utils.getTwitterFullUrl('/twitter/' + screenName + '?callback=?'),
             parse: function(data) {
                 _(data).each(function(tweet) {
                     tweet.formattedDate = core.getTweetFormattedDate(tweet);
@@ -656,10 +677,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
                 });
                 return data;
             },
-            postRender: function(data) {
-                console.log("post render");
-            }
-
+            postRender: function(data) { }
         });
     };
 
@@ -697,6 +715,10 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
             return '<a href="http://search.twitter.com/search?q=' + s.replace(/#/,'%23') + '" target="_blank">' + s + '</a>';
          });
         return text;
+    };
+
+    core.formatPresentationSummary = function(presentation) {
+        return utils.linkify(presentation.summary.replace(/\n/g, '<br />'));
     };
 
     core.initSwipeFavorites = function(classId) {

@@ -9,6 +9,8 @@ define( ['log', 'ui'], function( log, ui ) {
     var JSON_API_BASE_URL = OFFLINE ? 'http://localhost:9000/rest/v1' :
                             PROXY ? 'http://devoxx-xebia.cloudfoundry.com/rest/v1' : 'https://cfp.devoxx.com/rest/v1';
 
+    var TWITTER_API_BASE_URL = "http://devoxx-xebia.cloudfoundry.com";
+
     var SPEAKER_IMG_BASE_URL = OFFLINE ? 'http://localhost:9000' : 'http://devoxx-xebia.cloudfoundry.com';
 
 
@@ -83,6 +85,10 @@ define( ['log', 'ui'], function( log, ui ) {
 
     utils.getFullUrl = function(relativeUrl) {
         return JSON_API_BASE_URL + relativeUrl;
+    };
+
+    utils.getTwitterFullUrl = function(relativeUrl) {
+        return TWITTER_API_BASE_URL + relativeUrl;
     };
 
     logger.info("Loaded utils");
