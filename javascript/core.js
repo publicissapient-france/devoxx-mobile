@@ -26,19 +26,22 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
     });
 
     var EVENTS = {
-        'events': [ {
-            'id': '6',
-            'name': 'Devoxx France 2012',
-            'days': [
+        events: [ {
+            id: '6',
+            name: 'Devoxx France 2012',
+            days: [
                 {
-                    'id': '1',
-                    'name': 'Mercredi 18 Avril'
+                    id: '1',
+                    name: 'Mercredi 18 Avril',
+                    date: '2012-04-18'
                 }, {
-                    'id': '2',
-                    'name': 'Jeudi 19 Avril'
+                    id: '2',
+                    name: 'Jeudi 19 Avril',
+                    date: '2012-04-19'
                 }, {
-                    'id': '3',
-                    'name': 'Vendredi 20 Avril'
+                    id: '3',
+                    name: 'Vendredi 20 Avril',
+                    date: '2012-04-20'
                 }
             ]
         } ]
@@ -54,14 +57,11 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
 
     core.addUrlsForEvent = function(eventId) {
         synchronize.addUrl( '/events/' + eventId + '/schedule', utils.getFullUrl('/events/' + eventId + '/schedule?callback=?') );
-        _(core.getEvent(eventId).days).each(function(day) {
-            synchronize.addUrl('/events/' + eventId + '/schedule/day/' + day.id, utils.getFullUrl( '/events/' + eventId + '/schedule/day/' + day.id + '?callback=?') );
-        });
         synchronize.addUrl('/events/' + eventId + '/presentations', utils.getFullUrl( '/events/' + eventId + '/presentations?callback=?') );
         synchronize.addUrl('/events/' + eventId + '/schedule/rooms', utils.getFullUrl( '/events/' + eventId + '/schedule/rooms?callback=?') );
         synchronize.addUrl('/events/' + eventId + '/tracks', utils.getFullUrl( '/events/' + eventId + '/tracks?callback=?') );
         synchronize.addUrl('/events/' + eventId + '/speakers', utils.getFullUrl( '/events/' + eventId + '/speakers?callback=?') );
-        synchronize.addUrl('/events?callback=?', utils.getFullUrl( '/events?callback=?') );
+        synchronize.addUrl('/events', utils.getFullUrl( '/events?callback=?') );
     };
 
     core.setupRouter = function() {
@@ -361,8 +361,9 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
         logger.info("Processing day: " + id);
         var title = "Jour " + id;
         var event = core.getEvent(EVENT_ID);
+        var day;
         if (event) {
-            var day = core.getDay(event, id);
+            day = core.getDay(event, id);
             if (day) {
                 title = day.name;
             }
@@ -370,10 +371,11 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
         ui.switchTitle(title);
         core.refreshDataList({
             page: "#day", title: title, el: "#day-list", view: "day", template: $("#schedule-list-tpl").html(),
-            url: utils.getFullUrl('/events/' + EVENT_ID + '/schedule/day/' + id + '?callback=?'),
-            cacheKey: '/events/' + EVENT_ID + '/schedule/day/' + id,
+            url: utils.getFullUrl('/events/' + EVENT_ID + '/schedule?callback=?'),
+            cacheKey: '/events/' + EVENT_ID + '/schedule',
             parse: function(data) {
-                _.each(data, function(presentation) {
+                data = _(data).filter(function(presentation) { return day && presentation.fromTime.substr(0, 10) === day.date; });
+                _(data).each(function(presentation) {
                     if (presentation.presentationUri) {
                         presentation.key = presentation.presentationUri.substring(presentation.presentationUri.lastIndexOf("/") + 1);
                         presentation.favorite = favorites && _(favorites.ids).contains(Number(presentation.key));
@@ -385,7 +387,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
                 return data;
             },
             beforeReset: function(data) {
-                _.each(data, function(presentation) {
+                _(data).each(function(presentation) {
                     if (presentation.presentationUri) {
                         presentation.favorite = favorites && _(favorites.ids).contains(Number(presentation.key));
                     }
@@ -423,10 +425,12 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
 
         core.refreshDataEntry({
             page: "#event", title: "Event", el: "#event-content", view: "event", template: $("#event-tpl").html(),
-            url: utils.getFullUrl('/events/' + id + '?callback=?'),
-            cacheKey: '/events/' + id,
+            url: utils.getFullUrl('/events?callback=?'),
+            cacheKey: '/events',
             parse: function(data) {
-                return data;
+                var event = _(data).find(function(event) { return event.id == id; });
+
+                return event;
             },
             postRender: function(data) {
                 $('#event-details-list').listview();
@@ -445,14 +449,14 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
             url: utils.getFullUrl('/events/' + EVENT_ID + '/presentations?callback=?'),
             cacheKey: '/events/' + EVENT_ID + '/presentations',
             parse: function(data) {
-                _.each(data, function(presentation) {
+                _(data).each(function(presentation) {
                     presentation.favorite = favorites && _(favorites.ids).contains(presentation.id);
                 });
 
                 return data;
             },
             beforeReset: function(data) {
-                _.each(data, function(presentation) {
+                _(data).each(function(presentation) {
                     presentation.favorite = favorites && _(favorites.ids).contains(presentation.id);
                 });
 
@@ -474,8 +478,8 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
             cacheKey: '/events/' + EVENT_ID + '/presentations',
             parse: function(data) {
                 var presentation = _(data).find(function(presentation) { return presentation.id == id; });
-                presentation.favorite = favorites && _.contains(favorites.ids, presentation.id);
-                _.each(data.speakers, function(speaker) {
+                presentation.favorite = favorites && _(favorites.ids).contains(presentation.id);
+                _(data.speakers).each(function(speaker) {
                     speaker.id = speaker.speakerUri.substring(speaker.speakerUri.lastIndexOf("/") + 1);
                 });
                 return presentation;
@@ -487,36 +491,10 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
                 ui.switchTitle(data.get('title'));
             },
             beforeReset: function(data) {
-                data.favorite = favorites && _.contains(favorites.ids, data.id);
+                data.favorite = favorites && _(favorites.ids).contains(data.id);
 
                 return data;
             }
-        });
-    };
-
-    core.refreshRooms = function() {
-        ui.resetFlashMessages("#rooms");
-        logger.info("Refreshing rooms");
-        ui.switchTitle("Salles");
-
-        core.refreshDataList({
-            page: "#rooms", title: "Rooms", el: "#room-list", view: "room", template: $("#room-list-tpl").html(),
-            url: utils.getFullUrl('/events/' + EVENT_ID + '/schedule/rooms?callback=?'),
-            cacheKey: '/events/' + EVENT_ID + '/schedule/rooms',
-            parse: function(data) { return data; }
-        });
-    };
-
-    core.refreshTracks = function() {
-        ui.resetFlashMessages("#tracks");
-        logger.info("Refreshing tracks");
-        ui.switchTitle("Tracks");
-
-        core.refreshDataList({
-            page: "#tracks", title: "Tracks", el: "#track-list", view: "track", template: $("#track-list-tpl").html(),
-            url: utils.getFullUrl('/events/' + EVENT_ID + '/tracks?callback=?'),
-            cacheKey: '/events/' + EVENT_ID + '/tracks',
-            parse: function(data) { return data; }
         });
     };
 
@@ -544,7 +522,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
             cacheKey: '/events/' + EVENT_ID + '/speakers',
             parse: function(data) {
                 var speaker = _(data).find(function(speaker) { return speaker.id == id; });
-                _.each(speaker.talks, function(presentation) {
+                _(speaker.talks).each(function(presentation) {
                      presentation.id = presentation.presentationUri.substring(presentation.presentationUri.lastIndexOf("/") + 1);
                  });
                 return speaker;
@@ -561,6 +539,19 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
         });
     };
 
+    core.refreshTracks = function() {
+        ui.resetFlashMessages("#tracks");
+        logger.info("Refreshing tracks");
+        ui.switchTitle("Tracks");
+
+        core.refreshDataList({
+            page: "#tracks", title: "Tracks", el: "#track-list", view: "track", template: $("#track-list-tpl").html(),
+            url: utils.getFullUrl('/events/' + EVENT_ID + '/tracks?callback=?'),
+            cacheKey: '/events/' + EVENT_ID + '/tracks',
+            parse: function(data) { return data; }
+        });
+    };
+
     core.refreshTrack = function(id) {
         ui.resetFlashMessages("#track");
         logger.info("Refreshing track");
@@ -568,17 +559,18 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
 
         core.refreshDataList({
             page: "#track", title: "Track", el: "#track-presentation-list", view: "track", template: $("#presentation-list-tpl").html(),
-            url: utils.getFullUrl('/events/' + EVENT_ID + '/tracks/' + id + '?callback=?'),
-            cacheKey: '/events/' + EVENT_ID + '/track/' + id,
+            url: utils.getFullUrl('/events/' + EVENT_ID + '/presentations?callback=?'),
+            cacheKey: '/events/' + EVENT_ID + '/presentations',
             parse: function(data) {
-                _.each(data, function(presentation) {
+                data = _(data).filter(function(presentation) { return presentation.trackId == id; });
+                _(data).each(function(presentation) {
                     presentation.favorite = favorites && _(favorites.ids).contains(presentation.id);
                 });
 
                 return data;
             },
             beforeReset: function(data) {
-                _.each(data, function(presentation) {
+                _(data).each(function(presentation) {
                     presentation.favorite = favorites && _(favorites.ids).contains(presentation.id);
                 });
 
@@ -593,6 +585,19 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
         });
     };
 
+    core.refreshRooms = function() {
+        ui.resetFlashMessages("#rooms");
+        logger.info("Refreshing rooms");
+        ui.switchTitle("Salles");
+
+        core.refreshDataList({
+            page: "#rooms", title: "Rooms", el: "#room-list", view: "room", template: $("#room-list-tpl").html(),
+            url: utils.getFullUrl('/events/' + EVENT_ID + '/schedule/rooms?callback=?'),
+            cacheKey: '/events/' + EVENT_ID + '/schedule/rooms',
+            parse: function(data) { return data; }
+        });
+    };
+
     core.refreshRoom = function(id) {
         ui.resetFlashMessages("#room");
         logger.info("Refreshing room");
@@ -600,17 +605,18 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
 
         core.refreshDataList({
             page: "#room", title: "Room", el: "#room-presentation-list", view: "room", template: $("#presentation-list-tpl").html(),
-            url: utils.getFullUrl('/events/' + EVENT_ID + '/rooms/' + id + '?callback=?'),
-            cacheKey: '/events/' + EVENT_ID + '/room/' + id,
+            url: utils.getFullUrl('/events/' + EVENT_ID + '/presentations?callback=?'),
+            cacheKey: '/events/' + EVENT_ID + '/presentations',
             parse: function(data) {
-                _.each(data, function(presentation) {
+                data = _(data).filter(function(presentation) { return presentation.roomId == id; });
+                _(data).each(function(presentation) {
                     presentation.favorite = favorites && _(favorites.ids).contains(presentation.id);
                 });
 
                 return data;
             },
             beforeReset: function(data) {
-                _.each(data, function(presentation) {
+                _(data).each(function(presentation) {
                     presentation.favorite = favorites && _(favorites.ids).contains(presentation.id);
                 });
 
@@ -644,9 +650,8 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
                 "http://api.twitter.com/1/statuses/user_timeline.json?screen_name=" + screenName + "&contributor_details=false&include_entities=false&include_rts=true&exclude_replies=true&count=50&exclude_replies=false&callback=?",
             parse: function(data) {
                 _(data).each(function(tweet) {
-                    tweet.formattedDate = Date.parse(tweet.created_at) ? Date.parse(tweet.created_at).toString("HH:mm") : "--:--";
-                    var iconUrl = tweet.user.profile_image_url.replace(/_normal(\.[^\.]+)$/, "$1");
-                    tweet.user.icon = iconUrl;
+                    tweet.formattedDate = core.getTweetFormattedDate(tweet);
+                    tweet.user.icon = core.getTwitterUserImage(tweet.user);
                     tweet.htmlText = core.twitter_linkify(tweet.text);
                 });
                 return data;
@@ -656,6 +661,14 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
             }
 
         });
+    };
+
+    core.getTweetFormattedDate = function(tweet) {
+        return Date.parse(tweet.created_at) ? Date.parse(tweet.created_at).toString("HH:mm") : "--:--";
+    };
+
+    core.getTwitterUserImage = function(user) {
+        return user.profile_image_url.replace(/_normal(\.[^\.]+)$/, "$1");;
     };
 
     core.refreshXebiaProgram = function(filter) {
