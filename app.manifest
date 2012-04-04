@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# Version 0.3.11
+# Version 0.3.12
 
 font/oleo-script-webfont.woff
 font/oleo-script-webfont.ttf
@@ -22,7 +22,7 @@ image/devoxx-logo.png
 
 http://www.google-analytics.com/ga.js
 javascript/app.js
-javascript/lib/require/require.order-1.0.5.min.js
+javascript/lib/require/require.order-1.0.5.js
 javascript/lib/jquery/jquery-1.7.1.js
 javascript/lib/underscore/underscore-1.3.1.js
 javascript/lib/backbone/backbone-0.9.1.js
