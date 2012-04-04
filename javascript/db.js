@@ -58,7 +58,7 @@ define(['log', 'ui'], function( log, ui ) {
             }, 0);
         } else {
             lawnchair.get(key, function(data) {
-                callback(data.value);
+                callback(data ? data.value : undefined);
             });
         }
     };
