@@ -17,7 +17,6 @@
 	background:    			#111111    /*{a-bar-background-color}*/;
 	color:    #ffffff    /*{a-bar-color}*/;
 	font-weight: bold;
-	text-shadow:    0    /*{a-bar-shadow-x}*/    -1px    /*{a-bar-shadow-y}*/    1px    /*{a-bar-shadow-radius}*/    #000000    /*{a-bar-shadow-color}*/;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(    #3c3c3c    /*{a-bar-background-start}*/), to(    #111111    /*{a-bar-background-end}*/)); /* Saf4+, Chrome */
 	background-image: -webkit-linear-gradient(    #3c3c3c    /*{a-bar-background-start}*/,    #111111    /*{a-bar-background-end}*/); /* Chrome 10+, Saf5.1+ */
 	background-image:    -moz-linear-gradient(    #3c3c3c    /*{a-bar-background-start}*/,    #111111    /*{a-bar-background-end}*/); /* FF3.6 */
@@ -57,7 +56,6 @@
 	border: 1px solid    		#2A2A2A    /*{a-body-border}*/;
 	background:    			#222222    /*{a-body-background-color}*/;
 	color:    	#ffffff    /*{a-body-color}*/;
-	 text-shadow:    0    /*{a-body-shadow-x}*/    1px    /*{a-body-shadow-y}*/    0    /*{a-body-shadow-radius}*/    #000000    /*{a-body-shadow-color}*/;
 	font-weight: normal;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(    #666666    /*{a-body-background-start}*/), to(    #222222    /*{a-body-background-end}*/)); /* Saf4+, Chrome */
 	background-image: -webkit-linear-gradient(    #666666    /*{a-body-background-start}*/,    #222222    /*{a-body-background-end}*/); /* Chrome 10+, Saf5.1+ */
@@ -100,7 +98,6 @@
 	background:    			#333333    /*{a-bup-background-color}*/;
 	font-weight: bold;
 	color:    					#ffffff    /*{a-bup-color}*/;
-	text-shadow:    0    /*{a-bup-shadow-x}*/    -1px    /*{a-bup-shadow-y}*/    1px    /*{a-bup-shadow-radius}*/    #000000    /*{a-bup-shadow-color}*/;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(    #555555    /*{a-bup-background-start}*/), to(    #333333    /*{a-bup-background-end}*/)); /* Saf4+, Chrome */
 	background-image: -webkit-linear-gradient(    #555555    /*{a-bup-background-start}*/,    #333333    /*{a-bup-background-end}*/); /* Chrome 10+, Saf5.1+ */
 	background-image:    -moz-linear-gradient(    #555555    /*{a-bup-background-start}*/,    #333333    /*{a-bup-background-end}*/); /* FF3.6 */
@@ -116,7 +113,6 @@
 	background:    			#444444    /*{a-bhover-background-color}*/;
 	font-weight: bold;
 	color:    					#ffffff    /*{a-bhover-color}*/;
-	text-shadow:    0    /*{a-bhover-shadow-x}*/    -1px    /*{a-bhover-shadow-y}*/    1px    /*{a-bhover-shadow-radius}*/    #000000    /*{a-bhover-shadow-color}*/;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(    #666666    /*{a-bhover-background-start}*/), to(    #444444    /*{a-bhover-background-end}*/)); /* Saf4+, Chrome */
 	background-image: -webkit-linear-gradient(    #666666    /*{a-bhover-background-start}*/,    #444444    /*{a-bhover-background-end}*/); /* Chrome 10+, Saf5.1+ */
 	background-image:    -moz-linear-gradient(    #666666    /*{a-bhover-background-start}*/,    #444444    /*{a-bhover-background-end}*/); /* FF3.6 */
@@ -132,7 +128,6 @@
 	background:    			#3d3d3d    /*{a-bdown-background-color}*/;
 	font-weight: bold;
 	color:    					#ffffff    /*{a-bdown-color}*/;
-	text-shadow:    0    /*{a-bdown-shadow-x}*/    -1px    /*{a-bdown-shadow-y}*/    1px    /*{a-bdown-shadow-radius}*/    #000000    /*{a-bdown-shadow-color}*/;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(    #333333    /*{a-bdown-background-start}*/), to(    #5a5a5a    /*{a-bdown-background-end}*/)); /* Saf4+, Chrome */
 	background-image: -webkit-linear-gradient(    #333333    /*{a-bdown-background-start}*/,    #5a5a5a    /*{a-bdown-background-end}*/); /* Chrome 10+, Saf5.1+ */
 	background-image:    -moz-linear-gradient(    #333333    /*{a-bdown-background-start}*/,    #5a5a5a    /*{a-bdown-background-end}*/); /* FF3.6 */
@@ -159,7 +154,6 @@
 	background:    			#e9eaeb    /*{c-bar-background-color}*/;
 	color:    	#3E3E3E    /*{c-bar-color}*/;
 	font-weight: bold;
-	text-shadow:    0    /*{c-bar-shadow-x}*/    1px    /*{c-bar-shadow-y}*/    1px    /*{c-bar-shadow-radius}*/    	#ffffff    /*{c-bar-shadow-color}*/;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(    #f0f0f0    /*{c-bar-background-start}*/), to(    #e9eaeb    /*{c-bar-background-end}*/)); /* Saf4+, Chrome */
 	background-image: -webkit-linear-gradient(    #f0f0f0    /*{c-bar-background-start}*/,    #e9eaeb    /*{c-bar-background-end}*/); /* Chrome 10+, Saf5.1+ */
 	background-image:    -moz-linear-gradient(    #f0f0f0    /*{c-bar-background-start}*/,    #e9eaeb    /*{c-bar-background-end}*/); /* FF3.6 */
@@ -199,7 +193,6 @@
 .ui-dialog.ui-overlay-c {
 	border: 1px solid #eeeeee /*{c-body-border}*/;
 	color: #000000 /*{c-body-color}*/;
-	text-shadow:    0    /*{c-body-shadow-x}*/    1px    /*{c-body-shadow-y}*/    0    /*{c-body-shadow-radius}*/ #eeeeee /*{c-body-shadow-color}*/;
 	background: #ffffff /*{c-body-background-color}*/;
 	background-image: -webkit-gradient(linear, left top, left bottom, from( #FCFCFC /*{c-body-background-start}*/), to( #F4F4F4 /*{c-body-background-end}*/)); /* Saf4+, Chrome */
 	background-image: -webkit-linear-gradient( #FCFCFC /*{c-body-background-start}*/, #F4F4F4 /*{c-body-background-end}*/); /* Chrome 10+, Saf5.1+ */
@@ -242,7 +235,6 @@
 	background:    			#eeeeee    /*{c-bup-background-color}*/;
 	font-weight: bold;
 	color:    					#2F3E46    /*{c-bup-color}*/;
-	text-shadow:    0    /*{c-bup-shadow-x}*/    1px    /*{c-bup-shadow-y}*/    1px    /*{c-bup-shadow-radius}*/    #f6f6f6    /*{c-bup-shadow-color}*/;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(    #fdfdfd    /*{c-bup-background-start}*/), to(    #eeeeee    /*{c-bup-background-end}*/)); /* Saf4+, Chrome */
 	background-image: -webkit-linear-gradient(    #fdfdfd    /*{c-bup-background-start}*/,    #eeeeee    /*{c-bup-background-end}*/); /* Chrome 10+, Saf5.1+ */
 	background-image:    -moz-linear-gradient(    #fdfdfd    /*{c-bup-background-start}*/,    #eeeeee    /*{c-bup-background-end}*/); /* FF3.6 */
@@ -259,7 +251,6 @@
 	background:    			#dadada    /*{c-bhover-background-color}*/;
 	font-weight: bold;
 	color:    					#2F3E46    /*{c-bhover-color}*/;
-	text-shadow:    0    /*{c-bhover-shadow-x}*/    1px    /*{c-bhover-shadow-y}*/    1px    /*{c-bhover-shadow-radius}*/    #ffffff    /*{c-bhover-shadow-color}*/;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(    #ededed    /*{c-bhover-background-start}*/), to(    #dadada    /*{c-bhover-background-end}*/)); /* Saf4+, Chrome */
 	background-image: -webkit-linear-gradient(    #ededed    /*{c-bhover-background-start}*/,    #dadada    /*{c-bhover-background-end}*/); /* Chrome 10+, Saf5.1+ */
 	background-image:    -moz-linear-gradient(    #ededed    /*{c-bhover-background-start}*/,    #dadada    /*{c-bhover-background-end}*/); /* FF3.6 */
@@ -275,7 +266,6 @@
 	background:    			#fdfdfd    /*{c-bdown-background-color}*/;
 	font-weight: bold;
 	color:    					#2F3E46    /*{c-bdown-color}*/;
-	text-shadow:    0    /*{c-bdown-shadow-x}*/    1px    /*{c-bdown-shadow-y}*/    1px    /*{c-bdown-shadow-radius}*/    #ffffff    /*{c-bdown-shadow-color}*/;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(    #eeeeee    /*{c-bdown-background-start}*/), to(    #fdfdfd    /*{c-bdown-background-end}*/)); /* Saf4+, Chrome */
 	background-image: -webkit-linear-gradient(    #eeeeee    /*{c-bdown-background-start}*/,    #fdfdfd    /*{c-bdown-background-end}*/); /* Chrome 10+, Saf5.1+ */
 	background-image:    -moz-linear-gradient(    #eeeeee    /*{c-bdown-background-start}*/,    #fdfdfd    /*{c-bdown-background-end}*/); /* FF3.6 */
@@ -301,7 +291,6 @@
 	border: 1px solid  #e6e6e6  /*{d-bar-border}*/;
 	background:  #e6e6e6  /*{d-bar-background-color}*/;
 	color:  #000000  /*{d-bar-color}*/;
-	text-shadow:    0    /*{d-bar-shadow-x}*/    1px    /*{d-bar-shadow-y}*/    0    /*{d-bar-shadow-radius}*/  #eeeeee  /*{d-bar-shadow-color}*/;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(  #FDFDFD  /*{d-bar-background-start}*/), to(  #CFCFCF  /*{d-bar-background-end}*/)); /* Saf4+, Chrome */
 	background-image: -webkit-linear-gradient(  #FDFDFD  /*{d-bar-background-start}*/,  #CFCFCF  /*{d-bar-background-end}*/); /* Chrome 10+, Saf5.1+ */
 	background-image:    -moz-linear-gradient(  #FDFDFD  /*{d-bar-background-start}*/,  #CFCFCF  /*{d-bar-background-end}*/); /* FF3.6 */
@@ -341,7 +330,6 @@
 .ui-dialog.ui-overlay-d {
 	border: 1px solid    		#cccccc    /*{d-body-border}*/;
 	color:    	#333333    /*{d-body-color}*/;
-	text-shadow:    0    /*{d-body-shadow-x}*/    1px    /*{d-body-shadow-y}*/    0    /*{d-body-shadow-radius}*/    	#ffffff    /*{d-body-shadow-color}*/;
 	background:    			#ffffff    /*{d-body-background-color}*/;
 	background-image: -webkit-gradient(linear, left top, left bottom, from( #fff), to(    #ffffff    /*{d-body-background-end}*/)); /* Saf4+, Chrome */
 	background-image: -webkit-linear-gradient(    #ffffff    /*{d-body-background-start}*/,    #ffffff    /*{d-body-background-end}*/); /* Chrome 10+, Saf5.1+ */
@@ -384,7 +372,6 @@
 	background:    			#ffffff    /*{d-bup-background-color}*/;
 	font-weight: bold;
 	color:    					#333333    /*{d-bup-color}*/;
-	text-shadow:    0    /*{d-bup-shadow-x}*/    1px    /*{d-bup-shadow-y}*/    1px    /*{d-bup-shadow-radius}*/    #ffffff    /*{d-bup-shadow-color}*/;
 	background-image: -webkit-gradient(linear, left top, left bottom, from( #fff), to(    #ffffff    /*{d-bup-background-end}*/)); /* Saf4+, Chrome */
 	background-image: -webkit-linear-gradient(    #ffffff    /*{d-bup-background-start}*/,    #ffffff    /*{d-bup-background-end}*/); /* Chrome 10+, Saf5.1+ */
 	background-image:    -moz-linear-gradient(    #ffffff    /*{d-bup-background-start}*/,    #ffffff    /*{d-bup-background-end}*/); /* FF3.6 */
@@ -401,7 +388,6 @@
 	font-weight: bold;
 	color:    					#222222    /*{d-bhover-color}*/;
 	cursor: pointer;
-	text-shadow:    0    /*{d-bhover-shadow-x}*/    1px    /*{d-bhover-shadow-y}*/    1px    /*{d-bhover-shadow-radius}*/    	#ffffff    /*{d-bhover-shadow-color}*/;
 	background-image: -webkit-gradient(linear, left top, left bottom, from( #fdfdfd), to(    #eeeeee    /*{d-bhover-background-end}*/)); /* Saf4+, Chrome */
 	background-image: -webkit-linear-gradient(    #fdfdfd    /*{d-bhover-background-start}*/,    #eeeeee    /*{d-bhover-background-end}*/); /* Chrome 10+, Saf5.1+ */
 	background-image:    -moz-linear-gradient(    #fdfdfd    /*{d-bhover-background-start}*/,    #eeeeee    /*{d-bhover-background-end}*/); /* FF3.6 */
@@ -417,7 +403,6 @@
 	background:    			#ffffff    /*{d-bdown-background-color}*/;
 	font-weight: bold;
 	color:    					#111111    /*{d-bdown-color}*/;
-	text-shadow:    0    /*{d-bdown-shadow-x}*/    1px    /*{d-bdown-shadow-y}*/    1px    /*{d-bdown-shadow-radius}*/    	#ffffff    /*{d-bdown-shadow-color}*/;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(    #eeeeee    /*{d-bdown-background-start}*/), to(    #ffffff    /*{d-bdown-background-end}*/)); /* Saf4+, Chrome */
 	background-image: -webkit-linear-gradient(    #eeeeee    /*{d-bdown-background-start}*/,    #ffffff    /*{d-bdown-background-end}*/); /* Chrome 10+, Saf5.1+ */
 	background-image:    -moz-linear-gradient(    #eeeeee    /*{d-bdown-background-start}*/,    #ffffff    /*{d-bdown-background-end}*/); /* FF3.6 */
@@ -443,7 +428,6 @@
 	border: 1px solid    		#F7C942    /*{e-bar-border}*/;
 	background:    			#fadb4e    /*{e-bar-background-color}*/;
 	color:    	#333333    /*{e-bar-color}*/;
-	text-shadow:    0    /*{e-bar-shadow-x}*/    1px    /*{e-bar-shadow-y}*/    0    /*{e-bar-shadow-radius}*/    	#ffffff    /*{e-bar-shadow-color}*/;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(    #fceda7    /*{e-bar-background-start}*/), to(    #fadb4e    /*{e-bar-background-end}*/)); /* Saf4+, Chrome */
 	background-image: -webkit-linear-gradient(    #fceda7    /*{e-bar-background-start}*/,    #fadb4e    /*{e-bar-background-end}*/); /* Chrome 10+, Saf5.1+ */
 	background-image:    -moz-linear-gradient(    #fceda7    /*{e-bar-background-start}*/,    #fadb4e    /*{e-bar-background-end}*/); /* FF3.6 */
@@ -482,7 +466,6 @@
 .ui-dialog.ui-overlay-e {
 	border: 1px solid    		#F7C942    /*{e-body-border}*/;
 	color:    	#333333    /*{e-body-color}*/;
-	text-shadow:    0    /*{e-body-shadow-x}*/    1px    /*{e-body-shadow-y}*/    0    /*{e-body-shadow-radius}*/    	#ffffff    /*{e-body-shadow-color}*/;
 	background:    			#faeb9e    /*{e-body-background-color}*/;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(    #ffffff    /*{e-body-background-start}*/), to(    #faeb9e    /*{e-body-background-end}*/)); /* Saf4+, Chrome */
 	background-image: -webkit-linear-gradient(    #ffffff    /*{e-body-background-start}*/,    #faeb9e    /*{e-body-background-end}*/); /* Chrome 10+, Saf5.1+ */
@@ -524,7 +507,6 @@
 	background:    			#fadb4e    /*{e-bup-background-color}*/;
 	font-weight: bold;
 	color:    					#333333    /*{e-bup-color}*/;
-	text-shadow:    0    /*{e-bup-shadow-x}*/    1px    /*{e-bup-shadow-y}*/    0    /*{e-bup-shadow-radius}*/    	#ffffff    /*{e-bup-shadow-color}*/;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(    #fceda7    /*{e-bup-background-start}*/), to(    #fadb4e    /*{e-bup-background-end}*/)); /* Saf4+, Chrome */
 	background-image: -webkit-linear-gradient(    #fceda7    /*{e-bup-background-start}*/,    #fadb4e    /*{e-bup-background-end}*/); /* Chrome 10+, Saf5.1+ */
 	background-image:    -moz-linear-gradient(    #fceda7    /*{e-bup-background-start}*/,    #fadb4e    /*{e-bup-background-end}*/); /* FF3.6 */
@@ -540,7 +522,6 @@
 	background:    			#fbe26f    /*{e-bhover-background-color}*/;
 	font-weight: bold;
 	color:    					#333333    /*{e-bhover-color}*/;
-	text-shadow:    0    /*{e-bhover-shadow-x}*/    1px    /*{e-bhover-shadow-y}*/    1px    /*{e-bhover-shadow-radius}*/    	#ffffff    /*{e-bhover-shadow-color}*/;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(    #fcf0b5    /*{e-bhover-background-start}*/), to(    #fbe26f    /*{e-bhover-background-end}*/)); /* Saf4+, Chrome */
 	background-image: -webkit-linear-gradient(    #fcf0b5    /*{e-bhover-background-start}*/,    #fbe26f    /*{e-bhover-background-end}*/); /* Chrome 10+, Saf5.1+ */
 	background-image:    -moz-linear-gradient(    #fcf0b5    /*{e-bhover-background-start}*/,    #fbe26f    /*{e-bhover-background-end}*/); /* FF3.6 */
@@ -557,7 +538,6 @@
 	background:    			#fceda7    /*{e-bdown-background-color}*/;
 	font-weight: bold;
 	color:    					#333333    /*{e-bdown-color}*/;
-	text-shadow:    0    /*{e-bdown-shadow-x}*/    1px    /*{e-bdown-shadow-y}*/    1px    /*{e-bdown-shadow-radius}*/    	#ffffff    /*{e-bdown-shadow-color}*/;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(    #fadb4e    /*{e-bdown-background-start}*/), to(    #fceda7    /*{e-bdown-background-end}*/)); /* Saf4+, Chrome */
 	background-image: -webkit-linear-gradient(    #fadb4e    /*{e-bdown-background-start}*/,    #fceda7    /*{e-bdown-background-end}*/); /* Chrome 10+, Saf5.1+ */
 	background-image:    -moz-linear-gradient(    #fadb4e    /*{e-bdown-background-start}*/,    #fceda7    /*{e-bdown-background-end}*/); /* FF3.6 */
@@ -594,7 +574,6 @@ a.ui-link-inherit {
 	font-weight: bold;
 	color:    					#ffffff    /*{global-active-color}*/;
 	cursor: pointer;
-	text-shadow:    0    /*{global-active-shadow-x}*/    -1px    /*{global-active-shadow-y}*/    1px    /*{global-active-shadow-radius}*/    #145072    /*{global-active-shadow-color}*/;
 	text-decoration: none;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(    #85bae4    /*{global-active-background-start}*/), to(    #5393c5    /*{global-active-background-end}*/)); /* Saf4+, Chrome */
 	background-image: -webkit-linear-gradient(    #85bae4    /*{global-active-background-start}*/,    #5393c5    /*{global-active-background-end}*/); /* Chrome 10+, Saf5.1+ */

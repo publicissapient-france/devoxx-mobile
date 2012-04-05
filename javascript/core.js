@@ -86,60 +86,60 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
             "#xebia-program": { handler : "onBeforeXebiaProgramPageShow", events: "bs" }
         },
         {
-            onBeforeSchedulePageShow: function(type, match, ui) {
+            onBeforeSchedulePageShow: function(type, match, ui, page, e) {
                 core.refreshSchedule();
             },
-            onBeforeEventsPageShow: function(type, match, ui) {
+            onBeforeEventsPageShow: function(type, match, ui, page, e) {
                 core.refreshEvents();
             },
-            onBeforeEventPageShow: function(type, match, ui) {
+            onBeforeEventPageShow: function(type, match, ui, page, e) {
                 var params = router.getParams(match[1]);
                 core.refreshEvent(params.id);
             },
-            onBeforeRoomsPageShow: function(type, match, ui) {
+            onBeforeRoomsPageShow: function(type, match, ui, page, e) {
                 core.refreshRooms();
             },
-            onBeforeRoomPageShow: function(type, match, ui) {
+            onBeforeRoomPageShow: function(type, match, ui, page, e) {
                 var params = router.getParams(match[1]);
                 core.refreshRoom(params.id);
             },
-            onBeforeTracksPageShow: function(type, match, ui) {
+            onBeforeTracksPageShow: function(type, match, ui, page, e) {
                 core.refreshTracks();
             },
-            onBeforePresentationsPageShow: function(type, match, ui) {
+            onBeforePresentationsPageShow: function(type, match, ui, page, e) {
                 core.refreshPresentations();
             },
-            onBeforePresentationPageShow: function(type, match, ui) {
+            onBeforePresentationPageShow: function(type, match, ui, page, e) {
                 var params = router.getParams(match[1]);
                 core.refreshPresentation(params.id);
             },
-            onBeforeSpeakersPageShow: function(type, match, ui) {
+            onBeforeSpeakersPageShow: function(type, match, ui, page, e) {
                 core.refreshSpeakers();
             },
-            onBeforeSpeakerPageShow: function(type, match, ui) {
+            onBeforeSpeakerPageShow: function(type, match, ui, page, e) {
                 var params = router.getParams(match[1]);
                 core.refreshSpeaker(params.id);
             },
-            onBeforeTrackPageShow: function(type, match, ui) {
+            onBeforeTrackPageShow: function(type, match, ui, page, e) {
                 var params = router.getParams(match[1]);
                 core.refreshTrack(params.id);
             },
-            onBeforeDayPageShow: function(type, match, ui) {
+            onBeforeDayPageShow: function(type, match, ui, page, e) {
                 var params = router.getParams(match[1]);
                 core.refreshDay(params.id);
             },
-            onBeforeRegisterPageShow: function(type, match, ui) {
+            onBeforeRegisterPageShow: function(type, match, ui, page, e) {
                 register.beforePageShow();
             },
-            onBeforeSynchronizePageShow: function(type, match, ui) {
+            onBeforeSynchronizePageShow: function(type, match, ui, page, e) {
                 synchronize.beforePageShow();
             },
-            onBeforeTwitterPageShow: function(type, match, ui) {
+            onBeforeTwitterPageShow: function(type, match, ui, page, e) {
                 var params = router.getParams(match[1]);
                 var twitterAccount = !!params ? params.screenname : undefined;
                 core.refreshTwitter( twitterAccount );
             },
-            onBeforeXebiaProgramPageShow: function(type, match, ui) {
+            onBeforeXebiaProgramPageShow: function(type, match, ui, page, e) {
                 core.refreshXebiaProgram();
             }
         });
@@ -492,8 +492,10 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
                     presentation.language = presentation.language.toUpperCase();
                 }
                 presentation.favorite = favorites && _(favorites.ids).contains(presentation.id);
-
-                presentation.summary = core.formatPresentationSummary(presentation);
+                if (!presentation.enhanced) {
+                    presentation.summary = core.formatPresentationSummary(presentation);
+                    presentation.enhanced = true;
+                }
                 _(presentation.speakers).each(function(speaker) {
                     speaker.id = speaker.speakerUri.substring(speaker.speakerUri.lastIndexOf("/") + 1);
                 });
@@ -537,7 +539,10 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
             cacheKey: '/events/' + EVENT_ID + '/speakers',
             parse: function(data) {
                 var speaker = _(data).find(function(speaker) { return speaker.id == id; });
-                speaker.bio = utils.linkify(speaker.bio);
+                if (!speaker.enhanced) {
+                    speaker.bio = utils.linkify(speaker.bio);
+                    speaker.enhanced = true;
+                }
                 _(speaker.talks).each(function(presentation) {
                      presentation.id = presentation.presentationUri.substring(presentation.presentationUri.lastIndexOf("/") + 1);
                  });

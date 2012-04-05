@@ -64,8 +64,8 @@
 				if (	$.mobile.activePage &&
 					page.replace(/^#/,"")==$.mobile.activePage.jqmData("url")
 				){
-					data.options.allowSamePageTransition=true;
-					$.mobile.changePage( $(page), data.options );
+//					data.options.allowSamePageTransition=true;
+//					$.mobile.changePage( $(page), data.options );
 				} else {
 					$.mobile.changePage( $(page), data.options );
 				}

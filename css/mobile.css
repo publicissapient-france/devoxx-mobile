@@ -25,7 +25,7 @@ h3.tag-box {
     text-align: center;
     text-overflow: ellipsis;
     overflow: hidden;
-    white-space:nowrap;
+    white-space: nowrap;
 
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -33,7 +33,6 @@ h3.tag-box {
     -ms-border-radius: 3px;
     border-radius: 3px;
 
-    text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
     border-bottom: 1px solid rgba(0,0,0,0.25);
     position: relative;
     cursor: pointer;
@@ -117,7 +116,6 @@ ul li.type-QUICKIE { border-left: 5px #467d6a solid; }
 .page-navbar {
     background: #ffffff;
     padding: 10px;
-    text-shadow: none;
 }
 
 .page-navbar-left {
@@ -260,19 +258,8 @@ img.menu-img {
     filter:alph a(opacity=60); /* For IE8 and earlier */
 }
 
-.ui-mobile #version {
-  text-indent: -99999px; 
-  background: url(../etc/image/jqm-version.png) top right no-repeat;
-  width: 119px; 
-  height: 122px; 
-  overflow: hidden; 
-  position: absolute; 
-  top: 0; 
-  right: 0; 
-}
-
 h2 {
-  margin-top:1.5em; 
+  margin-top:1.5em;
 }
 
 p code { 
