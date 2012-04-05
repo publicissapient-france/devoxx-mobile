@@ -64,10 +64,13 @@
 				// from the current page
 				if (	$.mobile.activePage &&
 					page.replace(/^#/,"")==$.mobile.activePage.jqmData("url")
-                    && (!previousUrl || !oldUrl || previousUrl.hash != oldUrl.hash)
+                    && (!previousUrl || !oldUrl || (
+                        previousUrl.hash != oldUrl.hash &&
+                        previousUrl.hash.replace( /\?.*$/, "" ) == oldUrl.hash.replace( /\?.*$/, "" )
+                    ))
 				){
-					data.options.allowSamePageTransition=true;
-					$.mobile.changePage( $(page), data.options );
+                    data.options.allowSamePageTransition=true;
+                    $.mobile.changePage( $(page), data.options );
 				} else {
 					$.mobile.changePage( $(page), data.options );
 				}
