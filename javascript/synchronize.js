@@ -29,17 +29,18 @@ define( ['log', 'db', 'ui'], function( log, db, ui ) {
     synchronize.registerBindings = function() {
         $("#synchronize-home-submit").bind('click', synchronize.onSubmit);
         $("#synchronize-running-submit").bind('click', synchronize.onCancel);
-     };
+    };
 
-        synchronize.onSubmit = function(e) {
-            try {
-                synchronize.startSynchronization();
-            } catch(e) {
-                console.info("Error catched: " + e);
-            }
-            e.preventDefault();
-            return false;
-        };
+    synchronize.onSubmit = function(e) {
+        try {
+            synchronize.startSynchronization();
+        } catch(e) {
+            console.info("Error catched: " + e);
+        }
+
+        e.preventDefault();
+        return false;
+    };
 
     synchronize.onCancel = function(e) {
         try {
@@ -47,6 +48,7 @@ define( ['log', 'db', 'ui'], function( log, db, ui ) {
         } catch(e) {
             console.info("Error catched: " + e);
         }
+
         e.preventDefault();
         return false;
     };

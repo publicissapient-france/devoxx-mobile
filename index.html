@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html manifest="app.manifest">
-<!--<html>-->
+<!--<html manifest="app.manifest">-->
+<html>
 
     <head>
         <meta charset="utf-8" />
@@ -140,7 +140,7 @@ div.spinner-container {
 
                         <ul id="home-content-xebia-list" data-role="listview" data-inset="true" data-theme="c">
                             <li>
-                                <a href="#twitter" alt="Nous suivre sur Twitter" style="padding: 5px; margin:0px;">
+                                <a href="#twitter" alt="Nous suivre sur Twitter" style="padding: 5px; margin:0;">
                                      <h3 align="center"><img src="image/twitter-black-transparent.png" height="24" class="home-footer-img" /></h3>
                                  </a>
                             </li>
@@ -150,8 +150,7 @@ div.spinner-container {
                                 </a>
                             </li>
                             <li>
-                                 <a href="#register" alt
-                                         ="Register">
+                                 <a href="#register" alt="Register">
                                      <h3 align="center">S'enregistrer pour le concours !</h3>
                                  </a>
                             </li>
@@ -371,7 +370,7 @@ div.spinner-container {
                 <div id="register-message" data-role="message"></div>
                 <div id="register-content" data-role="content">
                     <div id="contest-description" class="contest-description">
-                        <p><em><strong>Xebia vous offre un MacBook Air !</strong></em></p>
+                        <p><em><strong>Xebia vous proposer de gagner un MacBook Air !</strong></em></p>
                         <p>Inscrivez-vous dès aujourd’hui à notre grand tirage au sort qui aura lieu le jeudi 19 avril, sur le stand de Xebia et remportez le plus convoité des ordinateurs !</p>
                         <p>Les inscriptions pourront s’effectuer directement sur notre stand, jusqu’au 19 avril à 12h00.</p>
                         <p><strong>Vous en rêviez ? Rien de plus simple, inscrivez vous en remplissant le formulaire d’inscription.</strong></p>
@@ -424,13 +423,11 @@ div.spinner-container {
                     <div id="synchronize-home">
                         <div id="synchronize-home-description" class="synchronize-description">
                             <p><em>
-                                La synchronisation des données vous permet de consulter offline, l'ensemble
-                                de données de l'application.
+                                La synchronisation des données vous permet de consulter offline l'application.
+                                <br />
+                                Pour mettre les données à jour, lancez une nouvelle synchronisation.
                             </em></p>
-                            <p><em>Pour mettre les données à jour, il suffit de lancer une
-                                nouvelle synchronisation.
-                            </em></p>
-                            <img src="image/devoxx-head.png"/>
+                            <img src="image/devoxx-head.png" width="110px"/>
                         </div>
                         <div align="left">
                             <form id="synchronize-home-form">
@@ -440,18 +437,18 @@ div.spinner-container {
                             </form>
                         </div>
                     </div>
-                </div>
-                <div id="synchronize-running" style="display: none;">
-                    <div id="synchronize-running-description" class="synchronize-description">
-                        <p><em><strong>Synchronisation en cours ...</strong></em></p>
-                        <img src="image/devoxx-head.png"/>
-                    </div>
-                    <div align="left">
-                        <form id="synchronize-running-form">
-                            <div data-role="fieldcontain">
-                                <button id="synchronize-running-submit" type="submit" data-theme="a">Annuler</button>
-                            </div>
-                        </form>
+                    <div id="synchronize-running" style="display: none;">
+                        <div id="synchronize-running-description" class="synchronize-description">
+                            <p><em><strong>Synchronisation en cours ...</strong></em></p>
+                            <img src="image/devoxx-head.png"/>
+                        </div>
+                        <div align="left">
+                            <form id="synchronize-running-form">
+                                <div data-role="fieldcontain">
+                                    <button id="synchronize-running-submit" type="submit" data-theme="a">Annuler</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
