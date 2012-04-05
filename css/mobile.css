@@ -855,7 +855,6 @@ span.ui-slider-label-b { z-index: 0; right: 0; text-indent: 1.5em;}
 	background:    			#111111    ;
 	color:    #ffffff    ;
 	font-weight: bold;
-	text-shadow:    0        -1px        1px        #000000    ;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(    #3c3c3c    ), to(    #111111    )); 
 	background-image: -webkit-linear-gradient(    #3c3c3c    ,    #111111    ); 
 	background-image:    -moz-linear-gradient(    #3c3c3c    ,    #111111    ); 
@@ -891,7 +890,6 @@ span.ui-slider-label-b { z-index: 0; right: 0; text-indent: 1.5em;}
 	border: 1px solid    		#2A2A2A    ;
 	background:    			#222222    ;
 	color:    	#ffffff    ;
-	 text-shadow:    0        1px        0        #000000    ;
 	font-weight: normal;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(    #666666    ), to(    #222222    )); 
 	background-image: -webkit-linear-gradient(    #666666    ,    #222222    ); 
@@ -928,7 +926,6 @@ span.ui-slider-label-b { z-index: 0; right: 0; text-indent: 1.5em;}
 	background:    			#333333    ;
 	font-weight: bold;
 	color:    					#ffffff    ;
-	text-shadow:    0        -1px        1px        #000000    ;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(    #555555    ), to(    #333333    )); 
 	background-image: -webkit-linear-gradient(    #555555    ,    #333333    ); 
 	background-image:    -moz-linear-gradient(    #555555    ,    #333333    ); 
@@ -944,7 +941,6 @@ span.ui-slider-label-b { z-index: 0; right: 0; text-indent: 1.5em;}
 	background:    			#444444    ;
 	font-weight: bold;
 	color:    					#ffffff    ;
-	text-shadow:    0        -1px        1px        #000000    ;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(    #666666    ), to(    #444444    )); 
 	background-image: -webkit-linear-gradient(    #666666    ,    #444444    ); 
 	background-image:    -moz-linear-gradient(    #666666    ,    #444444    ); 
@@ -960,7 +956,6 @@ span.ui-slider-label-b { z-index: 0; right: 0; text-indent: 1.5em;}
 	background:    			#3d3d3d    ;
 	font-weight: bold;
 	color:    					#ffffff    ;
-	text-shadow:    0        -1px        1px        #000000    ;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(    #333333    ), to(    #5a5a5a    )); 
 	background-image: -webkit-linear-gradient(    #333333    ,    #5a5a5a    ); 
 	background-image:    -moz-linear-gradient(    #333333    ,    #5a5a5a    ); 
@@ -982,7 +977,6 @@ span.ui-slider-label-b { z-index: 0; right: 0; text-indent: 1.5em;}
 	background:    			#e9eaeb    ;
 	color:    	#3E3E3E    ;
 	font-weight: bold;
-	text-shadow:    0        1px        1px        	#ffffff    ;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(    #f0f0f0    ), to(    #e9eaeb    )); 
 	background-image: -webkit-linear-gradient(    #f0f0f0    ,    #e9eaeb    ); 
 	background-image:    -moz-linear-gradient(    #f0f0f0    ,    #e9eaeb    ); 
@@ -1017,7 +1011,6 @@ span.ui-slider-label-b { z-index: 0; right: 0; text-indent: 1.5em;}
 .ui-dialog.ui-overlay-c {
 	border: 1px solid #eeeeee ;
 	color: #000000 ;
-	text-shadow:    0        1px        0     #eeeeee ;
 	background: #ffffff ;
 	background-image: -webkit-gradient(linear, left top, left bottom, from( #FCFCFC ), to( #F4F4F4 )); 
 	background-image: -webkit-linear-gradient( #FCFCFC , #F4F4F4 ); 
@@ -1054,7 +1047,6 @@ span.ui-slider-label-b { z-index: 0; right: 0; text-indent: 1.5em;}
 	background:    			#eeeeee    ;
 	font-weight: bold;
 	color:    					#2F3E46    ;
-	text-shadow:    0        1px        1px        #f6f6f6    ;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(    #fdfdfd    ), to(    #eeeeee    )); 
 	background-image: -webkit-linear-gradient(    #fdfdfd    ,    #eeeeee    ); 
 	background-image:    -moz-linear-gradient(    #fdfdfd    ,    #eeeeee    ); 
@@ -1070,7 +1062,6 @@ span.ui-slider-label-b { z-index: 0; right: 0; text-indent: 1.5em;}
 	background:    			#dadada    ;
 	font-weight: bold;
 	color:    					#2F3E46    ;
-	text-shadow:    0        1px        1px        #ffffff    ;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(    #ededed    ), to(    #dadada    )); 
 	background-image: -webkit-linear-gradient(    #ededed    ,    #dadada    ); 
 	background-image:    -moz-linear-gradient(    #ededed    ,    #dadada    ); 
@@ -1086,7 +1077,6 @@ span.ui-slider-label-b { z-index: 0; right: 0; text-indent: 1.5em;}
 	background:    			#fdfdfd    ;
 	font-weight: bold;
 	color:    					#2F3E46    ;
-	text-shadow:    0        1px        1px        #ffffff    ;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(    #eeeeee    ), to(    #fdfdfd    )); 
 	background-image: -webkit-linear-gradient(    #eeeeee    ,    #fdfdfd    ); 
 	background-image:    -moz-linear-gradient(    #eeeeee    ,    #fdfdfd    ); 
@@ -1107,7 +1097,6 @@ span.ui-slider-label-b { z-index: 0; right: 0; text-indent: 1.5em;}
 	border: 1px solid  #e6e6e6  ;
 	background:  #e6e6e6  ;
 	color:  #000000  ;
-	text-shadow:    0        1px        0      #eeeeee  ;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(  #FDFDFD  ), to(  #CFCFCF  )); 
 	background-image: -webkit-linear-gradient(  #FDFDFD  ,  #CFCFCF  ); 
 	background-image:    -moz-linear-gradient(  #FDFDFD  ,  #CFCFCF  ); 
@@ -1142,7 +1131,6 @@ span.ui-slider-label-b { z-index: 0; right: 0; text-indent: 1.5em;}
 .ui-dialog.ui-overlay-d {
 	border: 1px solid    		#cccccc    ;
 	color:    	#333333    ;
-	text-shadow:    0        1px        0        	#ffffff    ;
 	background:    			#ffffff    ;
 	background-image: -webkit-gradient(linear, left top, left bottom, from( #fff), to(    #ffffff    )); 
 	background-image: -webkit-linear-gradient(    #ffffff    ,    #ffffff    ); 
@@ -1179,7 +1167,6 @@ span.ui-slider-label-b { z-index: 0; right: 0; text-indent: 1.5em;}
 	background:    			#ffffff    ;
 	font-weight: bold;
 	color:    					#333333    ;
-	text-shadow:    0        1px        1px        #ffffff    ;
 	background-image: -webkit-gradient(linear, left top, left bottom, from( #fff), to(    #ffffff    )); 
 	background-image: -webkit-linear-gradient(    #ffffff    ,    #ffffff    ); 
 	background-image:    -moz-linear-gradient(    #ffffff    ,    #ffffff    ); 
@@ -1196,7 +1183,6 @@ span.ui-slider-label-b { z-index: 0; right: 0; text-indent: 1.5em;}
 	font-weight: bold;
 	color:    					#222222    ;
 	cursor: pointer;
-	text-shadow:    0        1px        1px        	#ffffff    ;
 	background-image: -webkit-gradient(linear, left top, left bottom, from( #fdfdfd), to(    #eeeeee    )); 
 	background-image: -webkit-linear-gradient(    #fdfdfd    ,    #eeeeee    ); 
 	background-image:    -moz-linear-gradient(    #fdfdfd    ,    #eeeeee    ); 
@@ -1212,7 +1198,6 @@ span.ui-slider-label-b { z-index: 0; right: 0; text-indent: 1.5em;}
 	background:    			#ffffff    ;
 	font-weight: bold;
 	color:    					#111111    ;
-	text-shadow:    0        1px        1px        	#ffffff    ;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(    #eeeeee    ), to(    #ffffff    )); 
 	background-image: -webkit-linear-gradient(    #eeeeee    ,    #ffffff    ); 
 	background-image:    -moz-linear-gradient(    #eeeeee    ,    #ffffff    ); 
@@ -1233,7 +1218,6 @@ span.ui-slider-label-b { z-index: 0; right: 0; text-indent: 1.5em;}
 	border: 1px solid    		#F7C942    ;
 	background:    			#fadb4e    ;
 	color:    	#333333    ;
-	text-shadow:    0        1px        0        	#ffffff    ;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(    #fceda7    ), to(    #fadb4e    )); 
 	background-image: -webkit-linear-gradient(    #fceda7    ,    #fadb4e    ); 
 	background-image:    -moz-linear-gradient(    #fceda7    ,    #fadb4e    ); 
@@ -1268,7 +1252,6 @@ span.ui-slider-label-b { z-index: 0; right: 0; text-indent: 1.5em;}
 .ui-dialog.ui-overlay-e {
 	border: 1px solid    		#F7C942    ;
 	color:    	#333333    ;
-	text-shadow:    0        1px        0        	#ffffff    ;
 	background:    			#faeb9e    ;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(    #ffffff    ), to(    #faeb9e    )); 
 	background-image: -webkit-linear-gradient(    #ffffff    ,    #faeb9e    ); 
@@ -1305,7 +1288,6 @@ span.ui-slider-label-b { z-index: 0; right: 0; text-indent: 1.5em;}
 	background:    			#fadb4e    ;
 	font-weight: bold;
 	color:    					#333333    ;
-	text-shadow:    0        1px        0        	#ffffff    ;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(    #fceda7    ), to(    #fadb4e    )); 
 	background-image: -webkit-linear-gradient(    #fceda7    ,    #fadb4e    ); 
 	background-image:    -moz-linear-gradient(    #fceda7    ,    #fadb4e    ); 
@@ -1321,7 +1303,6 @@ span.ui-slider-label-b { z-index: 0; right: 0; text-indent: 1.5em;}
 	background:    			#fbe26f    ;
 	font-weight: bold;
 	color:    					#333333    ;
-	text-shadow:    0        1px        1px        	#ffffff    ;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(    #fcf0b5    ), to(    #fbe26f    )); 
 	background-image: -webkit-linear-gradient(    #fcf0b5    ,    #fbe26f    ); 
 	background-image:    -moz-linear-gradient(    #fcf0b5    ,    #fbe26f    ); 
@@ -1337,7 +1318,6 @@ span.ui-slider-label-b { z-index: 0; right: 0; text-indent: 1.5em;}
 	background:    			#fceda7    ;
 	font-weight: bold;
 	color:    					#333333    ;
-	text-shadow:    0        1px        1px        	#ffffff    ;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(    #fadb4e    ), to(    #fceda7    )); 
 	background-image: -webkit-linear-gradient(    #fadb4e    ,    #fceda7    ); 
 	background-image:    -moz-linear-gradient(    #fadb4e    ,    #fceda7    ); 
@@ -1363,7 +1343,6 @@ a.ui-link-inherit {
 	font-weight: bold;
 	color:    					#ffffff    ;
 	cursor: pointer;
-	text-shadow:    0        -1px        1px        #145072    ;
 	text-decoration: none;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(    #85bae4    ), to(    #5393c5    )); 
 	background-image: -webkit-linear-gradient(    #85bae4    ,    #5393c5    ); 
@@ -1692,13 +1671,12 @@ h3.tag-box {
     text-align: center;
     text-overflow: ellipsis;
     overflow: hidden;
-    white-space:nowrap;
+    white-space: nowrap;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     -o-border-radius: 3px;
     -ms-border-radius: 3px;
     border-radius: 3px;
-    text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
     border-bottom: 1px solid rgba(0,0,0,0.25);
     position: relative;
     cursor: pointer;
@@ -1767,7 +1745,6 @@ ul li.type-QUICKIE { border-left: 5px #467d6a solid; }
 .page-navbar {
     background: #ffffff;
     padding: 10px;
-    text-shadow: none;
 }
 .page-navbar-left {
     float: left;
@@ -1876,18 +1853,8 @@ img.menu-img {
     opacity:0.8;
     filter:alph a(opacity=60); 
 }
-.ui-mobile #version {
-  text-indent: -99999px; 
-  background: url(../etc/image/jqm-version.png) top right no-repeat;
-  width: 119px; 
-  height: 122px; 
-  overflow: hidden; 
-  position: absolute; 
-  top: 0; 
-  right: 0; 
-}
 h2 {
-  margin-top:1.5em; 
+  margin-top:1.5em;
 }
 p code { 
   font-size:1.2em;
