@@ -88,6 +88,8 @@ function init() {
 
                 logger.info("[mobileinit] Event handled");
 
+                $.event.special.swipe.horizontalDistanceThreshold = 130;
+
                 $.mobile.defaultPageTransition = 'none';
 
                 $.mobile.jqmRouter = $.mobile.jqmRouter || {};
