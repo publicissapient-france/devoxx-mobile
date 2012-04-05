@@ -49,11 +49,12 @@
 			// want to handle URLs that request the data for a specific
 			// category.
 			var u = $.mobile.path.parseUrl( data.toPage );
+            var oldUrl = previousUrl;
 			previousUrl=nextUrl;
 			nextUrl=u;
 
 			if ( u.hash.indexOf("?") !== -1 ) {
-				var page=u.hash.replace( /\?.*$/, "" );
+				var page = u.hash.replace( /\?.*$/, "" );
 				// We don't want the data-url of the page we just modified
 				// to be the url that shows up in the browser's location field,
 				// so set the dataUrl option to the URL with hash parameters
@@ -63,9 +64,10 @@
 				// from the current page
 				if (	$.mobile.activePage &&
 					page.replace(/^#/,"")==$.mobile.activePage.jqmData("url")
+                    && (!previousUrl || !oldUrl || previousUrl.hash != oldUrl.hash)
 				){
-//					data.options.allowSamePageTransition=true;
-//					$.mobile.changePage( $(page), data.options );
+					data.options.allowSamePageTransition=true;
+					$.mobile.changePage( $(page), data.options );
 				} else {
 					$.mobile.changePage( $(page), data.options );
 				}
