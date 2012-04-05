@@ -3,7 +3,7 @@ var DEBUG = DEFAULT_DEBUG_MODE || getLocationParameterByName('debug') === 'true'
 var SAFE = true;
 var OFFLINE = false;
 var PROXY = true;
-var DB_NUKE = true;
+var DB_NUKE = false;
 
 var WAIT_TIME = DEBUG ? 0 : 0;
 var DEBUG_JSON_CALLBACK = "onJsonLoad";
@@ -94,6 +94,11 @@ function init() {
                 $.mobile.page.prototype.options.backBtnText = "&nbsp;";
                 $.mobile.jqmRouter.fixFirstPageDataUrl = true;
                 $.mobile.jqmRouter.firstPageDataUrl = "index.html";
+
+                // Support cross domain request in PhoneGap
+                $.support.cors = true;
+                $.mobile.allowCrossDomainPages = true;
+
 
                 core.setupRouter();
 
