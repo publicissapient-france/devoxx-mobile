@@ -18,9 +18,9 @@
             if (webappCache) {
                 webappCache.addEventListener('updateready', function() {
                     try { webappCache.swapCache(); } catch(e) { console.info("swapCache exception: " + e); }
-                    if (confirm('An update is available. Reload now?')) {
+//                    if (confirm('An update is available. Reload now?')) {
                         window.location.reload();
-                    }
+//                    }
                 }, false);
                 try { webappCache.update(); } catch(e){ console.info("Update cache exception: " + e); }
             }
@@ -28,9 +28,12 @@
 
         <link rel="stylesheet" href="css/mobile.css" />
 
+        <link rel="apple-touch-icon-precomposed" href="image/icons/icon-iphone-57.png">
         <link rel="apple-touch-icon-precomposed" sizes="57x57" href="image/icons/icon-iphone-57.png" />
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="image/icons/icon-iphone-114.png">
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="image/icons/icon-iphone-72.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="image/icons/icon-iphone-retina-114.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="image/icons/icon-ipad-72.png" />
+
+        <link rel="apple-touch-startup-image" href="image/splashes/iphone-portrait.png" />
 
         <style type="text/css">
 @font-face {
@@ -137,7 +140,7 @@ div.spinner-container {
 
                         <ul id="home-content-xebia-list" data-role="listview" data-inset="true" data-theme="c">
                             <li>
-                                <a href="#twitter" alt="Nous suivre sur Twitter" style="padding: 5px; margin:0px;">
+                                <a href="#twitter" alt="Nous suivre sur Twitter" style="padding: 5px; margin:0;">
                                      <h3 align="center"><img src="image/twitter-black-transparent.png" height="24" class="home-footer-img" /></h3>
                                  </a>
                             </li>
@@ -147,9 +150,16 @@ div.spinner-container {
                                 </a>
                             </li>
                             <li>
-                                 <a href="#register" alt
-                                         ="Register">
+                                 <a href="#register" alt="Register">
                                      <h3 align="center">S'enregistrer pour le concours !</h3>
+                                 </a>
+                            </li>
+                        </ul>
+
+                        <ul id="home-content-synchronize-list" data-role="listview" data-inset="true" data-theme="a">
+                            <li>
+                                <a href="#synchronize" alt="Synchroniser les données" style="padding: 5px; margin:0px;">
+                                     <h3 align="center">Synchroniser</h3>
                                  </a>
                             </li>
                         </ul>
@@ -360,7 +370,7 @@ div.spinner-container {
                 <div id="register-message" data-role="message"></div>
                 <div id="register-content" data-role="content">
                     <div id="contest-description" class="contest-description">
-                        <p><em><strong>Xebia vous offre un MacBook Air !</strong></em></p>
+                        <p><em><strong>Xebia vous proposer de gagner un MacBook Air !</strong></em></p>
                         <p>Inscrivez-vous dès aujourd’hui à notre grand tirage au sort qui aura lieu le jeudi 19 avril, sur le stand de Xebia et remportez le plus convoité des ordinateurs !</p>
                         <p>Les inscriptions pourront s’effectuer directement sur notre stand, jusqu’au 19 avril à 12h00.</p>
                         <p><strong>Vous en rêviez ? Rien de plus simple, inscrivez vous en remplissant le formulaire d’inscription.</strong></p>
@@ -400,6 +410,46 @@ div.spinner-container {
                          </form>
                     </div>
 
+                </div>
+            </div>
+            
+            <!-- Synchronize page -->
+            <div align="center" id="synchronize" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+                <div data-role="header" data-theme="a">
+                    <h1>Synchronisation</h1>
+                </div>
+                <div id="synchronize-message" data-role="message"></div>
+                <div id="synchronize-content" data-role="content">
+                    <div id="synchronize-home">
+                        <div id="synchronize-home-description" class="synchronize-description">
+                            <p><em>
+                                La synchronisation des données vous permet de consulter offline l'application.
+                                <br />
+                                Pour mettre les données à jour, lancez une nouvelle synchronisation.
+                            </em></p>
+                            <img src="image/devoxx-head.png" width="110px"/>
+                        </div>
+                        <div align="left">
+                            <form id="synchronize-home-form">
+                                <div data-role="fieldcontain">
+                                    <button id="synchronize-home-submit" type="submit" data-theme="a">Synchroniser</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div id="synchronize-running" style="display: none;">
+                        <div id="synchronize-running-description" class="synchronize-description">
+                            <p><em><strong>Synchronisation en cours ...</strong></em></p>
+                            <img src="image/devoxx-head.png"/>
+                        </div>
+                        <div align="left">
+                            <form id="synchronize-running-form">
+                                <div data-role="fieldcontain">
+                                    <button id="synchronize-running-submit" type="submit" data-theme="a">Annuler</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -554,7 +604,7 @@ div.spinner-container {
                 <a href="#presentation?id=<%= presentation.get('id') %>" style="margin: 0; padding: 0 5px 0 0;">
                     <div style="padding: 5px 10px 10px 10px;">
                         <h3 style="display: inline-block; width: 95%;"><%= presentation.get('title') %></h3>
-                        <p><em><%= presentation.get('speaker') %></em></p>
+                        <p><em><%= presentation.get('speaker') %> - <%= presentation.get('language') %></em></p>
                         <p><em><%= presentation.get('track') %> - <%= presentation.get('type') %> - <%= presentation.get('room') %></em></p>
                     </div>
                     <p class="ui-li-aside" style="width: 87px; height: 18px; padding: 54px 0 0 0;">
@@ -633,6 +683,7 @@ div.spinner-container {
                 -->
                 <% if (entry.get('id')) { %>
                 <div align="right">
+                    <span class="awesome lang_<%= entry.get('language') %>"> <%= entry.get('language') %></span>
                     <span class="awesome <%= String(entry.get('room')).toUpperCase().replace(/ /g, '_').replace(/[^\w\s]/gi, '') %>"><%= entry.get('room') %></span>
                     <span class="awesome <%= entry.get('experience') %>"> <%= entry.get('experience') %></span>
                     <span class="awesome <%= String(entry.get('type')).toUpperCase() %>"><%= entry.get('type') %></span>
