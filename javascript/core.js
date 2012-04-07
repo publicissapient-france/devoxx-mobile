@@ -221,7 +221,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
                     db.save(options.cacheKey, data);
                 }
                 if (options.parse) {
-                    options.parse(data);
+                    data = options.parse(data);
                 }
 
                 return data;
@@ -278,7 +278,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
                     db.save(options.cacheKey, data);
                 }
                 if (options.parse) {
-                    options.parse(data);
+                    data = options.parse(data);
                 }
 
                 return data;
