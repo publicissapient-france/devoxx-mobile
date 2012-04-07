@@ -97,6 +97,8 @@ function init() {
                 $.mobile.jqmRouter.fixFirstPageDataUrl = true;
                 $.mobile.jqmRouter.firstPageDataUrl = "index.html";
 
+				$.mobile.touchOverflowEnabled = true;
+
                 // Support cross domain request in PhoneGap
                 $.support.cors = true;
                 $.mobile.allowCrossDomainPages = true;

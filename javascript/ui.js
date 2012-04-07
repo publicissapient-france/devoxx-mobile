@@ -45,8 +45,11 @@ define(['log'], function( log ) {
     //
     // title: String
     //            The title to update the view with
-    ui.switchTitle = function( title ) {
-        $( '.ui-title' ).text( title || "" );
+    ui.switchTitle = function( page, title ) {
+        var header = $('#' + page).children(":jqmData(role='header')");
+        if (header) {
+            header.children( 'h1' ).text( title || "" );
+        }
     };
 
     logger.info("Loaded ui");

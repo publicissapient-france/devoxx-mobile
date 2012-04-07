@@ -12,7 +12,7 @@ define( ['log', 'db', 'ui'], function( log, db, ui ) {
 
     logger.info("Loaded synchronize");
 
-    var askCancel = false;
+    var shouldCancel = false;
 
     synchronize.addUrl = function(cacheKey, url) {
         synchronize.urls.push( {
@@ -21,13 +21,18 @@ define( ['log', 'db', 'ui'], function( log, db, ui ) {
         } );
     };
 
-    synchronize.beforePageShow = function() {
+    synchronize.beforePageShow = function(synchronizeCallback) {
         ui.resetFlashMessages("#synchronize");
-        synchronize.registerBindings();
+        synchronize.registerBindings(synchronizeCallback);
     };
 
-    synchronize.registerBindings = function() {
-        $("#synchronize-home-submit").bind('click', synchronize.onSubmit);
+    synchronize.registerBindings = function(synchronizeCallback) {
+        $("#synchronize-home-submit").bind('click', function(e) {
+            if (synchronizeCallback) {
+                synchronizeCallback();
+            }
+            synchronize.onSubmit(e);
+        });
         $("#synchronize-running-submit").bind('click', synchronize.onCancel);
     };
 
@@ -54,11 +59,11 @@ define( ['log', 'db', 'ui'], function( log, db, ui ) {
     };
 
     synchronize.askCancel = function(e) {
-        askCancel = true;
+        shouldCancel = true;
     };
 
     synchronize.startSynchronization = function() {
-        synchronize.askCancel = false;
+        synchronize.shouldCancel = false;
         $("#synchronize-home").hide();
         $("#synchronize-running").show();
         var urls = $.extend([], synchronize.urls);
@@ -66,7 +71,7 @@ define( ['log', 'db', 'ui'], function( log, db, ui ) {
     };
 
     synchronize.synchronize = function(urls) {
-        if (_(urls).isEmpty() || askCancel) {
+        if (_(urls).isEmpty() || shouldCancel) {
             synchronize.onSuccess({});
             return ;
         }
@@ -102,12 +107,13 @@ define( ['log', 'db', 'ui'], function( log, db, ui ) {
     };
 
     synchronize.onError = function(options) {
+        logger.info("Synchronization ended with error");
         synchronize.finalizeSynchronization(options);
         ui.showFlashMessage( { page: '#synchronize', type: 'error', message: 'Erreur lors de la synchronisation !' } );
-        logger.info("Synchronization ended with error");
     };
 
     synchronize.finalizeSynchronization = function(options) {
+        logger.info("Finalizing synchronization ...");
         $("#synchronize-running").hide();
         $("#synchronize-home").show();
         $.mobile.silentScroll(0);

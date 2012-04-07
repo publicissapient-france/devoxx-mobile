@@ -4,7 +4,6 @@ define(['log', 'ui'], function( log, ui ) {
 
     logger.info("Loading collection.js");
 
-
     logger.info("Defining collection object");
     var collection = {
         views: {}
@@ -18,16 +17,10 @@ define(['log', 'ui'], function( log, ui ) {
         model: collection.EntryModel,
         initialize: function(models, options) {
             logger.info("Initializing Entry Collection");
+            this.dataType = options.dataType;
             this.url = options.url;
             this.parse = function(data) {
-                if (options.beforeParse) {
-                    options.beforeParse(data);
-                }
-                var parsedData = options.parse ? options.parse(data) : data;
-                if (options.afterParse) {
-                    options.afterParse(parsedData);
-                }
-                return parsedData;
+                return options.parse ? options.parse(data) : data;
             };
         }
     });
@@ -38,10 +31,9 @@ define(['log', 'ui'], function( log, ui ) {
             logger.info("Initializing Entry List View");
             this.el = $(this.options.el);
             this.collection = new collection.EntryCollection([], {
+                dataType: this.options.dataType,
                 url: this.options.fetchUrl,
-                parse: this.options.parse,
-                beforeParse: this.options.beforeParse,
-                afterParse: this.options.afterParse
+                parse: this.options.parse
             });
             this.collection.bind('reset', this.render, this);
         },

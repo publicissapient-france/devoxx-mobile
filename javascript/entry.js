@@ -9,21 +9,14 @@ define(['log', 'ui'], function( log, ui ) {
         views: {}
     };
 
-
     logger.info("Defining Model");
     entry.EntryModel = Backbone.Model.extend({
         initialize: function(options) {
             logger.info("Initializing Entry");
+            this.dataType = options.dataType;
             this.url = options.url;
             this.parse = function(data) {
-                if (options.beforeParse) {
-                    options.beforeParse(data);
-                }
-                var parsedData = options.parse ? options.parse(data) : data;
-                if (options.afterParse) {
-                    options.afterParse(parsedData);
-                }
-                return parsedData;
+                return options.parse ? options.parse(data) : data;
             };
         }
     });
@@ -32,12 +25,11 @@ define(['log', 'ui'], function( log, ui ) {
     entry.EntryView = Backbone.View.extend({
         initialize: function() {
             logger.info("Initializing Entry View");
+            this.dataType = this.options.dataType;
             this.el = $(this.options.el);
             this.entry = new entry.EntryModel({
                 url: this.options.fetchUrl,
-                parse: this.options.parse,
-                beforeParse: this.options.beforeParse,
-                afterParse: this.options.afterParse
+                parse: this.options.parse
             });
             this.entry.bind('change', this.render, this);
         },
