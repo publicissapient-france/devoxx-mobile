@@ -17,7 +17,7 @@
     //The directory path to save the output. If not specified, then
     //the path will default to be a directory called "build" as a sibling
     //to the build file. All relative paths are relative to the build file.
-    dir: "./target/website",
+    dir: "./target/webstore",
 
     //Set paths for modules. If relative paths, set relative to baseUrl above.
     //If a special value of "empty:" is used for the path value, then that
@@ -89,7 +89,7 @@
     //called dirExclusionRegExp before the 1.0.2 release.
     //As of 1.0.3, this value can also be a string that is converted to a
     //RegExp via new RegExp().
-    fileExclusionRegExp: /^(.*require-1\.0\.5\.js|app\.manifest|app\.build-webstore\.js|build-webstore\.sh|build-webstore\.sh|target|etc|webstore|splashes|config\.xml|build\.txt|\.idea|.*\.sh|.*\.min\.css|.*\.min\.js|r\.js|app\.build\.js|.*phonegap.*\.js|.*json.*\.js|.*date.*\.js|.*lawnchair.*\.js|\.idea|\.git|\.gitignore|data|README)$/,
+    fileExclusionRegExp: /^(.*require-1\.0\.5\.js|app\.build\.js|build\.sh|target|etc|webstore|splashes|config\.xml|build\.txt|\.idea|.*\.sh|.*\.min\.css|.*\.min\.js|r\.js|app\.build\.js|.*phonegap.*\.js|.*json.*\.js|.*date.*\.js|.*lawnchair.*\.js|\.idea|\.git|\.gitignore|data|README)$/,
 
     modules: [
         { name: "app" }
