@@ -4,9 +4,9 @@ Devoxx Mobile
 The Devoxx Mobile project is a web mobile frontend based on the Devoxx REST API (http://www.devoxx.com/display/Devoxx2K10/Schedule+REST+interface). The project was originally developed for the Devoxx France 2012 conference.
 
 The application is available on the web at the following address: http://devoxx.helyx.org
-It is also available for Android on the Play Store: https://play.google.com/store/apps/details?id=fr.xebia.devoxx
+It is also available for Android on the Play Store: https://play.google.com/store/apps/details?id=fr.xebia.devoxx, and Google Chrome store: https://chrome.google.com/webstore/detail/ajpicohfonkgbbbhefmgkmknboodlobb
 
-You can find screenshots of the application on the Play Store.
+You can find screenshots of the application on the Play Store and Google Chrome Store.
 
 This application is an attempt to build a mobile application with some great HTML5 features and amazing Javascript libraries. The PhoneGap project is used to provide the Android and iOS version. You can use PhoneGap Build service to get the application running on multiple platforms.
 
@@ -22,6 +22,7 @@ The application provide the following features:
  - Integrates third parties like Twitter timeline and Google analytics
  - Provides a build script to optimize javascript files thanks to R.js from Require.js project
  - Provides a deploy script to be able to deploy and host the application thanks to GitHub pages
+ - Provide an integration with Google Chrome Store
 
 
 Dependencies
