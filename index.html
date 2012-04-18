@@ -636,8 +636,11 @@ div.spinner-container {
             <li data-role="list-divider">
                 <h3><%= day.get('formatted_date') %></h3>
             </li>
-                <% _.each(day.get('sessions'), function(session) { %>
-                <li class="xebia-program-<%= session.type.toUpperCase().replace(/ /g, '_').replace(/[^\w\s]/gi, '') %>">
+                <%
+                    _.each(day.get('sessions'), function(session) {
+                        var sessionType = session && session.type ? session.type : '';
+                %>
+                <li class="xebia-program-<%= sessionType.toUpperCase().replace(/ /g, '_').replace(/[^\w\s]/gi, '') %>">
                     <a href="#xebia-program-details?id=<%=session.id %>">
                         <h3><%= session.title %></h3>
                         <p><em><%= session.excerpt %></em></p>
