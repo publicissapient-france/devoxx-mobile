@@ -1742,6 +1742,9 @@ ul li.type-TOOLS { border-left: 5px #2488cc solid; }
 ul li.type-BOF { border-left: 5px #7c67bf solid; }
 ul li.type-CONFERENCE { border-left: 5px #ff9a00 solid; }
 ul li.type-QUICKIE { border-left: 5px #467d6a solid; }
+ul li.xebia-program-TECH_EVENT { border-left: 5px #719409 solid; }
+ul li.xebia-program-FIGHT_CLUB { border-left: 5px #ff5c00 solid; }
+ul li.xebia-program-SURPRISE { border-left: 5px #2488cc solid; }
 .page-navbar {
     background: #ffffff;
     padding: 10px;
