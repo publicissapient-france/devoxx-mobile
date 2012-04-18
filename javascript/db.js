@@ -15,18 +15,30 @@ define(['log', 'ui'], function( log, ui ) {
     var lawnchair = new Lawnchair({name: DB_NAME}, function(database) {
         logger.info("Storage open for db: '" + database.name + "' with '" + database.adapter + "' adapter.");
 
-        if (DB_NUKE) {
-            var self = this;
-            self.keys({}, function(keys) {
-                _(keys).each(function(key) {
-                    if (key.indexOf("/events/") >= 0 || key.indexOf("/xebia/") >= 0) {
-                        self.remove(key, function() {
-                            logger.info("Destroyed following key in db: '" + key + "'");
-                        });
-                    }
-                });
+        var self = this;
+        self.keys({}, function(keys) {
+            _(keys).each(function(key) {
+                if (key.indexOf("/xebian/") >= 0 || key.indexOf("/xebia/") >= 0) {
+                    self.remove(key, function() {
+                        logger.info("Destroyed following key in db: '" + key + "'");
+                    });
+                }
             });
-        }
+        });
+
+//        if (DB_NUKE) {
+//            var self = this;
+//            self.keys({}, function(keys) {
+//                _(keys).each(function(key) {
+//                    if (key.indexOf("/events/") >= 0 || key.indexOf("/xebia/") >= 0) {
+//                        self.remove(key, function() {
+//                            logger.info("Destroyed following key in db: '" + key + "'");
+//                        });
+//                    }
+//                });
+//            });
+//        }
+
     });
 
     logger.info("Created Lawnchair object");
@@ -44,6 +56,13 @@ define(['log', 'ui'], function( log, ui ) {
 
     db.getName = function() {
         return DB_NAME;
+    };
+
+    db.remove = function(key, callback) {
+        db.cache[key] = undefined;
+        lawnchair.remove(key, function() {
+            callback();
+        });
     };
 
     db.save = function(key, value) {

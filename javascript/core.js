@@ -153,7 +153,9 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
             "#register":{ handler:"onBeforeRegisterPageShow", events:"bs" },
             "#synchronize":{ handler:"onBeforeSynchronizePageShow", events:"bs" },
             "#twitter(?:[?](.*))?":{ handler:"onBeforeTwitterPageShow", events:"bs" },
-            "#xebia-program": { handler : "onBeforeXebiaProgramPageShow", events: "bs" }
+            "#xebia-program-infos": { handler : "onBeforeXebiaProgramInfosPageShow", events: "bs" },
+            "#xebia-program-details(?:[?](.*))": { handler : "onBeforeXebiaProgramDetailsPageShow", events: "bs" },
+            "#xebian(?:[?](.*))": { handler : "onBeforeXebianPageShow", events: "bs" }
         },
         {
             onBeforeSchedulePageShow: function(type, match, ui, page, e) {
@@ -201,8 +203,14 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
             onBeforeTwitterPageShow: function(type, match, ui, page, e) {
                 refreshPage(type, match, ui, page, e, core.refreshTwitter);
             },
-            onBeforeXebiaProgramPageShow: function(type, match, ui, page, e) {
-                refreshPage(type, match, ui, page, e, core.refreshXebiaProgram);
+            onBeforeXebiaProgramInfosPageShow: function(type, match, ui, page, e) {
+                refreshPageOnChange(type, match, ui, page, e, core.refreshXebiaProgramInfos);
+            },
+            onBeforeXebiaProgramDetailsPageShow: function(type, match, ui, page, e) {
+                refreshPageOnIdChange(type, match, ui, page, e, core.refreshXebiaProgramDetails);
+            },
+            onBeforeXebianPageShow: function(type, match, ui, page, e) {
+                refreshPageOnIdChange(type, match, ui, page, e, core.refreshXebian);
             }
         });
 
@@ -565,6 +573,89 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
         });
     };
 
+    core.refreshTwitter = function(params) {
+        var screenName = !!params ? params.screenname : undefined;
+        if (!_(AUTHORIZED_TWITTER_USER).contains(screenName)) {
+                screenName = DEFAULT_TWITTER_USER;
+        }
+
+        $(screenName === TWITTER_USER_XEBIA ? '#twitter-devoxxfr' : '#twitter-xebiafr').removeClass("ui-btn-active");
+        $(screenName === TWITTER_USER_XEBIA ? '#twitter-xebiafr' : '#twitter-devoxxfr').addClass("ui-btn-active");
+
+        console.log("Requested screen name : " + screenName);
+        ui.resetFlashMessages("#twitter");
+        logger.info("Processing tweets");
+        $( '.ui-title' ).html( '<img src="image/twitter-white-transparent.png" class="twitter-header-img" style="height:18px;" />' || "" );
+
+        core.refreshDataList({
+            page: "#twitter", title: "Twitter", el: "#twitter-timeline", view: "twitter", template: $("#twitter-timeline-tpl").html(),
+            url: utils.getTwitterFullUrl('/twitter/' + screenName + '?callback=?'),
+            parse: function(tweets) {
+                _(tweets).each(function(tweet) {
+                    tweet.formattedDate = core.getTweetFormattedDate(tweet);
+                    tweet.user.icon = core.getTwitterUserImage(tweet.user);
+                    tweet.htmlText = core.twitter_linkify(tweet.text);
+                });
+                return tweets;
+            }
+        });
+    };
+
+    core.refreshXebiaProgramInfos = function() {
+        ui.resetFlashMessages("#xebia-program-infos");
+        logger.info("Refreshing Xebia Program-infos");
+        core.refreshDataList({
+            page: "#xebia-program-infos", title: "Programme Xebia", el: "#xebia-program-infos-list", view: "xebia-program-infos", template: $("#xebia-program-infos-list-tpl").html(),
+            url: "http://devoxx-xebia.cloudfoundry.com/xebia/program?callback=?",
+            cacheKey: "/xebia/program",
+            parse: function(xebiaProgram) {
+                return xebiaProgram;
+            }
+        });
+    };
+
+    core.refreshXebiaProgramDetails = function(id) {
+        ui.resetFlashMessages("#xebia-program-details");
+        logger.info("Processing Xebia Program Details: " + id);
+        ui.switchTitle('xebia-program-details', "Xebia Workshop");
+
+        core.refreshDataEntry({
+            page: "#xebia-program-details", title: "Xebia Workshop", el: "#xebia-program-details-content", view: "xebia-program-details", template: $("#xebia-program-details-tpl").html(),
+            url: "http://devoxx-xebia.cloudfoundry.com/xebia/program?callback=?",
+            cacheKey: "/xebia/program",
+            parse: function(xebiaProgram) {
+                return core.filterXebiaProgramSessionById(xebiaProgram, id);
+            },
+            postRender: function(session) {
+                $('#xebia-program-details-xebian-list').listview();
+                ui.switchTitle('xebia-program-details', session.get('title'));
+            }
+        });
+    };
+
+    core.refreshXebian = function(id) {
+        ui.resetFlashMessages("#xebian");
+        logger.info("Processing Xebia : " + id);
+        ui.switchTitle('xebian', "Xebian");
+
+        core.refreshDataEntry({
+            page: "#xebian", title: "Xebian", el: "#xebian-content", view: "xebian", template: $("#xebian-tpl").html(),
+            url: "http://devoxx-xebia.cloudfoundry.com/xebian/" + id + "?callback=?",
+            cacheKey: "/xebian/" + id,
+            parse: function(xebian) {
+                return xebian;
+            },
+            postRender: function(xebian) {
+                var details = $('#xebian-details-list');
+                if (details) {
+                    details.listview();
+                }
+                $('#xebian-summary-list').listview();
+                ui.switchTitle('xebian', xebian.get('firstname') + " " + xebian.get('lastname'));
+            }
+        });
+    };
+
     core.renderEntryView = function(type, match, ui, page, e) {
         entry.views[page.id].render();
     };
@@ -688,6 +779,15 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
          });
     };
 
+
+    core.filterXebiaProgramSessionById = function(xebiaProgram, id) {
+        var day = _(xebiaProgram).find(function(day) {
+           return _(day.sessions).find(function(session) { return session.id == id; });
+        });
+        return _(day.sessions).find(function(session) { return session.id == id; });
+    };
+
+
     core.filterPresentationsByTrackId = function(presentations, id) {
         return _(presentations).filter(function (presentation) {
             return presentation.trackId == id;
@@ -718,53 +818,12 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
         synchronize.beforePageShow(core.clearPageContexts);
     };
 
-    core.refreshTwitter = function(params) {
-        var screenName = !!params ? params.screenname : undefined;
-        if (!_(AUTHORIZED_TWITTER_USER).contains(screenName)) {
-                screenName = DEFAULT_TWITTER_USER;
-        }
-
-        $(screenName === TWITTER_USER_XEBIA ? '#twitter-devoxxfr' : '#twitter-xebiafr').removeClass("ui-btn-active");
-        $(screenName === TWITTER_USER_XEBIA ? '#twitter-xebiafr' : '#twitter-devoxxfr').addClass("ui-btn-active");
-
-        console.log("Requested screen name : " + screenName);
-        ui.resetFlashMessages("#twitter");
-        logger.info("Processing tweets");
-        $( '.ui-title' ).html( '<img src="image/twitter-white-transparent.png" class="twitter-header-img" style="height:18px;" />' || "" );
-
-        core.refreshDataList({
-            page: "#twitter", title: "Twitter", el: "#twitter-timeline", view: "twitter", template: $("#twitter-timeline-tpl").html(),
-            url: utils.getTwitterFullUrl('/twitter/' + screenName + '?callback=?'),
-            parse: function(tweets) {
-                _(tweets).each(function(tweet) {
-                    tweet.formattedDate = core.getTweetFormattedDate(tweet);
-                    tweet.user.icon = core.getTwitterUserImage(tweet.user);
-                    tweet.htmlText = core.twitter_linkify(tweet.text);
-                });
-                return tweets;
-            }
-        });
-    };
-
     core.getTweetFormattedDate = function(tweet) {
         return Date.parse(tweet.created_at) ? Date.parse(tweet.created_at).toString("HH:mm") : "--:--";
     };
 
     core.getTwitterUserImage = function(user) {
         return user.profile_image_url.replace(/_normal(\.[^\.]+)$/, "$1");
-    };
-
-    core.refreshXebiaProgram = function(filter) {
-        ui.resetFlashMessages("#xebia-program");
-        logger.info("Refreshing Xebia Program");
-        core.refreshDataList({
-            page: "#xebia-program", title: "Programme Xebia", el: "#xebia-program-list", view: "xebia-program", template: $("#xebia-program-list-tpl").html(),
-            url: "http://devoxx-xebia.cloudfoundry.com/xebia/program?callback=?",
-            cacheKey: '/xebia/program',
-            parse: function(data) {
-                return data;
-            }
-        });
     };
 
     core.twitter_linkify = function(text) {

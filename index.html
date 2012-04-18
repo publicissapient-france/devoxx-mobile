@@ -145,7 +145,7 @@ div.spinner-container {
                                  </a>
                             </li>
                             <li>
-                                <a href="#xebia-program">
+                                <a href="#xebia-program-infos">
                                     <h3 align="center">Programme Xebia</h3>
                                 </a>
                             </li>
@@ -233,14 +233,23 @@ div.spinner-container {
             </div>
 
             <!-- Xebia-Program page -->
-            <div align="center" id="xebia-program" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
-                <div id="xebia-program-header" data-role="header" data-theme="a">
+            <div align="center" id="xebia-program-infos" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+                <div id="xebia-program-infos-header" data-role="header" data-theme="a">
                     <h1>Xebia In Devoxx</h1>
                 </div>
-                <div id="xebia-program-message" data-role="message"></div>                                
-                <div id="xebia-program-content" data-role="content">
-                    <ul id="xebia-program-list" data-role="listview" data-theme="c" data-divider-theme="a"></ul>
+                <div id="xebia-program-infos-message" data-role="message"></div>
+                <div id="xebia-program-infos-content" data-role="content">
+                    <ul id="xebia-program-infos-list" data-role="listview" data-theme="c" data-divider-theme="a"></ul>
                 </div>
+            </div>
+
+            <!-- Xebia-Program Details page -->
+            <div align="center" id="xebia-program-details" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+                <div id="xebia-program-details-header" data-role="header" data-theme="a">
+                    <h1>Xebia Workshop</h1>
+                </div>
+                <div id="xebia-program-details-message" data-role="message"></div>
+                <div id="xebia-program-details-content" data-role="content"></div>
             </div>
 
             <!-- Day page -->
@@ -299,8 +308,17 @@ div.spinner-container {
                 <div id="speaker-header" data-role="header" data-theme="a">
                     <h1 style="text-align: center; margin-left: 60px; margin-right: 5px;">Speaker</h1>
                 </div>
-                <div id="speaker-message" data-role="message"></div>                
+                <div id="speaker-message" data-role="message"></div>
                 <div id="speaker-content" data-role="content" data-divider-theme="a"></div>
+            </div>
+
+            <!-- Xebian page -->
+            <div align="center" id="xebian" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+                <div id="xebian-header" data-role="header" data-theme="a">
+                    <h1 style="text-align: center; margin-left: 60px; margin-right: 5px;">Xebian</h1>
+                </div>
+                <div id="xebian-message" data-role="message"></div>
+                <div id="xebian-content" data-role="content" data-divider-theme="a"></div>
             </div>
 
             <!-- Rooms page -->
@@ -613,19 +631,55 @@ div.spinner-container {
             <% }); %>
         </script>
 
-        <script type="text/html" id="xebia-program-list-tpl">
+        <script type="text/html" id="xebia-program-infos-list-tpl">
             <% _.each(entries, function(day) { %>
             <li data-role="list-divider">
                 <h3><%= day.get('formatted_date') %></h3>
             </li>
                 <% _.each(day.get('sessions'), function(session) { %>
-                <li>
-                    <h3><%= session.title %></h3>
-                    <p><em><%= session.excerpt %></em></p>
-                    <p class="ui-li-aside awesome aside-time-start-end silver"><%= session.start_time + ' / ' + session.end_time %></p>
+                <li class="xebia-program-<%= session.type.toUpperCase().replace(/ /g, '_').replace(/[^\w\s]/gi, '') %>">
+                    <a href="#xebia-program-details?id=<%=session.id %>">
+                        <h3><%= session.title %></h3>
+                        <p><em><%= session.excerpt %></em></p>
+                        <p class="ui-li-aside awesome aside-time-start-end silver"><%= session.start_time + ' / ' + session.end_time %></p>
+                    </a>
                 </li>
                 <% }); %>
             <% }); %>
+        </script>
+
+        <script type="text/html" id="xebia-program-details-tpl">
+            <div align="left">
+                <% if (entry.get('id')) { %>
+                <div align="right">
+                    <span class="awesome <%= String(entry.get('type')).toUpperCase() %>"><%= entry.get('type') %></span>
+                </div>
+                <% } %>
+
+                <h3>Résumé:</h3>
+                <div id="workshop-excerpt">
+                    <%= entry.get('excerpt') %>
+                </div>
+
+                <%
+                var authors = entry.get('authors');
+                console.log("authors: " + authors);
+                if (authors && authors.length) { %>
+                <h3>Xebians:</h3>
+                <ul id="xebia-program-details-xebian-list" data-role="listview" data-inset="true" data-theme="c">
+                    <% _.each(entry.get('authors'), function(author) { %>
+                    <li>
+                        <a href="#xebian?id=<%= author.id %>">
+                            <img src="<%= author.imageURI %>" />
+                            <h3><%= author.firstname %> <%= author.lastname %></h3>
+                        </a>
+                    </li>
+                    <% });
+                    %>
+                </ul>
+                <% } %>
+
+            </div>
         </script>
 
         <script type="text/html" id="speaker-list-tpl">
@@ -670,15 +724,53 @@ div.spinner-container {
             </div>
         </script>
 
+        <script type="text/html" id="xebian-tpl">
+            <div align="left">
+                <ul id="xebian-summary-list" data-role="listview" data-inset="true" data-theme="c">
+                    <li>
+                        <img src="<%= entry.get('imageURI') %>" />
+                        <h3>Société: </h3>
+                        <p><em>Xebia France</em></p>
+                    </li>
+                </ul>
+                <h3>Biographie:</h3>
+                <div id="xebian-summary">
+                    <%= entry.get('bio') %>
+                </div>
+                <h3>Détails:</h3>
+                <%
+                var links = entry.get('links');
+                if (links) { %>
+                    <ul id="xebian-details-list" data-role="listview" data-inset="true" data-theme="c">
+                        <% if (links['blog-xebia']) { %>
+                            <li>
+                                <a href="http://blog.xebia.fr/author/<%= links['blog-xebia'].url %>/" rel="external" target="_blank">
+                                    <h3>Blog Xebia</h3>
+                                </a>
+                            </li>
+                        <% } %>
+                        <% if (links['twitter']) { %>
+                            <li>
+                                <a href="https://twitter.com/#!/<%= links['twitter'].url %>" rel="external" target="_blank">
+                                    <h3>Twitter</h3>
+                                </a>
+                            </li>
+                        <% } %>
+                        <% if (links['blog-perso']) { %>
+                            <li>
+                                <a href="<%= links['blog-perso'].url %>" rel="external" target="_blank">
+                                    <h3>Blog Xebia</h3>
+                                </a>
+                            </li>
+                        <% } %>
+                    </ul>
+                <% } %>
+
+            </div>
+        </script>
+
         <script type="text/html" id="presentation-tpl">
             <div align="left">
-                <!--
-                <% if (entry.get('favorite')) { %>
-                    <div class="favoriteImg filled" style="width: 50px; height: 50px;" />
-                <% } else { %>
-                    <div class="favoriteImg" style="width: 50px; height: 50px;" />
-                <% } %>
-                -->
                 <% if (entry.get('id')) { %>
                 <div align="right">
                     <span class="awesome lang_<%= entry.get('language') %>"> <%= entry.get('language') %></span>
