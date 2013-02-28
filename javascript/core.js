@@ -4,7 +4,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
 
     logger.info("Loading core.js");
 
-    var EVENT_ID = '6';
+    var EVENT_ID = '8';
 
     var TWITTER_USER_XEBIA = "xebiaFr";
     var TWITTER_USER_DEVOXXFR = "devoxxFR";
@@ -29,21 +29,21 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
 
     var EVENTS = {
         events: [ {
-            id: '6',
-            name: 'Devoxx France 2012',
+            id: '8',
+            name: 'Devoxx France 2013',
             days: [
                 {
                     id: '1',
-                    name: 'Mercredi 18 Avril',
-                    date: '2012-04-18'
+                    name: 'Mercredi 27 Mars',
+                    date: '2013-03-27'
                 }, {
                     id: '2',
-                    name: 'Jeudi 19 Avril',
-                    date: '2012-04-19'
+                    name: 'Jeudi 28 Mars',
+                    date: '2013-03-28'
                 }, {
                     id: '3',
-                    name: 'Vendredi 20 Avril',
-                    date: '2012-04-20'
+                    name: 'Vendredi 29 Mars',
+                    date: '2013-03-29'
                 }
             ]
         } ]
