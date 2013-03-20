@@ -49,7 +49,12 @@ div.ui-mobile-viewport { overflow-x: hidden; }
 .ui-header .ui-btn-icon-notext { top: -1px; }
 .ui-header .ui-title, .ui-footer .ui-title { min-height: 1.1em; text-align: center; font-size: 16px; display: block; margin: .6em 30% .8em;  padding: 0;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap; outline: 0 !important; }
 .ui-footer .ui-title { margin: .6em 15px .8em;  }
-.ui-content { border-width: 0; overflow: visible; overflow-x: hidden; padding: 15px; }
+.ui-content {
+    border-width: 0;
+    overflow: visible;
+    overflow-x: hidden;
+    /*padding: 15px;*/
+}
 .ui-icon { width: 18px; height: 18px; }
 .ui-mobile img {
 	max-width: 100%;
@@ -785,7 +790,11 @@ textarea.ui-mini { height: 45px; }
 	.ui-input-search input.ui-input-text { width: 98%;  }
 }
 .ui-listview { margin: 0; counter-reset: listnumbering; }
+
+/*
 .ui-content .ui-listview { margin: -15px; }
+*/
+
 .ui-content .ui-listview-inset { margin: 1em 0;  }
 .ui-listview, .ui-li { list-style:none; padding:0; }
 .ui-li, .ui-li.ui-field-contain { display: block; margin:0; position: relative; overflow: visible; text-align: left; border-width: 0; border-top-width: 1px; }
@@ -805,7 +814,16 @@ ol.ui-listview .ui-li-jsnumbering:before { content: "" !important; }
 .ui-li-has-arrow.ui-li-has-count .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li-has-arrow.ui-li-has-count { padding-right: 75px; }
 .ui-li-has-count .ui-btn-text { padding-right: 15px; }
 .ui-li-heading { font-size: 16px; font-weight: bold; display: block; margin: .6em 0; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;  }
-.ui-li-desc {  font-size: 12px; font-weight: normal; display: block; margin: -.5em 0 .6em; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+.ui-li-desc {
+    font-size: 12px;
+    font-weight: normal;
+    display: block;
+    margin: -.5em 0 .6em;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+
+}
 .ui-li-thumb, .ui-listview .ui-li-icon { position: absolute; left: 1px; top: 0; max-height: 80px; max-width: 80px; }
 .ui-listview .ui-li-icon { max-height: 40px; max-width: 40px; left: 10px; top: .9em; }
 .ui-li-thumb, .ui-listview .ui-li-icon, .ui-li-content { float: left; margin-right: 10px; }

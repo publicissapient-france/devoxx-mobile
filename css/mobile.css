@@ -1,6 +1,11 @@
 @import url("jquery.mobile.structure-1.1.0-rc.1.css");
 @import url("jquery.mobile-1.1.0-rc.1.css");
 
+    #home-content, #presentation-content, #speaker-content, #tracks-content, #presentation-content {
+    padding: 15px;
+}
+
+.ui-li-count { text-overflow: clip; }
 
 div.ui-bar-a a.ui-btn span.ui-btn-inner {
  padding-right: 3px;
@@ -90,6 +95,10 @@ ul li.room-DUKE_ELLIGTON { border-left: 5px #467d6a solid; }
 ul li.room-E_FITZGERALD__L_ARMSTRONG { border-left: 5px #292929 solid; }
 ul li.room-MILES_DAVIS { border-left: 5px #666666 solid }
 ul li.room-HALL_DEXPOSITION { border-left: 5px #372454 solid }
+ul li.room-LOUIS_ARMSTRONG_CD { border-left: 5px #bd58a9 solid }
+ul li.room-LOUIS_ARMSTRONG_AB { border-left: 5px #7cb2bd solid }
+ul li.room-ELLA_FITZGERALD_AB { border-left: 5px #767676 solid; }
+ul li.room-AUDITORIUM { border-left: 5px #ffa41e solid; }
 
 .HANDS-ON.awesome, .HANDS-ON.awesome:visited { background-color: #719409; }
 .JAVA.awesome, .JAVA.awesome:visited { background-color: #ff5c00; }
