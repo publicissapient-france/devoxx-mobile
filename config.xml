@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget id="fr.xebia.devoxx.2013" version="1.1.6" versionCode="13"
+<widget id="fr.xebia.devoxx.2014" version="1.1.6" versionCode="13"
         xmlns="http://www.w3.org/ns/widgets"
 	    xmlns:gap="http://phonegap.com/ns/1.0">
 
-	<name>Devoxx 2013</name>
+	<name>Devoxx 2014</name>
 
 	<description>
 		Devoxx mobile version provided by Xebia

@@ -1,10 +1,10 @@
-define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchronize'], function( log, utils, collection, entry, register, ui, db, synchronize ) {
+define(['log', 'utils', 'collection', 'entry', 'ui', 'db', 'synchronize'], function( log, utils, collection, entry, ui, db, synchronize ) {
     
     var logger = log.getLogger('core');
 
     logger.info("Loading core.js");
 
-    var EVENT_ID = '8';
+    var EVENT_ID = '11';
 
     var TWITTER_USER_XEBIA = "xebiaFr";
     var TWITTER_USER_DEVOXXFR = "devoxxFR";
@@ -29,21 +29,21 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
 
     var EVENTS = {
         events: [ {
-            id: '8',
-            name: 'Devoxx France 2013',
+            id: '11',
+            name: 'Devoxx France 2014',
             days: [
                 {
                     id: '1',
-                    name: 'Mercredi 27 Mars',
-                    date: '2013-03-27'
+                    name: 'Mercredi 16 Avril',
+                    date: '2014-04-16'
                 }, {
                     id: '2',
-                    name: 'Jeudi 28 Mars',
-                    date: '2013-03-28'
+                    name: 'Jeudi 17 Avril',
+                    date: '2014-04-17'
                 }, {
                     id: '3',
-                    name: 'Vendredi 29 Mars',
-                    date: '2013-03-29'
+                    name: 'Vendredi 18 Avril',
+                    date: '2014-04-18'
                 }
             ]
         } ]
@@ -98,12 +98,12 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
     };
 
     core.addUrlsForEvent = function(eventId) {
-        synchronize.addUrl( '/events/' + eventId + '/schedule', utils.getFullUrl('/events/' + eventId + '/schedule?callback=?') );
-        synchronize.addUrl('/events/' + eventId + '/presentations', utils.getFullUrl( '/events/' + eventId + '/presentations?callback=?') );
-        synchronize.addUrl('/events/' + eventId + '/schedule/rooms', utils.getFullUrl( '/events/' + eventId + '/schedule/rooms?callback=?') );
-        synchronize.addUrl('/events/' + eventId + '/tracks', utils.getFullUrl( '/events/' + eventId + '/tracks?callback=?') );
-        synchronize.addUrl('/events/' + eventId + '/speakers', utils.getFullUrl( '/events/' + eventId + '/speakers?callback=?') );
-        synchronize.addUrl('/events', utils.getFullUrl( '/events?callback=?') );
+        synchronize.addUrl(eventId + '/schedule', utils.getFullUrl('/' + eventId + '/schedule?callback=?') );
+        synchronize.addUrl(eventId + '/presentations', utils.getFullUrl( '/' + eventId + '/presentations?callback=?') );
+        synchronize.addUrl(eventId + '/rooms', utils.getFullUrl( '/' + eventId + '/rooms?callback=?') );
+        synchronize.addUrl(eventId + '/tracks', utils.getFullUrl( '/' + eventId + '/tracks?callback=?') );
+        synchronize.addUrl(eventId + '/speakers', utils.getFullUrl( '/' + eventId + '/speakers?callback=?') );
+        synchronize.addUrl(utils.getFullUrl( '/conferences?callback=?') );
     };
 
     function refreshPageOnIdChange(type, match, ui, page, e, refreshFunction, fallbackFunction) {
@@ -150,12 +150,8 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
             "#speaker(?:[?](.*))" : { handler : "onBeforeSpeakerPageShow", events: "bs" },
             "#tracks" : { handler : "onBeforeTracksPageShow", events: "bs" },
             "#track(?:[?](.*))" : { handler : "onBeforeTrackPageShow", events: "bs" },
-            "#register":{ handler:"onBeforeRegisterPageShow", events:"bs" },
             "#synchronize":{ handler:"onBeforeSynchronizePageShow", events:"bs" },
-            "#twitter(?:[?](.*))?":{ handler:"onBeforeTwitterPageShow", events:"bs" },
-            "#xebia-program-infos": { handler : "onBeforeXebiaProgramInfosPageShow", events: "bs" },
-            "#xebia-program-details(?:[?](.*))": { handler : "onBeforeXebiaProgramDetailsPageShow", events: "bs" },
-            "#xebian(?:[?](.*))": { handler : "onBeforeXebianPageShow", events: "bs" }
+            "#twitter(?:[?](.*))?":{ handler:"onBeforeTwitterPageShow", events:"bs" }
         },
         {
             onBeforeSchedulePageShow: function(type, match, ui, page, e) {
@@ -337,8 +333,8 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
 
         core.refreshDataList({
             page: "#schedule", title: "Planning", el: "#schedule-list", view: "schedule", template: $("#schedule-list-tpl").html(),
-            url: utils.getFullUrl('/events/' + EVENT_ID + '/schedule?callback=?'),
-            cacheKey: '/events/' + EVENT_ID + '/schedule',
+            url: utils.getFullUrl('/' + EVENT_ID + '/schedule?callback=?'),
+            cacheKey: '/' + EVENT_ID + '/schedule',
             dataType: "session",
             parse: function(sessions) {
                 _(sessions).each(core.enhanceSession);
@@ -359,8 +355,8 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
         ui.switchTitle('day', title);
         core.refreshDataList({
             page: "#day", title: title, el: "#day-list", view: "day", template: $("#schedule-list-tpl").html(),
-            url: utils.getFullUrl('/events/' + EVENT_ID + '/schedule?callback=?'),
-            cacheKey: '/events/' + EVENT_ID + '/schedule',
+            url: utils.getFullUrl('/' + EVENT_ID + '/schedule?callback=?'),
+            cacheKey: '/' + EVENT_ID + '/schedule',
             dataType: "session",
             parse: function(sessions) {
                 sessions = core.filterSessionsByDay(sessions, day);
@@ -415,8 +411,8 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
 
         core.refreshDataList({
             page: "#presentations", title: "Presentations", el: "#presentation-list", view: "presentations", template: $("#presentation-list-tpl").html(),
-            url: utils.getFullUrl('/events/' + EVENT_ID + '/presentations?callback=?'),
-            cacheKey: '/events/' + EVENT_ID + '/presentations',
+            url: utils.getFullUrl('/' + EVENT_ID + '/presentations?callback=?'),
+            cacheKey: '/' + EVENT_ID + '/presentations',
             dataType: "presentation",
             parse: function(presentations) {
                 _(presentations).each(core.enhancePresentationListItem);
@@ -435,8 +431,8 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
         ui.switchTitle('presentation', "Présentation");
         core.refreshDataEntry({
             page: "#presentation", title: "Présentation", el: "#presentation-content", view: "presentation", template: $("#presentation-tpl").html(),
-            url: utils.getFullUrl('/events/' + EVENT_ID + '/presentations?callback=?'),
-            cacheKey: '/events/' + EVENT_ID + '/presentations',
+            url: utils.getFullUrl('/' + EVENT_ID + '/presentations?callback=?'),
+            cacheKey: '/' + EVENT_ID + '/presentations',
             dataType: "presentation",
             parse: function(presentations) {
                 var presentation = core.findPresentationById(presentations, id);
@@ -460,8 +456,8 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
 
         core.refreshDataList({
             page: "#speakers", title: "Speakers", el: "#speaker-list", view: "speakers", template: $("#speaker-list-tpl").html(),
-            url: utils.getFullUrl('/events/' + EVENT_ID + '/speakers?callback=?'),
-            cacheKey: '/events/' + EVENT_ID + '/speakers',
+            url: utils.getFullUrl('/' + EVENT_ID + '/speakers?callback=?'),
+            cacheKey: '/' + EVENT_ID + '/speakers',
             dataType: "speaker",
             parse: function(speakers) { return speakers; }
         });
@@ -474,8 +470,8 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
 
         core.refreshDataEntry({
             page: "#speaker", title: "Speaker", el: "#speaker-content", view: "speaker", template: $("#speaker-tpl").html(),
-            url: utils.getFullUrl('/events/' + EVENT_ID + '/speakers?callback=?'),
-            cacheKey: '/events/' + EVENT_ID + '/speakers',
+            url: utils.getFullUrl('/' + EVENT_ID + '/speakers?callback=?'),
+            cacheKey: '/' + EVENT_ID + '/speakers',
             dataType: "speaker",
             parse: function(speakers) {
                 var speaker = core.findSpeakerById(speakers, id);
@@ -502,8 +498,8 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
 
         core.refreshDataList({
             page: "#tracks", title: "Tracks", el: "#track-list", view: "tracks", template: $("#track-list-tpl").html(),
-            url: utils.getFullUrl('/events/' + EVENT_ID + '/tracks?callback=?'),
-            cacheKey: '/events/' + EVENT_ID + '/tracks',
+            url: utils.getFullUrl('/' + EVENT_ID + '/tracks?callback=?'),
+            cacheKey: '/' + EVENT_ID + '/tracks',
             dataType: "track",
             parse: function(tracks) { return tracks; }
         });
@@ -516,8 +512,8 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
 
         core.refreshDataList({
             page: "#track", title: "Track", el: "#track-presentation-list", view: "track", template: $("#presentation-list-tpl").html(),
-            url: utils.getFullUrl('/events/' + EVENT_ID + '/presentations?callback=?'),
-            cacheKey: '/events/' + EVENT_ID + '/presentations',
+            url: utils.getFullUrl('/' + EVENT_ID + '/presentations?callback=?'),
+            cacheKey: '/' + EVENT_ID + '/presentations',
             dataType: "presentation",
             parse: function(presentations) {
                 presentations = core.filterPresentationsByTrackId(presentations, id);
@@ -541,8 +537,8 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
 
         core.refreshDataList({
             page: "#rooms", title: "Rooms", el: "#room-list", view: "rooms", template: $("#room-list-tpl").html(),
-            url: utils.getFullUrl('/events/' + EVENT_ID + '/schedule/rooms?callback=?'),
-            cacheKey: '/events/' + EVENT_ID + '/schedule/rooms',
+            url: utils.getFullUrl('/' + EVENT_ID + '/rooms?callback=?'),
+            cacheKey: '/' + EVENT_ID + '/rooms',
             dataType: "room",
             parse: function(rooms) { return rooms; }
         });
@@ -555,8 +551,8 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
 
         core.refreshDataList({
             page: "#room", title: "Room", el: "#room-presentation-list", view: "room", template: $("#presentation-list-tpl").html(),
-            url: utils.getFullUrl('/events/' + EVENT_ID + '/presentations?callback=?'),
-            cacheKey: '/events/' + EVENT_ID + '/presentations',
+            url: utils.getFullUrl('/' + EVENT_ID + '/presentations?callback=?'),
+            cacheKey: '/' + EVENT_ID + '/presentations',
             dataType: "presentation",
             parse: function(presentations) {
                 presentations = core.filterPresentationsByRoomId(presentations, id);
@@ -597,61 +593,6 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
                     tweet.htmlText = core.twitter_linkify(tweet.text);
                 });
                 return tweets;
-            }
-        });
-    };
-
-    core.refreshXebiaProgramInfos = function() {
-        ui.resetFlashMessages("#xebia-program-infos");
-        logger.info("Refreshing Xebia Program-infos");
-        core.refreshDataList({
-            page: "#xebia-program-infos", title: "Programme Xebia", el: "#xebia-program-infos-list", view: "xebia-program-infos", template: $("#xebia-program-infos-list-tpl").html(),
-            url: "http://devoxx-xebia.cloudfoundry.com/xebia/program?callback=?",
-            cacheKey: "/xebia/program",
-            parse: function(xebiaProgram) {
-                return xebiaProgram;
-            }
-        });
-    };
-
-    core.refreshXebiaProgramDetails = function(id) {
-        ui.resetFlashMessages("#xebia-program-details");
-        logger.info("Processing Xebia Program Details: " + id);
-        ui.switchTitle('xebia-program-details', "Xebia Workshop");
-
-        core.refreshDataEntry({
-            page: "#xebia-program-details", title: "Xebia Workshop", el: "#xebia-program-details-content", view: "xebia-program-details", template: $("#xebia-program-details-tpl").html(),
-            url: "http://devoxx-xebia.cloudfoundry.com/xebia/program?callback=?",
-            cacheKey: "/xebia/program",
-            parse: function(xebiaProgram) {
-                return core.filterXebiaProgramSessionById(xebiaProgram, id);
-            },
-            postRender: function(session) {
-                $('#xebia-program-details-xebian-list').listview();
-                ui.switchTitle('xebia-program-details', session.get('title'));
-            }
-        });
-    };
-
-    core.refreshXebian = function(id) {
-        ui.resetFlashMessages("#xebian");
-        logger.info("Processing Xebia : " + id);
-        ui.switchTitle('xebian', "Xebian");
-
-        core.refreshDataEntry({
-            page: "#xebian", title: "Xebian", el: "#xebian-content", view: "xebian", template: $("#xebian-tpl").html(),
-            url: "http://devoxx-xebia.cloudfoundry.com/xebian/" + id + "?callback=?",
-            cacheKey: "/xebian/" + id,
-            parse: function(xebian) {
-                return xebian;
-            },
-            postRender: function(xebian) {
-                var details = $('#xebian-details-list');
-                if (details) {
-                    details.listview();
-                }
-                $('#xebian-summary-list').listview();
-                ui.switchTitle('xebian', xebian.get('firstname') + " " + xebian.get('lastname'));
             }
         });
     };
@@ -733,7 +674,7 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
     };
 
     core.getScheduleTime = function(fromTime) {
-        return Date.parseExact(fromTime.substring(0, fromTime.lastIndexOf('.')), 'yyyy-MM-dd HH:mm:ss').toString("HH:mm");
+        return Date.parseExact(fromTime, 'yyyy-MM-dd HH:mm:ss').toString("HH:mm");
     };
 
     core.enhancePresentationListItem = function(presentation) {
@@ -808,10 +749,6 @@ define(['log', 'utils', 'collection', 'entry', 'register', 'ui', 'db', 'synchron
 
     core.updateFavorite = function(presentation) {
         presentation.favorite = core.isFavorite(presentation.id);
-    };
-
-    core.onRegisterBeforePageShow = function() {
-        register.beforePageShow();
     };
 
     core.onSynchronizeBeforePageShow = function() {

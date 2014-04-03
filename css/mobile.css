@@ -100,11 +100,12 @@ ul li.room-LOUIS_ARMSTRONG_AB { border-left: 5px #7cb2bd solid }
 ul li.room-ELLA_FITZGERALD_AB { border-left: 5px #767676 solid; }
 ul li.room-AUDITORIUM { border-left: 5px #ffa41e solid; }
 
-.HANDS-ON.awesome, .HANDS-ON.awesome:visited { background-color: #719409; }
-.JAVA.awesome, .JAVA.awesome:visited { background-color: #ff5c00; }
+.HANDS_ON_LABS.awesome, .HANDS_ON_LABS.awesome:visited { background-color: #bd58a9; }
+.AUTRES_FORMATS_DE_CONFERENCE.awesome, .AUTRES_FORMATS_DE_CONFERENCE.awesome:visited { background-color: #719409; }
+.KEYNOTE.awesome, .KEYNOTE.awesome:visited { background-color: #ff5c00; }
 .UNIVERSITY.awesome, .UNIVERSITY.awesome:visited { background-color: #cf040e; }
-.TOOLS.awesome, .TOOLS.awesome:visited { background-color: #2488cc; }
-.BOF.awesome, .BOF.awesome:visited { background-color: #7c67bf; }
+.TOOLS-IN-ACTION.awesome, .TOOLS-IN-ACTION.awesome:visited { background-color: #2488cc; }
+.BOF_BIRD_OF_A_FEATHER.awesome, .BOF_BIRD_OF_A_FEATHER.awesome:visited { background-color: #7c67bf; }
 .CONFERENCE.awesome, .CONFERENCE.awesome:visited { background-color: #ff9a00; }
 .QUICKIE.awesome, .QUICKIE.awesome:visited { background-color: #467d6a; }
 
@@ -113,19 +114,14 @@ ul li.room-AUDITORIUM { border-left: 5px #ffa41e solid; }
 .favorite.awesome, .favorite.awesome:visited { background-color: #ffa000; }
 .favorite.awesome:hover { background-color: #ff8e00; }
 
-ul li.type-HANDS-ON { border-left: 5px #719409 solid; }
-ul li.type-JAVA { border-left: 5px #ff5c00 solid; }
+ul li.type-HANDS_ON_LABS { border-left: 5px #bd58a9 solid; }
+ul li.type-AUTRES_FORMATS_DE_CONFERENCE { border-left: 5px #719409 solid; }
+ul li.type-KEYNOTE { border-left: 5px #ff5c00 solid; }
 ul li.type-UNIVERSITY { border-left: 5px #cf040e solid; }
-ul li.type-TOOLS { border-left: 5px #2488cc solid; }
-ul li.type-BOF { border-left: 5px #7c67bf solid; }
+ul li.type-TOOLS-IN-ACTION { border-left: 5px #2488cc solid; }
+ul li.type-BOF_BIRD_OF_A_FEATHER { border-left: 5px #7c67bf solid; }
 ul li.type-CONFERENCE { border-left: 5px #ff9a00 solid; }
 ul li.type-QUICKIE { border-left: 5px #467d6a solid; }
-
-
-
-ul li.xebia-program-TECH_EVENT { border-left: 5px #719409 solid; }
-ul li.xebia-program-FIGHT_CLUB { border-left: 5px #ff5c00 solid; }
-ul li.xebia-program-SURPRISE { border-left: 5px #2488cc solid; }
 
 
 .page-navbar {

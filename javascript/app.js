@@ -2,8 +2,6 @@ var DEFAULT_DEBUG_MODE = false;
 var DEBUG = DEFAULT_DEBUG_MODE || getLocationParameterByName('debug') === 'true';
 var SAFE = true;
 var OFFLINE = false;
-var PROXY = true;
-var DB_NUKE = false;
 
 var WAIT_TIME = DEBUG ? 0 : 0;
 var DEBUG_JSON_CALLBACK = "onJsonLoad";
@@ -13,7 +11,6 @@ console.log("SAFE: " + SAFE);
 console.log("OFFLINE: " + OFFLINE);
 console.log("WAIT_TIME: " + WAIT_TIME);
 console.log("DEBUG_JSON_CALLBACK: " + DEBUG_JSON_CALLBACK);
-console.log("PROXY: " + PROXY);
 
 if (DEBUG) {
     console.log("Waiting for " + WAIT_TIME + "ms before loading application");
@@ -43,7 +40,6 @@ function init() {
             'log':         'log',
             'collection':  'collection',
             'entry':       'entry',
-            'register':    'register',
             'analytics':   'analytics',
             'synchronize': 'synchronize',
             'jquery':      'lib/jquery/jquery-1.7.1',
@@ -64,7 +60,7 @@ function init() {
         window.Backbone = Backbone;
         window.app = window.app || {};
 
-        require(['require', 'order!log', 'order!analytics', 'order!jqmr', 'order!core', 'db', 'utils', 'ui', 'collection', 'entry', 'register' ],
+        require(['require', 'order!log', 'order!analytics', 'order!jqmr', 'order!core', 'db', 'utils', 'ui', 'collection', 'entry' ],
             function( require, log, analytics, jqmr, core, db, utils, ui ) {
 
             window.app.core = core;

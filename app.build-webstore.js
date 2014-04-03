@@ -36,7 +36,6 @@
         'log':         'log',
         'collection':  'collection',
         'entry':       'entry',
-        'register':    'register',
         'analytics':   'analytics',
         'jquery':      'lib/jquery/jquery-1.7.1',
         'underscore':  'lib/underscore/underscore-1.3.1',

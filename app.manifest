@@ -43,7 +43,6 @@ javascript/utils.js
 javascript/ui.js
 javascript/collection.js
 javascript/entry.js
-javascript/register.js
 javascript/log.js
 javascript/analytics.js
 javascript/synchronize.js
