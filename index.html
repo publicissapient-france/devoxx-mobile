@@ -475,16 +475,16 @@ div.spinner-container {
                 <li class="presentation-<%=view %>-item type-<%= session.get('type').replace(/[é]/g, 'e').replace(/[()']/g, '').replace(/[ ]/g, '_').toUpperCase() %>"
                     data-presentation-id="<%= session.get('presentationId') %>"
                     data-theme="<%= session.get('favorite') ? 'e' : 'c' %>">
-                    <a href="#presentation?id=<%= session.get('presentationId') %>" style="margin: 0; padding: 0 5px 0 0;">
+                    <a href="#presentation?id=<%= session.get('presentation').id %>" style="margin: 0; padding: 0 5px 0 0;">
                         <div style="padding: 5px 10px 10px 10px;">
                             <h3 style="display: inline-block; width: 95%;"><%= session.get('title') ? session.get('title') : (session.get('name') ? session.get('name') : "&nbsp;" ) %></h3>
-                            <p><em><% if ( session.get('speaker') ) { %>
-                                Speaker: <%= session.get('speaker') %>
+                            <p><em><% if ( session.get('speakers') ) { %>
+                                Speaker: <%= session.get('speakers')[0].name %>
                             <% } else { %><%= "&nbsp;" %><% } %></em></p>
                             <p><em><%= session.get('kind') %> - <%= session.get('type') %></em></p>
                         </div>
                         <div class="ui-li-aside" style="width: 87px; height: 16px; padding: 54px 0 0 0;">
-                            <span class="awesome aside-room <%= session.get('room').toUpperCase().replace(/ /g, '_').replace(/[^\w\s]/gi, '') %>"><%= session.get('room') %></span>
+                            <span class="awesome aside-room <%= session.get('room').replace(/[ ]/g, '_').replace(/[&<>,]/g, '').replace(/[éè]/g, 'e').replace(/[\.]/g, '').toUpperCase() %>"><%= session.get('room') %></span>
                         </div>
                    </a>
                 </li>
@@ -537,8 +537,8 @@ div.spinner-container {
         <script type="text/html" id="track-list-tpl">
             <% _.each(entries, function(track) { %>
             <li>
-                <a href="#track?id=<%= track.get('id') %>" >
-                    <h3><%= track.get('name') %></h3>
+                <a href="#track?id=<%= track.get('name').replace(/[ ]/g, '_').replace(/[&<>,]/g, '').replace(/[éè]/g, 'e').toUpperCase() %>" >
+                    <h3><%= track.get('name').replace(/[<]/g, '&lt;').replace(/[>]/g, '&gt;') %></h3>
                     <p><em><%= track.get('description') %></em></p>
                 </a>
             </li>
@@ -548,7 +548,7 @@ div.spinner-container {
         <script type="text/html" id="room-list-tpl">
             <% _.each(entries, function(room) { %>
             <li class="room-<%= String(room.get('name')).toUpperCase().replace(/ /g, '_').replace(/[^\w\s]/gi, '') %>">
-                <a href="#room?id=<%= room.get('id') %>" >
+                <a href="#room?id=<%= room.get('id').replace(/[ ]/g, '_').replace(/[&<>,]/g, '').replace(/[éè]/g, 'e').toUpperCase() %>" >
                     <h3><%= room.get('name') %></h3>
                     <p><em>Capacité: <%= room.get('capacity') %> / Lieux: <%= room.get('locationName') %></em></p>
                     <p class="ui-li-count"><em><%= room.get('capacity') %></em></p>
@@ -563,11 +563,11 @@ div.spinner-container {
                 <a href="#presentation?id=<%= presentation.get('id') %>" style="margin: 0; padding: 0 5px 0 0;">
                     <div style="padding: 5px 10px 10px 10px;">
                         <h3 style="display: inline-block; width: 95%;"><%= presentation.get('title') %></h3>
-                        <p><em><%= presentation.get('speaker') %> - <%= presentation.get('language') %></em></p>
+                        <p><em><%= presentation.get('speakers')[0].name %></em></p>
                         <p><em><%= presentation.get('track') %> - <%= presentation.get('type') %> - <%= presentation.get('room') %></em></p>
                     </div>
                     <p class="ui-li-aside" style="width: 87px; height: 18px; padding: 54px 0 0 0;">
-                        <span class="awesome aside-skill <%= presentation.get('experience') %>"><%= presentation.get('experience') %></span>
+                        <span class="awesome aside-skill <%= presentation.get('track').replace(/[ ]/g, '_').replace(/[&<>,]/g, '').replace(/[éè]/g, 'e').toUpperCase() %>"><%= presentation.get('track').replace(/[<]/g, '&lt;').replace(/[>]/g, '&gt;') %></span>
                     </p>
                 </a>
             </li>

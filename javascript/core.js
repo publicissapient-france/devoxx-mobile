@@ -450,7 +450,7 @@ define(['log', 'utils', 'collection', 'entry', 'ui', 'db', 'synchronize'], funct
     };
 
     core.refreshSpeakers = function() {
-        ui.resetFlashMessages("#tracks");
+        ui.resetFlashMessages("#speakers");
         logger.info("Refreshing speakers");
         ui.switchTitle('speakers', "Speakers");
 
@@ -505,7 +505,7 @@ define(['log', 'utils', 'collection', 'entry', 'ui', 'db', 'synchronize'], funct
         });
     };
 
-    core.refreshTrack = function(id) {
+    core.refreshTrack = function(name) {
         ui.resetFlashMessages("#track");
         logger.info("Refreshing track");
         ui.switchTitle('track', "Track");
@@ -516,7 +516,7 @@ define(['log', 'utils', 'collection', 'entry', 'ui', 'db', 'synchronize'], funct
             cacheKey: '/' + EVENT_ID + '/presentations',
             dataType: "presentation",
             parse: function(presentations) {
-                presentations = core.filterPresentationsByTrackId(presentations, id);
+                presentations = core.filterPresentationsByTrackKey(presentations, name);
                 _(presentations).each(core.enhancePresentationListItem);
 
                 return presentations;
@@ -555,7 +555,7 @@ define(['log', 'utils', 'collection', 'entry', 'ui', 'db', 'synchronize'], funct
             cacheKey: '/' + EVENT_ID + '/presentations',
             dataType: "presentation",
             parse: function(presentations) {
-                presentations = core.filterPresentationsByRoomId(presentations, id);
+                presentations = core.filterPresentationsByRoomKey(presentations, id);
                 _(presentations).each(core.enhancePresentationListItem);
 
                 return presentations;
@@ -721,23 +721,19 @@ define(['log', 'utils', 'collection', 'entry', 'ui', 'db', 'synchronize'], funct
     };
 
 
-    core.filterXebiaProgramSessionById = function(xebiaProgram, id) {
-        var day = _(xebiaProgram).find(function(day) {
-           return _(day.sessions).find(function(session) { return session.id == id; });
-        });
-        return _(day.sessions).find(function(session) { return session.id == id; });
-    };
-
-
-    core.filterPresentationsByTrackId = function(presentations, id) {
+    core.filterPresentationsByTrackKey = function(presentations, track) {
+	    track = track.replace(/[ ]/g, '_').replace(/[&<>,]/g, '').replace(/[éè]/g, 'e').toUpperCase();
         return _(presentations).filter(function (presentation) {
-            return presentation.trackId == id;
+	        var presentationTrack = presentation.track.replace(/[ ]/g, '_').replace(/[&<>,]/g, '').replace(/[éè]/g, 'e').toUpperCase();
+            return presentationTrack == track;
         });
     };
 
-    core.filterPresentationsByRoomId = function(presentations, id) {
+    core.filterPresentationsByRoomKey = function(presentations, room) {
+	    room = room.replace(/[ ]/g, '_').replace(/[&<>,]/g, '').replace(/[éè]/g, 'e').toUpperCase();
          return _(presentations).filter(function (presentation) {
-             return presentation.roomId == id;
+             var presentationRoom = presentation.room.replace(/[ ]/g, '_').replace(/[&<>,]/g, '').replace(/[éè]/g, 'e').toUpperCase();
+	         return presentationRoom == room;
          });
      };
 
