@@ -1713,58 +1713,88 @@ h3.tag-box {
     width: 30px;
 }
 .aside-skill {
-    width: 48px;
+    width: 70px;
 }
 .clickable.awesome:hover { background-color: #0f0f0f; color: #fff; }
 .clickable.awesome:active { top: 1px; }
-.NOVICE.awesome, .NOVICE.awesome:visited { background-color: #719409; }
-.EXPERT.awesome, .EXPERT.awesome:visited { background-color: #292929; }
-.SENIOR.awesome, .SENIOR.awesome:visited { background-color: #61002f; }
-.MEDIUM.awesome, .MEDIUM.awesome:visited { background-color: #ff5c00; }
-.LA_SEINE_A.awesome, .LA_SEINE_A.awesome:visited { background-color: #719409; }
-.LA_SEINE_B.awesome, .LA_SEINE_B.awesome:visited { background-color: #1a6b9c; }
-.LA_SEINE_C.awesome, .LA_SEINE_C.awesome:visited { background-color: #cf040e; }
+.MOBILE.awesome, .MOBILE.awesome:visited { background-color: #719409; }
+.CLOUD_BIG_DATA_NOSQL.awesome, .CLOUD_BIG_DATA_NOSQL.awesome:visited { background-color: #ffc21d; }
+.STARTUP__INNOVATION.awesome, .STARTUP__INNOVATION.awesome:visited { background-color: #741aab; }
+.WEB_HTML5.awesome, .WEB_HTML5.awesome:visited { background-color: #7cb2bd; }
+.LANGAGES_ALTERNATIFS.awesome, .LANGAGES_ALTERNATIFS.awesome:visited { background-color: #cf040e; }
+.FUTUREDEVOXX.awesome, .FUTUREDEVOXX.awesome:visited { background-color: #767676; }
+.JAVA_SE_JAVA_EE.awesome, .JAVA_SE_JAVA_EE.awesome:visited { background-color: #ff5c00; }
+.AGILITE_DEVOPS.awesome, .AGILITE_DEVOPS.awesome:visited { background-color: #1a6b9c; }
+.OTHER_ROOM.awesome, .OTHER_ROOM.awesome:visited { background-color: #1b70ff; }
+.SEINE.awesome, .SEINE.awesome:visited { background-color: #9BD639; }
+.SEINE_A.awesome, .SEINE_A.awesome:visited { background-color: #719409; }
+.SEINE_B.awesome, .SEINE_B.awesome:visited { background-color: #1a6b9c; }
+.SEINE_C.awesome, .SEINE_C.awesome:visited { background-color: #cf040e; }
+.MDAVIS.awesome, .MDAVIS.awesome:visited { background-color: #5fb6ff; }
+.MILES_DEVIS.awesome, .MILES_DEVIS.awesome:visited { background-color: #5fb6ff; }
 .MILES_DAVIS_A.awesome, .MILES_DAVIS_A.awesome:visited { background-color: #61002f; }
-.MILES_DAVIS_B.awesome, .MILES_DAVIS_B.awesome:visited { background-color: #ff5c00; }
+.MDAVIS_A.awesome, .MDAVIS_A.awesome:visited { background-color: #61002f; }
+.MILES_DAVIS_B.awesome, .MILES_DAVIS_B.awesome:visited { background-color: #ffc21d; }
+.MDAVIS_B.awesome, .MDAVIS_B.awesome:visited { background-color: #ffc21d; }
 .MILES_DAVIS_C.awesome, .MILES_DAVIS_C.awesome:visited { background-color: #9c835f; }
+.MDAVIS_C.awesome, .MDAVIS_C.awesome:visited { background-color: #9c835f; }
 .DUKE_ELLIGTON.awesome, .DUKE_ELLIGTON.awesome:visited { background-color: #467d6a; }
-.E_FITZGERALD__L_ARMSTRONG.awesome, .E_FITZGERALD__L_ARMSTRONG.awesome:visited { background-color: #292929; }
-.MILES_DAVIS.awesome, .MILES_DAVIS.awesome:visited { background-color: #666666; }
-.HALL_DEXPOSITION.awesome, .HALL_DEXPOSITION.awesome:visited { background-color: #372454; }
-ul li.room-LA_SEINE_A { border-left: 5px #719409 solid; }
-ul li.room-LA_SEINE_B { border-left: 5px #1a6b9c solid; }
-ul li.room-LA_SEINE_C { border-left: 5px #cf040e solid; }
+.DUKE_ELLINGTONCODESTORY.awesome, .DUKE_ELLINGTONCODESTORY.awesome:visited { background-color: #467d6a; }
+.ELLA_FITZGERALD.awesome, .ELLA_FITZGERALD.awesome:visited { background-color: #ff5c00; }
+.ELLA_FITZGERALD_AB.awesome, .ELLA_FITZGERALD_AB.awesome:visited { background-color: #767676; }
+.EFITZGERALD_AB.awesome, .EFITZGERALD_AB.awesome:visited { background-color: #767676; }
+.ESPACE_DEXPOSITION.awesome, .ESPACE_DEXPOSITION.awesome:visited { background-color: #8922df; }
+.LOUIS_ARMSTRONG_CD.awesome, .LOUIS_ARMSTRONG_CD.awesome:visited { background-color: #bd58a9; }
+.LARMSTRONG_CD.awesome, .LARMSTRONG_CD.awesome:visited { background-color: #bd58a9; }
+.AUDITORIUM.awesome, .AUDITORIUM.awesome:visited { background-color: #ffa41e; }
+.AUDITORIUM.awesome, .AUDITORIUM.awesome:visited { background-color: #ffa41e; }
+.FOYER_BAS.awesome, .FOYER_BAS.awesome:visited { background-color: #c0475a; }
+.LABO.awesome, .LABO.awesome:visited { background-color: #9cc091; }
+ul li.room-OTHER_ROOM { border-left: 5px #1b70ff solid; }
+ul li.room-SEINE { border-left: 5px #9bd639 solid; }
+ul li.room-SEINE_A { border-left: 5px #719409 solid; }
+ul li.room-SEINE_B { border-left: 5px #1a6b9c solid; }
+ul li.room-SEINE_C { border-left: 5px #cf040e solid; }
+ul li.room-MDAVIS { border-left: 5px #5fb6ff solid; }
+ul li.room-MILES_DAVIS { border-left: 5px #5fb6ff solid }
+ul li.room-MDAVIS_A { border-left: 5px #61002f solid; }
 ul li.room-MILES_DAVIS_A { border-left: 5px #61002f solid; }
-ul li.room-MILES_DAVIS_B { border-left: 5px #ff5c00 solid; }
+ul li.room-MDAVIS_B { border-left: 5px #ffc21d solid; }
+ul li.room-MILES_DAVIS_B { border-left: 5px #ffc21d solid; }
+ul li.room-MDAVIS_C { border-left: 5px #9c835f solid; }
 ul li.room-MILES_DAVIS_C { border-left: 5px #9c835f solid; }
 ul li.room-DUKE_ELLIGTON { border-left: 5px #467d6a solid; }
-ul li.room-E_FITZGERALD__L_ARMSTRONG { border-left: 5px #292929 solid; }
-ul li.room-MILES_DAVIS { border-left: 5px #666666 solid }
-ul li.room-HALL_DEXPOSITION { border-left: 5px #372454 solid }
-ul li.room-LOUIS_ARMSTRONG_CD { border-left: 5px #bd58a9 solid }
-ul li.room-LOUIS_ARMSTRONG_AB { border-left: 5px #7cb2bd solid }
+ul li.room-DUKE_ELLINGTONCODESTORY { border-left: 5px #467d6a solid; }
+ul li.room-ELLA_FITZGERALD { border-left: 5px #ff5c00 solid; }
 ul li.room-ELLA_FITZGERALD_AB { border-left: 5px #767676 solid; }
+ul li.room-EFITZGERALD_AB { border-left: 5px #767676 solid; }
+ul li.room-ESPACE_DEXPOSITION { border-left: 5px #8922df solid }
+ul li.room-LOUIS_ARMSTRONG_AB { border-left: 5px #7cb2bd solid }
+ul li.room-LARMSTRONG_AB { border-left: 5px #7cb2bd solid }
+ul li.room-LOUIS_ARMSTRONG_CD { border-left: 5px #bd58a9 solid }
+ul li.room-LARMSTRONG_CD { border-left: 5px #bd58a9 solid }
 ul li.room-AUDITORIUM { border-left: 5px #ffa41e solid; }
-.HANDS-ON.awesome, .HANDS-ON.awesome:visited { background-color: #719409; }
-.JAVA.awesome, .JAVA.awesome:visited { background-color: #ff5c00; }
+ul li.room-FOYER_BAS { border-left: 5px #c0475a solid; }
+ul li.room-LABO { border-left: 5px #9cc091 solid; }
+.HANDS_ON_LABS.awesome, .HANDS_ON_LABS.awesome:visited { background-color: #741aab; }
+.AUTRES_FORMATS_DE_CONFERENCE.awesome, .AUTRES_FORMATS_DE_CONFERENCE.awesome:visited { background-color: #719409; }
+.KEYNOTE.awesome, .KEYNOTE.awesome:visited { background-color: #ff5c00; }
 .UNIVERSITY.awesome, .UNIVERSITY.awesome:visited { background-color: #cf040e; }
-.TOOLS.awesome, .TOOLS.awesome:visited { background-color: #2488cc; }
-.BOF.awesome, .BOF.awesome:visited { background-color: #7c67bf; }
+.TOOLS-IN-ACTION.awesome, .TOOLS-IN-ACTION.awesome:visited { background-color: #2488cc; }
+.BOF_BIRD_OF_A_FEATHER.awesome, .BOF_BIRD_OF_A_FEATHER.awesome:visited { background-color: #ac54bf; }
 .CONFERENCE.awesome, .CONFERENCE.awesome:visited { background-color: #ff9a00; }
 .QUICKIE.awesome, .QUICKIE.awesome:visited { background-color: #467d6a; }
+.lang_FR.awesome, .lang_FR.awesome:visited { background-color: #cf040e; }
+.TOOLS-IN-ACTION.awesome, .TOOLS-IN-ACTION.awesome:visited { background-color: #2488cc; }
 .silver.awesome, .silver.awesome:visited { background-color: #606060; }
-.favorite.awesome, .favorite.awesome:visited { background-color: #ffa000; }
-.favorite.awesome:hover { background-color: #ff8e00; }
-ul li.type-HANDS-ON { border-left: 5px #719409 solid; }
-ul li.type-JAVA { border-left: 5px #ff5c00 solid; }
+ul li.type-HANDS_ON_LABS { border-left: 5px #741aab solid; }
+ul li.type-AUTRES_FORMATS_DE_CONFERENCE { border-left: 5px #719409 solid; }
+ul li.type-KEYNOTE { border-left: 5px #ff5c00 solid; }
 ul li.type-UNIVERSITY { border-left: 5px #cf040e solid; }
-ul li.type-TOOLS { border-left: 5px #2488cc solid; }
-ul li.type-BOF { border-left: 5px #7c67bf solid; }
+ul li.type-TOOLS-IN-ACTION { border-left: 5px #2488cc solid; }
+ul li.type-BOF_BIRD_OF_A_FEATHER { border-left: 5px #ac54bf solid; }
 ul li.type-CONFERENCE { border-left: 5px #ff9a00 solid; }
 ul li.type-QUICKIE { border-left: 5px #467d6a solid; }
-ul li.xebia-program-TECH_EVENT { border-left: 5px #719409 solid; }
-ul li.xebia-program-FIGHT_CLUB { border-left: 5px #ff5c00 solid; }
-ul li.xebia-program-SURPRISE { border-left: 5px #2488cc solid; }
 .page-navbar {
     background: #ffffff;
     padding: 10px;
