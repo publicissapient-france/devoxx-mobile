@@ -1,0 +1,13 @@
+PODS:
+  - Appirater (2.0.2)
+  - TSMiniWebBrowser (1.0.1)
+
+DEPENDENCIES:
+  - Appirater (= 2.0.2)
+  - TSMiniWebBrowser (= 1.0.1)
+
+SPEC CHECKSUMS:
+  Appirater: 32fb9089615b5e542c7ad7b5749741a8aed55290
+  TSMiniWebBrowser: b0d1e578f250f29615541093564df0c2aebcda07
+
+COCOAPODS: 0.29.0

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>8488391C-B3EA-4C6A-A35C-632D782965E0</string>
+	<key>IDESourceControlProjectName</key>
+	<string>devoxx</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>154C3251-41D2-43D3-92B5-1BAA935A335E</key>
+		<string>https://github.com/xebia-france/devoxx-mobile.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>cordova/iOS/devoxx/devoxx.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>154C3251-41D2-43D3-92B5-1BAA935A335E</key>
+		<string>../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/xebia-france/devoxx-mobile.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>154C3251-41D2-43D3-92B5-1BAA935A335E</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>154C3251-41D2-43D3-92B5-1BAA935A335E</string>
+			<key>IDESourceControlWCCName</key>
+			<string>devoxx-mobile</string>
+		</dict>
+	</array>
+</dict>
+</plist>

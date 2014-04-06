@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  Xebia
+
+  Created by Alexis Kinsella on 23/11/2013.
+  Copyright (c) 2013 Xebia. All rights reserved.
+*/
+"OK"="OK";
+"Error"="Erreurs";
+"By"="Par";
+"Close"="Fermer";
+"Back"="Retour";
+"Done"="Fermer";

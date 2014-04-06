@@ -1,0 +1,5 @@
+#include "Pods-TSMiniWebBrowser.xcconfig"
+GCC_PREPROCESSOR_DEFINITIONS = COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/BuildHeaders" "${PODS_ROOT}/BuildHeaders/TSMiniWebBrowser" "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/Appirater" "${PODS_ROOT}/Headers/TSMiniWebBrowser"
+OTHER_LDFLAGS = -ObjC ${PODS_TSMINIWEBBROWSER_OTHER_LDFLAGS}
+PODS_ROOT = ${SRCROOT}

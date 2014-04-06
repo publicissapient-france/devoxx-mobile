@@ -1,0 +1,6 @@
+platform :ios, '6.0'
+link_with ['devoxx']
+
+pod 'TSMiniWebBrowser',				'1.0.1'
+pod 'Appirater',					'2.0.2'
+
