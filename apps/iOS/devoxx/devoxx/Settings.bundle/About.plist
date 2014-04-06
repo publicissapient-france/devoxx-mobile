@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PreferenceSpecifiers</key>
+	<array>
+        <dict>
+            <key>Title</key>
+            <string>Contributors</string>
+            <key>Type</key>
+            <string>PSGroupSpecifier</string>
+        </dict>
+
+        <dict>
+            <key>DefaultValue</key>
+            <string>akinsella@xebia.fr</string>
+            <key>Key</key>
+            <string>contributor</string>
+            <key>Title</key>
+            <string>Alexis Kinsella</string>
+            <key>Type</key>
+            <string>PSTitleValueSpecifier</string>
+        </dict>
+
+        <dict>
+            <key>Title</key>
+            <string>Contacts</string>
+            <key>Type</key>
+            <string>PSGroupSpecifier</string>
+        </dict>
+
+        <dict>
+            <key>DefaultValue</key>
+            <string>+33 1 53 89 99 96</string>
+            <key>Key</key>
+            <string>phone</string>
+            <key>Title</key>
+            <string>Phone</string>
+            <key>Type</key>
+            <string>PSTitleValueSpecifier</string>
+        </dict>
+
+        <dict>
+            <key>DefaultValue</key>
+            <string>contact@xebia.fr</string>
+            <key>Key</key>
+            <string>email</string>
+            <key>Title</key>
+            <string>Email</string>
+            <key>Type</key>
+            <string>PSTitleValueSpecifier</string>
+        </dict>
+
+        <dict>
+            <key>DefaultValue</key>
+            <string>156 Bd Haussmann 75008 PARIS</string>
+            <key>Key</key>
+            <string>address</string>
+            <key>Title</key>
+            <string>Address</string>
+            <key>Type</key>
+            <string>PSTitleValueSpecifier</string>
+        </dict>
+
+        <dict>
+            <key>DefaultValue</key>
+            <string>XebiaFr</string>
+            <key>Key</key>
+            <string>twitter</string>
+            <key>Title</key>
+            <string>Twitter</string>
+            <key>Type</key>
+            <string>PSTitleValueSpecifier</string>
+        </dict>
+
+    </array>
+
+	<key>StringsTable</key>
+	<string>About</string>
+</dict>
+</plist>

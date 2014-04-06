@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PreferenceSpecifiers</key>
+	<array>
+        <dict>
+            <key>Title</key>
+            <string>Licenses</string>
+            <key>Type</key>
+            <string>PSGroupSpecifier</string>
+        </dict>
+
+        <dict>
+            <key>Title</key>
+            <string>Appirater</string>
+            <key>Type</key>
+            <string>PSChildPaneSpecifier</string>
+            <key>File</key>
+            <key>Appirater</key>
+        </dict>
+        <dict>
+            <key>Title</key>
+            <string>TSMiniWebBrowser</string>
+            <key>Type</key>
+            <string>PSChildPaneSpecifier</string>
+            <key>File</key>
+            <key>TSMiniWebBrowser</key>
+        </dict>
+    </array>
+	<key>StringsTable</key>
+	<string>Licenses</string>
+</dict>
+</plist>

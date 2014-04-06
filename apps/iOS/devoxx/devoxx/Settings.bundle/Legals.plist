@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PreferenceSpecifiers</key>
+	<array>
+        <dict>
+            <key>Title</key>
+            <string>Mentions Légales</string>
+            <key>FooterText</key>
+            <string>
+Raison sociale : Xebia IT Architects
+Le siège social : 10-12 avenue de l’Arche de la Défense Colisée Faubourg de l’Arche / 92 419 Courbevoie Cedex
+Numéro de téléphone : +33 (0)1 53 89 99 99
+Responsable de publication : Christophe Heubès => cheubes@xebia.fr
+Représentant légal de la structure : M. Luc Legardeur
+Capital social : 67 399, 93€
+Numéro RCS : 479 994 147 R.C.S. Nanterre
+Numéro d’agrément : 11 92 164 1692
+            </string>
+            <key>Type</key>
+            <string>PSGroupSpecifier</string>
+        </dict>
+        <dict>
+            <key>Title</key>
+            <string>Droits de propriété et droits d'auteur</string>
+            <key>FooterText</key>
+            <string>
+Le Code de la propriété intellectuelle n’autorisant, aux termes de l’article L. 122-5, (2° et 3°a), d’une part, que les “copies ou reproductions strictement réservées à l’usage privé du copiste et non destinées à une utilisation collective” et, d’autre part, que les analyses et les courtes citations dans un but d’exemple et d’illustration, ” toute représentation ou reproduction intégrale ou partielle faite sans le consentement de l’auteur ou de ses ayants droit ou ayants cause est illicite” (article L. 122-4). Cette représentation ou reproduction, par quelques procédé que ce soit, constituerait donc une contrefaçon sanctionnée par les articles L. 335-2 et suivants du Code de la propriété intellectuelle.
+
+Tous les droits de propriété et droits d’auteurs relatifs à l'application mobile concernent de manière non limitative, toute image, photographie, animation, musique, tout élément vidéo ou sonore, tout texte intégrés à l'application. Tout contrevenant sera soumis à des poursuites judiciaires, conformément aux droits internationaux de la propriété intellectuelle.
+            </string>
+            <key>Type</key>
+            <string>PSGroupSpecifier</string>
+        </dict>
+        <dict>
+            <key>Title</key>
+            <string>Collectes de données personnelles</string>
+            <key>FooterText</key>
+            <string>
+Responsables des traitements et destinataires des données : M. Luc Legardeur / M. Christophe Heubès
+Les informations recueillies lors d’une inscription à une information ou tout autre formulaire (jeux concours, souscription à une offre promotionnelle, newsletters, contacts réseaux sociaux) font l’objet d’un traitement informatique destinées à qualifier nos bases prospects/clients et à exercer des opérations de prospections commerciales.
+
+Conformément à la loi « informatique et libertés » du 6 janvier 1978 modifiée en 2004, vous bénéficiez d’un droit d’accès et de rectification aux informations qui vous concernent, que vous pouvez exercer en vous adressant par courrier à Xebia IT Architects, 156 boulevard Haussmann, 75 008 Paris, ou par email à contact@xebia.fr.
+
+Vous pouvez également, pour des motifs légitimes, vous opposer au traitement des données vous concernant.
+            </string>
+            <key>Type</key>
+            <string>PSGroupSpecifier</string>
+        </dict>
+    </array>
+	<key>StringsTable</key>
+	<string>Legals</string>
+</dict>
+</plist>
