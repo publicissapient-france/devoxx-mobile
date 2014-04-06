@@ -1,7 +1,11 @@
 @import url("jquery.mobile.structure-1.1.0-rc.1.css");
 @import url("jquery.mobile-1.1.0-rc.1.css");
 
-    #home-content, #presentation-content, #speaker-content, #tracks-content, #presentation-content {
+#home-content {
+    padding: 0 15px;
+}
+
+#presentation-content, #speaker-content, #tracks-content, #presentation-content {
     padding: 15px;
 }
 
@@ -215,7 +219,7 @@ img.menu-img {
 }
 
 .ui-mobile #home-header {
-  padding: 10px 0 10px 0;
+  padding: 10px 0 0 0;
   text-align: center;
 }
 
