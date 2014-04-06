@@ -6,26 +6,9 @@ define(['log', 'utils', 'collection', 'entry', 'ui', 'db', 'synchronize'], funct
 
     var EVENT_ID = '11';
 
-    var TWITTER_USER_XEBIA = "xebiaFr";
-    var TWITTER_USER_DEVOXXFR = "devoxxFR";
-
-    var DEFAULT_TWITTER_USER = TWITTER_USER_XEBIA;
-
-    var AUTHORIZED_TWITTER_USER = [TWITTER_USER_XEBIA, TWITTER_USER_DEVOXXFR];
-
     var core = { };
 
     var router;
-
-    var favorites = {
-        ids: [ ]
-    };
-
-    db.get('favorites', function(data) {
-        if (data) {
-            favorites = data;
-        }
-    });
 
     var EVENTS = {
         events: [ {
@@ -103,7 +86,6 @@ define(['log', 'utils', 'collection', 'entry', 'ui', 'db', 'synchronize'], funct
         synchronize.addUrl(eventId + '/rooms', utils.getFullUrl( '/' + eventId + '/rooms?callback=?') );
         synchronize.addUrl(eventId + '/tracks', utils.getFullUrl( '/' + eventId + '/tracks?callback=?') );
         synchronize.addUrl(eventId + '/speakers', utils.getFullUrl( '/' + eventId + '/speakers?callback=?') );
-        synchronize.addUrl(utils.getFullUrl( '/conferences?callback=?') );
     };
 
     function refreshPageOnIdChange(type, match, ui, page, e, refreshFunction, fallbackFunction) {
@@ -140,7 +122,6 @@ define(['log', 'utils', 'collection', 'entry', 'ui', 'db', 'synchronize'], funct
         router = new $.mobile.Router({
             "#schedule" : { handler : "onBeforeSchedulePageShow", events: "bs" },
             "#day(?:[?](.*))" : { handler: "onBeforeDayPageShow", events: "bs" },
-            "#events" : { handler : "onBeforeEventsPageShow", events: "bs" },
             "#event(?:[?](.*))" : { handler : "onBeforeEventPageShow", events: "bs" },
             "#rooms" : { handler : "onBeforeRoomsPageShow", events: "bs" },
             "#room(?:[?](.*))" : { handler : "onBeforeRoomPageShow", events: "bs" },
@@ -150,8 +131,7 @@ define(['log', 'utils', 'collection', 'entry', 'ui', 'db', 'synchronize'], funct
             "#speaker(?:[?](.*))" : { handler : "onBeforeSpeakerPageShow", events: "bs" },
             "#tracks" : { handler : "onBeforeTracksPageShow", events: "bs" },
             "#track(?:[?](.*))" : { handler : "onBeforeTrackPageShow", events: "bs" },
-            "#synchronize":{ handler:"onBeforeSynchronizePageShow", events:"bs" },
-            "#twitter(?:[?](.*))?":{ handler:"onBeforeTwitterPageShow", events:"bs" }
+            "#synchronize":{ handler:"onBeforeSynchronizePageShow", events:"bs" }
         },
         {
             onBeforeSchedulePageShow: function(type, match, ui, page, e) {
@@ -159,9 +139,6 @@ define(['log', 'utils', 'collection', 'entry', 'ui', 'db', 'synchronize'], funct
             },
             onBeforeDayPageShow: function(type, match, ui, page, e) {
                 refreshPageOnIdChange(type, match, ui, page, e, core.refreshDay, core.renderCollectionView);
-            },
-            onBeforeEventsPageShow: function(type, match, ui, page, e) {
-                refreshPageOnChange(type, match, ui, page, e, core.refreshEvents);
             },
             onBeforeEventPageShow: function(type, match, ui, page, e) {
                 refreshPageOnIdChange(type, match, ui, page, e, core.refreshEvent);
@@ -190,23 +167,8 @@ define(['log', 'utils', 'collection', 'entry', 'ui', 'db', 'synchronize'], funct
             onBeforeSpeakerPageShow: function(type, match, ui, page, e) {
                 refreshPageOnIdChange(type, match, ui, page, e, core.refreshSpeaker);
             },
-            onBeforeRegisterPageShow: function(type, match, ui, page, e) {
-                refreshPage(type, match, ui, page, e, core.onRegisterBeforePageShow);
-            },
             onBeforeSynchronizePageShow: function(type, match, ui, page, e) {
                 refreshPageOnChange(type, match, ui, page, e, core.onSynchronizeBeforePageShow);
-            },
-            onBeforeTwitterPageShow: function(type, match, ui, page, e) {
-                refreshPage(type, match, ui, page, e, core.refreshTwitter);
-            },
-            onBeforeXebiaProgramInfosPageShow: function(type, match, ui, page, e) {
-                refreshPageOnChange(type, match, ui, page, e, core.refreshXebiaProgramInfos);
-            },
-            onBeforeXebiaProgramDetailsPageShow: function(type, match, ui, page, e) {
-                refreshPageOnIdChange(type, match, ui, page, e, core.refreshXebiaProgramDetails);
-            },
-            onBeforeXebianPageShow: function(type, match, ui, page, e) {
-                refreshPageOnIdChange(type, match, ui, page, e, core.refreshXebian);
             }
         });
 
@@ -340,9 +302,6 @@ define(['log', 'utils', 'collection', 'entry', 'ui', 'db', 'synchronize'], funct
                 _(sessions).each(core.enhanceSession);
 
                 return sessions;
-            },
-            postRender: function(sessions) {
-                core.initSwipeFavorites("presentation-schedule-item");
             }
         });
     };
@@ -363,43 +322,6 @@ define(['log', 'utils', 'collection', 'entry', 'ui', 'db', 'synchronize'], funct
                 _(sessions).each(core.enhanceSession);
 
                 return sessions;
-            },
-            postRender: function(sessions) {
-                core.initSwipeFavorites("presentation-day-item");
-            }
-        });
-    };
-
-    core.refreshEvents = function() {
-        ui.resetFlashMessages("#events");
-        logger.info("Refreshing events");
-        ui.switchTitle('events', "Evénements");
-
-        core.refreshDataList({
-            page: "#events", title: "Event", el: "#event-list", view: "events", template: $("#event-list-tpl").html(),
-            url: utils.getFullUrl('/events?callback=?'),
-            cacheKey: '/events',
-            dataType: "event",
-            parse: function(events) { return events; }
-        });
-    };
-
-    core.refreshEvent = function(id) {
-        ui.resetFlashMessages("#event");
-        logger.info("Processing event: " + id);
-        ui.switchTitle('event', "Evénement");
-
-        core.refreshDataEntry({
-            page: "#event", title: "Event", el: "#event-content", view: "event", template: $("#event-tpl").html(),
-            url: utils.getFullUrl('/events?callback=?'),
-            cacheKey: '/events',
-            dataType: "event",
-            parse: function(events) {
-                return core.findEventById(events, id);
-            },
-            postRender: function(event) {
-                $('#event-details-list').listview();
-                ui.switchTitle('event', event.get('name'));
             }
         });
     };
@@ -418,9 +340,6 @@ define(['log', 'utils', 'collection', 'entry', 'ui', 'db', 'synchronize'], funct
                 _(presentations).each(core.enhancePresentationListItem);
 
                 return presentations;
-            },
-            postRender: function(presentations) {
-                core.initSwipeFavorites("presentation-item");
             }
         });
     };
@@ -525,7 +444,6 @@ define(['log', 'utils', 'collection', 'entry', 'ui', 'db', 'synchronize'], funct
                 if (presentations.length > 0) {
                     ui.switchTitle('track', presentations[0].get('track'));
                 }
-                core.initSwipeFavorites("presentation-item");
             }
         });
     };
@@ -564,35 +482,6 @@ define(['log', 'utils', 'collection', 'entry', 'ui', 'db', 'synchronize'], funct
                 if (presentations.length > 0) {
                     ui.switchTitle('room', presentations[0].get('room'));
                 }
-                core.initSwipeFavorites("presentation-item");
-            }
-        });
-    };
-
-    core.refreshTwitter = function(params) {
-        var screenName = !!params ? params.screenname : undefined;
-        if (!_(AUTHORIZED_TWITTER_USER).contains(screenName)) {
-                screenName = DEFAULT_TWITTER_USER;
-        }
-
-        $(screenName === TWITTER_USER_XEBIA ? '#twitter-devoxxfr' : '#twitter-xebiafr').removeClass("ui-btn-active");
-        $(screenName === TWITTER_USER_XEBIA ? '#twitter-xebiafr' : '#twitter-devoxxfr').addClass("ui-btn-active");
-
-        console.log("Requested screen name : " + screenName);
-        ui.resetFlashMessages("#twitter");
-        logger.info("Processing tweets");
-        $( '.ui-title' ).html( '<img src="image/twitter-white-transparent.png" class="twitter-header-img" style="height:18px;" />' || "" );
-
-        core.refreshDataList({
-            page: "#twitter", title: "Twitter", el: "#twitter-timeline", view: "twitter", template: $("#twitter-timeline-tpl").html(),
-            url: utils.getTwitterFullUrl('/twitter/' + screenName + '?callback=?'),
-            parse: function(tweets) {
-                _(tweets).each(function(tweet) {
-                    tweet.formattedDate = core.getTweetFormattedDate(tweet);
-                    tweet.user.icon = core.getTwitterUserImage(tweet.user);
-                    tweet.htmlText = core.twitter_linkify(tweet.text);
-                });
-                return tweets;
             }
         });
     };
@@ -651,7 +540,6 @@ define(['log', 'utils', 'collection', 'entry', 'ui', 'db', 'synchronize'], funct
     core.enhanceSession = function(session) {
         if (session.presentationUri) {
             session.presentationId = core.getPresentationIdFromUri(session.presentationUri);
-            session.favorite = core.isFavorite(session.presentationId);
         }
         session.startTime = core.getScheduleTime(session.fromTime);
         session.endTime = core.getScheduleTime(session.toTime);
@@ -679,7 +567,6 @@ define(['log', 'utils', 'collection', 'entry', 'ui', 'db', 'synchronize'], funct
 
     core.enhancePresentationListItem = function(presentation) {
         core.updateLanguage(presentation);
-        core.updateFavorite(presentation);
     };
 
     core.getSpeakerIdFromUri = function(speakerUri) {
@@ -688,13 +575,12 @@ define(['log', 'utils', 'collection', 'entry', 'ui', 'db', 'synchronize'], funct
 
     core.enhancePresentation = function(presentation) {
         core.updateLanguage(presentation);
-        core.updateFavorite(presentation);
          if (!presentation.enhanced) {
             presentation.summary = core.formatPresentationSummary(presentation);
             presentation.enhanced = true;
          }
         _(presentation.speakers).each(function(speaker) {
-            speaker.id = core.getSpeakerIdFromUri(speaker.speakerUri);
+            speaker.id = speaker.id;
         });
     };
 
@@ -743,133 +629,16 @@ define(['log', 'utils', 'collection', 'entry', 'ui', 'db', 'synchronize'], funct
         }
     };
 
-    core.updateFavorite = function(presentation) {
-        presentation.favorite = core.isFavorite(presentation.id);
-    };
-
     core.onSynchronizeBeforePageShow = function() {
         synchronize.beforePageShow(core.clearPageContexts);
-    };
-
-    core.getTweetFormattedDate = function(tweet) {
-        return Date.parse(tweet.created_at) ? Date.parse(tweet.created_at).toString("HH:mm") : "--:--";
-    };
-
-    core.getTwitterUserImage = function(user) {
-        return user.profile_image_url.replace(/_normal(\.[^\.]+)$/, "$1");
-    };
-
-    core.twitter_linkify = function(text) {
-        text = text.replace(/(https?:\/\/\S+)/gi, function (s) {
-            return '<a href="' + s + '" target="_blank">' + s + '</a>';
-        });
-
-        text = text.replace(/(^|)@(\w+)/gi, function (s) {
-            return '<a href="http://twitter.com/' + s + '" target="_blank">' + s + '</a>';
-        });
-
-        text = text.replace(/(^|)#(\w+)/gi, function (s) {
-            return '<a href="http://search.twitter.com/search?q=' + s.replace(/#/,'%23') + '" target="_blank">' + s + '</a>';
-         });
-        return text;
     };
 
     core.formatPresentationSummary = function(presentation) {
         return utils.linkify(presentation.summary.replace(/\n/g, '<br />'));
     };
 
-    core.saveFavorites = function() {
-        logger.info("Favorite ids: " + favorites.ids);
-        db.save('favorites', favorites);
-    };
-
-    core.removeFavorite = function(presentationId) {
-        if ( core.isFavorite(presentationId) ) {
-            favorites.ids.splice(favorites.ids.indexOf(presentationId), 1);
-            core.saveFavorites();
-            core.updatePresentationModelFavoriteValue(false);
-            core.updatePresentationFavoriteListItem(presentationId, false);
-        }
-    };
-    
-    core.addFavorite = function(presentationId) {
-        if ( !core.isFavorite(presentationId) ) {
-            favorites.ids.push(presentationId);
-            core.saveFavorites(); 
-            core.updatePresentationModelFavoriteValue(true);
-            core.updatePresentationFavoriteListItem(presentationId, true);
-        }
-    };
-
-    core.toggleFavorite = function (presentationId) {
-        presentationId = Number(presentationId);
-        if (!core.isFavorite(presentationId)) {
-            core.addFavorite(presentationId);
-            return true;
-        }
-        else {
-            core.removeFavorite(presentationId);
-            return false;
-        }
-    };
-
-    core.isFavorite = function (presentationId) {
-        return favorites && _(favorites.ids).contains(Number(presentationId));
-    };
-     
-    core.updatePresentationModelFavoriteValue = function(favorite) {
-        var view = core.getDetailView("presentation");
-        if (view) {
-            view.entry.attributes.favorite = favorite;
-        }
-    };
-
-    core.initSwipeFavorites = function(classId) {
-        $('ul li.' + classId).bind('swipeleft', function(e) {
-            var presentationItem = $(this);
-            var presentationId = Number(presentationItem.attr('data-presentation-id'));
-            core.removeFavorite(presentationId);
-            presentationItem.removeClass('ui-btn-up-e');
-            presentationItem.addClass('ui-btn-up-c');
-            presentationItem.attr('data-theme', 'c');
-        });
-
-        $('ul li.' + classId).bind('swiperight', function(e) {
-            var presentationItem = $(this);
-            var presentationId = Number(presentationItem.attr('data-presentation-id'));
-            core.addFavorite(presentationId);
-            presentationItem.removeClass('ui-btn-up-c');
-            presentationItem.addClass('ui-btn-up-e');
-            presentationItem.attr('data-theme', 'e');
-        });
-    };
-
     core.getDetailView = function(view) {
         return entry.views[view];
-    };
-
-    core.onFavoriteStarClick = function(presentationId) {
-        core.toggleFavorite(presentationId);
-        core.getDetailView("presentation").render();
-    };
-
-    core.updatePresentationFavoriteListItem = function(presentationId, favorite) {
-        _(collection.views).each(function(view) {
-            if ( view.collection.dataType ) {
-                if ( view.collection.dataType == 'session' ) {
-                    var session = _(view.collection.models).find(function(session) { return session.attributes.presentationId && session.attributes.presentationId == presentationId; });
-                    if (session) {
-                        session.attributes.favorite = favorite;
-                    }
-                }
-                else if ( view.collection.dataType == 'presentation' ) {
-                    var presentation = _(view.collection.models).find(function(presentation) { return session.attributes.id && session.attributes.id == presentationId; });
-                    if (presentation) {
-                        presentation.attributes.favorite = favorite;
-                    }
-                }
-            }
-        });
     };
 
     logger.info("Loaded core");

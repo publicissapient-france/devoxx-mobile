@@ -79,7 +79,7 @@ h3.tag-box {
 .AGILITE_DEVOPS.awesome, .AGILITE_DEVOPS.awesome:visited { background-color: #1a6b9c; }
 
 .OTHER_ROOM.awesome, .OTHER_ROOM.awesome:visited { background-color: #1b70ff; }
-.SEINE.awesome, .SEINE.awesome:visited { background-color: #c7ff0d; }
+.SEINE.awesome, .SEINE.awesome:visited { background-color: #9BD639; }
 .SEINE_A.awesome, .SEINE_A.awesome:visited { background-color: #719409; }
 .SEINE_B.awesome, .SEINE_B.awesome:visited { background-color: #1a6b9c; }
 .SEINE_C.awesome, .SEINE_C.awesome:visited { background-color: #cf040e; }
@@ -102,10 +102,10 @@ h3.tag-box {
 .AUDITORIUM.awesome, .AUDITORIUM.awesome:visited { background-color: #ffa41e; }
 .AUDITORIUM.awesome, .AUDITORIUM.awesome:visited { background-color: #ffa41e; }
 .FOYER_BAS.awesome, .FOYER_BAS.awesome:visited { background-color: #c0475a; }
-.LABO.awesome, .LABO.awesome:visited { background-color: #9cc091AC54BF; }
+.LABO.awesome, .LABO.awesome:visited { background-color: #9cc091; }
 
 ul li.room-OTHER_ROOM { border-left: 5px #1b70ff solid; }
-ul li.room-SEINE { border-left: 5px #c7ff0d solid; }
+ul li.room-SEINE { border-left: 5px #9bd639 solid; }
 ul li.room-SEINE_A { border-left: 5px #719409 solid; }
 ul li.room-SEINE_B { border-left: 5px #1a6b9c solid; }
 ul li.room-SEINE_C { border-left: 5px #cf040e solid; }
@@ -140,10 +140,11 @@ ul li.room-LABO { border-left: 5px #9cc091 solid; }
 .CONFERENCE.awesome, .CONFERENCE.awesome:visited { background-color: #ff9a00; }
 .QUICKIE.awesome, .QUICKIE.awesome:visited { background-color: #467d6a; }
 
-.silver.awesome, .silver.awesome:visited { background-color: #606060; }
+.lang_FR.awesome, .lang_FR.awesome:visited { background-color: #cf040e; }
+.TOOLS-IN-ACTION.awesome, .TOOLS-IN-ACTION.awesome:visited { background-color: #2488cc; }
 
-.favorite.awesome, .favorite.awesome:visited { background-color: #ffa000; }
-.favorite.awesome:hover { background-color: #ff8e00; }
+
+.silver.awesome, .silver.awesome:visited { background-color: #606060; }
 
 ul li.type-HANDS_ON_LABS { border-left: 5px #741aab solid; }
 ul li.type-AUTRES_FORMATS_DE_CONFERENCE { border-left: 5px #719409 solid; }
