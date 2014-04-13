@@ -88,7 +88,7 @@
     //called dirExclusionRegExp before the 1.0.2 release.
     //As of 1.0.3, this value can also be a string that is converted to a
     //RegExp via new RegExp().
-    fileExclusionRegExp: /^(.*require-1\.0\.5\.js|app\.build\.js|build\.sh|target|etc|webstore|splashes|config\.xml|build\.txt|\.idea|.*\.sh|.*\.min\.css|.*\.min\.js|r\.js|app\.build\.js|.*phonegap.*\.js|.*json.*\.js|.*date.*\.js|.*lawnchair.*\.js|\.idea|\.git|\.gitignore|data|README)$/,
+    fileExclusionRegExp: /^(.*require-1\.0\.5\.js|app\.build\.js|apps|build\.sh|target|etc|webstore|splashes|config\.xml|build\.txt|\.idea|.*\.sh|.*\.min\.css|.*\.min\.js|r\.js|app\.build\.js|.*phonegap.*\.js|.*json.*\.js|.*date.*\.js|.*lawnchair.*\.js|\.idea|\.git|\.gitignore|data|README)$/,
 
     modules: [
         { name: "app" }

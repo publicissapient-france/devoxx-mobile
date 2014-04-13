@@ -1,11 +1,15 @@
 {
-  "name": "Devoxx France 2012",
-  "description": "Consultez le programme de Devoxx France 2012, et suivez l'actualité de la conférence!",
-  "version": "1.1.4",
+  "name": "Devoxx France 2014",
+  "description": "Consultez le programme de Devoxx France 2014, et suivez l'actualité de la conférence!",
+  "version": "1.2.0",
+  "manifest_version": 2,
   "icons": {
-    "128": "icon-webstore-128.png"
+    "128": "icon-webstore-128-2014.png"
   },
   "app": {
+    "urls": [
+      "http://devoxx.xebia.fr/"
+    ],
     "launch": {
       "web_url": "http://devoxx.xebia.fr/"
     }
