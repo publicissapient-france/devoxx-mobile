@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger>
+
+    <dataSet config="main" >
+        <source path="/Users/akinsella/Workspace/Projects/devoxx-mobile/apps/android/platforms/android/CordovaLib/assets" />
+    </dataSet>
+    <dataSet config="release" >
+        <source path="/Users/akinsella/Workspace/Projects/devoxx-mobile/apps/android/platforms/android/CordovaLib/build-types/release/assets" />
+    </dataSet>
+
+</merger>

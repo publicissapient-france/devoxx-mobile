@@ -41,3 +41,6 @@ build/*
 
 #CocoaPods
 Pods
+
+#Android App
+apps/android/platforms/android/build

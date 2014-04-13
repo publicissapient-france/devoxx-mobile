@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger>
+
+    <dataSet config="main" >
+        <source path="/Users/akinsella/Workspace/Projects/devoxx-mobile/apps/android/platforms/android/CordovaLib/res" />
+        <source path="/Users/akinsella/Workspace/Projects/devoxx-mobile/apps/android/platforms/android/CordovaLib/build/res/rs/debug" />
+        <source path="/Users/akinsella/Workspace/Projects/devoxx-mobile/apps/android/platforms/android/CordovaLib/build/res/generated/debug" />
+    </dataSet>
+    <dataSet config="debug" >
+        <source path="/Users/akinsella/Workspace/Projects/devoxx-mobile/apps/android/platforms/android/CordovaLib/build-types/debug/res" />
+    </dataSet>
+
+</merger>

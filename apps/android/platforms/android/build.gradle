@@ -1,0 +1,42 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.9.+'
+    }
+}
+
+apply plugin: 'android'
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion '19.0.3'
+
+    println("keyStore: " + project.property("keyStore"))
+    println("keyAlias: " + project.property("keyAlias"))
+
+    signingConfigs {
+        release {
+            storeFile file(project.property("keyStore"))
+            storePassword project.property("keyStorePassword")
+            keyAlias project.property("keyAlias")
+            keyPassword project.property("keyPassword")
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+    compile project(':CordovaLib')
+}

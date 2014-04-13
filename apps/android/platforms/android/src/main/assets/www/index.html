@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<!--<html manifest="app.manifest">-->
+<html>
+
+    <head>
+        <meta charset="utf-8" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" />
+        <!-- status bar -->
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <!-- hide safari chrome -->
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+
+        <title>Xebia - Devoxx France 2014</title>
+
+        <script>
+            var webappCache = window.applicationCache;
+            if (webappCache) {
+                webappCache.addEventListener('updateready', function() {
+                    try { webappCache.swapCache(); } catch(e) { console.info("swapCache exception: " + e); }
+//                    if (confirm('An update is available. Reload now?')) {
+                        window.location.reload();
+//                    }
+                }, false);
+                try { webappCache.update(); } catch(e){ console.info("Update cache exception: " + e); }
+            }
+        </script>
+
+        <link rel="stylesheet" href="css/mobile.css" />
+
+        <link rel="apple-touch-icon-precomposed" href="image/icons/icon-iphone-57.png">
+        <link rel="apple-touch-icon-precomposed" sizes="57x57" href="image/icons/icon-iphone-57.png" />
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="image/icons/icon-iphone-retina-114.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="image/icons/icon-ipad-72.png" />
+
+        <link rel="apple-touch-startup-image" href="image/splashes/iphone-portrait.png" />
+
+        <style type="text/css">
+@font-face {
+    font-family: 'Oleo Script';
+    font-weight: 400;
+    font-style: normal;
+    src: url('oleo-script-webfont.eot');
+    src:
+         local('Oleo Script'), local('OleoScript-Regular'),
+         url('font/oleo-script-webfont.woff') format('woff'),
+         url('font/oleo-script-webfont.eot?#iefix') format('embedded-opentype'),
+         url('font/oleo-script-webfont.ttf') format('truetype'),
+         url('font/oleo-script-webfont.svg#OleoScriptRegular') format('svg');
+}
+
+body {
+    height: 100%
+}
+
+div.fullscreen {
+    display: block;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: #ffffff;
+}
+
+.centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -40px;
+    margin-left: -130px;
+}
+
+div.splash-message {
+    padding-top: 10px;
+    font-family: 'Oleo Script', cursive;
+    font-size: 2em;
+    font-weight: bold;
+    color: #CCCCCC;
+    text-align: center;
+    text-shadow: 0 1px 1px #FFFFFF;
+}
+
+div.spinner-container {
+    padding: 1.00em 1.5em 1.5em;
+    background: #F0F0F0;
+
+    -webkit-border-radius: 1em;
+    -moz-border-radius: 1em;
+    -o-border-radius: 1em;
+    -ms-border-radius: 1em;
+    border-radius: 1em;
+}
+
+        </style>
+
+    </head>
+
+    <body>
+
+        <div id="splash-screen" class="fullscreen">
+            <div class="spinner-container grey centered">
+                <div id="splash-message" class="splash-message" style="width: 210px; ">Loading ...</div>
+            </div>
+        </div>
+
+       <!--  <div id="pages"> -->
+        <div id="pages" style="display: none;">
+
+            <!-- home page -->
+            <div align="center" id="home" data-role="page" class="home" data-add-back-btn="true">
+                <div id="home-header">
+                    <h1 id="logo">
+                        <img src="image/devoxx-logo-big-white.png" class="devoxx-logo" alt="devoxx" />
+                    </h1>
+                </div>
+                <div id="home-content" data-role="content">
+                    <div id="home-content-dates">
+
+                        <ul id="home-content-dates-list" data-role="listview" data-inset="true" data-theme="c">
+                            <li>
+                                <a href="#day?id=1">
+                                    <h3 align="center">Mercredi 16 Avril 2014</h3>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#day?id=2">
+                                    <h3 align="center">Jeudi 17 Avril 2014</h3>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#day?id=3">
+                                    <h3 align="center">Vendredi 18 Avril 2014</h3>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <ul id="home-content-synchronize-list" data-role="listview" data-inset="true" data-theme="a">
+                            <li>
+                                <a href="#synchronize" alt="Synchroniser les données" style="padding: 5px; margin:0px;">
+                                     <h3 align="center">Synchroniser</h3>
+                                 </a>
+                            </li>
+                        </ul>
+
+                        <div id="home-content-devoxx-paris">
+                            <ul id="home-content-devoxx-paris-list" data-role="listview" data-inset="true" data-theme="c">
+                                <li>
+                                     <a href="#schedule">
+                                         <h3 align="center">Planning</h3>
+                                     </a>
+                                </li>
+                                <li>
+                                     <a href="#speakers">
+                                         <h3 align="center">Speakers</h3>
+                                     </a>
+                                </li>
+                                <li>
+                                      <a href="#presentations">
+                                          <h3 align="center">Présentations</h3>
+                                      </a>
+                                </li>
+                                <li>
+                                      <a href="#rooms">
+                                          <h3 align="center">Salles</h3>
+                                      </a>
+                                </li>
+                                <li>
+                                      <a href="#tracks">
+                                          <h3 align="center">Tracks</h3>
+                                      </a>
+                                </li>
+                            </ul>
+
+                        </div>
+
+                        <div id="menu-content-other">
+                            <ul id="menu-content-other-list" data-role="listview" data-inset="true" data-theme="c">
+                                <li>
+                                    <a href="#about">
+                                        <h3 align="center">A propos</h3>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+                <div id="home-footer"  class="home-footer">
+                    <div align="right" style="border-top: 1px solid #CCC; border-bottom: 1px solid #CCC; background: #FEFEFE;padding:10px;">
+                        <img src="image/xebia-logo.png" class="menu-footer-img home-xebia-img" alt="Xebia" style="height: 24px;" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Schedule page -->
+            <div align="center" id="schedule" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+                <div id="schedule-header" data-role="header" data-theme="a" data-position="fixed">
+                    <h1 style="text-align: center; margin-left: 60px; margin-right: 5px;">Planning</h1>
+                </div>
+                <div id="schedule-message" data-role="message"></div>                                
+                <div id="schedule-content" data-role="content">
+                    <ul id="schedule-list" data-role="listview" data-theme="c" data-divider-theme="a"></ul>
+                </div>
+            </div>
+
+            <!-- Xebia-Program page -->
+            <div align="center" id="xebia-program-infos" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+                <div id="xebia-program-infos-header" data-role="header" data-theme="a" data-position="fixed">
+                    <h1>Xebia In Devoxx</h1>
+                </div>
+                <div id="xebia-program-infos-message" data-role="message"></div>
+                <div id="xebia-program-infos-content" data-role="content">
+                    <ul id="xebia-program-infos-list" data-role="listview" data-theme="c" data-divider-theme="a"></ul>
+                </div>
+            </div>
+
+            <!-- Xebia-Program Details page -->
+            <div align="center" id="xebia-program-details" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+                <div id="xebia-program-details-header" data-role="header" data-theme="a" data-position="fixed">
+                    <h1>Xebia Workshop</h1>
+                </div>
+                <div id="xebia-program-details-message" data-role="message"></div>
+                <div id="xebia-program-details-content" data-role="content"></div>
+            </div>
+
+            <!-- Day page -->
+            <div align="center" id="day" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+                <div id="day-header" data-role="header" data-theme="a" data-position="fixed">
+                    <h1 style="text-align: center; margin-left: 60px; margin-right: 5px;">Jour</h1>
+                </div>
+                <div id="day-message" data-role="message"></div>                                
+                <div id="day-content" data-role="content">
+                    <ul id="day-list" data-role="listview" data-theme="c" data-divider-theme="a"></ul>
+                </div>
+            </div>
+
+            <!-- Presentation page -->
+            <div align="center" id="presentation" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+                <div id="presentation-header" data-role="header" data-theme="a" data-position="fixed">
+                    <h1 style="text-align: center; margin-left: 60px; margin-right: 5px;">Présentation</h1>
+                </div>
+                <div id="presentation-message" data-role="message"></div>                                
+                <div id="presentation-content" data-role="content" data-divider-theme="a"></div>
+            </div>
+
+            <!-- Speakers page -->
+            <div align="center" id="speakers" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+                <div id="speakers-header" data-role="header" data-theme="a" data-position="fixed">
+                    <h1 style="text-align: center; margin-left: 60px; margin-right: 5px;">Speakers</h1>
+                </div>
+                <div id="speakers-message" data-role="message"></div>                
+                <div id="speakers-content" data-role="content">
+                    <ul id="speaker-list" data-role="listview" data-theme="c"></ul>
+                </div>
+            </div>
+
+            <!-- Speaker page -->
+            <div align="center" id="speaker" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+                <div id="speaker-header" data-role="header" data-theme="a" data-position="fixed">
+                    <h1 style="text-align: center; margin-left: 60px; margin-right: 5px;">Speaker</h1>
+                </div>
+                <div id="speaker-message" data-role="message"></div>
+                <div id="speaker-content" data-role="content" data-divider-theme="a"></div>
+            </div>
+
+            <!-- Xebian page -->
+            <div align="center" id="xebian" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+                <div id="xebian-header" data-role="header" data-theme="a" data-position="fixed">
+                    <h1 style="text-align: center; margin-left: 60px; margin-right: 5px;">Xebian</h1>
+                </div>
+                <div id="xebian-message" data-role="message"></div>
+                <div id="xebian-content" data-role="content" data-divider-theme="a"></div>
+            </div>
+
+            <!-- Rooms page -->
+            <div align="center" id="rooms" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+                <div id="rooms-header" data-role="header" data-theme="a" data-position="fixed">
+                    <h1 style="text-align: center; margin-left: 60px; margin-right: 5px;">Salles</h1>
+                </div>
+                <div id="rooms-message" data-role="message"></div>
+                <div id="rooms-content" data-role="content">
+                    <ul id="room-list" data-role="listview" data-theme="c"></ul>
+                </div>
+            </div>
+
+            <!-- Room page -->
+            <div align="center" id="room" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+                <div id="room-header" data-role="header" data-theme="a" data-position="fixed">
+                    <h1 style="text-align: center; margin-left: 60px; margin-right: 5px;">Salle</h1>
+                </div>
+                <div id="room-message" data-role="message"></div>
+                <div id="room-content" data-role="content">
+                    <ul id="room-presentation-list" data-role="listview" data-theme="c"></ul>
+                </div>
+            </div>
+
+            <!-- Presentations page -->
+            <div align="center" id="presentations" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+
+                <div id="presentations-header" data-role="header" data-theme="a" data-position="fixed">
+                    <h1 style="text-align: center; margin-left: 60px; margin-right: 5px;">Présentations</h1>
+                </div>
+                <div id="presentations-message" data-role="message"></div>                
+                <div id="presentations-content" data-role="content">
+                    <ul id="presentation-list" data-role="listview" data-theme="c"></ul>
+                </div>
+            </div>
+
+            <!-- Tracks page -->
+            <div align="center" id="tracks" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+
+                <div id="tracks-header" data-role="header" data-theme="a" data-position="fixed">
+                    <h1 style="text-align: center; margin-left: 60px; margin-right: 5px;">Tracks</h1>
+                </div>
+                <div id="tracks-message" data-role="message"></div>                
+                <div id="tracks-content" data-role="content">
+                    <ul id="track-list" data-role="listview" data-theme="c"></ul>
+                </div>
+            </div>
+
+            <!-- Track page -->
+            <div align="center" id="track" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+
+                <div id="track-header" data-role="header" data-theme="a" data-position="fixed">
+                    <h1 style="text-align: center; margin-left: 60px; margin-right: 5px;">Track</h1>
+                </div>
+                <div id="track-message" data-role="message"></div>
+                <div id="track-content" data-role="content">
+                    <ul id="track-presentation-list" data-role="listview" data-theme="c"></ul>
+                </div>
+            </div>
+
+            <!-- Synchronize page -->
+            <div align="center" id="synchronize" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+                <div data-role="header" data-theme="a" data-position="fixed">
+                    <h1 style="text-align: center; margin-left: 60px; margin-right: 5px;">Synchronisation</h1>
+                </div>
+                <div id="synchronize-message" data-role="message"></div>
+                <div id="synchronize-content" data-role="content">
+                    <div id="synchronize-home">
+                        <div id="synchronize-home-description" class="synchronize-description">
+                            <p><em>
+                                La synchronisation des données vous permet de consulter offline l'application.
+                                <br />
+                                Pour mettre les données à jour, lancez une nouvelle synchronisation.
+                            </em></p>
+                            <img src="image/devoxx-head.png" width="110px"/>
+                        </div>
+                        <div align="left">
+                            <form id="synchronize-home-form">
+                                <div data-role="fieldcontain">
+                                    <button id="synchronize-home-submit" type="submit" data-theme="a">Synchroniser</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div id="synchronize-running" style="display: none;">
+                        <div id="synchronize-running-description" class="synchronize-description">
+                            <p><em><strong>Synchronisation en cours ...</strong></em></p>
+                            <img src="image/devoxx-head.png"/>
+                        </div>
+                        <div align="left">
+                            <form id="synchronize-running-form">
+                                <div data-role="fieldcontain">
+                                    <button id="synchronize-running-submit" type="submit" data-theme="a">Annuler</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About page -->
+            <div align="center" id="about" data-role="page" data-theme="c" class="page" data-add-back-btn="true">
+                <div data-role="header" data-theme="a" data-position="fixed">
+                    <h1 style="text-align: center; margin-left: 60px; margin-right: 5px;">A propos</h1>
+                </div>
+                <div id="about-header">
+                    <h1 id="logo-about">
+                        <img src="image/logo-xebia.png" alt="jQuery Mobile Framework" class="xebia-logo" />
+                    </h1>
+                </div>
+                <div id="about-message" data-role="message"></div>
+                <div id="about-content" data-role="content">
+                    <div id="about-link-buttons">
+                        <a href="https://twitter.com/xebiafr" rel="external" alt="Follow us on Twitter" data-role="button">
+                             <img src="image/twitter-black-transparent.png" class="home-footer-img" style="height:24px;" />
+                        </a>
+                        <a href="http://blog.xebia.fr" rel="external" alt="Blog Xebia" data-role="button">
+                            <img src="image/wordpress.png" class="home-footer-img" style="height: 24px;" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        <script type="text/html" id="schedule-list-tpl">
+            <%
+            var currentTime = '';
+            _.each(entries, function(session) {
+                var title = session.get('title');
+                var time = session.get('startTime') + " - " + session.get('endTime');
+                var currentTimeChanged = time != currentTime;
+                currentTime = time;
+                if (currentTimeChanged) { %>
+                    <li data-role="list-divider" ><%= currentTime %></li>
+            <%  }
+                if ( session.get('kind') === 'Talk' ) { %>
+                <li class="presentation-<%=view %>-item type-<%= session.get('type').replace(/[é]/g, 'e').replace(/[()']/g, '').replace(/[ ]/g, '_').toUpperCase() %>"
+                    data-presentation-id="<%= session.get('presentationId') %>" data-theme="c">
+                    <a href="#presentation?id=<%= session.get('presentation').id %>" style="margin: 0; padding: 0 5px 0 0;">
+                        <div style="padding: 5px 10px 10px 10px;">
+                            <h3 style="display: inline-block; width: 95%;"><%= session.get('title') ? session.get('title') : (session.get('name') ? session.get('name') : "&nbsp;" ) %></h3>
+                            <p><em><% if ( session.get('speakers') ) { %>
+                                Speaker: <%= session.get('speakers')[0].name %>
+                            <% } else { %><%= "&nbsp;" %><% } %></em></p>
+                            <p><em><%= session.get('kind') %> - <%= session.get('type') %></em></p>
+                        </div>
+                        <div class="ui-li-aside" style="width: 87px; height: 16px; padding: 54px 0 0 0;">
+                            <span class="awesome aside-room <%= session.get('room').replace(/[ ]/g, '_').replace(/[&<>,]/g, '').replace(/[éè]/g, 'e').replace(/[\.]/g, '').toUpperCase() %>"><%= session.get('room') %></span>
+                        </div>
+                   </a>
+                </li>
+            <%  } else if (session.get('kind') === 'Breakfast') { %>
+                <li><h3>Petit-Déjeuner</h3></li>
+            <%  } else if (session.get('kind') === 'Lunch') { %>
+                <li><h3>Déjeuner</h3></li>
+            <%  } else if (session.get('kind') === 'Keynote') { %>
+                <li><h3>Keynote</h3></li>
+            <%  } else { %>
+                <li><h3><%= session.get('kind') %></h3></li>
+            <%  }
+              }); %>
+        </script>
+
+        <script type="text/html" id="track-list-tpl">
+            <% _.each(entries, function(track) { %>
+            <li>
+                <a href="#track?id=<%= track.get('name').replace(/[ ]/g, '_').replace(/[&<>,]/g, '').replace(/[éè]/g, 'e').toUpperCase() %>" >
+                    <h3><%= track.get('name').replace(/[<]/g, '&lt;').replace(/[>]/g, '&gt;') %></h3>
+                    <p><em><%= track.get('description') %></em></p>
+                </a>
+            </li>
+            <% }); %>
+        </script>
+
+        <script type="text/html" id="room-list-tpl">
+            <% _.each(entries, function(room) { %>
+            <li class="room-<%= String(room.get('name')).toUpperCase().replace(/ /g, '_').replace(/[^\w\s]/gi, '') %>">
+                <a href="#room?id=<%= room.get('id').replace(/[ ]/g, '_').replace(/[&<>,]/g, '').replace(/[éè]/g, 'e').toUpperCase() %>" >
+                    <h3><%= room.get('name') %></h3>
+                    <p><em>Capacité: <%= room.get('capacity') %> / Lieux: <%= room.get('locationName') %></em></p>
+                    <p class="ui-li-count"><em><%= room.get('capacity') %></em></p>
+                </a>
+            </li>
+            <% }); %>
+        </script>
+
+        <script type="text/html" id="presentation-list-tpl">
+            <% _.each(entries, function(presentation) { %>
+            <li class="presentation-item type-<%= presentation.get('type').replace(/[é]/g, 'e').replace(/[()']/g, '').replace(/[ ]/g, '_').toUpperCase() %>" data-presentation-id="<%= presentation.get('id') %>" data-theme="c">
+                <a href="#presentation?id=<%= presentation.get('id') %>" style="margin: 0; padding: 0 5px 0 0;">
+                    <div style="padding: 5px 10px 10px 10px;">
+                        <h3 style="display: inline-block; width: 95%;"><%= presentation.get('title') %></h3>
+                        <p><em><%= presentation.get('speakers')[0].name %></em></p>
+                        <p><em><%= presentation.get('track') %> - <%= presentation.get('type') %> - <%= presentation.get('room') %></em></p>
+                    </div>
+                    <p class="ui-li-aside" style="width: 87px; height: 18px; padding: 54px 0 0 0;">
+                        <span class="awesome aside-skill <%= presentation.get('track').replace(/[ ]/g, '_').replace(/[&<>,]/g, '').replace(/[éè]/g, 'e').toUpperCase() %>"><%= presentation.get('track').replace(/[<]/g, '&lt;').replace(/[>]/g, '&gt;') %></span>
+                    </p>
+                </a>
+            </li>
+            <% }); %>
+        </script>
+
+        <script type="text/html" id="presentation-tpl">
+            <div align="left">
+                <% if (entry.get('id')) { %>
+                <div align="right">
+                    <span class="awesome lang_<%= entry.get('language') %>"> <%= entry.get('language') %></span>
+                    <span class="awesome <%= String(entry.get('room')).toUpperCase().replace(/ /g, '_').replace(/[^\w\s]/gi, '') %>"><%= entry.get('room') %></span>
+                    <span class="awesome <%= String(entry.get('type')).replace(/[é]/g, 'e').replace(/[()']/g, '').replace(/[ ]/g, '_').toUpperCase() %>"><%= entry.get('type') %></span>
+                </div>
+                <% } %>
+
+                <h3>Résumé:</h3>
+                <div id="presentation-summary">
+                    <%= entry.get('summary') %>
+                </div>
+
+                <h3>Speakers:</h3>
+                <ul id="presentation-speaker-list" data-role="listview" data-inset="true" data-theme="c">
+                    <% _.each(entry.get('speakers'), function(speaker) { %>
+                    <li>
+                        <a href="#speaker?id=<%= speaker.id %>">
+                            <h3><%= speaker.name %></h3>
+                        </a>
+                    </li>
+                    <% });
+                    %>
+                </ul>
+
+                <h3>Détails:</h3>
+                <ul id="presentation-details-list" data-role="listview" data-inset="true" data-theme="c">
+                    <li>
+                        <h3>Track:
+                            <% if (entry.get('id')) { %>
+                            <span class="awesome <%= entry.get('track').replace(/[ ]/g, '_').replace(/[&<>,]/g, '').replace(/[éè]/g, 'e').toUpperCase() %>"><%= entry.get('track') %></span>
+                            <% } %>
+                        </h3>
+                    </li>
+                    <% if (entry.tags) { %>
+                        <li>
+                            <h3 class="multiline" style="display: inline-block;">Tags:
+                                <% if (entry.get('id')) {
+                                _.each(entry.get('tags'), function(tag) { %>
+                                <span class="awesome" style="margin-bottom: 20px; display: inline-block;"><%= tag.name.substring(0,1).toUpperCase() + tag.name.substring(1).toLowerCase() %></span>
+                                <%   });
+                                } %>
+                            </h3>
+                        </li>
+                    <% } %>
+                </ul>
+
+            </div>
+        </script>
+
+        <script type="text/html" id="speaker-list-tpl">
+            <% _.each(entries, function(speaker) { %>
+            <li>
+                <a href="#speaker?id=<%= speaker.get('id') %>" style="margin-right: 10px; padding-right: 20px;">
+                    <img src="<%= speaker.get('imageURL') %>" style="width: 80px;" />
+                    <h3><%= speaker ? speaker.get('firstName') : '' %> <%=speaker ? speaker.get('lastName') : '' %></h3>
+                    <p><em><%= speaker.get('company') %></em></p>
+                </a>
+            </li>
+            <% }); %>
+        </script>
+
+        <script type="text/html" id="speaker-tpl">
+            <div align="left">
+                <ul id="speaker-details-list" data-role="listview" data-inset="true" data-theme="c">
+                    <li>
+                        <img src="<%= entry.get('imageURL') %>" />
+                        <h3>Société: </h3>
+                        <p><em><%= entry.get('company') %></em></p>
+                    </li>
+                </ul>
+                <h3>Biographie:</h3>
+                <div id="speaker-summary">
+                    <%= entry.get('bio') %>
+                </div>
+                <h3>Présentations:</h3>
+                <ul id="speaker-talk-list" data-role="listview" data-inset="true" data-theme="c">
+                    <% _.each(entry.get('talks'), function(presentation) { %>
+                    <li>
+                        <a href="#presentation?id=<%= presentation.presentationId %>">
+                            <h3><%= presentation.title %></h3>
+                            <p><em><%= presentation.event %></em></p>
+                        </a>
+                    </li>
+                    <% });
+                    %>
+                </ul>
+            </div>
+        </script>
+
+        <script type="text/html" id="flash-message-tpl">
+            <div id="flashMessage" class="ui-bar ui-bar-d">
+                <h1 style="float:left; margin-top:8px; margin-bottom:8px;"><%= message %></h1>
+            </div>
+        </script>
+
+        <script type="text/html" id="flash-error-message-tpl">
+            <div id="flashErrorMessage" class="ui-bar ui-bar-d">
+                <h1 style="float:left; margin-top:8px; margin-bottom:8px;"><%= message %></h1>
+            </div>
+        </script>
+
+        <script>
+            // <!-- Google Analytics
+            var _gaq = _gaq || [];
+
+            var ga = document.createElement('script');
+
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            // -->
+
+            window.JSON = null;
+
+            // json2.min.js
+            var JSON;if(!JSON){JSON={}}(function(){function str(a,b){var c,d,e,f,g=gap,h,i=b[a];if(i&&typeof i==="object"&&typeof i.toJSON==="function"){i=i.toJSON(a)}if(typeof rep==="function"){i=rep.call(b,a,i)}switch(typeof i){case"string":return quote(i);case"number":return isFinite(i)?String(i):"null";case"boolean":case"null":return String(i);case"object":if(!i){return"null"}gap+=indent;h=[];if(Object.prototype.toString.apply(i)==="[object Array]"){f=i.length;for(c=0;c<f;c+=1){h[c]=str(c,i)||"null"}e=h.length===0?"[]":gap?"[\n"+gap+h.join(",\n"+gap)+"\n"+g+"]":"["+h.join(",")+"]";gap=g;return e}if(rep&&typeof rep==="object"){f=rep.length;for(c=0;c<f;c+=1){d=rep[c];if(typeof d==="string"){e=str(d,i);if(e){h.push(quote(d)+(gap?": ":":")+e)}}}}else{for(d in i){if(Object.hasOwnProperty.call(i,d)){e=str(d,i);if(e){h.push(quote(d)+(gap?": ":":")+e)}}}}e=h.length===0?"{}":gap?"{\n"+gap+h.join(",\n"+gap)+"\n"+g+"}":"{"+h.join(",")+"}";gap=g;return e}}function quote(a){escapable.lastIndex=0;return escapable.test(a)?'"'+a.replace(escapable,function(a){var b=meta[a];return typeof b==="string"?b:"\\u"+("0000"+a.charCodeAt(0).toString(16)).slice(-4)})+'"':'"'+a+'"'}function f(a){return a<10?"0"+a:a}"use strict";if(typeof Date.prototype.toJSON!=="function"){Date.prototype.toJSON=function(a){return isFinite(this.valueOf())?this.getUTCFullYear()+"-"+f(this.getUTCMonth()+1)+"-"+f(this.getUTCDate())+"T"+f(this.getUTCHours())+":"+f(this.getUTCMinutes())+":"+f(this.getUTCSeconds())+"Z":null};String.prototype.toJSON=Number.prototype.toJSON=Boolean.prototype.toJSON=function(a){return this.valueOf()}}var cx=/[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,escapable=/[\\\"\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,gap,indent,meta={"\b":"\\b","\t":"\\t","\n":"\\n","\f":"\\f","\r":"\\r",'"':'\\"',"\\":"\\\\"},rep;if(typeof JSON.stringify!=="function"){JSON.stringify=function(a,b,c){var d;gap="";indent="";if(typeof c==="number"){for(d=0;d<c;d+=1){indent+=" "}}else if(typeof c==="string"){indent=c}rep=b;if(b&&typeof b!=="function"&&(typeof b!=="object"||typeof b.length!=="number")){throw new Error("JSON.stringify")}return str("",{"":a})}}if(typeof JSON.parse!=="function"){JSON.parse=function(text,reviver){function walk(a,b){var c,d,e=a[b];if(e&&typeof e==="object"){for(c in e){if(Object.hasOwnProperty.call(e,c)){d=walk(e,c);if(d!==undefined){e[c]=d}else{delete e[c]}}}}return reviver.call(a,b,e)}var j;text=String(text);cx.lastIndex=0;if(cx.test(text)){text=text.replace(cx,function(a){return"\\u"+("0000"+a.charCodeAt(0).toString(16)).slice(-4)})}if(/^[\],:{}\s]*$/.test(text.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g,"@").replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,"]").replace(/(?:^|:|,)(?:\s*\[)+/g,""))){j=eval("("+text+")");return typeof reviver==="function"?walk({"":j},""):j}throw new SyntaxError("JSON.parse")}}})()
+
+            // lawnchair-0.6.1.min.js
+             var Lawnchair=function(){if(!JSON)throw"JSON unavailable! Include http://www.json.org/json2.js to fix.";if(arguments.length<=2&&arguments.length>0){var a=typeof arguments[0]==="function"?arguments[0]:arguments[1],b=typeof arguments[0]==="function"?{}:arguments[0]}else{throw"Incorrect # of ctor args!"}if(typeof a!=="function")throw"No callback was provided";var c=!(this instanceof Lawnchair)?new Lawnchair(b,a):this;c.record=b.record||"record";c.name=b.name||"records";var d;if(b.adapter){d=Lawnchair.adapters[c.indexOf(Lawnchair.adapters,b.adapter)];d=d.valid()?d:undefined}else{for(var e=0,f=Lawnchair.adapters.length;e<f;e++){d=Lawnchair.adapters[e].valid()?Lawnchair.adapters[e]:undefined;if(d)break}}if(!d)throw"No valid adapter.";for(var g in d)c[g]=d[g];for(var e=0,f=Lawnchair.plugins.length;e<f;e++)Lawnchair.plugins[e].call(c);c.init(b,a);return c};Lawnchair.adapters=[];Lawnchair.adapter=function(a,b){b["adapter"]=a;var c="adapter valid init keys save batch get exists all remove nuke".split(" "),d=this.prototype.indexOf;for(var e in b){if(d(c,e)===-1)throw"Invalid adapter! Nonstandard method: "+e}Lawnchair.adapters.push(b)};Lawnchair.plugins=[];Lawnchair.plugin=function(a){for(var b in a)b==="init"?Lawnchair.plugins.push(a[b]):this.prototype[b]=a[b]};Lawnchair.prototype={isArray:Array.isArray||function(a){return Object.prototype.toString.call(a)==="[object Array]"},indexOf:function(a,b,c,d){if(a.indexOf)return a.indexOf(b);for(c=0,d=a.length;c<d;c++)if(a[c]===b)return c;return-1},lambda:function(a){return this.fn(this.record,a)},fn:function(a,b){return typeof b=="string"?new Function(a,b):b},uuid:function(){var a=function(){return((1+Math.random())*65536|0).toString(16).substring(1)};return a()+a()+"-"+a()+"-"+a()+"-"+a()+"-"+a()+a()+a()},each:function(a){var b=this.lambda(a);if(this.__results){for(var c=0,d=this.__results.length;c<d;c++)b.call(this,this.__results[c],c)}else{this.all(function(a){for(var c=0,d=a.length;c<d;c++)b.call(this,a[c],c)})}return this}};Lawnchair.adapter("dom",{valid:function(){return!!window.Storage},init:function(a,b){this.storage=window.localStorage;var c=this;this.indexer={key:c.name+"._index_",all:function(){var a=JSON.parse(c.storage.getItem(this.key));if(a==null)c.storage.setItem(this.key,JSON.stringify([]));return JSON.parse(c.storage.getItem(this.key))},add:function(a){var b=this.all();b.push(a);c.storage.setItem(this.key,JSON.stringify(b))},del:function(a){var b=this.all(),d=[];for(var e=0,f=b.length;e<f;e++){if(b[e]!=a)d.push(b[e])}c.storage.setItem(this.key,JSON.stringify(d))},find:function(a){var b=this.all();for(var c=0,d=b.length;c<d;c++){if(a===b[c])return c}return false}};if(b)this.fn(this.name,b).call(this,this)},save:function(a,b){var c=a.key||this.uuid();if(!this.indexer.find(c))this.indexer.add(c);delete a.key;this.storage.setItem(c,JSON.stringify(a));if(b){a.key=c;this.lambda(b).call(this,a)}return this},batch:function(a,b){var c=[];for(var d=0,e=a.length;d<e;d++){this.save(a[d],function(a){c.push(a)})}if(b)this.lambda(b).call(this,c);return this},keys:function(a,b){var c=a.limit||null,d=a.offset||0;if(b)this.lambda(b).call(this,this.indexer.all())},get:function(a,b){if(this.isArray(a)){var c=[];for(var d=0,e=a.length;d<e;d++){var f=JSON.parse(this.storage.getItem(a[d]));if(f){f.key=a[d];c.push(f)}}if(b)this.lambda(b).call(this,c)}else{var f=JSON.parse(this.storage.getItem(a));if(f)f.key=a;if(b)this.lambda(b).call(this,f)}return this},all:function(a){var b=this.indexer.all(),c=[],d;for(var e=0,f=b.length;e<f;e++){d=JSON.parse(this.storage.getItem(b[e]));d.key=b[e];c.push(d)}if(a)this.fn(this.name,a).call(this,c);return this},remove:function(a,b){var c=typeof a==="string"?a:a.key;this.indexer.del(c);this.storage.removeItem(c);if(b)this.lambda(b).call(this);return this},nuke:function(a){this.all(function(b){for(var c=0,d=b.length;c<d;c++){this.remove(b[c])}if(a)this.lambda(a).call(this)});return this}});Lawnchair.adapter("window-name",function(a,b){var c=window.top.name?JSON.parse(window.top.name):{};return{valid:function(){return typeof window.top.name!="undefined"},init:function(d,e){c[this.name]={index:[],store:{}};a=c[this.name].index;b=c[this.name].store;this.fn(this.name,e).call(this,this)},keys:function(b){this.fn("keys",b).call(this,a);return this},save:function(d,e){var f=d.key||this.uuid();if(d.key)delete d.key;this.exists(f,function(g){if(!g)a.push(f);b[f]=d;window.top.name=JSON.stringify(c);if(e){d.key=f;this.lambda(e).call(this,d)}});return this},batch:function(a,b){var c=[];for(var d=0,e=a.length;d<e;d++){this.save(a[d],function(a){c.push(a)})}if(b)this.lambda(b).call(this,c);return this},get:function(a,c){var d;if(this.isArray(a)){d=[];for(var e=0,f=a.length;e<f;e++){d.push(b[a[e]])}}else{d=b[a];if(d)d.key=a}if(c)this.lambda(c).call(this,d);return this},exists:function(a,c){this.lambda(c).call(this,!!b[a]);return this},all:function(c){var d=[];for(var e=0,f=a.length;e<f;e++){var g=b[a[e]];g.key=a[e];d.push(g)}this.fn(this.name,c).call(this,d);return this},remove:function(d,e){var f=this.isArray(d)?d:[d];for(var g=0,h=f.length;g<h;g++){delete b[f[g]];a.splice(this.indexOf(a,f[g]),1)}window.top.name=JSON.stringify(c);if(e)this.lambda(e).call(this);return this},nuke:function(b){storage={};a=[];window.top.name=JSON.stringify(c);if(b)this.lambda(b).call(this);return this}}}())
+
+            // date-2007.11.min.js
+            Date.CultureInfo={name:"en-US",englishName:"English (United States)",nativeName:"English (United States)",dayNames:["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],abbreviatedDayNames:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],shortestDayNames:["Su","Mo","Tu","We","Th","Fr","Sa"],firstLetterDayNames:["S","M","T","W","T","F","S"],monthNames:["January","February","March","April","May","June","July","August","September","October","November","December"],abbreviatedMonthNames:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],amDesignator:"AM",pmDesignator:"PM",firstDayOfWeek:0,twoDigitYearMax:2029,dateElementOrder:"mdy",formatPatterns:{shortDate:"M/d/yyyy",longDate:"dddd, MMMM dd, yyyy",shortTime:"h:mm tt",longTime:"h:mm:ss tt",fullDateTime:"dddd, MMMM dd, yyyy h:mm:ss tt",sortableDateTime:"yyyy-MM-ddTHH:mm:ss",universalSortableDateTime:"yyyy-MM-dd HH:mm:ssZ",rfc1123:"ddd, dd MMM yyyy HH:mm:ss GMT",monthDay:"MMMM dd",yearMonth:"MMMM, yyyy"},regexPatterns:{jan:/^jan(uary)?/i,feb:/^feb(ruary)?/i,mar:/^mar(ch)?/i,apr:/^apr(il)?/i,may:/^may/i,jun:/^jun(e)?/i,jul:/^jul(y)?/i,aug:/^aug(ust)?/i,sep:/^sep(t(ember)?)?/i,oct:/^oct(ober)?/i,nov:/^nov(ember)?/i,dec:/^dec(ember)?/i,sun:/^su(n(day)?)?/i,mon:/^mo(n(day)?)?/i,tue:/^tu(e(s(day)?)?)?/i,wed:/^we(d(nesday)?)?/i,thu:/^th(u(r(s(day)?)?)?)?/i,fri:/^fr(i(day)?)?/i,sat:/^sa(t(urday)?)?/i,future:/^next/i,past:/^last|past|prev(ious)?/i,add:/^(\+|after|from)/i,subtract:/^(\-|before|ago)/i,yesterday:/^yesterday/i,today:/^t(oday)?/i,tomorrow:/^tomorrow/i,now:/^n(ow)?/i,millisecond:/^ms|milli(second)?s?/i,second:/^sec(ond)?s?/i,minute:/^min(ute)?s?/i,hour:/^h(ou)?rs?/i,week:/^w(ee)?k/i,month:/^m(o(nth)?s?)?/i,day:/^d(ays?)?/i,year:/^y((ea)?rs?)?/i,shortMeridian:/^(a|p)/i,longMeridian:/^(a\.?m?\.?|p\.?m?\.?)/i,timezone:/^((e(s|d)t|c(s|d)t|m(s|d)t|p(s|d)t)|((gmt)?\s*(\+|\-)\s*\d\d\d\d?)|gmt)/i,ordinalSuffix:/^\s*(st|nd|rd|th)/i,timeContext:/^\s*(\:|a|p)/i},abbreviatedTimeZoneStandard:{GMT:"-000",EST:"-0400",CST:"-0500",MST:"-0600",PST:"-0700"},abbreviatedTimeZoneDST:{GMT:"-000",EDT:"-0500",CDT:"-0600",MDT:"-0700",PDT:"-0800"}};Date.getMonthNumberFromName=function(a){var b=Date.CultureInfo.monthNames,c=Date.CultureInfo.abbreviatedMonthNames,d=a.toLowerCase();for(var e=0;e<b.length;e++){if(b[e].toLowerCase()==d||c[e].toLowerCase()==d){return e}}return-1};Date.getDayNumberFromName=function(a){var b=Date.CultureInfo.dayNames,c=Date.CultureInfo.abbreviatedDayNames,d=Date.CultureInfo.shortestDayNames,e=a.toLowerCase();for(var f=0;f<b.length;f++){if(b[f].toLowerCase()==e||c[f].toLowerCase()==e){return f}}return-1};Date.isLeapYear=function(a){return a%4===0&&a%100!==0||a%400===0};Date.getDaysInMonth=function(a,b){return[31,Date.isLeapYear(a)?29:28,31,30,31,30,31,31,30,31,30,31][b]};Date.getTimezoneOffset=function(a,b){return b||false?Date.CultureInfo.abbreviatedTimeZoneDST[a.toUpperCase()]:Date.CultureInfo.abbreviatedTimeZoneStandard[a.toUpperCase()]};Date.getTimezoneAbbreviation=function(a,b){var c=b||false?Date.CultureInfo.abbreviatedTimeZoneDST:Date.CultureInfo.abbreviatedTimeZoneStandard,d;for(d in c){if(c[d]===a){return d}}return null};Date.prototype.clone=function(){return new Date(this.getTime())};Date.prototype.compareTo=function(a){if(isNaN(this)){throw new Error(this)}if(a instanceof Date&&!isNaN(a)){return this>a?1:this<a?-1:0}else{throw new TypeError(a)}};Date.prototype.equals=function(a){return this.compareTo(a)===0};Date.prototype.between=function(a,b){var c=this.getTime();return c>=a.getTime()&&c<=b.getTime()};Date.prototype.addMilliseconds=function(a){this.setMilliseconds(this.getMilliseconds()+a);return this};Date.prototype.addSeconds=function(a){return this.addMilliseconds(a*1e3)};Date.prototype.addMinutes=function(a){return this.addMilliseconds(a*6e4)};Date.prototype.addHours=function(a){return this.addMilliseconds(a*36e5)};Date.prototype.addDays=function(a){return this.addMilliseconds(a*864e5)};Date.prototype.addWeeks=function(a){return this.addMilliseconds(a*6048e5)};Date.prototype.addMonths=function(a){var b=this.getDate();this.setDate(1);this.setMonth(this.getMonth()+a);this.setDate(Math.min(b,this.getDaysInMonth()));return this};Date.prototype.addYears=function(a){return this.addMonths(a*12)};Date.prototype.add=function(a){if(typeof a=="number"){this._orient=a;return this}var b=a;if(b.millisecond||b.milliseconds){this.addMilliseconds(b.millisecond||b.milliseconds)}if(b.second||b.seconds){this.addSeconds(b.second||b.seconds)}if(b.minute||b.minutes){this.addMinutes(b.minute||b.minutes)}if(b.hour||b.hours){this.addHours(b.hour||b.hours)}if(b.month||b.months){this.addMonths(b.month||b.months)}if(b.year||b.years){this.addYears(b.year||b.years)}if(b.day||b.days){this.addDays(b.day||b.days)}return this};Date._validate=function(a,b,c,d){if(typeof a!="number"){throw new TypeError(a+" is not a Number.")}else if(a<b||a>c){throw new RangeError(a+" is not a valid value for "+d+".")}return true};Date.validateMillisecond=function(a){return Date._validate(a,0,999,"milliseconds")};Date.validateSecond=function(a){return Date._validate(a,0,59,"seconds")};Date.validateMinute=function(a){return Date._validate(a,0,59,"minutes")};Date.validateHour=function(a){return Date._validate(a,0,23,"hours")};Date.validateDay=function(a,b,c){return Date._validate(a,1,Date.getDaysInMonth(b,c),"days")};Date.validateMonth=function(a){return Date._validate(a,0,11,"months")};Date.validateYear=function(a){return Date._validate(a,1,9999,"seconds")};Date.prototype.set=function(a){var b=a;if(!b.millisecond&&b.millisecond!==0){b.millisecond=-1}if(!b.second&&b.second!==0){b.second=-1}if(!b.minute&&b.minute!==0){b.minute=-1}if(!b.hour&&b.hour!==0){b.hour=-1}if(!b.day&&b.day!==0){b.day=-1}if(!b.month&&b.month!==0){b.month=-1}if(!b.year&&b.year!==0){b.year=-1}if(b.millisecond!=-1&&Date.validateMillisecond(b.millisecond)){this.addMilliseconds(b.millisecond-this.getMilliseconds())}if(b.second!=-1&&Date.validateSecond(b.second)){this.addSeconds(b.second-this.getSeconds())}if(b.minute!=-1&&Date.validateMinute(b.minute)){this.addMinutes(b.minute-this.getMinutes())}if(b.hour!=-1&&Date.validateHour(b.hour)){this.addHours(b.hour-this.getHours())}if(b.month!==-1&&Date.validateMonth(b.month)){this.addMonths(b.month-this.getMonth())}if(b.year!=-1&&Date.validateYear(b.year)){this.addYears(b.year-this.getFullYear())}if(b.day!=-1&&Date.validateDay(b.day,this.getFullYear(),this.getMonth())){this.addDays(b.day-this.getDate())}if(b.timezone){this.setTimezone(b.timezone)}if(b.timezoneOffset){this.setTimezoneOffset(b.timezoneOffset)}return this};Date.prototype.clearTime=function(){this.setHours(0);this.setMinutes(0);this.setSeconds(0);this.setMilliseconds(0);return this};Date.prototype.isLeapYear=function(){var a=this.getFullYear();return a%4===0&&a%100!==0||a%400===0};Date.prototype.isWeekday=function(){return!(this.is().sat()||this.is().sun())};Date.prototype.getDaysInMonth=function(){return Date.getDaysInMonth(this.getFullYear(),this.getMonth())};Date.prototype.moveToFirstDayOfMonth=function(){return this.set({day:1})};Date.prototype.moveToLastDayOfMonth=function(){return this.set({day:this.getDaysInMonth()})};Date.prototype.moveToDayOfWeek=function(a,b){var c=(a-this.getDay()+7*(b||+1))%7;return this.addDays(c===0?c+=7*(b||+1):c)};Date.prototype.moveToMonth=function(a,b){var c=(a-this.getMonth()+12*(b||+1))%12;return this.addMonths(c===0?c+=12*(b||+1):c)};Date.prototype.getDayOfYear=function(){return Math.floor((this-new Date(this.getFullYear(),0,1))/864e5)};Date.prototype.getWeekOfYear=function(a){var b=this.getFullYear(),c=this.getMonth(),d=this.getDate();var e=a||Date.CultureInfo.firstDayOfWeek;var f=7+1-(new Date(b,0,1)).getDay();if(f==8){f=1}var g=(Date.UTC(b,c,d,0,0,0)-Date.UTC(b,0,1,0,0,0))/864e5+1;var h=Math.floor((g-f+7)/7);if(h===e){b--;var i=7+1-(new Date(b,0,1)).getDay();if(i==2||i==8){h=53}else{h=52}}return h};Date.prototype.isDST=function(){console.log("isDST");return this.toString().match(/(E|C|M|P)(S|D)T/)[2]=="D"};Date.prototype.getTimezone=function(){return Date.getTimezoneAbbreviation(this.getUTCOffset,this.isDST())};Date.prototype.setTimezoneOffset=function(a){var b=this.getTimezoneOffset(),c=Number(a)*-6/10;this.addMinutes(c-b);return this};Date.prototype.setTimezone=function(a){return this.setTimezoneOffset(Date.getTimezoneOffset(a))};Date.prototype.getUTCOffset=function(){var a=this.getTimezoneOffset()*-10/6,b;if(a<0){b=(a-1e4).toString();return b[0]+b.substr(2)}else{b=(a+1e4).toString();return"+"+b.substr(1)}};Date.prototype.getDayName=function(a){return a?Date.CultureInfo.abbreviatedDayNames[this.getDay()]:Date.CultureInfo.dayNames[this.getDay()]};Date.prototype.getMonthName=function(a){return a?Date.CultureInfo.abbreviatedMonthNames[this.getMonth()]:Date.CultureInfo.monthNames[this.getMonth()]};Date.prototype._toString=Date.prototype.toString;Date.prototype.toString=function(a){var b=this;var c=function d(a){return a.toString().length==1?"0"+a:a};return a?a.replace(/dd?d?d?|MM?M?M?|yy?y?y?|hh?|HH?|mm?|ss?|tt?|zz?z?/g,function(a){switch(a){case"hh":return c(b.getHours()<13?b.getHours():b.getHours()-12);case"h":return b.getHours()<13?b.getHours():b.getHours()-12;case"HH":return c(b.getHours());case"H":return b.getHours();case"mm":return c(b.getMinutes());case"m":return b.getMinutes();case"ss":return c(b.getSeconds());case"s":return b.getSeconds();case"yyyy":return b.getFullYear();case"yy":return b.getFullYear().toString().substring(2,4);case"dddd":return b.getDayName();case"ddd":return b.getDayName(true);case"dd":return c(b.getDate());case"d":return b.getDate().toString();case"MMMM":return b.getMonthName();case"MMM":return b.getMonthName(true);case"MM":return c(b.getMonth()+1);case"M":return b.getMonth()+1;case"t":return b.getHours()<12?Date.CultureInfo.amDesignator.substring(0,1):Date.CultureInfo.pmDesignator.substring(0,1);case"tt":return b.getHours()<12?Date.CultureInfo.amDesignator:Date.CultureInfo.pmDesignator;case"zzz":case"zz":case"z":return""}}):this._toString()};Date.now=function(){return new Date};Date.today=function(){return Date.now().clearTime()};Date.prototype._orient=+1;Date.prototype.next=function(){this._orient=+1;return this};Date.prototype.last=Date.prototype.prev=Date.prototype.previous=function(){this._orient=-1;return this};Date.prototype._is=false;Date.prototype.is=function(){this._is=true;return this};Number.prototype._dateElement="day";Number.prototype.fromNow=function(){var a={};a[this._dateElement]=this;return Date.now().add(a)};Number.prototype.ago=function(){var a={};a[this._dateElement]=this*-1;return Date.now().add(a)};(function(){var a=Date.prototype,b=Number.prototype;var c="sunday monday tuesday wednesday thursday friday saturday".split(/\s/),d="january february march april may june july august september october november december".split(/\s/),e="Millisecond Second Minute Hour Day Week Month Year".split(/\s/),f;var g=function(a){return function(){if(this._is){this._is=false;return this.getDay()==a}return this.moveToDayOfWeek(a,this._orient)}};for(var h=0;h<c.length;h++){a[c[h]]=a[c[h].substring(0,3)]=g(h)}var i=function(a){return function(){if(this._is){this._is=false;return this.getMonth()===a}return this.moveToMonth(a,this._orient)}};for(var j=0;j<d.length;j++){a[d[j]]=a[d[j].substring(0,3)]=i(j)}var k=function(a){return function(){if(a.substring(a.length-1)!="s"){a+="s"}return this["add"+a](this._orient)}};var l=function(a){return function(){this._dateElement=a;return this}};for(var m=0;m<e.length;m++){f=e[m].toLowerCase();a[f]=a[f+"s"]=k(e[m]);b[f]=b[f+"s"]=l(f)}})();Date.prototype.toJSONString=function(){return this.toString("yyyy-MM-ddThh:mm:ssZ")};Date.prototype.toShortDateString=function(){return this.toString(Date.CultureInfo.formatPatterns.shortDatePattern)};Date.prototype.toLongDateString=function(){return this.toString(Date.CultureInfo.formatPatterns.longDatePattern)};Date.prototype.toShortTimeString=function(){return this.toString(Date.CultureInfo.formatPatterns.shortTimePattern)};Date.prototype.toLongTimeString=function(){return this.toString(Date.CultureInfo.formatPatterns.longTimePattern)};Date.prototype.getOrdinal=function(){switch(this.getDate()){case 1:case 21:case 31:return"st";case 2:case 22:return"nd";case 3:case 23:return"rd";default:return"th"}};(function(){Date.Parsing={Exception:function(a){this.message="Parse error at '"+a.substring(0,10)+" ...'"}};var a=Date.Parsing;var b=a.Operators={rtoken:function(b){return function(c){var d=c.match(b);if(d){return[d[0],c.substring(d[0].length)]}else{throw new a.Exception(c)}}},token:function(a){return function(a){return b.rtoken(new RegExp("^s*"+a+"s*"))(a)}},stoken:function(a){return b.rtoken(new RegExp("^"+a))},until:function(a){return function(b){var c=[],d=null;while(b.length){try{d=a.call(this,b)}catch(e){c.push(d[0]);b=d[1];continue}break}return[c,b]}},many:function(a){return function(b){var c=[],d=null;while(b.length){try{d=a.call(this,b)}catch(e){return[c,b]}c.push(d[0]);b=d[1]}return[c,b]}},optional:function(a){return function(b){var c=null;try{c=a.call(this,b)}catch(d){return[null,b]}return[c[0],c[1]]}},not:function(b){return function(c){try{b.call(this,c)}catch(d){return[null,c]}throw new a.Exception(c)}},ignore:function(a){return a?function(b){var c=null;c=a.call(this,b);return[null,c[1]]}:null},product:function(){var a=arguments[0],c=Array.prototype.slice.call(arguments,1),d=[];for(var e=0;e<a.length;e++){d.push(b.each(a[e],c))}return d},cache:function(b){var c={},d=null;return function(e){try{d=c[e]=c[e]||b.call(this,e)}catch(f){d=c[e]=f}if(d instanceof a.Exception){throw d}else{return d}}},any:function(){var b=arguments;return function(c){var d=null;for(var e=0;e<b.length;e++){if(b[e]==null){continue}try{d=b[e].call(this,c)}catch(f){d=null}if(d){return d}}throw new a.Exception(c)}},each:function(){var b=arguments;return function(c){var d=[],e=null;for(var f=0;f<b.length;f++){if(b[f]==null){continue}try{e=b[f].call(this,c)}catch(g){throw new a.Exception(c)}d.push(e[0]);c=e[1]}return[d,c]}},all:function(){var a=arguments,b=b;return b.each(b.optional(a))},sequence:function(c,d,e){d=d||b.rtoken(/^\s*/);e=e||null;if(c.length==1){return c[0]}return function(b){var f=null,g=null;var h=[];for(var i=0;i<c.length;i++){try{f=c[i].call(this,b)}catch(j){break}h.push(f[0]);try{g=d.call(this,f[1])}catch(k){g=null;break}b=g[1]}if(!f){throw new a.Exception(b)}if(g){throw new a.Exception(g[1])}if(e){try{f=e.call(this,f[1])}catch(l){throw new a.Exception(f[1])}}return[h,f?f[1]:b]}},between:function(a,c,d){d=d||a;var e=b.each(b.ignore(a),c,b.ignore(d));return function(a){var b=e.call(this,a);return[[b[0][0],r[0][2]],b[1]]}},list:function(a,c,d){c=c||b.rtoken(/^\s*/);d=d||null;return a instanceof Array?b.each(b.product(a.slice(0,-1),b.ignore(c)),a.slice(-1),b.ignore(d)):b.each(b.many(b.each(a,b.ignore(c))),px,b.ignore(d))},set:function(c,d,e){d=d||b.rtoken(/^\s*/);e=e||null;return function(f){var g=null,h=null,i=null,j=null,k=[[],f],l=false;for(var m=0;m<c.length;m++){i=null;h=null;g=null;l=c.length==1;try{g=c[m].call(this,f)}catch(n){continue}j=[[g[0]],g[1]];if(g[1].length>0&&!l){try{i=d.call(this,g[1])}catch(o){l=true}}else{l=true}if(!l&&i[1].length===0){l=true}if(!l){var p=[];for(var q=0;q<c.length;q++){if(m!=q){p.push(c[q])}}h=b.set(p,d).call(this,i[1]);if(h[0].length>0){j[0]=j[0].concat(h[0]);j[1]=h[1]}}if(j[1].length<k[1].length){k=j}if(k[1].length===0){break}}if(k[0].length===0){return k}if(e){try{i=e.call(this,k[1])}catch(r){throw new a.Exception(k[1])}k[1]=i[1]}return k}},forward:function(a,b){return function(c){return a[b].call(this,c)}},replace:function(a,b){return function(c){var d=a.call(this,c);return[b,d[1]]}},process:function(a,b){return function(c){var d=a.call(this,c);return[b.call(this,d[0]),d[1]]}},min:function(b,c){return function(d){var e=c.call(this,d);if(e[0].length<b){throw new a.Exception(d)}return e}}};var c=function(a){return function(){var b=null,c=[];if(arguments.length>1){b=Array.prototype.slice.call(arguments)}else if(arguments[0]instanceof Array){b=arguments[0]}if(b){for(var d=0,e=b.shift();d<e.length;d++){b.unshift(e[d]);c.push(a.apply(null,b));b.shift();return c}}else{return a.apply(null,arguments)}}};var d="optional not ignore cache".split(/\s/);for(var e=0;e<d.length;e++){b[d[e]]=c(b[d[e]])}var f=function(a){return function(){if(arguments[0]instanceof Array){return a.apply(null,arguments[0])}else{return a.apply(null,arguments)}}};var g="each any all".split(/\s/);for(var h=0;h<g.length;h++){b[g[h]]=f(b[g[h]])}})();(function(){var a=function(b){var c=[];for(var d=0;d<b.length;d++){if(b[d]instanceof Array){c=c.concat(a(b[d]))}else{if(b[d]){c.push(b[d])}}}return c};Date.Grammar={};Date.Translator={hour:function(a){return function(){this.hour=Number(a)}},minute:function(a){return function(){this.minute=Number(a)}},second:function(a){return function(){this.second=Number(a)}},meridian:function(a){return function(){this.meridian=a.slice(0,1).toLowerCase()}},timezone:function(a){return function(){var b=a.replace(/[^\d\+\-]/g,"");if(b.length){this.timezoneOffset=Number(b)}else{this.timezone=a.toLowerCase()}}},day:function(a){var b=a[0];return function(){this.day=Number(b.match(/\d+/)[0])}},month:function(a){return function(){this.month=a.length==3?Date.getMonthNumberFromName(a):Number(a)-1}},year:function(a){return function(){var b=Number(a);this.year=a.length>2?b:b+(b+2e3<Date.CultureInfo.twoDigitYearMax?2e3:1900)}},rday:function(a){return function(){switch(a){case"yesterday":this.days=-1;break;case"tomorrow":this.days=1;break;case"today":this.days=0;break;case"now":this.days=0;this.now=true;break}}},finishExact:function(a){a=a instanceof Array?a:[a];var b=new Date;this.year=b.getFullYear();this.month=b.getMonth();this.day=1;this.hour=0;this.minute=0;this.second=0;for(var c=0;c<a.length;c++){if(a[c]){a[c].call(this)}}this.hour=this.meridian=="p"&&this.hour<13?this.hour+12:this.hour;if(this.day>Date.getDaysInMonth(this.year,this.month)){throw new RangeError(this.day+" is not a valid value for days.")}var d=new Date(this.year,this.month,this.day,this.hour,this.minute,this.second);if(this.timezone){d.set({timezone:this.timezone})}else if(this.timezoneOffset){d.set({timezoneOffset:this.timezoneOffset})}return d},finish:function(b){b=b instanceof Array?a(b):[b];if(b.length===0){return null}for(var c=0;c<b.length;c++){if(typeof b[c]=="function"){b[c].call(this)}}if(this.now){return new Date}var d=Date.today();var e=null;var f=!!(this.days!=null||this.orient||this.operator);if(f){var g,h,i;i=this.orient=="past"||this.operator=="subtract"?-1:1;if(this.weekday){this.unit="day";g=Date.getDayNumberFromName(this.weekday)-d.getDay();h=7;this.days=g?(g+i*h)%h:i*h}if(this.month){this.unit="month";g=this.month-d.getMonth();h=12;this.months=g?(g+i*h)%h:i*h;this.month=null}if(!this.unit){this.unit="day"}if(this[this.unit+"s"]==null||this.operator!=null){if(!this.value){this.value=1}if(this.unit=="week"){this.unit="day";this.value=this.value*7}this[this.unit+"s"]=this.value*i}return d.add(this)}else{if(this.meridian&&this.hour){this.hour=this.hour<13&&this.meridian=="p"?this.hour+12:this.hour}if(this.weekday&&!this.day){this.day=d.addDays(Date.getDayNumberFromName(this.weekday)-d.getDay()).getDate()}if(this.month&&!this.day){this.day=1}return d.set(this)}}};var b=Date.Parsing.Operators,c=Date.Grammar,d=Date.Translator,e;c.datePartDelimiter=b.rtoken(/^([\s\-\.\,\/\x27]+)/);c.timePartDelimiter=b.stoken(":");c.whiteSpace=b.rtoken(/^\s*/);c.generalDelimiter=b.rtoken(/^(([\s\,]|at|on)+)/);var f={};c.ctoken=function(a){var c=f[a];if(!c){var d=Date.CultureInfo.regexPatterns;var e=a.split(/\s+/),g=[];for(var h=0;h<e.length;h++){g.push(b.replace(b.rtoken(d[e[h]]),e[h]))}c=f[a]=b.any.apply(null,g)}return c};c.ctoken2=function(a){return b.rtoken(Date.CultureInfo.regexPatterns[a])};c.h=b.cache(b.process(b.rtoken(/^(0[0-9]|1[0-2]|[1-9])/),d.hour));c.hh=b.cache(b.process(b.rtoken(/^(0[0-9]|1[0-2])/),d.hour));c.H=b.cache(b.process(b.rtoken(/^([0-1][0-9]|2[0-3]|[0-9])/),d.hour));c.HH=b.cache(b.process(b.rtoken(/^([0-1][0-9]|2[0-3])/),d.hour));c.m=b.cache(b.process(b.rtoken(/^([0-5][0-9]|[0-9])/),d.minute));c.mm=b.cache(b.process(b.rtoken(/^[0-5][0-9]/),d.minute));c.s=b.cache(b.process(b.rtoken(/^([0-5][0-9]|[0-9])/),d.second));c.ss=b.cache(b.process(b.rtoken(/^[0-5][0-9]/),d.second));c.hms=b.cache(b.sequence([c.H,c.mm,c.ss],c.timePartDelimiter));c.t=b.cache(b.process(c.ctoken2("shortMeridian"),d.meridian));c.tt=b.cache(b.process(c.ctoken2("longMeridian"),d.meridian));c.z=b.cache(b.process(b.rtoken(/^(\+|\-)?\s*\d\d\d\d?/),d.timezone));c.zz=b.cache(b.process(b.rtoken(/^(\+|\-)\s*\d\d\d\d/),d.timezone));c.zzz=b.cache(b.process(c.ctoken2("timezone"),d.timezone));c.timeSuffix=b.each(b.ignore(c.whiteSpace),b.set([c.tt,c.zzz]));c.time=b.each(b.optional(b.ignore(b.stoken("T"))),c.hms,c.timeSuffix);c.d=b.cache(b.process(b.each(b.rtoken(/^([0-2]\d|3[0-1]|\d)/),b.optional(c.ctoken2("ordinalSuffix"))),d.day));c.dd=b.cache(b.process(b.each(b.rtoken(/^([0-2]\d|3[0-1])/),b.optional(c.ctoken2("ordinalSuffix"))),d.day));c.ddd=c.dddd=b.cache(b.process(c.ctoken("sun mon tue wed thu fri sat"),function(a){return function(){this.weekday=a}}));c.M=b.cache(b.process(b.rtoken(/^(1[0-2]|0\d|\d)/),d.month));c.MM=b.cache(b.process(b.rtoken(/^(1[0-2]|0\d)/),d.month));c.MMM=c.MMMM=b.cache(b.process(c.ctoken("jan feb mar apr may jun jul aug sep oct nov dec"),d.month));c.y=b.cache(b.process(b.rtoken(/^(\d\d?)/),d.year));c.yy=b.cache(b.process(b.rtoken(/^(\d\d)/),d.year));c.yyy=b.cache(b.process(b.rtoken(/^(\d\d?\d?\d?)/),d.year));c.yyyy=b.cache(b.process(b.rtoken(/^(\d\d\d\d)/),d.year));e=function(){return b.each(b.any.apply(null,arguments),b.not(c.ctoken2("timeContext")))};c.day=e(c.d,c.dd);c.month=e(c.M,c.MMM);c.year=e(c.yyyy,c.yy);c.orientation=b.process(c.ctoken("past future"),function(a){return function(){this.orient=a}});c.operator=b.process(c.ctoken("add subtract"),function(a){return function(){this.operator=a}});c.rday=b.process(c.ctoken("yesterday tomorrow today now"),d.rday);c.unit=b.process(c.ctoken("minute hour day week month year"),function(a){return function(){this.unit=a}});c.value=b.process(b.rtoken(/^\d\d?(st|nd|rd|th)?/),function(a){return function(){this.value=a.replace(/\D/g,"")}});c.expression=b.set([c.rday,c.operator,c.value,c.unit,c.orientation,c.ddd,c.MMM]);e=function(){return b.set(arguments,c.datePartDelimiter)};c.mdy=e(c.ddd,c.month,c.day,c.year);c.ymd=e(c.ddd,c.year,c.month,c.day);c.dmy=e(c.ddd,c.day,c.month,c.year);c.date=function(a){return(c[Date.CultureInfo.dateElementOrder]||c.mdy).call(this,a)};c.format=b.process(b.many(b.any(b.process(b.rtoken(/^(dd?d?d?|MM?M?M?|yy?y?y?|hh?|HH?|mm?|ss?|tt?|zz?z?)/),function(a){if(c[a]){return c[a]}else{throw Date.Parsing.Exception(a)}}),b.process(b.rtoken(/^[^dMyhHmstz]+/),function(a){return b.ignore(b.stoken(a))}))),function(a){return b.process(b.each.apply(null,a),d.finishExact)});var g={};var h=function(a){return g[a]=g[a]||c.format(a)[0]};c.formats=function(a){if(a instanceof Array){var c=[];for(var d=0;d<a.length;d++){c.push(h(a[d]))}return b.any.apply(null,c)}else{return h(a)}};c._formats=c.formats(["yyyy-MM-ddTHH:mm:ss","ddd, MMM dd, yyyy H:mm:ss tt","ddd MMM d yyyy HH:mm:ss zzz","d"]);c._start=b.process(b.set([c.date,c.time,c.expression],c.generalDelimiter,c.whiteSpace),d.finish);c.start=function(a){try{var b=c._formats.call({},a);if(b[1].length===0){return b}}catch(d){}return c._start.call({},a)}})();Date._parse=Date.parse;Date.parse=function(a){var b=null;if(!a){return null}try{b=Date.Grammar.start.call({},a)}catch(c){return null}return b[1].length===0?b[0]:null};Date.getParseFunction=function(a){var b=Date.Grammar.formats(a);return function(a){var c=null;try{c=b.call({},a)}catch(d){return null}return c[1].length===0?c[0]:null}};Date.parseExact=function(a,b){return Date.getParseFunction(b)(a)}
+
+            // require-1.0.5.min.js
+            var requirejs,require,define;(function(){function ja(){var a,b,c;if(B&&B.readyState==="interactive")return B;a=document.getElementsByTagName("script");for(b=a.length-1;b>-1&&(c=a[b]);b--)if(c.readyState==="interactive")return B=c;return null}function fa(a){function r(){var a=u.waitSeconds*1e3,a=a&&s.startTime+a<(new Date).getTime(),b="",c=!1,f=!1,g=[],h,i;if(!(s.pausedCount>0)){if(u.priorityWait)if(e())t();else return;for(h in z)if(!(h in K)&&(c=!0,!z[h]))if(a)b+=h+" ";else if(f=!0,h.indexOf("!")===-1){g=[];break}else(i=E[h]&&E[h].moduleDeps)&&g.push.apply(g,i);if(c||s.waitCount){if(a&&b)return a=O("timeout","Load timeout for modules: "+b),a.requireType="timeout",a.requireModules=b,d.onError(a);if(f&&g.length)for(b=0;h=A[g[b]];b++)if(h=p(h,{})){q(h,{});break}if(!a&&(f||s.scriptCount)){if((H||ca)&&!W)W=setTimeout(function(){W=0;r()},50)}else{if(s.waitCount){for(b=0;h=B[b];b++)q(h,{});s.paused.length&&t();X<5&&(X+=1,r())}X=0;d.checkReadyState()}}}}function q(a,b){var d=a.map.fullName,e=a.depArray,f,g,h,i;if(!a.isDone&&d&&z[d]){if(d){if(b[d])return y[d];b[d]=!0}if(e)for(f=0;f<e.length;f++)if(g=e[f])if((h=c(g).prefix)&&(i=A[h])&&q(i,b),(h=A[g])&&!h.isDone&&z[g])g=q(h,b),a.depCallbacks[f](g);return y[d]}}function p(a,b){var c=a.map.fullName,d=a.depArray,e=!0,f,g,h,i;if(a.isDone||!c||!z[c])return i;if(b[c])return a;b[c]=!0;if(d){for(f=0;f<d.length;f++){g=d[f];if(!z[g]&&!ha[g]){e=!1;break}if((h=A[g])&&!h.isDone&&z[g])if(i=p(h,b))break}e||(i=void 0,delete b[c])}return i}function o(a){n.apply(null,a)}function n(a,b,d,e){var a=c(a,e),f=a.name,j=a.fullName,l=m(a),n=l.id,o=l.deps,p;if(j){if(j in y||z[n]===!0||j==="jquery"&&u.jQuery&&u.jQuery!==d().fn.jquery)return;w[n]=!0;z[n]=!0;j==="jquery"&&d&&V(d())}l.depArray=b;l.callback=d;for(d=0;d<b.length;d++)if(n=b[d])n=c(n,f?a:e),p=n.fullName,b[d]=p,p==="require"?o[d]=g(a):p==="exports"?(o[d]=y[j]={},l.usingExports=!0):p==="module"?l.cjsModule=o[d]={id:f,uri:f?s.nameToUrl(f,null,e):void 0,exports:y[j]}:p in y&&!(p in A)&&(!(j in G)||j in G&&I[p])?o[d]=y[p]:(j in G&&(G[p]=!0,delete y[p],C[n.url]=!1),l.depCount+=1,l.depCallbacks[d]=i(l,d),m(n,!0).add(l.depCallbacks[d]));l.depCount?k(l):h(l)}function m(a,b){var d=a.fullName,e=a.prefix,f=e?F[e]||(F[e]=y[e]):null,g,i;d&&(g=E[d]);if(!g&&(i=!0,g={id:(e&&!f?D++ +"__p@:":"")+(d||"__r@"+D++),map:a,depCount:0,depDone:[],depCallbacks:[],deps:[],listeners:[],add:l},w[g.id]=!0,d&&(!e||F[e])))E[d]=g;e&&!f?(d=c(e),e in y&&!y[e]&&(delete y[e],delete C[d.url]),e=m(d,!0),e.add(function(){var b=c(a.originalName,a.parentMap),b=m(b,!0);g.placeholder=!0;b.add(function(a){g.callback=function(){return a};h(g)})})):i&&b&&(z[g.id]=!1,s.paused.push(g),k(g));return g}function l(a){this.listeners.push(a)}function k(a){A[a.id]||(A[a.id]=a,B.push(a),s.waitCount+=1)}function j(a,b){var e=b.map,f=e.fullName,i=e.name,j=F[a]||(F[a]=y[a]),k;if(!b.loading)b.loading=!0,k=function(a){b.callback=function(){return a};h(b);z[b.id]=!0;t()},k.fromText=function(a,b){var c=P;z[a]=!1;s.scriptCount+=1;s.fake[a]=!0;c&&(P=!1);d.exec(b);c&&(P=!0);s.completeLoad(a)},f in y?k(y[f]):j.load(i,g(e.parentMap,!0,function(a,d){var f=[],g,h;for(g=0;h=a[g];g++)h=c(h,e.parentMap),a[g]=h.fullName,h.prefix||f.push(a[g]);b.moduleDeps=(b.moduleDeps||[]).concat(f);return s.require(a,d)}),k,u)}function i(a,b){return function(c){a.depDone[b]||(a.depDone[b]=!0,a.deps[b]=c,a.depCount-=1,a.depCount||h(a))}}function h(a){var b,e,f,g=a.callback,h=a.map,i=h.fullName,j=a.deps;f=a.listeners;if(g&&J(g)){if(u.catchError.define)try{e=d.execCb(i,a.callback,j,y[i])}catch(k){b=k}else e=d.execCb(i,a.callback,j,y[i]);if(i)(g=a.cjsModule)&&g.exports!==void 0&&g.exports!==y[i]?e=y[i]=a.cjsModule.exports:e===void 0&&a.usingExports?e=y[i]:(y[i]=e,G[i]&&(I[i]=!0))}else i&&(e=y[i]=g,G[i]&&(I[i]=!0));if(A[a.id])delete A[a.id],a.isDone=!0,s.waitCount-=1,s.waitCount===0&&(B=[]);delete E[i];if(d.onResourceLoad&&!a.placeholder)d.onResourceLoad(s,h,a.depArray);if(b)return e=(i?c(i).url:"")||b.fileName||b.sourceURL,f=b.moduleTree,b=O("defineerror",'Error evaluating module "'+i+'" at location "'+e+'":\n'+b+"\nfileName:"+e+"\nlineNumber: "+(b.lineNumber||b.line),b),b.moduleName=i,b.moduleTree=f,d.onError(b);for(b=0;g=f[b];b++)g(e)}function g(a,b,c){b=f(c||s.require,a,b);Z(b,{nameToUrl:f(s.nameToUrl,a),toUrl:f(s.toUrl,a),defined:f(s.requireDefined,a),specified:f(s.requireSpecified,a),isBrowser:d.isBrowser});return b}function f(a,b,c){return function(){var d=ga.call(arguments,0),e;if(c&&J(e=d[d.length-1]))e.__requireJsBuild=!0;d.push(b);return a.apply(null,d)}}function e(){var a=!0,b=u.priorityWait,c,d;if(b){for(d=0;c=b[d];d++)if(!z[c]){a=!1;break}a&&delete u.priorityWait}return a}function c(a,c){var d=a?a.indexOf("!"):-1,e=null,f=c?c.name:null,g=a,h,i;d!==-1&&(e=a.substring(0,d),a=a.substring(d+1,a.length));e&&(e=b(e,f));a&&(e?h=(d=y[e])&&d.normalize?d.normalize(a,function(a){return b(a,f)}):b(a,f):(h=b(a,f),i=x[h],i||(i=s.nameToUrl(a,null,c),x[h]=i)));return{prefix:e,name:h,parentMap:c,url:i,originalName:g,fullName:e?e+"!"+(h||""):h}}function b(a,b){var c,d;if(a&&a.charAt(0)===".")if(b){u.pkgs[b]?b=[b]:(b=b.split("/"),b=b.slice(0,b.length-1));c=a=b.concat(a.split("/"));var e;for(d=0;e=c[d];d++)if(e===".")c.splice(d,1),d-=1;else if(e==="..")if(d===1&&(c[2]===".."||c[0]===".."))break;else d>0&&(c.splice(d-1,2),d-=2);d=u.pkgs[c=a[0]];a=a.join("/");d&&a===c+"/"+d.main&&(a=c)}else a.indexOf("./")===0&&(a=a.substring(2));return a}var s,t,u={waitSeconds:7,baseUrl:"./",paths:{},pkgs:{},catchError:{}},v=[],w={require:!0,exports:!0,module:!0},x={},y={},z={},A={},B=[],C={},D=0,E={},F={},G={},I={},L=0;V=function(a){if(!s.jQuery&&(a=a||(typeof jQuery!=="undefined"?jQuery:null))&&!(u.jQuery&&a.fn.jquery!==u.jQuery)&&("holdReady"in a||"readyWait"in a))if(s.jQuery=a,o(["jquery",[],function(){return jQuery}]),s.scriptCount)U(a,!0),s.jQueryIncremented=!0};t=function(){var a,b,c,f,g,h;s.takeGlobalQueue();L+=1;if(s.scriptCount<=0)s.scriptCount=0;for(;v.length;)if(a=v.shift(),a[0]===null)return d.onError(O("mismatch","Mismatched anonymous define() module: "+a[a.length-1]));else o(a);if(!u.priorityWait||e())for(;s.paused.length;){g=s.paused;s.pausedCount+=g.length;s.paused=[];for(f=0;a=g[f];f++)b=a.map,c=b.url,h=b.fullName,b.prefix?j(b.prefix,a):!C[c]&&!z[h]&&(d.load(s,h,c),c.indexOf("empty:")!==0&&(C[c]=!0));s.startTime=(new Date).getTime();s.pausedCount-=g.length}L===1&&r();L-=1};s={contextName:a,config:u,defQueue:v,waiting:A,waitCount:0,specified:w,loaded:z,urlMap:x,urlFetched:C,scriptCount:0,defined:y,paused:[],pausedCount:0,plugins:F,needFullExec:G,fake:{},fullExec:I,managerCallbacks:E,makeModuleMap:c,normalize:b,configure:function(a){var b,c,d;a.baseUrl&&a.baseUrl.charAt(a.baseUrl.length-1)!=="/"&&(a.baseUrl+="/");b=u.paths;d=u.pkgs;Z(u,a,!0);if(a.paths){for(c in a.paths)c in K||(b[c]=a.paths[c]);u.paths=b}if((b=a.packagePaths)||a.packages){if(b)for(c in b)c in K||$(d,b[c],c);a.packages&&$(d,a.packages);u.pkgs=d}if(a.priority)c=s.requireWait,s.requireWait=!1,t(),s.require(a.priority),t(),s.requireWait=c,u.priorityWait=a.priority;if(a.deps||a.callback)s.require(a.deps||[],a.callback)},requireDefined:function(a,b){return c(a,b).fullName in y},requireSpecified:function(a,b){return c(a,b).fullName in w},require:function(b,e,f){if(typeof b==="string"){if(J(e))return d.onError(O("requireargs","Invalid require call"));if(d.get)return d.get(s,b,e);e=c(b,e);b=e.fullName;return!(b in y)?d.onError(O("notloaded","Module name '"+e.fullName+"' has not been loaded yet for context: "+a)):y[b]}(b&&b.length||e)&&n(null,b,e,f);if(!s.requireWait)for(;!s.scriptCount&&s.paused.length;)t();return s.require},takeGlobalQueue:function(){T.length&&(ia.apply(s.defQueue,[s.defQueue.length-1,0].concat(T)),T=[])},completeLoad:function(a){var b;for(s.takeGlobalQueue();v.length;)if(b=v.shift(),b[0]===null){b[0]=a;break}else if(b[0]===a)break;else o(b),b=null;b?o(b):o([a,[],a==="jquery"&&typeof jQuery!=="undefined"?function(){return jQuery}:null]);d.isAsync&&(s.scriptCount-=1);t();d.isAsync||(s.scriptCount-=1)},toUrl:function(a,b){var c=a.lastIndexOf("."),d=null;c!==-1&&(d=a.substring(c,a.length),a=a.substring(0,c));return s.nameToUrl(a,d,b)},nameToUrl:function(a,c,e){var f,g,h,i,j=s.config,a=b(a,e&&e.fullName);if(d.jsExtRegExp.test(a))c=a+(c?c:"");else{f=j.paths;g=j.pkgs;e=a.split("/");for(i=e.length;i>0;i--)if(h=e.slice(0,i).join("/"),f[h]){e.splice(0,i,f[h]);break}else if(h=g[h]){a=a===h.name?h.location+"/"+h.main:h.location;e.splice(0,i,a);break}c=e.join("/")+(c||".js");c=(c.charAt(0)==="/"||c.match(/^\w+:/)?"":j.baseUrl)+c}return j.urlArgs?c+((c.indexOf("?")===-1?"?":"&")+j.urlArgs):c}};s.jQueryCheck=V;s.resume=t;return s}function U(a,b){a.holdReady?a.holdReady(b):b?a.readyWait+=1:a.ready(!0)}function $(a,b,c){var d,e,f;for(d=0;f=b[d];d++){f=typeof f==="string"?{name:f}:f;e=f.location;if(c&&(!e||e.indexOf("/")!==0&&e.indexOf(":")===-1))e=c+"/"+(e||f.name);a[f.name]={name:f.name,location:e||f.name,main:(f.main||"main").replace(ea,"").replace(aa,"")}}}function O(a,b,c){a=Error(b+"\nhttp://requirejs.org/docs/errors.html#"+a);if(c)a.originalError=c;return a}function Z(a,b,c){for(var e in b)if(!(e in K)&&(!(e in a)||c))a[e]=b[e];return d}function F(a){return N.call(a)==="[object Array]"}function J(a){return N.call(a)==="[object Function]"}var ka=/(\/\*([\s\S]*?)\*\/|([^:]|^)\/\/(.*)$)/mg,la=/require\(\s*["']([^'"\s]+)["']\s*\)/g,ea=/^\.\//,aa=/\.js$/,N=Object.prototype.toString,t=Array.prototype,ga=t.slice,ia=t.splice,H=!!(typeof window!=="undefined"&&navigator&&document),ca=!H&&typeof importScripts!=="undefined",ma=H&&navigator.platform==="PLAYSTATION 3"?/^complete$/:/^(complete|loaded)$/,da=typeof opera!=="undefined"&&opera.toString()==="[object Opera]",K={},C={},T=[],B=null,X=0,P=!1,ha={require:!0,module:!0,exports:!0},d,t={},I,x,u,D,o,v,E,A,y,V,W;if(typeof define==="undefined"){if(typeof requirejs!=="undefined")if(J(requirejs))return;else t=requirejs,requirejs=void 0;typeof require!=="undefined"&&!J(require)&&(t=require,require=void 0);d=requirejs=function(a,b,c){var d="_",e;!F(a)&&typeof a!=="string"&&(e=a,F(b)?(a=b,b=c):a=[]);if(e&&e.context)d=e.context;c=C[d]||(C[d]=fa(d));e&&c.configure(e);return c.require(a,b)};d.config=function(a){return d(a)};require||(require=d);d.toUrl=function(a){return C._.toUrl(a)};d.version="1.0.5";d.jsExtRegExp=/^\/|:|\?|\.js$/;x=d.s={contexts:C,skipAsync:{}};if(d.isAsync=d.isBrowser=H)if(u=x.head=document.getElementsByTagName("head")[0],D=document.getElementsByTagName("base")[0])u=x.head=D.parentNode;d.onError=function(a){throw a};d.load=function(a,b,c){d.resourcesReady(!1);a.scriptCount+=1;d.attach(c,a,b);if(a.jQuery&&!a.jQueryIncremented)U(a.jQuery,!0),a.jQueryIncremented=!0};define=function(a,b,c){var d,e;typeof a!=="string"&&(c=b,b=a,a=null);F(b)||(c=b,b=[]);!b.length&&J(c)&&c.length&&(c.toString().replace(ka,"").replace(la,function(a,c){b.push(c)}),b=(c.length===1?["require"]:["require","exports","module"]).concat(b));if(P&&(d=I||ja()))a||(a=d.getAttribute("data-requiremodule")),e=C[d.getAttribute("data-requirecontext")];(e?e.defQueue:T).push([a,b,c])};define.amd={multiversion:!0,plugins:!0,jQuery:!0};d.exec=function(a){return eval(a)};d.execCb=function(a,b,c,d){return b.apply(d,c)};d.addScriptToDom=function(a){I=a;D?u.insertBefore(a,D):u.appendChild(a);I=null};d.onScriptLoad=function(a){var b=a.currentTarget||a.srcElement,c;if(a.type==="load"||b&&ma.test(b.readyState))B=null,a=b.getAttribute("data-requirecontext"),c=b.getAttribute("data-requiremodule"),C[a].completeLoad(c),b.detachEvent&&!da?b.detachEvent("onreadystatechange",d.onScriptLoad):b.removeEventListener("load",d.onScriptLoad,!1)};d.attach=function(a,b,c,e,f,g){var h;if(H)return e=e||d.onScriptLoad,h=b&&b.config&&b.config.xhtml?document.createElementNS("http://www.w3.org/1999/xhtml","html:script"):document.createElement("script"),h.type=f||b&&b.config.scriptType||"text/javascript",h.charset="utf-8",h.async=!x.skipAsync[a],b&&h.setAttribute("data-requirecontext",b.contextName),h.setAttribute("data-requiremodule",c),h.attachEvent&&!da?(P=!0,g?h.onreadystatechange=function(){if(h.readyState==="loaded")h.onreadystatechange=null,h.attachEvent("onreadystatechange",e),g(h)}:h.attachEvent("onreadystatechange",e)):h.addEventListener("load",e,!1),h.src=a,g||d.addScriptToDom(h),h;else ca&&(importScripts(a),b.completeLoad(c));return null};if(H){o=document.getElementsByTagName("script");for(A=o.length-1;A>-1&&(v=o[A]);A--){if(!u)u=v.parentNode;if(E=v.getAttribute("data-main")){if(!t.baseUrl)o=E.split("/"),v=o.pop(),o=o.length?o.join("/")+"/":"./",t.baseUrl=o,E=v.replace(aa,"");t.deps=t.deps?t.deps.concat(E):[E];break}}}d.checkReadyState=function(){var a=x.contexts,b;for(b in a)if(!(b in K)&&a[b].waitCount)return;d.resourcesReady(!0)};d.resourcesReady=function(a){var b,c;d.resourcesDone=a;if(d.resourcesDone)for(c in a=x.contexts,a)if(!(c in K)&&(b=a[c],b.jQueryIncremented))U(b.jQuery,!1),b.jQueryIncremented=!1};d.pageLoaded=function(){if(document.readyState!=="complete")document.readyState="complete"};if(H&&document.addEventListener&&!document.readyState)document.readyState="loading",window.addEventListener("load",d.pageLoaded,!1);d(t);if(d.isAsync&&typeof setTimeout!=="undefined")y=x.contexts[t.context||"_"],y.requireWait=!0,setTimeout(function(){y.requireWait=!1;y.scriptCount||y.resume();d.checkReadyState()},0)}})()
+
+            require.config({ paths: { "app": "javascript/app" } });
+            require(["app"]);
+
+            // <!-- Google Analytics
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+            // -->
+        </script>
+
+    </body>
+
+</html>
