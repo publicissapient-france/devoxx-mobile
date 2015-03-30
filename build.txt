@@ -1,4 +1,18 @@
 
+css/jquery.mobile-1.1.0-rc.1.css
+----------------
+css/jquery.mobile-1.1.0-rc.1.css
+
+css/jquery.mobile.structure-1.1.0-rc.1.css
+----------------
+css/jquery.mobile.structure-1.1.0-rc.1.css
+
+css/mobile.css
+----------------
+css/jquery.mobile.structure-1.1.0-rc.1.css
+css/jquery.mobile-1.1.0-rc.1.css
+css/mobile.css
+
 javascript/app.js
 ----------------
 javascript/lib/require/require.order-1.0.5.js
