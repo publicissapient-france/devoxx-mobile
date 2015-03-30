@@ -1,7 +1,7 @@
 {
-  "name": "Devoxx France 2014",
-  "description": "Consultez le programme de Devoxx France 2014, et suivez l'actualité de la conférence!",
-  "version": "1.2.0",
+  "name": "Devoxx France 2015",
+  "description": "Consultez le programme de Devoxx France 2015, et suivez l'actualité de la conférence!",
+  "version": "1.2.1",
   "manifest_version": 2,
   "icons": {
     "128": "icon-webstore-128-2014.png"
