@@ -4,7 +4,7 @@ define(['log', 'utils', 'collection', 'entry', 'ui', 'db', 'synchronize'], funct
 
     logger.info("Loading core.js");
 
-    var EVENT_ID = '11';
+    var EVENT_ID = '15';
 
     var core = { };
 
@@ -12,21 +12,21 @@ define(['log', 'utils', 'collection', 'entry', 'ui', 'db', 'synchronize'], funct
 
     var EVENTS = {
         events: [ {
-            id: '11',
-            name: 'Devoxx France 2014',
+            id: '15',
+            name: 'Devoxx France 2015',
             days: [
                 {
                     id: '1',
-                    name: 'Mercredi 16 Avril',
-                    date: '2014-04-16'
+                    name: 'Mercredi 8 Avril',
+                    date: '2015-04-08'
                 }, {
                     id: '2',
-                    name: 'Jeudi 17 Avril',
-                    date: '2014-04-17'
+                    name: 'Jeudi 9 Avril',
+                    date: '2015-04-09'
                 }, {
                     id: '3',
-                    name: 'Vendredi 18 Avril',
-                    date: '2014-04-18'
+                    name: 'Vendredi 10 Avril',
+                    date: '2015-04-10'
                 }
             ]
         } ]

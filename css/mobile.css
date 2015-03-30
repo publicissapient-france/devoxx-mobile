@@ -49,16 +49,16 @@ h3.tag-box {
 }
 
 .aside {
-    width: 70px;
+    width: 110px;
 }
 
 .aside-room {
-    width: 72px;
+    width: 112px;
     padding: 2px 5px 1px 5px;
 }
 
 .aside-time-start-end {
-    width: 70px;
+    width: 110px;
     padding: 2px 5px 1px 5px;
 }
 
@@ -67,7 +67,7 @@ h3.tag-box {
 }
 
 .aside-skill {
-    width: 70px;
+    width: 110px;
 }
 
 .clickable.awesome:hover { background-color: #0f0f0f; color: #fff; }
